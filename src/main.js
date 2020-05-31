@@ -22,8 +22,6 @@ import './utils/error-log' // error log
 
 import * as filters from './filters' // global filters
 
-
-
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api
@@ -36,7 +34,7 @@ if (process.env.NODE_ENV === 'production') {
   const { mockXHR } = require('../mock')
   mockXHR()
 }
-axios.defaults.headers.post['Authorization'] = 'Basic Y2xpZW50OnNlY3JldA==';
+axios.defaults.headers.post['Authorization'] = 'Basic Y2xpZW50OnNlY3JldA=='
 
 Vue.use(Element, {
   size: Cookies.get('size') || 'medium', // set element-ui default size
