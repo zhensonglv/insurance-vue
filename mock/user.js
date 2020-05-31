@@ -26,11 +26,12 @@ const users = {
 export default [
   // user login
   {
-    url: '/vue-element-admin/user/login',
+    url: '/auth/oauth/token',
     type: 'post',
     response: config => {
-      const { username } = config.body
+      const { username } = config.query
       const token = tokens[username]
+      console.log(config.query, '===', token);
 
       // mock error
       if (!token) {
@@ -49,7 +50,7 @@ export default [
 
   // get user info
   {
-    url: '/vue-element-admin/user/info\.*',
+    url: '/base/user/info\.*',
     type: 'get',
     response: config => {
       const { token } = config.query
@@ -72,7 +73,7 @@ export default [
 
   // user logout
   {
-    url: '/vue-element-admin/user/logout',
+    url: '/auth/token/logout',
     type: 'post',
     response: _ => {
       return {

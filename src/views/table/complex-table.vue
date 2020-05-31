@@ -35,12 +35,12 @@
       style="width: 100%;"
       @sort-change="sortChange"
     >
-      <el-table-column :label="$t('table.id')" prop="id" sortable="custom" align="center" width="80" :class-name="getSortClass('id')">
+      <el-table-column label="ID" prop="id" sortable="custom" align="center" width="80" :class-name="getSortClass('id')">
         <template slot-scope="{row}">
           <span>{{ row.id }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('table.date')" width="150px" align="center">
+      <el-table-column label="Date" width="150px" align="center">
         <template slot-scope="{row}">
           <span>{{ row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
         </template>
@@ -51,19 +51,19 @@
           <el-tag>{{ row.type | typeFilter }}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('table.author')" width="110px" align="center">
+      <el-table-column label="Author" width="110px" align="center">
         <template slot-scope="{row}">
           <span>{{ row.author }}</span>
         </template>
       </el-table-column>
-      <el-table-column v-if="showReviewer" :label="$t('table.reviewer')" width="110px" align="center">
+      <el-table-column v-if="showReviewer" label="Reviewer" width="110px" align="center">
         <template slot-scope="{row}">
           <span style="color:red;">{{ row.reviewer }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('table.importance')" width="80px">
+      <el-table-column label="Imp" width="80px">
         <template slot-scope="{row}">
-          <svg-icon v-for="n in +row.importance" :key="n" icon-class="star" class="meta-item__icon" />
+          <svg-icon v-for="n in + row.importance" :key="n" icon-class="star" class="meta-item__icon" />
         </template>
       </el-table-column>
       <el-table-column :label="$t('table.readings')" align="center" width="95">
@@ -79,7 +79,7 @@
           </el-tag>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('table.actions')" align="center" width="230" class-name="small-padding fixed-width">
+      <el-table-column label="Actions" align="center" width="230" class-name="small-padding fixed-width">
         <template slot-scope="{row,$index}">
           <el-button type="primary" size="mini" @click="handleUpdate(row)">
             {{ $t('table.edit') }}
@@ -91,7 +91,7 @@
             {{ $t('table.draft') }}
           </el-button>
           <el-button v-if="row.status!='deleted'" size="mini" type="danger" @click="handleDelete(row,$index)">
-            {{ $t('table.delete') }}
+            Delete
           </el-button>
         </template>
       </el-table-column>
