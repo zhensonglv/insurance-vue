@@ -9,7 +9,7 @@ const roles = [
     key: 'admin',
     name: 'admin',
     description: 'Super Administrator. Have access to view all pages.',
-    routes: routes
+    // routes: routes
   },
   {
     key: 'editor',
