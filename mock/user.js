@@ -1,10 +1,12 @@
 
 const tokens = {
   admin: {
-    token: 'admin-token'
+    access_token: 'admin-token',
+    token_type: 'bearer'
   },
   editor: {
-    token: 'editor-token'
+    access_token: 'editor-token',
+    token_type: 'bearer'
   }
 }
 
@@ -42,7 +44,7 @@ export default [
       // }
 
       return {
-        data: token
+        ...token
       }
     }
   },
@@ -80,5 +82,18 @@ export default [
         data: 'success'
       }
     }
+  },
+
+  {
+    url: '/base/user/list',
+    type: 'post',
+    response: _ => {
+      return {
+        code: 200,
+        data: 'success'
+      }
+    }
   }
 ]
+
+

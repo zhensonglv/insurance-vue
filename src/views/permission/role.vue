@@ -76,6 +76,7 @@ const defaultRole = {
 
 export default {
   data() {
+    console.log('--11111');
     return {
       role: Object.assign({}, defaultRole),
       routes: [],

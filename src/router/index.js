@@ -108,6 +108,28 @@ export const constantRoutes = [
       }
     ]
   },
+  {
+    path: '/user',
+    component: Layout,
+    redirect: '/user/index',
+    alwaysShow: true,
+    name: 'user',
+    meta: { title: '用户', icon: 'guide', noCache: true },
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/user/index'),
+        name: 'list',
+        meta: { title: '列表', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'save',
+        component: () => import('@/views/user/save'),
+        name: 'save',
+        meta: { title: '创建', icon: 'guide', noCache: true }
+      }
+    ]
+  },
   // {
   //   path: '/demo/index',
   //   component: () => import('@/views/demo/index'),

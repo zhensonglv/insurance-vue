@@ -36,6 +36,7 @@ const actions = {
       login({ username: username.trim(), password: password }).then(response => {
         const { data } = response
         commit('SET_TOKEN', response.access_token)
+        console.log(response.access_token, '======');
         setToken(response.token_type + ' ' + response.access_token)
         resolve()
       }).catch(error => {
@@ -118,6 +119,7 @@ const actions = {
       const accessRoutes = await dispatch('permission/generateRoutes', roles, { root: true })
 
       // dynamically add accessible routes
+      console.log(accessRoutes, '+++');
       router.addRoutes(accessRoutes)
 
       // reset visited views and cached views
