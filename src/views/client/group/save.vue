@@ -4,35 +4,35 @@
       <el-form-item v-if="form.id != null" label="主键id" prop="id" label-width="120px">
         <el-input v-model="form.id" :disabled="true" />
       </el-form-item>
-      <el-form-item label="集团号" prop="cGroupNo" label-width="120px">
-        <el-input v-model="form.cGroupNo" placeholder="请输入集团号" />
+      <el-form-item label="集团号" prop="groupNo" label-width="120px">
+        <el-input v-model="form.groupNo" placeholder="请输入集团号" />
       </el-form-item>
-      <el-form-item label="集团名称" prop="cGroupNme" label-width="120px">
-        <el-input v-model="form.cGroupNme" placeholder="请输入集团名称" />
+      <el-form-item label="集团名称" prop="groupNme" label-width="120px">
+        <el-input v-model="form.groupNme" placeholder="请输入集团名称" />
       </el-form-item>
-      <el-form-item label="联系人" prop="cContactNme" label-width="120px">
-        <el-input v-model="form.cContactNme" placeholder="请输入联系人" />
+      <el-form-item label="联系人" prop="contactNme" label-width="120px">
+        <el-input v-model="form.contactNme" placeholder="请输入联系人" />
       </el-form-item>
-      <el-form-item label="邮编" prop="cTheInsuredPostcode" label-width="120px">
-        <el-input v-model="form.cTheInsuredPostcode" placeholder="请输入邮编" />
+      <el-form-item label="邮编" prop="theInsuredPostcode" label-width="120px">
+        <el-input v-model="form.theInsuredPostcode" placeholder="请输入邮编" />
       </el-form-item>
-      <el-form-item label="集团电话" prop="cGroupTel" label-width="120px">
-        <el-input v-model="form.cGroupTel" placeholder="请输入集团电话" />
+      <el-form-item label="集团电话" prop="groupTel" label-width="120px">
+        <el-input v-model="form.groupTel" placeholder="请输入集团电话" />
       </el-form-item>
-      <el-form-item label="集团手机" prop="cGroupPhone" label-width="120px">
-        <el-input v-model="form.cGroupPhone" placeholder="请输入集团手机" />
+      <el-form-item label="集团手机" prop="groupPhone" label-width="120px">
+        <el-input v-model="form.groupPhone" placeholder="请输入集团手机" />
       </el-form-item>
-      <el-form-item label="集团传真" prop="cGroupFax" label-width="120px">
-        <el-input v-model="form.cGroupFax" placeholder="请输入集团传真" />
+      <el-form-item label="集团传真" prop="groupFax" label-width="120px">
+        <el-input v-model="form.groupFax" placeholder="请输入集团传真" />
       </el-form-item>
-      <el-form-item label="集团地址" prop="cGroupAddress" label-width="120px">
-        <el-input v-model="form.cGroupAddress" placeholder="请输入集团地址" />
+      <el-form-item label="集团地址" prop="groupAddress" label-width="120px">
+        <el-input v-model="form.groupAddress" placeholder="请输入集团地址" />
       </el-form-item>
-      <el-form-item label="电子邮件" prop="cGroupEmail" label-width="120px">
-        <el-input v-model="form.cGroupEmail" placeholder="请输入电子邮件" />
+      <el-form-item label="电子邮件" prop="groupEmail" label-width="120px">
+        <el-input v-model="form.groupEmail" placeholder="请输入电子邮件" />
       </el-form-item>
-      <el-form-item label="地区代码" prop="cGroupAreaCde" label-width="120px">
-        <el-input v-model="form.cGroupAreaCde" placeholder="请输入地区代码" />
+      <el-form-item label="地区代码" prop="groupAreaCde" label-width="120px">
+        <el-input v-model="form.groupAreaCde" placeholder="请输入地区代码" />
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
