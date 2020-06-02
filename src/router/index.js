@@ -143,8 +143,13 @@ export const constantRoutes = [
         component: () => import('@/views/client/group/index'),
         name: '集团管理',
         meta: { title: '集团管理', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'index',
+        component: () => import('@/views/client/company/index'),
+        name: '公司管理',
+        meta: { title: '公司管理', icon: 'guide', noCache: true }
       }
-
     ]
   },
   // {
