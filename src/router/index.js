@@ -145,7 +145,7 @@ export const constantRoutes = [
         meta: { title: '集团管理', icon: 'guide', noCache: true }
       },
       {
-        path: 'index',
+        path: 'company',
         component: () => import('@/views/client/company/index'),
         name: '公司管理',
         meta: { title: '公司管理', icon: 'guide', noCache: true }
