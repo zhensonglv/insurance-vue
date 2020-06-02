@@ -130,6 +130,23 @@ export const constantRoutes = [
       }
     ]
   },
+  {
+    path: '/client',
+    component: Layout,
+    redirect: '/client/group',
+    alwaysShow: true,
+    name: '客户管理',
+    meta: { title: '客户管理', icon: 'guide', noCache: true },
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/client/group/index'),
+        name: '集团管理',
+        meta: { title: '集团管理', icon: 'guide', noCache: true }
+      }
+
+    ]
+  },
   // {
   //   path: '/demo/index',
   //   component: () => import('@/views/demo/index'),
