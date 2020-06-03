@@ -94,7 +94,6 @@ export default {
   data() {
     return {
       list: null,
-      search: {},
       listLoading: true,
       listQuery: {
         pageNum: 1,
