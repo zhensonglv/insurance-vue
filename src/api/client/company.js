@@ -10,7 +10,7 @@ export function getList(query, data) {
 
 export function findById(id) {
   return request({
-    url: '/base/company/' + id,
+    url: '/base/company/query/' + id,
     method: 'get'
   })
 }
@@ -25,7 +25,7 @@ export function save(data) {
 
 export function del(id) {
   return request({
-    url: '/base/company/' + id,
+    url: '/base/company/delete/' + id,
     method: 'delete'
   })
 }

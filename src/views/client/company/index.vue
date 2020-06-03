@@ -2,8 +2,8 @@
   <div class="app-container">
     <el-card>
       <div>
-        <el-input v-model="search.groupNme" style="width: 200px;" placeholder="请输入保险公司名称查询" />
-        <el-input v-model="search.groupNme" style="width: 200px;" placeholder="请输入保险分公司名称查询" />
+        <el-input v-model="search.insuCompanyNme" style="width: 200px;" placeholder="请输入保险公司名称查询" />
+        <el-input v-model="search.insuBranckCompanyNme" style="width: 200px;" placeholder="请输入保险分公司名称查询" />
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
       </div>
@@ -37,6 +37,13 @@
         <el-table-column align="center" label="创建人" width="150">
           <template slot-scope="scope">
             {{ scope.row.crtCde }}
+          </template>
+        </el-table-column>
+
+        <el-table-column align="center" label="Actions">
+          <template slot-scope="scope">
+            <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)">编辑</el-button>
+            <el-button type="danger" icon="el-icon-delete" size="mini" @click="handleDel(scope.row.id)">删除</el-button>
           </template>
         </el-table-column>
 

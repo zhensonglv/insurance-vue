@@ -4,35 +4,11 @@
       <el-form-item v-if="form.id != null" label="主键id" prop="id" label-width="120px">
         <el-input v-model="form.id" :disabled="true" />
       </el-form-item>
-      <el-form-item label="集团号" prop="groupNo" label-width="120px">
-        <el-input v-model="form.groupNo" placeholder="请输入集团号" />
+      <el-form-item label="保险公司名称" prop="insuCompanyNme" label-width="120px">
+        <el-input v-model="form.insuCompanyNme" placeholder="请输入保险公司名称" />
       </el-form-item>
-      <el-form-item label="集团名称" prop="groupNme" label-width="120px">
-        <el-input v-model="form.groupNme" placeholder="请输入集团名称" />
-      </el-form-item>
-      <el-form-item label="联系人" prop="contactNme" label-width="120px">
-        <el-input v-model="form.contactNme" placeholder="请输入联系人" />
-      </el-form-item>
-      <el-form-item label="邮编" prop="theInsuredPostcode" label-width="120px">
-        <el-input v-model="form.theInsuredPostcode" placeholder="请输入邮编" />
-      </el-form-item>
-      <el-form-item label="集团电话" prop="groupTel" label-width="120px">
-        <el-input v-model="form.groupTel" placeholder="请输入集团电话" />
-      </el-form-item>
-      <el-form-item label="集团手机" prop="groupPhone" label-width="120px">
-        <el-input v-model="form.groupPhone" placeholder="请输入集团手机" />
-      </el-form-item>
-      <el-form-item label="集团传真" prop="groupFax" label-width="120px">
-        <el-input v-model="form.groupFax" placeholder="请输入集团传真" />
-      </el-form-item>
-      <el-form-item label="集团地址" prop="groupAddress" label-width="120px">
-        <el-input v-model="form.groupAddress" placeholder="请输入集团地址" />
-      </el-form-item>
-      <el-form-item label="电子邮件" prop="groupEmail" label-width="120px">
-        <el-input v-model="form.groupEmail" placeholder="请输入电子邮件" />
-      </el-form-item>
-      <el-form-item label="地区代码" prop="groupAreaCde" label-width="120px">
-        <el-input v-model="form.groupAreaCde" placeholder="请输入地区代码" />
+      <el-form-item label="保险分公司名称" prop="insuBranckCompanyNme" label-width="120px">
+        <el-input v-model="form.insuBranckCompanyNme" placeholder="请输入保险分公司名称" />
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -47,7 +23,7 @@
 </template>
 
 <script>
-import { save, edit } from '@/api/client/group'
+import { save, edit } from '@/api/client/company'
 
 export default {
   // 父组件向子组件传值，通过props获取。
@@ -61,19 +37,12 @@ export default {
       dialogTitle: 'Add',
       form: {
         id: '',
-        cGroupNo: '',
-        cGroupNme: '',
-        cTheInsuredPostcode: '',
-        cGroupTel: '',
-        cGroupPhone: '',
-        cGroupFax: '',
-        cGroupAddress: '',
-        cGroupEmail: '',
-        cGroupAreaCde: ''
+        insuCompanyNme: '',
+        insuBranckCompanyNme: ''
       },
       rules: {
-        cGroupNme: [{ required: true, trigger: 'blur', message: '请输入集团名称' }],
-        cGroupTel: [{ required: true, trigger: 'blur', message: '请输入集团电话' }]
+        insuCompanyNme: [{ required: true, trigger: 'blur', message: '请输入保险公司名称' }],
+        insuBranckCompanyNme: [{ required: true, trigger: 'blur', message: '请输入保险分公司电话' }]
       }
     }
   },
@@ -98,15 +67,8 @@ export default {
     },
     clearForm() {
       this.form.id = null
-      this.form.cGroupNo = null
-      this.form.cGroupNme = null
-      this.form.cTheInsuredPostcode = null
-      this.form.cGroupTel = null
-      this.form.cGroupPhone = null
-      this.form.cGroupFax = null
-      this.form.cGroupAddress = null
-      this.form.cGroupEmail = null
-      this.form.cGroupAreaCde = null
+      this.form.insuCompanyNme = null
+      this.form.insuBranckCompanyNme = null
     },
     handleClose() {
       this.clearForm()
