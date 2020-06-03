@@ -1,11 +1,8 @@
 <template>
   <el-dialog :title="dialogTitle" :before-close="handleClose" :visible.sync="dialogVisible" width="40%">
     <el-form ref="form" :rules="rules" :model="form" status-icon label-position="right" label-width="80px">
-      <el-form-item v-if="form.id != null" label="主键id" prop="id" label-width="120px">
-        <el-input v-model="form.id" :disabled="true" />
-      </el-form-item>
-      <el-form-item label="集团号" prop="groupNo" label-width="120px">
-        <el-input v-model="form.groupNo" placeholder="请输入集团号" />
+      <el-form-item v-if="form.id != null" label="集团号" prop="groupNo" label-width="120px">
+        <el-input v-model="form.groupNo" :disabled="true" />
       </el-form-item>
       <el-form-item label="集团名称" prop="groupNme" label-width="120px">
         <el-input v-model="form.groupNme" placeholder="请输入集团名称" />
@@ -61,19 +58,19 @@ export default {
       dialogTitle: 'Add',
       form: {
         id: '',
-        cGroupNo: '',
-        cGroupNme: '',
-        cTheInsuredPostcode: '',
-        cGroupTel: '',
-        cGroupPhone: '',
-        cGroupFax: '',
-        cGroupAddress: '',
-        cGroupEmail: '',
-        cGroupAreaCde: ''
+        groupNo: '',
+        groupNme: '',
+        theInsuredPostcode: '',
+        groupTel: '',
+        groupPhone: '',
+        groupFax: '',
+        groupAddress: '',
+        groupEmail: '',
+        groupAreaCde: ''
       },
       rules: {
-        cGroupNme: [{ required: true, trigger: 'blur', message: '请输入集团名称' }],
-        cGroupTel: [{ required: true, trigger: 'blur', message: '请输入集团电话' }]
+        groupNme: [{ required: true, trigger: 'blur', message: '请输入集团名称' }],
+        groupTel: [{ required: true, trigger: 'blur', message: '请输入集团电话' }]
       }
     }
   },
@@ -98,15 +95,15 @@ export default {
     },
     clearForm() {
       this.form.id = null
-      this.form.cGroupNo = null
-      this.form.cGroupNme = null
-      this.form.cTheInsuredPostcode = null
-      this.form.cGroupTel = null
-      this.form.cGroupPhone = null
-      this.form.cGroupFax = null
-      this.form.cGroupAddress = null
-      this.form.cGroupEmail = null
-      this.form.cGroupAreaCde = null
+      this.form.groupNo = null
+      this.form.groupNme = null
+      this.form.theInsuredPostcode = null
+      this.form.groupTel = null
+      this.form.groupPhone = null
+      this.form.groupFax = null
+      this.form.groupAddress = null
+      this.form.groupEmail = null
+      this.form.groupAreaCde = null
     },
     handleClose() {
       this.clearForm()

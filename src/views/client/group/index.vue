@@ -2,7 +2,7 @@
   <div class="app-container">
     <el-card>
       <div>
-        <el-input v-model="search.groupNme" style="width: 200px;" placeholder="请输入集团名称查询" />
+        <el-input v-model="listQuery.groupNme" style="width: 200px;" placeholder="请输入集团名称查询" />
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
       </div>
@@ -15,52 +15,52 @@
         </el-table-column>
         <el-table-column align="center" label="集团号" width="150">
           <template slot-scope="scope">
-            {{ scope.row.cgroupNo }}
+            {{ scope.row.groupNo }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="集团名称" width="150">
           <template slot-scope="scope">
-            {{ scope.row.cgroupNme }}
+            {{ scope.row.groupNme }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="联系人" width="150">
           <template slot-scope="scope">
-            {{ scope.row.ccontactNme }}
+            {{ scope.row.contactNme }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="集团电话" width="150">
           <template slot-scope="scope">
-            {{ scope.row.cgroupTel }}
+            {{ scope.row.groupTel }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="集团手机" width="150">
           <template slot-scope="scope">
-            {{ scope.row.cgroupPhone }}
+            {{ scope.row.groupPhone }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="集团传真" width="150">
           <template slot-scope="scope">
-            {{ scope.row.cgroupFax }}
+            {{ scope.row.groupFax }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="集团地址" width="150">
           <template slot-scope="scope">
-            {{ scope.row.cgroupAddress }}
+            {{ scope.row.groupAddress }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="电子邮件" width="150">
           <template slot-scope="scope">
-            {{ scope.row.cgroupEmail }}
+            {{ scope.row.groupEmail }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="地区代码" width="150">
           <template slot-scope="scope">
-            {{ scope.row.cgroupAreaCde }}
+            {{ scope.row.groupAreaCde }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="邮编" width="150">
           <template slot-scope="scope">
-            {{ scope.row.ctheInsuredPostcode }}
+            {{ scope.row.theInsuredPostcode }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="Actions">
@@ -76,8 +76,8 @@
       <pagination
         v-show="total>0"
         :total="total"
-        :page.sync="listQuery.page"
-        :limit.sync="listQuery.limit"
+        :page.sync="listQuery.pageNum"
+        :limit.sync="listQuery.pageSize"
         @pagination="fetchData"
       />
     </el-card>
@@ -97,8 +97,9 @@ export default {
       search: {},
       listLoading: true,
       listQuery: {
-        page: 1,
-        limit: 3,
+        pageNum: 1,
+        pageSize: 3,
+        groupNme: undefined,
         importance: undefined,
         title: undefined,
         type: undefined,
@@ -121,7 +122,7 @@ export default {
     },
     fetchData() {
       this.listLoading = true
-      getList(this.listQuery, this.search).then(response => {
+      getList(this.listQuery).then(response => {
         this.list = response.data.data
         this.total = response.data.total
         this.listLoading = false
