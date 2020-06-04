@@ -141,14 +141,14 @@ export const constantRoutes = [
       {
         path: 'index',
         component: () => import('@/views/client/group/index'),
-        name: '集团管理',
-        meta: { title: '集团管理', icon: 'guide', noCache: true }
+        name: '投保集团管理',
+        meta: { title: '投保集团管理', icon: 'guide', noCache: true }
       },
       {
         path: 'company',
         component: () => import('@/views/client/company/index'),
-        name: '公司管理',
-        meta: { title: '公司管理', icon: 'guide', noCache: true }
+        name: '直保公司管理',
+        meta: { title: '直保公司管理', icon: 'guide', noCache: true }
       }
     ]
   },
