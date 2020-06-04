@@ -1,8 +1,8 @@
 import request from '@/utils/request'
 
-export function getList(query, data) {
+export function getList(data) {
   return request({
-    url: '/base/company/list?pageCode=' + query.page + '&pageSize=' + query.limit,
+    url: '/base/company/list',
     method: 'post',
     data
   })

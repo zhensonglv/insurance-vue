@@ -2,8 +2,8 @@
   <div class="app-container">
     <el-card>
       <div>
-        <el-input v-model="search.insuCompanyNme" style="width: 200px;" placeholder="请输入保险公司名称查询" />
-        <el-input v-model="search.insuBranckCompanyNme" style="width: 200px;" placeholder="请输入保险分公司名称查询" />
+        <el-input v-model="listQuery.insuCompanyNme" style="width: 200px;" placeholder="请输入保险公司名称查询" />
+        <el-input v-model="listQuery.insuBranckCompanyNme" style="width: 200px;" placeholder="请输入保险分公司名称查询" />
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
       </div>
@@ -54,8 +54,8 @@
       <pagination
         v-show="total>0"
         :total="total"
-        :page.sync="listQuery.page"
-        :limit.sync="listQuery.limit"
+        :page.sync="listQuery.pageNum"
+        :limit.sync="listQuery.pageSize"
         @pagination="fetchData"
       />
     </el-card>
@@ -75,8 +75,10 @@ export default {
       search: {},
       listLoading: true,
       listQuery: {
-        page: 1,
-        limit: 3,
+        pageNum: 1,
+        pageSize: 3,
+        insuCompanyNme: undefined,
+        insuBranckCompanyNme: undefined,
         importance: undefined,
         title: undefined,
         type: undefined,
@@ -99,7 +101,7 @@ export default {
     },
     fetchData() {
       this.listLoading = true
-      getList(this.listQuery, this.search).then(response => {
+      getList(this.listQuery).then(response => {
         this.list = response.data.data
         this.total = response.data.total
         this.listLoading = false
