@@ -79,9 +79,6 @@ export default {
         pageSize: 3,
         insuCompanyNme: undefined,
         insuBranckCompanyNme: undefined,
-        importance: undefined,
-        title: undefined,
-        type: undefined,
         sort: '+id'
       },
       total: 0,
