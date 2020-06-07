@@ -130,6 +130,28 @@ export const constantRoutes = [
       }
     ]
   },
+  {
+    path: '/client',
+    component: Layout,
+    redirect: '/client/group',
+    alwaysShow: true,
+    name: '客户管理',
+    meta: { title: '客户管理', icon: 'guide', noCache: true },
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/client/group/index'),
+        name: '投保集团管理',
+        meta: { title: '投保集团管理', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'company',
+        component: () => import('@/views/client/company/index'),
+        name: '直保公司管理',
+        meta: { title: '直保公司管理', icon: 'guide', noCache: true }
+      }
+    ]
+  },
   // {
   //   path: '/demo/index',
   //   component: () => import('@/views/demo/index'),
