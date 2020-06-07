@@ -1,6 +1,6 @@
 <template>
-  <el-dialog :title="dialogTitle" :before-close="handleClose" :visible.sync="dialogVisible" width="40%">
-    <el-form ref="form" :rules="rules" :model="form" status-icon label-position="right" label-width="80px">
+  <el-dialog :title="dialogTitle" :before-close="handleClose" :visible.sync="dialogVisible" width="55%">
+    <el-form ref="form" :inline="true" :rules="rules" :model="form" status-icon label-position="right" label-width="80px">
       <el-form-item v-if="form.id != null" label="集团号" prop="groupNo" label-width="120px">
         <el-input v-model="form.groupNo" :disabled="true" />
       </el-form-item>
@@ -55,7 +55,7 @@ export default {
   data() {
     return {
       dialogVisible: false,
-      dialogTitle: 'Add',
+      dialogTitle: '新增',
       form: {
         id: '',
         groupNo: '',
