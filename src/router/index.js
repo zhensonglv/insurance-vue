@@ -152,6 +152,22 @@ export const constantRoutes = [
       }
     ]
   },
+  {
+    path: '/system',
+    component: Layout,
+    redirect: '/system/dict',
+    alwaysShow: true,
+    name: '系统设置',
+    meta: { title: '系统设置', icon: 'guide', noCache: true },
+    children: [
+      {
+        path: 'dict',
+        component: () => import('@/views/system/dict/index'),
+        name: '人员字典管理',
+        meta: { title: '人员字典管理', icon: 'guide', noCache: true }
+      }
+    ]
+  },
   // {
   //   path: '/demo/index',
   //   component: () => import('@/views/demo/index'),

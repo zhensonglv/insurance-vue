@@ -2,7 +2,9 @@
   <div class="app-container">
     <el-card>
       <div>
-        <el-input v-model="listQuery.groupNme" style="width: 200px;" placeholder="请输入集团名称查询" />
+        <el-input v-model="listQuery.cde" style="width: 200px;" placeholder="请输入代码查询" />
+        <el-input v-model="listQuery.cnm" style="width: 200px;" placeholder="请输入名称查询" />
+        <el-input v-model="listQuery.parent" style="width: 200px;" placeholder="请输入父类查询" />
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
       </div>
@@ -10,57 +12,47 @@
       <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
         <el-table-column align="center" label="序号" width="95">
           <template slot-scope="scope">
-            {{ scope.$index +1 }}
+            {{ scope.$index+1 }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="集团号" width="150">
+        <el-table-column align="center" label="代码" width="150">
           <template slot-scope="scope">
-            {{ scope.row.groupNo }}
+            {{ scope.row.cde }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="集团名称" width="150">
+        <el-table-column align="center" label="名称" width="150">
           <template slot-scope="scope">
-            {{ scope.row.groupNme }}
+            {{ scope.row.cnm }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="联系人" width="150">
+        <el-table-column align="center" label="父类" width="150">
           <template slot-scope="scope">
-            {{ scope.row.contactNme }}
+            {{ scope.row.parent }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="集团电话" width="150">
+        <el-table-column align="center" label="显示值" width="150">
           <template slot-scope="scope">
-            {{ scope.row.groupTel }}
+            {{ scope.row.value }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="集团手机" width="150">
+        <el-table-column align="center" label="映射码" width="150">
           <template slot-scope="scope">
-            {{ scope.row.groupPhone }}
+            {{ scope.row.mapCde }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="集团传真" width="150">
+        <el-table-column align="center" label="映射名称" width="150">
           <template slot-scope="scope">
-            {{ scope.row.groupFax }}
+            {{ scope.row.mapNme }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="集团地址" width="150">
+        <el-table-column align="center" label="是否有效" width="150">
           <template slot-scope="scope">
-            {{ scope.row.groupAddress }}
+            {{ scope.row.delFlag }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="电子邮件" width="150">
+        <el-table-column align="center" label="排序号" width="150">
           <template slot-scope="scope">
-            {{ scope.row.groupEmail }}
-          </template>
-        </el-table-column>
-        <el-table-column align="center" label="地区代码" width="150">
-          <template slot-scope="scope">
-            {{ scope.row.groupAreaCde }}
-          </template>
-        </el-table-column>
-        <el-table-column align="center" label="邮编" width="150">
-          <template slot-scope="scope">
-            {{ scope.row.theInsuredPostcode }}
+            {{ scope.row.cdeOrder }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="Actions">
@@ -94,7 +86,7 @@ export default {
   data() {
     return {
       list: null,
-      basePath: 'group',
+      basePath: 'dict',
       listLoading: true,
       listQuery: {
         pageNum: 1,
@@ -148,7 +140,7 @@ export default {
     },
 
     handleDel(id) {
-      this.$confirm('你确定永久删除此集团？, 是否继续?', '提示', {
+      this.$confirm('你确定永久删除此字典？, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'

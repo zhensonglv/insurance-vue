@@ -1,35 +1,29 @@
 <template>
   <el-dialog :title="dialogTitle" :before-close="handleClose" :visible.sync="dialogVisible" width="40%">
     <el-form ref="form" :rules="rules" :model="form" status-icon label-position="right" label-width="80px">
-      <el-form-item v-if="form.id != null" label="集团号" prop="groupNo" label-width="120px">
-        <el-input v-model="form.groupNo" :disabled="true" />
+      <el-form-item label="代码" prop="cde" label-width="120px">
+        <el-input v-model="form.cde" placeholder="请输入代码" />
       </el-form-item>
-      <el-form-item label="集团名称" prop="groupNme" label-width="120px">
-        <el-input v-model="form.groupNme" placeholder="请输入集团名称" />
+      <el-form-item label="名称" prop="cnm" label-width="120px">
+        <el-input v-model="form.cnm" placeholder="请输入名称" />
       </el-form-item>
-      <el-form-item label="联系人" prop="contactNme" label-width="120px">
-        <el-input v-model="form.contactNme" placeholder="请输入联系人" />
+      <el-form-item label="父类" prop="parent" label-width="120px">
+        <el-input v-model="form.parent" placeholder="请输入父类" />
       </el-form-item>
-      <el-form-item label="邮编" prop="theInsuredPostcode" label-width="120px">
-        <el-input v-model="form.theInsuredPostcode" placeholder="请输入邮编" />
+      <el-form-item label="显示值" prop="value" label-width="120px">
+        <el-input v-model="form.value" placeholder="请输入显示值" />
       </el-form-item>
-      <el-form-item label="集团电话" prop="groupTel" label-width="120px">
-        <el-input v-model="form.groupTel" placeholder="请输入集团电话" />
+      <el-form-item label="映射码" prop="mapCde" label-width="120px">
+        <el-input v-model="form.mapCde" placeholder="请输入映射码" />
       </el-form-item>
-      <el-form-item label="集团手机" prop="groupPhone" label-width="120px">
-        <el-input v-model="form.groupPhone" placeholder="请输入集团手机" />
+      <el-form-item label="映射名称" prop="mapNme" label-width="120px">
+        <el-input v-model="form.mapNme" placeholder="请输入映射名称" />
       </el-form-item>
-      <el-form-item label="集团传真" prop="groupFax" label-width="120px">
-        <el-input v-model="form.groupFax" placeholder="请输入集团传真" />
+      <el-form-item label="备注" prop="rmk" label-width="120px">
+        <el-input v-model="form.rmk" placeholder="请输入备注" />
       </el-form-item>
-      <el-form-item label="集团地址" prop="groupAddress" label-width="120px">
-        <el-input v-model="form.groupAddress" placeholder="请输入集团地址" />
-      </el-form-item>
-      <el-form-item label="电子邮件" prop="groupEmail" label-width="120px">
-        <el-input v-model="form.groupEmail" placeholder="请输入电子邮件" />
-      </el-form-item>
-      <el-form-item label="地区代码" prop="groupAreaCde" label-width="120px">
-        <el-input v-model="form.groupAreaCde" placeholder="请输入地区代码" />
+      <el-form-item label="排序号" prop="cdeOrder" label-width="120px">
+        <el-input v-model="form.cdeOrder" placeholder="请输入排序号" />
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -51,27 +45,25 @@ export default {
   // 一旦父组件改变了`sonData`对应的值，子组件的`sonData`会立即改变，通过watch函数可以实时监听到值的变化
   // `props`不属于data，但是`props`中的参数可以像data中的参数一样直接使用
   props: ['sonData'],
-
   data() {
     return {
       dialogVisible: false,
-      basePath: 'group',
+      basePath: 'dict',
       dialogTitle: 'Add',
       form: {
-        id: '',
-        groupNo: '',
-        groupNme: '',
-        theInsuredPostcode: '',
-        groupTel: '',
-        groupPhone: '',
-        groupFax: '',
-        groupAddress: '',
-        groupEmail: '',
-        groupAreaCde: ''
+        cde: '',
+        cnm: '',
+        parent: '',
+        value: '',
+        mapCde: '',
+        mapNme: '',
+        rmk: '',
+        cdeOrder: ''
       },
       rules: {
-        groupNme: [{ required: true, trigger: 'blur', message: '请输入集团名称' }],
-        groupTel: [{ required: true, trigger: 'blur', message: '请输入集团电话' }]
+        cde: [{ required: true, trigger: 'blur', message: '请输入代码' }],
+        cnm: [{ required: true, trigger: 'blur', message: '请输入名称' }],
+        value: [{ required: true, trigger: 'blur', message: '请输入显示值' }]
       }
     }
   },
@@ -95,16 +87,14 @@ export default {
       })
     },
     clearForm() {
-      this.form.id = null
-      this.form.groupNo = null
-      this.form.groupNme = null
-      this.form.theInsuredPostcode = null
-      this.form.groupTel = null
-      this.form.groupPhone = null
-      this.form.groupFax = null
-      this.form.groupAddress = null
-      this.form.groupEmail = null
-      this.form.groupAreaCde = null
+      this.form.cde = null
+      this.form.cnm = null
+      this.form.parent = null
+      this.form.value = null
+      this.form.mapCde = null
+      this.form.mapNme = null
+      this.form.rmk = null
+      this.form.cdeOrder = null
     },
     handleClose() {
       this.clearForm()
