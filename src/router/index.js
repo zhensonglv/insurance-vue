@@ -149,7 +149,14 @@ export const constantRoutes = [
         component: () => import('@/views/client/company/index'),
         name: '直保公司管理',
         meta: { title: '直保公司管理', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'publicCoverage',
+        component: () => import('@/views/client/publicCoverage/index'),
+        name: '公共保额管理',
+        meta: { title: '公共保额管理', icon: 'guide', noCache: true }
       }
+
     ]
   },
   {

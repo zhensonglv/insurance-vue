@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function getList(data) {
   return request({
-    url: '/base/company/list',
+    url: '/base/publicCoverage/list',
     method: 'post',
     data
   })
@@ -10,14 +10,14 @@ export function getList(data) {
 
 export function findById(id) {
   return request({
-    url: '/base/company/query/' + id,
+    url: '/base/publicCoverage/' + id,
     method: 'get'
   })
 }
 
 export function save(data) {
   return request({
-    url: '/base/company/save',
+    url: '/base/publicCoverage/save',
     method: 'post',
     data
   })
@@ -25,14 +25,14 @@ export function save(data) {
 
 export function del(id) {
   return request({
-    url: '/base/company/delete/' + id,
+    url: '/base/publicCoverage/' + id,
     method: 'delete'
   })
 }
 
 export function edit(data) {
   return request({
-    url: '/base/company/edit',
+    url: '/base/publicCoverage/edit',
     method: 'put',
     data
   })
