@@ -15,6 +15,13 @@ export function findById(id) {
   })
 }
 
+export function getTypeOptions(id) {
+  return request({
+    url: '/base/getTypeOptions/',
+    method: 'get'
+  })
+}
+
 export function save(data) {
   return request({
     url: '/base/publicCoverage/save',

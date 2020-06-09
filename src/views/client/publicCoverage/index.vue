@@ -22,7 +22,7 @@
         </el-table-column>
         <el-table-column align="center" label="集团/团体类型" width="150">
           <template slot-scope="scope">
-            {{ scope.row.teamTyp }}
+            {{ typeMap[scope.row.teamTyp].label }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="集团/团体号" width="150">
@@ -68,7 +68,7 @@
         </el-table-column>
       </el-table>
 
-      <save :son-data="form" @sonStatus="status" />
+      <save :son-data="form" @sonStatus="status" :business-data="businessData"/>
 
       <pagination
         v-show="total>0"
@@ -82,7 +82,7 @@
 </template>
 
 <script>
-import { getList, findById, del } from '@/api/client/publicCoverage'
+import { getList, findById, del, getTypeData} from '@/api/client/publicCoverage'
 import Pagination from '@/components/Pagination'
 import Save from './save'
 
@@ -102,11 +102,19 @@ export default {
       },
       total: 0,
       dialogVisible: false,
-      form: null
+      form: null,
+      businessData: {
+        typeOptions: [],
+      },
+      typeMap: {}
     }
   },
   created() {
-    this.fetchData()
+    this.fetchData();
+    // this.fetchTypeData();
+  },
+  mounted() {
+    this.fetchTypeData();
   },
   methods: {
     _notify(message, type) {
@@ -122,6 +130,28 @@ export default {
         this.total = response.data.total
         this.listLoading = false
       })
+    },
+    fetchTypeData() {
+      // 请求数据
+      // getTypeData().then(res => {
+      //    this.typeOptions = res.data.data
+      // });
+      // 模拟请求
+      console.log(this.businessData, '---=-=-');
+       this.businessData.typeOptions = [
+        {
+          label: '集团',
+          value: '1'
+        },
+        {
+          label: '团体',
+          value: '2'
+        }];
+
+        // 组装table 的map
+        this.businessData.typeOptions.forEach(item => {
+          this.typeMap[item.value] = item;
+        });
     },
     handleSave() {
       this.form = { id: null }

@@ -14,7 +14,7 @@
       <el-form-item label="集团/团体类型" prop="teamTyp" label-width="120px">
         <el-select v-model="form.teamTyp" placeholder="请输入集团/团体类型">
           <el-option
-            v-for="item in teamTypList"
+            v-for="item in businessData.typeOptions"
             :key="item.value"
             :label="item.label"
             :value="item.value"
@@ -71,8 +71,7 @@ export default {
   // 父组件向子组件传值，通过props获取。
   // 一旦父组件改变了`sonData`对应的值，子组件的`sonData`会立即改变，通过watch函数可以实时监听到值的变化
   // `props`不属于data，但是`props`中的参数可以像data中的参数一样直接使用
-  props: ['sonData'],
-
+  props: ['sonData', 'businessData'],
   data() {
     return {
       dialogVisible: false,
@@ -113,15 +112,7 @@ export default {
           label: '一般公共保额',
           value: '3'
         }],
-      teamTypList: [
-        {
-          label: '集团',
-          value: '1'
-        },
-        {
-          label: '团体',
-          value: '2'
-        }]
+      teamTypList: []
     }
   },
   watch: {
