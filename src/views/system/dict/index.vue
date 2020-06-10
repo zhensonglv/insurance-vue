@@ -4,7 +4,14 @@
       <div>
         <el-input v-model="listQuery.cde" style="width: 200px;" placeholder="请输入代码查询" />
         <el-input v-model="listQuery.cnm" style="width: 200px;" placeholder="请输入名称查询" />
-        <el-input v-model="listQuery.parent" style="width: 200px;" placeholder="请输入父类查询" />
+        <el-select v-model="listQuery.parent" :clearable="true" placeholder="请选择父类查询">
+          <el-option
+            v-for="item in parentList"
+            :key="item"
+            :label="item"
+            :value="item"
+          />
+        </el-select>
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
       </div>
@@ -77,7 +84,7 @@
 </template>
 
 <script>
-import { getList, findById, del } from '@/api/base'
+import { getList, findById, del, getCdeParentList } from '@/api/base'
 import Pagination from '@/components/Pagination'
 import Save from './save'
 
@@ -99,11 +106,15 @@ export default {
       },
       total: 0,
       dialogVisible: false,
-      form: null
+      form: null,
+      parentList: []
     }
   },
   created() {
     this.fetchData()
+  },
+  mounted() {
+    this.fetchParentList()
   },
   methods: {
     _notify(message, type) {
@@ -130,7 +141,11 @@ export default {
         this.form = response.data
       })
     },
-
+    fetchParentList() {
+      getCdeParentList().then(response => {
+        this.parentList = response.data
+      })
+    },
     // 子组件的状态Flag，子组件通过`this.$emit('sonStatus', val)`给父组件传值
     // 父组件通过`@sonStatus`的方法`status`监听到子组件传递的值
     status(data) {

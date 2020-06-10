@@ -38,3 +38,10 @@ export function edit(path, data) {
   })
 }
 
+export function getCdeParentList() {
+  return request({
+    url: '/base/dict/getParentList',
+    method: 'get'
+  })
+}
+
