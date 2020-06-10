@@ -10,9 +10,9 @@
       </div>
       <br>
       <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
-        <el-table-column align="center" label="ID" width="95">
+        <el-table-column align="center" label="序号" width="95">
           <template slot-scope="scope">
-            {{ scope.row.id }}
+            {{ scope.$index +1 }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="公共保额类型" width="150">
@@ -68,7 +68,7 @@
         </el-table-column>
       </el-table>
 
-      <save :son-data="form" @sonStatus="status" :business-data="businessData"/>
+      <save :son-data="form" :business-data="businessData" @sonStatus="status" />
 
       <pagination
         v-show="total>0"
@@ -82,7 +82,7 @@
 </template>
 
 <script>
-import { getList, findById, del, getTypeData} from '@/api/client/publicCoverage'
+import { getList, findById, del } from '@/api/client/publicCoverage'
 import Pagination from '@/components/Pagination'
 import Save from './save'
 
@@ -104,17 +104,17 @@ export default {
       dialogVisible: false,
       form: null,
       businessData: {
-        typeOptions: [],
+        typeOptions: []
       },
       typeMap: {}
     }
   },
   created() {
-    this.fetchData();
+    this.fetchData()
     // this.fetchTypeData();
   },
   mounted() {
-    this.fetchTypeData();
+    this.fetchTypeData()
   },
   methods: {
     _notify(message, type) {
@@ -137,8 +137,8 @@ export default {
       //    this.typeOptions = res.data.data
       // });
       // 模拟请求
-      console.log(this.businessData, '---=-=-');
-       this.businessData.typeOptions = [
+      console.log(this.businessData, '---=-=-')
+      this.businessData.typeOptions = [
         {
           label: '集团',
           value: '1'
@@ -146,12 +146,12 @@ export default {
         {
           label: '团体',
           value: '2'
-        }];
+        }]
 
-        // 组装table 的map
-        this.businessData.typeOptions.forEach(item => {
-          this.typeMap[item.value] = item;
-        });
+      // 组装table 的map
+      this.businessData.typeOptions.forEach(item => {
+        this.typeMap[item.value] = item
+      })
     },
     handleSave() {
       this.form = { id: null }

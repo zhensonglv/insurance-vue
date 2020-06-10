@@ -9,9 +9,9 @@
       </div>
       <br>
       <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
-        <el-table-column align="center" label="ID" width="95">
+        <el-table-column align="center" label="序号" width="95">
           <template slot-scope="scope">
-            {{ scope.row.id }}
+            {{ scope.$index +1 }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="直保公司代码" width="150">

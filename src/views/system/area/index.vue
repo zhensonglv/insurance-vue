@@ -51,10 +51,10 @@
             {{ scope.row.zipCode }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="Actions">
+        <el-table-column align="center" label="操作" fixed="right">
           <template slot-scope="scope">
             <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)">编辑</el-button>
-            <el-button type="danger" icon="el-icon-delete" size="mini" @click="handleDel(scope.row.id)">删除</el-button>
+            <el-button type="danger" size="mini" icon="el-icon-delete" class="action-button" @click="handleDel(scope.row.id)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
