@@ -22,7 +22,8 @@
         </el-table-column>
         <el-table-column align="center" label="集团/团体类型" width="150">
           <template slot-scope="scope">
-            {{ typeMap[scope.row.teamTyp].label }}
+            {{ typeMap[scope.row.teamTyp] }}
+            <!-- {{ scope.row.teamTyp }}-->
           </template>
         </el-table-column>
         <el-table-column align="center" label="集团/团体号" width="150">
@@ -68,7 +69,7 @@
         </el-table-column>
       </el-table>
 
-      <save :son-data="form" @sonStatus="status" :business-data="businessData"/>
+      <save :son-data="form" :business-data="businessData" @sonStatus="status" />
 
       <pagination
         v-show="total>0"
@@ -82,7 +83,8 @@
 </template>
 
 <script>
-import { getList, findById, del, getTypeData} from '@/api/client/publicCoverage'
+import { getList, findById, del } from '@/api/client/publicCoverage'
+import { getCodeList } from '@/api/code'
 import Pagination from '@/components/Pagination'
 import Save from './save'
 
@@ -104,17 +106,17 @@ export default {
       dialogVisible: false,
       form: null,
       businessData: {
-        typeOptions: [],
+        typeOptions: []
       },
       typeMap: {}
     }
   },
   created() {
-    this.fetchData();
+    this.fetchData()
     // this.fetchTypeData();
   },
   mounted() {
-    this.fetchTypeData();
+    this.fetchTypeData()
   },
   methods: {
     _notify(message, type) {
@@ -133,25 +135,13 @@ export default {
     },
     fetchTypeData() {
       // 请求数据
-      // getTypeData().then(res => {
-      //    this.typeOptions = res.data.data
-      // });
-      // 模拟请求
-      console.log(this.businessData, '---=-=-');
-       this.businessData.typeOptions = [
-        {
-          label: '集团',
-          value: '1'
-        },
-        {
-          label: '团体',
-          value: '2'
-        }];
-
+      getCodeList({ 'parent': 'teamTyp' }).then(res => {
+        this.businessData.typeOptions = res.data
         // 组装table 的map
         this.businessData.typeOptions.forEach(item => {
-          this.typeMap[item.value] = item;
-        });
+          this.typeMap[item.value] = item.label
+        })
+      })
     },
     handleSave() {
       this.form = { id: null }
