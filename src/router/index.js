@@ -172,6 +172,12 @@ export const constantRoutes = [
         component: () => import('@/views/system/dict/index'),
         name: '人员字典管理',
         meta: { title: '人员字典管理', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'area',
+        component: () => import('@/views/system/area/index'),
+        name: '人员地区配置',
+        meta: { title: '人员地区配置', icon: 'guide', noCache: true }
       }
     ]
   },
