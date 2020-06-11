@@ -116,10 +116,10 @@ export default {
   },
   created() {
     this.fetchData()
+    this.fetchTypeData()
     // this.fetchTypeData();
   },
   mounted() {
-    this.fetchTypeData()
   },
   methods: {
     _notify(message, type) {
@@ -138,20 +138,17 @@ export default {
     },
     fetchTypeData() {
       // 获取codeList
-      getCodeList({ parent: 'CTeamTyp' }).then(res => {
+      getCodeList({ parent: ['CTeamTyp', 'CPubCoverTyp'] }).then(res => {
         this.businessData.teamOptions = res.data
+        this.businessData = res.data
         // 组装table 的map
-        this.businessData.teamOptions.forEach(item => {
-          this.teamMap[item.value] = item.label
-        })
+        for (const key in this.businessData) {
+          this.businessData[key].forEach(item => {
+            this[key][item.value] = item.label
+          })
+        }
       })
-      getCodeList({ parent: 'CPubCoverTyp' }).then(res => {
-        this.businessData.pubCoverOptions = res.data
-        // 组装table 的map
-        this.businessData.pubCoverOptions.forEach(item => {
-          this.pubCoverMap[item.value] = item.label
-        })
-      })
+      //
     },
     handleSave() {
       this.form = { id: null }
