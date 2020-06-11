@@ -99,7 +99,7 @@ export default {
       listLoading: true,
       listQuery: {
         pageNum: 1,
-        pageSize: 3,
+        pageSize: 10,
         groupNme: undefined,
         importance: undefined,
         title: undefined,
@@ -141,7 +141,7 @@ export default {
     },
 
     handleRoute(id) {
-      this.$router.push('/system/dict');
+      this.$router.push('/system/dict')
     },
 
     // 子组件的状态Flag，子组件通过`this.$emit('sonStatus', val)`给父组件传值

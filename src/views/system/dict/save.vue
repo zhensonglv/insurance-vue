@@ -10,20 +10,8 @@
       <el-form-item label="父类" prop="parent" label-width="120px">
         <el-input v-model="form.parent" placeholder="请输入父类" />
       </el-form-item>
-      <el-form-item label="显示值" prop="value" label-width="120px">
-        <el-input v-model="form.value" placeholder="请输入显示值" />
-      </el-form-item>
-      <el-form-item label="映射码" prop="mapCde" label-width="120px">
-        <el-input v-model="form.mapCde" placeholder="请输入映射码" />
-      </el-form-item>
-      <el-form-item label="映射名称" prop="mapNme" label-width="120px">
-        <el-input v-model="form.mapNme" placeholder="请输入映射名称" />
-      </el-form-item>
       <el-form-item label="备注" prop="rmk" label-width="120px">
         <el-input v-model="form.rmk" placeholder="请输入备注" />
-      </el-form-item>
-      <el-form-item label="排序号" prop="cdeOrder" label-width="120px">
-        <el-input v-model="form.cdeOrder" placeholder="请输入排序号" />
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -54,11 +42,7 @@ export default {
         cde: '',
         cnm: '',
         parent: '',
-        value: '',
-        mapCde: '',
-        mapNme: '',
-        rmk: '',
-        cdeOrder: ''
+        rmk: ''
       },
       rules: {
         cde: [{ required: true, trigger: 'blur', message: '请输入代码' }],
@@ -90,11 +74,7 @@ export default {
       this.form.cde = null
       this.form.cnm = null
       this.form.parent = null
-      this.form.value = null
-      this.form.mapCde = null
-      this.form.mapNme = null
       this.form.rmk = null
-      this.form.cdeOrder = null
     },
     handleClose() {
       this.clearForm()
