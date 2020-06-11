@@ -4,7 +4,7 @@
       <el-form-item label="公共保额类型" prop="pubCoverTyp" label-width="120px">
         <el-select v-model="form.pubCoverTyp" placeholder="请选择公共保额类型">
           <el-option
-            v-for="item in pubCoverTypList"
+            v-for="item in businessData.pubCoverOptions"
             :key="item.value"
             :label="item.label"
             :value="item.value"
@@ -14,7 +14,7 @@
       <el-form-item label="集团/团体类型" prop="teamTyp" label-width="120px">
         <el-select v-model="form.teamTyp" placeholder="请输入集团/团体类型">
           <el-option
-            v-for="item in businessData.typeOptions"
+            v-for="item in businessData.teamOptions"
             :key="item.value"
             :label="item.label"
             :value="item.value"
@@ -98,21 +98,7 @@ export default {
         endTm: [{ required: true, trigger: 'blur', message: '请输入终止日' }],
         pubCoverLimit: [{ required: true, trigger: 'blur', message: '请输入公共保额总金额' }],
         pubCoverUsed: [{ required: true, trigger: 'blur', message: '请输入已用公共保额' }]
-      },
-      pubCoverTypList: [
-        {
-          label: '小药箱保额',
-          value: '1'
-        },
-        {
-          label: '特殊公共保额',
-          value: '2'
-        },
-        {
-          label: '一般公共保额',
-          value: '3'
-        }],
-      teamTypList: []
+      }
     }
   },
   watch: {

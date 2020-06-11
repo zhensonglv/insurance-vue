@@ -17,12 +17,13 @@
         </el-table-column>
         <el-table-column align="center" label="公共保额类型" width="150">
           <template slot-scope="scope">
-            {{ scope.row.pubCoverTyp }}
+            {{ pubCoverMap[scope.row.pubCoverTyp] }}
+          <!--  <{{ scope.row.pubCoverTyp }}-->
           </template>
         </el-table-column>
         <el-table-column align="center" label="集团/团体类型" width="150">
           <template slot-scope="scope">
-            {{ typeMap[scope.row.teamTyp] }}
+            {{ teamMap[scope.row.teamTyp] }}
             <!-- {{ scope.row.teamTyp }}-->
           </template>
         </el-table-column>
@@ -106,9 +107,11 @@ export default {
       dialogVisible: false,
       form: null,
       businessData: {
-        typeOptions: []
+        teamOptions: [],
+        pubCoverOptions: []
       },
-      typeMap: {}
+      teamMap: {},
+      pubCoverMap: {}
     }
   },
   created() {
@@ -134,12 +137,19 @@ export default {
       })
     },
     fetchTypeData() {
-      // 请求数据
-      getCodeList({ 'parent': 'teamTyp' }).then(res => {
-        this.businessData.typeOptions = res.data
+      // 获取codeList
+      getCodeList({ 'parent': 'CTeamTyp' }).then(res => {
+        this.businessData.teamOptions = res.data
         // 组装table 的map
-        this.businessData.typeOptions.forEach(item => {
-          this.typeMap[item.value] = item.label
+        this.businessData.teamOptions.forEach(item => {
+          this.teamMap[item.value] = item.label
+        })
+      })
+      getCodeList({ 'parent': 'CPubCoverTyp' }).then(res => {
+        this.businessData.pubCoverOptions = res.data
+        // 组装table 的map
+        this.businessData.pubCoverOptions.forEach(item => {
+          this.pubCoverMap[item.value] = item.label
         })
       })
     },
