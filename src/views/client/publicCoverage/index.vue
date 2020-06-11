@@ -138,14 +138,14 @@ export default {
     },
     fetchTypeData() {
       // 获取codeList
-      getCodeList({ 'parent': 'CTeamTyp' }).then(res => {
+      getCodeList({ parent: 'CTeamTyp' }).then(res => {
         this.businessData.teamOptions = res.data
         // 组装table 的map
         this.businessData.teamOptions.forEach(item => {
           this.teamMap[item.value] = item.label
         })
       })
-      getCodeList({ 'parent': 'CPubCoverTyp' }).then(res => {
+      getCodeList({ parent: 'CPubCoverTyp' }).then(res => {
         this.businessData.pubCoverOptions = res.data
         // 组装table 的map
         this.businessData.pubCoverOptions.forEach(item => {
