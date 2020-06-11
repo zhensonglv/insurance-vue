@@ -4,7 +4,7 @@
       <div>
         <el-input v-model="listQuery.cde" style="width: 200px;" placeholder="请输入代码查询" />
         <el-input v-model="listQuery.cnm" style="width: 200px;" placeholder="请输入名称查询" />
-        <el-select v-model="listQuery.parent" :clearable="true" placeholder="请选择父类查询">
+        <el-select v-model="listQuery.parent" :clearable="true" :filterable="true" placeholder="请选择父类查询">
           <el-option
             v-for="item in parentList"
             :key="item"
