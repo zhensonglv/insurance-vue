@@ -76,7 +76,7 @@ export default {
       listLoading: true,
       listQuery: {
         pageNum: 1,
-        pageSize: 3,
+        pageSize: 10,
         insuCompanyNme: undefined,
         insuBranckCompanyNme: undefined,
         sort: '+id'

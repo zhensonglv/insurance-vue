@@ -4,7 +4,7 @@
       <div>
         <el-input v-model="listQuery.cde" style="width: 200px;" placeholder="请输入代码查询" />
         <el-input v-model="listQuery.cnm" style="width: 200px;" placeholder="请输入名称查询" />
-        <el-select v-model="listQuery.parent" :clearable="true" placeholder="请选择父类查询">
+        <el-select v-model="listQuery.parent" :clearable="true" :filterable="true" placeholder="请选择父类查询">
           <el-option
             v-for="item in parentList"
             :key="item"
@@ -17,52 +17,27 @@
       </div>
       <br>
       <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
-        <el-table-column align="center" label="序号" width="95">
+        <el-table-column align="center" label="序号">
           <template slot-scope="scope">
             {{ scope.$index+1 }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="代码" width="150">
+        <el-table-column align="center" label="代码">
           <template slot-scope="scope">
             {{ scope.row.cde }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="名称" width="150">
+        <el-table-column align="center" label="名称">
           <template slot-scope="scope">
             {{ scope.row.cnm }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="父类" width="150">
+        <el-table-column align="center" label="父类">
           <template slot-scope="scope">
             {{ scope.row.parent }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="显示值" width="150">
-          <template slot-scope="scope">
-            {{ scope.row.value }}
-          </template>
-        </el-table-column>
-        <el-table-column align="center" label="映射码" width="150">
-          <template slot-scope="scope">
-            {{ scope.row.mapCde }}
-          </template>
-        </el-table-column>
-        <el-table-column align="center" label="映射名称" width="150">
-          <template slot-scope="scope">
-            {{ scope.row.mapNme }}
-          </template>
-        </el-table-column>
-        <el-table-column align="center" label="是否有效" width="150">
-          <template slot-scope="scope">
-            {{ scope.row.delFlag }}
-          </template>
-        </el-table-column>
-        <el-table-column align="center" label="排序号" width="150">
-          <template slot-scope="scope">
-            {{ scope.row.cdeOrder }}
-          </template>
-        </el-table-column>
-        <el-table-column align="center" label="操作" fixed="right">
+        <el-table-column align="center" label="操作">
           <template slot-scope="scope">
             <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)">编辑</el-button>
             <el-button type="danger" size="mini" icon="el-icon-delete" class="action-button" @click="handleDel(scope.row.id)">删除</el-button>
@@ -97,7 +72,7 @@ export default {
       listLoading: true,
       listQuery: {
         pageNum: 1,
-        pageSize: 3,
+        pageSize: 10,
         groupNme: undefined,
         importance: undefined,
         title: undefined,
