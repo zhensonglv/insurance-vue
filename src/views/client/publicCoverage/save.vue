@@ -4,7 +4,7 @@
       <el-form-item label="公共保额类型" prop="pubCoverTyp" label-width="120px">
         <el-select v-model="form.pubCoverTyp" placeholder="请选择公共保额类型">
           <el-option
-            v-for="item in businessData.pubCoverOptions"
+            v-for="item in businessData.CPubCoverTyp"
             :key="item.value"
             :label="item.label"
             :value="item.value"
@@ -14,7 +14,7 @@
       <el-form-item label="集团/团体类型" prop="teamTyp" label-width="120px">
         <el-select v-model="form.teamTyp" placeholder="请输入集团/团体类型">
           <el-option
-            v-for="item in businessData.teamOptions"
+            v-for="item in businessData.CTeamTyp"
             :key="item.value"
             :label="item.label"
             :value="item.value"

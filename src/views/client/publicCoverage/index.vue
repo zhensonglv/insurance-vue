@@ -17,13 +17,13 @@
         </el-table-column>
         <el-table-column align="center" label="公共保额类型" width="150">
           <template slot-scope="scope">
-            {{ pubCoverMap[scope.row.pubCoverTyp] }}
+            {{ CPubCoverTyp[scope.row.pubCoverTyp] }}
           <!--  <{{ scope.row.pubCoverTyp }}-->
           </template>
         </el-table-column>
         <el-table-column align="center" label="集团/团体类型" width="150">
           <template slot-scope="scope">
-            {{ teamMap[scope.row.teamTyp] }}
+            {{ CTeamTyp[scope.row.teamTyp] }}
             <!-- {{ scope.row.teamTyp }}-->
           </template>
         </el-table-column>
@@ -106,18 +106,14 @@ export default {
       total: 0,
       dialogVisible: false,
       form: null,
-      businessData: {
-        teamOptions: [],
-        pubCoverOptions: []
-      },
-      teamMap: {},
-      pubCoverMap: {}
+      businessData: {},
+      CTeamTyp: {},
+      CPubCoverTyp: {}
     }
   },
   created() {
     this.fetchData()
     this.fetchTypeData()
-    // this.fetchTypeData();
   },
   mounted() {
   },
@@ -139,7 +135,6 @@ export default {
     fetchTypeData() {
       // 获取codeList
       getCodeList({ parent: ['CTeamTyp', 'CPubCoverTyp'] }).then(res => {
-        this.businessData.teamOptions = res.data
         this.businessData = res.data
         // 组装table 的map
         for (const key in this.businessData) {
@@ -148,7 +143,6 @@ export default {
           })
         }
       })
-      //
     },
     handleSave() {
       this.form = { id: null }
