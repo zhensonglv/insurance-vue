@@ -104,7 +104,6 @@ export default {
   watch: {
     'sonData': function(newVal, oldVal) {
       this.form = newVal
-      this.imgURL = this.form.avatar
       this.dialogVisible = true
       if (newVal.id != null) {
         this.dialogTitle = 'Edit'
