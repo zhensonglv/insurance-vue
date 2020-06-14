@@ -122,6 +122,7 @@ export const constantRoutes = [
         name: 'list',
         meta: { title: '列表', icon: 'guide', noCache: true }
       },
+
       {
         path: 'save',
         component: () => import('@/views/user/save'),
@@ -155,8 +156,13 @@ export const constantRoutes = [
         component: () => import('@/views/client/publicCoverage/index'),
         name: '公共保额管理',
         meta: { title: '公共保额管理', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'treeTabel',
+        component: () => import('@/views/client/group/treeDemo'),
+        name: 'list',
+        meta: { title: 'tree', icon: 'guide', noCache: true }
       }
-
     ]
   },
   {
