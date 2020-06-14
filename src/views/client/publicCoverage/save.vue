@@ -40,6 +40,14 @@
           placeholder="选择日期时间"
         />
       </el-form-item>
+      <el-form-item label="地区" prop="location" label-width="120px">
+        <el-cascader
+          v-model="form.regionValue"
+          :options="regionData"
+          :props="regionMap"
+          @change="handleRegionChange"
+        />
+      </el-form-item>
       <el-form-item label="公共保额总金额" prop="pubCoverLimit" label-width="120px">
         <el-input v-model="form.pubCoverLimit" placeholder="请输入公共保额总金额" />
       </el-form-item>
@@ -66,6 +74,7 @@
 
 <script>
 import { save, edit } from '@/api/client/publicCoverage'
+import { level } from 'province-city-china/data'
 
 export default {
   // 父组件向子组件传值，通过props获取。
@@ -88,7 +97,13 @@ export default {
         pubCoverUsed: '',
         pubCoverDesc: '',
         clineCtype: '',
-        plyNo: ''
+        plyNo: '',
+        regionValue: ''
+      },
+      regionData: level,
+      regionMap: {
+        label: 'name',
+        value: 'code'
       },
       rules: {
         pubCoverTyp: [{ required: true, trigger: 'blur', message: '请输入公共保额类型' }],
@@ -118,6 +133,9 @@ export default {
         message: message,
         type: type
       })
+    },
+    handleRegionChange(value) {
+      console.log(value, 'value----')
     },
     clearForm() {
       this.form.id = null

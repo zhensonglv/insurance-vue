@@ -5,7 +5,7 @@
         <el-input v-model="listQuery.groupNme" style="width: 200px;" placeholder="请输入集团名称查询" />
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
-        <el-button style="margin-left: 10px;" type="info" icon="el-icon-edit" @click="handleRoute">页面跳转</el-button>
+        <el-button style="margin-left: 10px;" type="info" icon="el-icon-edit" @click="handleRoute(listQuery)">页面跳转</el-button>
       </div>
       <br>
       <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
@@ -140,7 +140,8 @@ export default {
       })
     },
 
-    handleRoute(id) {
+    handleRoute(data) {
+      console.log(data, '钱总来了---')
       this.$router.push('/system/dict')
     },
 
