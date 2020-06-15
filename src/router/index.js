@@ -162,6 +162,12 @@ export const constantRoutes = [
         component: () => import('@/views/client/group/treeDemo'),
         name: 'list',
         meta: { title: 'tree', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'plyPartPubCov',
+        component: () => import('@/views/client/plyPartPubCov/index'),
+        name: '分单公共保额管理',
+        meta: { title: '分单公共保额管理', icon: 'guide', noCache: true }
       }
     ]
   },

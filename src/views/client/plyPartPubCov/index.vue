@@ -2,25 +2,8 @@
   <div class="app-container">
     <el-card>
       <div>
-        <el-input v-model="listQuery.teamNo" style="width: 200px;" placeholder="请输入集团/团体号称查询" />
-        <el-select v-model="listQuery.teamTyp" placeholder="请选择集团/团体类型">
-          <el-option
-            v-for="item in businessData.CTeamTyp"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          />
-        </el-select>
-        <el-select v-model="listQuery.pubCoverTyp" placeholder="请选择公共保额类型">
-          <el-option
-            v-for="item in businessData.CPubCoverTyp"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          />
-        </el-select>
+        <el-input v-model="listQuery.principalInsuredNme" style="width: 200px;" placeholder="请输入主被保险人姓名查询" />
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
-        <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="resetData">重置</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
       </div>
       <br>
@@ -30,53 +13,47 @@
             {{ scope.$index +1 }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="公共保额类型" width="150">
+        <el-table-column align="center" label="分单号" width="150">
           <template slot-scope="scope">
-            {{ CPubCoverTyp[scope.row.pubCoverTyp] }}
-          <!--  <{{ scope.row.pubCoverTyp }}-->
+            {{ scope.row.plyPartNo }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="集团/团体类型" width="150">
+        <el-table-column align="center" label="分单保额类型" width="150">
           <template slot-scope="scope">
-            {{ CTeamTyp[scope.row.teamTyp] }}
-            <!-- {{ scope.row.teamTyp }}-->
+            {{ CPlyPartTyp[scope.row.plyPartTyp] }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="集团/团体号" width="150">
+        <el-table-column align="center" label="主被保险人姓名" width="150">
           <template slot-scope="scope">
-            {{ scope.row.teamNo }}
+            {{ scope.row.principalInsuredNme }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="起始日" width="150">
+        <el-table-column align="center" label="被保险人姓名" width="150">
           <template slot-scope="scope">
-            {{ scope.row.startTm }}
+            {{ scope.row.insuredNme }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="终止日" width="150">
+        <el-table-column align="center" label="分单保额金额" width="150">
           <template slot-scope="scope">
-            {{ scope.row.endTm }}
+            {{ scope.row.subCoverLimit }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="公共保额总金额" width="150">
+        <el-table-column align="center" label="已用分单保额金额" width="150">
           <template slot-scope="scope">
-            {{ scope.row.pubCoverLimit }}
+            {{ scope.row.subCoverUsed }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="产品" width="150">
+        <el-table-column align="center" label="分单保额备注" width="150">
           <template slot-scope="scope">
-            {{ scope.row.product }}
+            {{ scope.row.subCoverDesc }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="已用公共保额" width="150">
+        <el-table-column align="center" label="关联责任号" width="150">
           <template slot-scope="scope">
-            {{ scope.row.pubCoverUsed }}
+            {{ scope.row.relationDutyNo }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="公共保额说明" width="150">
-          <template slot-scope="scope">
-            {{ scope.row.pubCoverDesc }}
-          </template>
-        </el-table-column>
+
         <el-table-column align="center" label="操作" fixed="right">
           <template slot-scope="scope">
             <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)">编辑</el-button>
@@ -99,7 +76,7 @@
 </template>
 
 <script>
-import { getList, findById, del } from '@/api/client/publicCoverage'
+import { getList, findById, del } from '@/api/base'
 import { getCodeList } from '@/api/code'
 import Pagination from '@/components/Pagination'
 import Save from './save'
@@ -110,20 +87,18 @@ export default {
     return {
       list: null,
       listLoading: true,
+      basePath: 'plyPartPubCov',
       listQuery: {
         pageNum: 1,
         pageSize: 10,
-        teamTyp: '',
-        teamNo: '',
-        pubCoverTyp: '',
+        principalInsuredNme: '',
         sort: '+id'
       },
       total: 0,
       dialogVisible: false,
       form: null,
       businessData: {},
-      CTeamTyp: {},
-      CPubCoverTyp: {}
+      CPlyPartTyp: {}
     }
   },
   created() {
@@ -141,20 +116,15 @@ export default {
     },
     fetchData() {
       this.listLoading = true
-      getList(this.listQuery).then(response => {
+      getList(this.basePath, this.listQuery).then(response => {
         this.list = response.data.data
         this.total = response.data.total
         this.listLoading = false
       })
     },
-    resetData() {
-      this.listQuery.teamTyp = null
-      this.listQuery.teamNo = null
-      this.listQuery.pubCoverTyp = null
-    },
     fetchTypeData() {
       // 获取codeList
-      getCodeList({ parent: ['CTeamTyp', 'CPubCoverTyp'] }).then(res => {
+      getCodeList({ parent: ['CPlyPartTyp'] }).then(res => {
         this.businessData = res.data
         // 组装table 的map
         for (const key in this.businessData) {
@@ -170,7 +140,7 @@ export default {
     },
     handleEdit(id) {
       // 跳转到新的页面
-      findById(id).then(response => {
+      findById(this.basePath, id).then(response => {
         this.form = response.data
       })
     },
@@ -189,7 +159,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        del(id).then(response => {
+        del(this.basePath, id).then(response => {
           if (response.code === 200) {
             this._notify(response.msg, 'success')
           } else {
