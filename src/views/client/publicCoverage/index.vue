@@ -77,10 +77,11 @@
             {{ scope.row.pubCoverDesc }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="操作" fixed="right">
+        <el-table-column align="center" label="操作" fixed="right" width="120">
           <template slot-scope="scope">
             <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)">编辑</el-button>
             <el-button type="danger" size="mini" icon="el-icon-delete" class="action-button" @click="handleDel(scope.row.id)">删除</el-button>
+            <el-button type="info" size="mini" icon="el-icon-edit" class="action-button" @click="handleRoute(scope.row.id)">保额详细</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -174,7 +175,9 @@ export default {
         this.form = response.data
       })
     },
-
+    handleRoute(data) {
+      this.$router.push({ path: '/client/plyPartPubCov', query: { pubCoverId: data }})
+    },
     // 子组件的状态Flag，子组件通过`this.$emit('sonStatus', val)`给父组件传值
     // 父组件通过`@sonStatus`的方法`status`监听到子组件传递的值
     status(data) {

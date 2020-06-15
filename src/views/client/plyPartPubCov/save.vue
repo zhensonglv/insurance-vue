@@ -29,6 +29,9 @@
       <el-form-item label="分单保额备注" prop="subCoverDesc" label-width="120px">
         <el-input v-model="form.subCoverDesc" placeholder="请输入分单保额备注明" />
       </el-form-item>
+      <el-form-item label="公共保额id" prop="pubCoverId" label-width="120px">
+        <el-input v-model="form.pubCoverId" placeholder="请输入公共保额id" :disabled="true" />
+      </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="handleClose">

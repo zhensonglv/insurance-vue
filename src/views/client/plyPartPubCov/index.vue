@@ -13,6 +13,11 @@
             {{ scope.$index +1 }}
           </template>
         </el-table-column>
+        <el-table-column v-if="show" align="center" label="公共保额id" width="150">
+          <template slot-scope="scope">
+            {{ scope.row.pubCoverId }}
+          </template>
+        </el-table-column>
         <el-table-column align="center" label="分单号" width="150">
           <template slot-scope="scope">
             {{ scope.row.plyPartNo }}
@@ -92,6 +97,7 @@ export default {
         pageNum: 1,
         pageSize: 10,
         principalInsuredNme: '',
+        pubCoverId: '',
         sort: '+id'
       },
       total: 0,
@@ -102,6 +108,9 @@ export default {
     }
   },
   created() {
+    if (this.$route.query.pubCoverId) { // 上级页面传入参数
+      this.listQuery.pubCoverId = this.$route.query.pubCoverId
+    }
     this.fetchData()
     this.fetchTypeData()
   },
@@ -135,7 +144,10 @@ export default {
       })
     },
     handleSave() {
-      this.form = { id: null }
+      this.form = { id: null, pubCoverId: null }
+      if (this.$route.query.pubCoverId) { // 上级页面传入参数
+        this.form.pubCoverId = this.$route.query.pubCoverId
+      }
       this.dialogVisible = true
     },
     handleEdit(id) {
