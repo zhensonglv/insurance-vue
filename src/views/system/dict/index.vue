@@ -87,7 +87,7 @@ export default {
   },
   created() {
     this.fetchData()
-    console.log(this.$route, '------钱总看这')
+    console.log(this.$route.query, '------钱总看这')
   },
   mounted() {
     this.fetchParentList()

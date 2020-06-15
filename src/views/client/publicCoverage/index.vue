@@ -22,9 +22,14 @@
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="resetData">重置</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
+        <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleTest">测试</el-button>
       </div>
       <br>
-      <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
+      <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row @selection-change="handleSelect">
+        <el-table-column
+          type="selection"
+          width="55"
+        />
         <el-table-column align="center" label="序号" width="95">
           <template slot-scope="scope">
             {{ scope.$index +1 }}
@@ -124,7 +129,8 @@ export default {
       form: null,
       businessData: {},
       CTeamTyp: {},
-      CPubCoverTyp: {}
+      CPubCoverTyp: {},
+      selected: []
     }
   },
   created() {
@@ -134,6 +140,21 @@ export default {
   mounted() {
   },
   methods: {
+    handleTest() {
+      if (this.selected.length !== 1) {
+        this.$message({
+          showClose: true,
+          message: '钱总警告, 只能选择一条查看',
+          type: 'warning'
+        })
+      } else {
+        this.$router.push({ path: '/client/plyPartPubCov', query: { pubCoverId: this.selected[0].id }})
+      }
+    },
+    handleSelect(data) {
+      console.log('选中项---', data)
+      this.selected = data
+    },
     _notify(message, type) {
       this.$message({
         message: message,
