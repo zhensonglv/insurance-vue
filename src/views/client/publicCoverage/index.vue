@@ -22,7 +22,7 @@
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="resetData">重置</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
-        <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleTest">测试</el-button>
+        <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleRoute">分单公共保额详细</el-button>
       </div>
       <br>
       <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row @selection-change="handleSelect">
@@ -86,7 +86,6 @@
           <template slot-scope="scope">
             <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)">编辑</el-button>
             <el-button type="danger" size="mini" icon="el-icon-delete" class="action-button" @click="handleDel(scope.row.id)">删除</el-button>
-            <el-button type="info" size="mini" icon="el-icon-edit" class="action-button" @click="handleRoute(scope.row.id)">保额详细</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -140,11 +139,11 @@ export default {
   mounted() {
   },
   methods: {
-    handleTest() {
+    handleRoute() {
       if (this.selected.length !== 1) {
         this.$message({
           showClose: true,
-          message: '钱总警告, 只能选择一条查看',
+          message: '只能选择一条查看',
           type: 'warning'
         })
       } else {
@@ -195,9 +194,6 @@ export default {
       findById(id).then(response => {
         this.form = response.data
       })
-    },
-    handleRoute(data) {
-      this.$router.push({ path: '/client/plyPartPubCov', query: { pubCoverId: data }})
     },
     // 子组件的状态Flag，子组件通过`this.$emit('sonStatus', val)`给父组件传值
     // 父组件通过`@sonStatus`的方法`status`监听到子组件传递的值
