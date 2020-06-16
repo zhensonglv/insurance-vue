@@ -169,6 +169,12 @@ export const constantRoutes = [
         name: '分单公共保额管理',
         hidden: true,
         meta: { title: '分单公共保额管理', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'clientAlias',
+        component: () => import('@/views/client/clientAlias/index'),
+        name: '别名管理',
+        meta: { title: '别名管理', icon: 'guide', noCache: true }
       }
     ]
   },
