@@ -167,6 +167,7 @@ export const constantRoutes = [
         path: 'plyPartPubCov',
         component: () => import('@/views/client/plyPartPubCov/index'),
         name: '分单公共保额管理',
+        hidden: true,
         meta: { title: '分单公共保额管理', icon: 'guide', noCache: true }
       }
     ]
