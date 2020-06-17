@@ -179,6 +179,22 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/param',
+    component: Layout,
+    redirect: '/pram/paramManage',
+    alwaysShow: true,
+    name: '通用编码',
+    meta: { title: '通用编码', icon: 'guide', noCache: true },
+    children: [
+      {
+        path: 'paramManage',
+        component: () => import('@/views/param/paramManage/index'),
+        name: '通用参数',
+        meta: { title: '通用参数', icon: 'guide', noCache: true }
+      }
+    ]
+  },
+  {
     path: '/system',
     component: Layout,
     redirect: '/system/dict',
