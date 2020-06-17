@@ -171,6 +171,8 @@ export default {
     },
     applyTypChange() {
       if (this.listQuery.applyTyp) {
+        // 清空参数类型数据
+        this.listQuery.paramterTyp = null
         this.paramLoading = true
         getCodeList({ parent: [this.listQuery.applyTyp] }).then(res => {
           this.paramData = res.data
