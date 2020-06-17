@@ -85,7 +85,7 @@ export default {
       })
     },
     change() {
-      console.log('change')
+      console.log('change---')
     },
     clearForm() {
       this.form.id = null

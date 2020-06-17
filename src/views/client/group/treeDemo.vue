@@ -2,89 +2,53 @@
   <div class="app-container">
     <el-card>
       <div class="left">
-        <el-tree :data="treeData" @node-click="handleNodeClick">
-          <template slot-scope="scope">
+        <el-tree ref="tree" :data="treeData" :expand-on-click-node="false" @node-click="handleNodeClick">
+          <template slot-scope="{ node, data }">
             <div>
-              <svg-icon :icon-class="scope.data.icon || 'group'" />
-              {{ scope.data.label }}
+              <svg-icon :icon-class="data.icon || 'group'" />
+              {{ data.label }}
+              <span class="action">
+                <el-button type="text" @click="add(data)">新增</el-button>
+                <el-button type="text" @click="update(data)">修改</el-button>
+                <el-button type="text" @click="remove(data, node)">删除</el-button>
+              </span>
             </div>
           </template>
         </el-tree>
       </div>
       <br>
-      <el-table v-loading="listLoading" class="right" :data="list" element-loading-text="Loading" border fit highlight-current-row>
-        <el-table-column align="center" label="序号" width="95">
-          <template slot-scope="scope">
-            {{ scope.$index +1 }}
-          </template>
-        </el-table-column>
-        <el-table-column align="center" label="集团号" width="150">
-          <template slot-scope="scope">
-            {{ scope.row.groupNo }}
-          </template>
-        </el-table-column>
-        <el-table-column align="center" label="集团名称" width="150">
-          <template slot-scope="scope">
-            {{ scope.row.groupNme }}
-          </template>
-        </el-table-column>
-        <el-table-column align="center" label="联系人" width="150">
-          <template slot-scope="scope">
-            {{ scope.row.contactNme }}
-          </template>
-        </el-table-column>
-        <el-table-column align="center" label="集团电话" width="150">
-          <template slot-scope="scope">
-            {{ scope.row.groupTel }}
-          </template>
-        </el-table-column>
-        <el-table-column align="center" label="集团手机" width="150">
-          <template slot-scope="scope">
-            {{ scope.row.groupPhone }}
-          </template>
-        </el-table-column>
-        <el-table-column align="center" label="集团传真" width="150">
-          <template slot-scope="scope">
-            {{ scope.row.groupFax }}
-          </template>
-        </el-table-column>
-        <el-table-column align="center" label="集团地址" width="150">
-          <template slot-scope="scope">
-            {{ scope.row.groupAddress }}
-          </template>
-        </el-table-column>
-        <el-table-column align="center" label="电子邮件" width="150">
-          <template slot-scope="scope">
-            {{ scope.row.groupEmail }}
-          </template>
-        </el-table-column>
-        <el-table-column align="center" label="地区代码" width="150">
-          <template slot-scope="scope">
-            {{ scope.row.groupAreaCde }}
-          </template>
-        </el-table-column>
-        <el-table-column align="center" label="邮编" width="150">
-          <template slot-scope="scope">
-            {{ scope.row.theInsuredPostcode }}
-          </template>
-        </el-table-column>
-        <el-table-column align="center" label="操作" fixed="right">
-          <template slot-scope="scope">
-            <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)">编辑</el-button>
-            <el-button type="danger" size="mini" icon="el-icon-delete" class="action-button" @click="handleDel(scope.row.id)">删除</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-
-      <save :son-data="form" @sonStatus="status" />
-
-      <pagination
-        v-show="total>0"
-        :total="total"
-        :page.sync="listQuery.pageNum"
-        :limit.sync="listQuery.pageSize"
-        @pagination="fetchData"
-      />
+      <div class="right">
+        <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
+          <el-table-column align="center" label="序号" width="95">
+            <template slot-scope="scope">
+              {{ scope.$index +1 }}
+            </template>
+          </el-table-column>
+          <el-table-column align="center" label="集团号" width="150">
+            <template slot-scope="scope">
+              {{ scope.row.groupNo }}
+            </template>
+          </el-table-column>
+          <el-table-column align="center" label="集团名称" width="150">
+            <template slot-scope="scope">
+              {{ scope.row.groupNme }}
+            </template>
+          </el-table-column>
+          <el-table-column align="center" label="操作" fixed="right">
+            <template slot-scope="scope">
+              <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)">编辑</el-button>
+              <el-button type="danger" size="mini" icon="el-icon-delete" class="action-button" @click="handleDel(scope.row.id)">删除</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+        <pagination
+          v-show="total>0"
+          :total="total"
+          :page.sync="listQuery.pageNum"
+          :limit.sync="listQuery.pageSize"
+          @pagination="fetchData"
+        />
+      </div>
     </el-card>
   </div>
 </template>
@@ -92,10 +56,10 @@
 <script>
 import { getList, findById, del } from '@/api/base'
 import Pagination from '@/components/Pagination'
-import Save from './save'
+let id = 1000
 
 export default {
-  components: { Pagination, Save },
+  components: { Pagination },
   data() {
     return {
       list: null,
@@ -156,6 +120,26 @@ export default {
         type: type
       })
     },
+    add(data) {
+      console.log(data, 'data----add')
+      // 钱总可以在这个之前写业务逻辑获取
+      const newChild = { id: id++, label: 'testtest', children: [] }
+      if (!data.children) {
+        this.$set(data, 'children', [])
+      }
+      data.children.push(newChild)
+    },
+    update(data) {
+      console.log(data, 'data----update')
+    },
+    remove(data, node) {
+      // 钱总可以在这个之前写业务逻辑获取
+      const parent = node.parent
+      const children = parent.data.children || parent.data
+      const index = children.findIndex(d => d.id === data.id)
+      children.splice(index, 1)
+      console.log(data, 'data----delete')
+    },
     handleNodeClick(data) {
       console.log(data, '---')
     },
@@ -214,12 +198,16 @@ export default {
 </script>
 <style lang="scss" scoped>
 .left {
-  display: inline-block;
+  float: left;
   width: 40%;
 }
 .right {
   display: inline-block;
   width: 50%;
+  clear: left;
+}
+.action {
+  margin-left: 50px;
 }
 
 </style>

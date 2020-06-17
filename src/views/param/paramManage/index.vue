@@ -11,7 +11,11 @@
             :value="item.value"
           />
         </el-select>
-        <el-select v-model="listQuery.paramterTyp" v-loading="paramLoading" placeholder="请选择参数类型">
+        <el-select
+          v-model="listQuery.paramterTyp"
+          v-loading="paramLoading"
+          placeholder="请选择参数类型"
+        >
           <el-option
             v-for="item in paramData.prodParamterTyp"
             :key="item.value"
@@ -99,7 +103,7 @@ export default {
         pageNum: 1,
         pageSize: 10,
         prodCde: '',
-        applyTyp: '',
+        applyTyp: 'insurancedept',
         paramterTyp: '',
         paramterDesc: '',
         sort: '+id'
@@ -169,7 +173,8 @@ export default {
         }
       })
     },
-    applyTypChange() {
+    applyTypChange(data) {
+      console.log(data, 'change---')
       if (this.listQuery.applyTyp) {
         // 清空参数类型数据
         this.listQuery.paramterTyp = null
