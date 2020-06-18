@@ -51,9 +51,6 @@ export default {
       dialogTitle: '新增',
       basePath: 'paramManage',
       paramTypLoading: false,
-      selectData: {
-        parent: []
-      },
       form: {
         id: '',
         applyTyp: '',
