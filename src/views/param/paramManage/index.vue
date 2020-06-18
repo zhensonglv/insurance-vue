@@ -103,7 +103,7 @@ export default {
         pageNum: 1,
         pageSize: 10,
         prodCde: '',
-        applyTyp: 'insurancedept',
+        applyTyp: '',
         paramterTyp: '',
         paramterDesc: '',
         sort: '+id'
@@ -122,7 +122,6 @@ export default {
   created() {
     this.fetchData()
     this.fetchTypeData()
-    console.log('index')
   },
   mounted() {
   },
@@ -174,7 +173,6 @@ export default {
       })
     },
     applyTypChange(data) {
-      console.log(data, 'change---')
       if (this.listQuery.applyTyp) {
         // 清空参数类型数据
         this.listQuery.paramterTyp = null
