@@ -30,7 +30,7 @@
         <el-input v-model="form.cusExplainNo" placeholder="请输入客户解释码" />
       </el-form-item>
       <el-form-item label="解释码说明" prop="desc" label-width="120px">
-        <el-input v-model="form.desc" placeholder="请输入解释码说明" />
+        <el-input v-model="form.descCde" placeholder="请输入解释码说明" />
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -66,7 +66,7 @@ export default {
         explCdeDesc: '',
         explCdeEngDesc: '',
         cusExplainNo: '',
-        desc: ''
+        descCde: ''
       },
       rules: {
         explCde: [{ required: true, trigger: 'blur', message: '请输入结论说明码' }]
@@ -100,7 +100,7 @@ export default {
       this.form.explCdeDesc = null
       this.form.explCdeEngDesc = null
       this.form.cusExplainNo = null
-      this.form.desc = null
+      this.form.descCde = null
     },
     handleClose() {
       this.clearForm()
