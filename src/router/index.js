@@ -203,6 +203,13 @@ export const constantRoutes = [
         component: () => import('@/views/param/explainNo/index'),
         name: '结论说明码',
         meta: { title: '结论说明码', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'consultDefi',
+        component: () => import('@/views/param/consultDefi/index'),
+        name: '就诊定义',
+        hidden: true,
+        meta: { title: '就诊定义', icon: 'guide', noCache: true }
       }
     ]
   },

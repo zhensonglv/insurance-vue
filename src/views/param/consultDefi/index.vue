@@ -2,38 +2,23 @@
   <div class="app-container">
     <el-card>
       <div>
-        <el-input v-model="listQuery.prodCde" style="width: 200px;" placeholder="请输入参数码查询" />
-        <el-select v-model="listQuery.applyTyp" placeholder="请选择适用层级" @change="applyTypChange">
+
+        <el-input v-model="listQuery.paramCde" style="width: 200px;" placeholder="请输入参数码查询" disabled="disabled" />
+
+        <el-select v-model="listQuery.docTyp" placeholder="请选择就诊类型">
           <el-option
-            v-for="item in businessData.CProdApplyTyp"
+            v-for="item in businessData.ClinicType"
             :key="item.value"
             :label="item.label"
             :value="item.value"
           />
         </el-select>
-        <el-select
-          v-model="listQuery.paramterTyp"
-          placeholder="请选择参数类型"
-        >
-          <el-option
-            v-for="item in paramData.prodParamterTyp"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          />
-        </el-select>
-        <el-input v-model="listQuery.paramterDesc" style="width: 200px;" placeholder="请输入参数描述查询" />
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="resetData">重置</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
-        <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleRoute">明细</el-button>
       </div>
       <br>
-      <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row @selection-change="handleSelect">
-        <el-table-column
-          type="selection"
-          width="55"
-        />
+      <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
         <el-table-column align="center" label="序号" width="95">
           <template slot-scope="scope">
             {{ scope.$index +1 }}
@@ -41,24 +26,40 @@
         </el-table-column>
         <el-table-column align="center" label="参数码" width="150">
           <template slot-scope="scope">
-            {{ scope.row.prodCde }}
+            {{ scope.row.paramCde }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="适用层级" width="150">
+        <el-table-column align="center" label="就诊类型" width="150">
           <template slot-scope="scope">
-            {{ CProdApplyTyp[scope.row.applyTyp] }}
+            {{ ClinicType[scope.row.docTyp] }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="参数类型" width="150">
+        <el-table-column align="center" label="就诊天数" width="150">
           <template slot-scope="scope">
-            {{ CParamTyps[scope.row.paramterTyp] }}
+            {{ scope.row.consultDays }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="参数描述" width="150">
+        <el-table-column align="center" label="诊断码" width="150">
           <template slot-scope="scope">
-            {{ scope.row.paramterDesc }}
+            {{ TrueOrFalse[scope.row.isDiagnoseCde] }}
           </template>
-        </el-table-column> <el-table-column align="center" label="备注" width="150">
+        </el-table-column>
+        <el-table-column align="center" label="就诊医院" width="150">
+          <template slot-scope="scope">
+            {{ TrueOrFalse[scope.row.isDiagnoseHospital] }}
+          </template>
+        </el-table-column>
+        <el-table-column align="center" label="就诊科室" width="150">
+          <template slot-scope="scope">
+            {{ TrueOrFalse[scope.row.isDiagnoseDepartment] }}
+          </template>
+        </el-table-column>
+        <el-table-column align="center" label="是否合并门诊" width="150">
+          <template slot-scope="scope">
+            {{ TrueOrFalse[scope.row.isCombineClinic] }}
+          </template>
+        </el-table-column>
+        <el-table-column align="center" label="备注" width="150">
           <template slot-scope="scope">
             {{ scope.row.descCrible }}
           </template>
@@ -85,7 +86,7 @@
 </template>
 
 <script>
-import { getList, findById, del, getPath } from '@/api/base'
+import { getList, findById, del } from '@/api/base'
 import { getCodeList } from '@/api/code'
 import Pagination from '@/components/Pagination'
 import Save from './save'
@@ -96,52 +97,32 @@ export default {
     return {
       list: null,
       listLoading: true,
-      paramLoading: false,
-      basePath: 'paramManage',
+      basePath: 'consultDefi',
       listQuery: {
         pageNum: 1,
         pageSize: 10,
-        prodCde: '',
-        applyTyp: '',
-        paramterTyp: '',
-        paramterDesc: '',
+        paramCde: '',
+        docTyp: '',
         sort: '+id'
       },
       total: 0,
       dialogVisible: false,
       form: null,
       businessData: {},
-      paramData: {},
-      CProdApplyTyp: {},
-      CParamTyps: {},
-      prodParamterTyp: {},
-      selected: []
+      ClinicType: {},
+      TrueOrFalse: {}
     }
   },
   created() {
+    if (this.$route.query.paramCde) { // 上级页面传入参数
+      this.listQuery.paramCde = this.$route.query.paramCde
+    }
     this.fetchData()
     this.fetchTypeData()
   },
   mounted() {
   },
   methods: {
-    handleRoute() {
-      if (this.selected.length !== 1) {
-        this.$message({
-          showClose: true,
-          message: '只能选择一条查看',
-          type: 'warning'
-        })
-      } else {
-        getPath({ paramterTyp: this.selected[0].paramterTyp }).then(res => {
-          var typPath = res.data.typPath
-          this.$router.push({ path: '/param/' + typPath, query: { paramCde: this.selected[0].prodCde }})
-        })
-      }
-    },
-    handleSelect(data) {
-      this.selected = data
-    },
     _notify(message, type) {
       this.$message({
         message: message,
@@ -157,14 +138,12 @@ export default {
       })
     },
     resetData() {
-      this.listQuery.prodCde = null
-      this.listQuery.applyTyp = null
-      this.listQuery.paramterTyp = null
-      this.listQuery.paramterDesc = null
+      this.listQuery.paramCde = null
+      this.listQuery.docTyp = null
     },
     fetchTypeData() {
       // 获取codeList
-      getCodeList({ parent: ['CProdApplyTyp', 'CParamTyps'] }).then(res => {
+      getCodeList({ parent: ['ClinicType', 'TrueOrFalse'] }).then(res => {
         this.businessData = res.data
         // 组装table 的map
         for (const key in this.businessData) {
@@ -174,21 +153,8 @@ export default {
         }
       })
     },
-    applyTypChange(data) {
-      if (this.listQuery.applyTyp) {
-        // 清空参数类型数据
-        this.listQuery.paramterTyp = null
-        getCodeList({ parent: [this.listQuery.applyTyp] }).then(res => {
-          this.paramData = res.data
-          for (const key in this.paramData) { // key:group  value：array
-            // 数组[{label:'限额',value:'1',parent:'duty'},{label:'免赔额',value:'2',parent:'duty'}]
-            this.paramData.prodParamterTyp = this.paramData[key]
-          }
-        })
-      }
-    },
     handleSave() {
-      this.form = { id: null }
+      this.form = { id: null, paramCde: this.listQuery.paramCde }
       this.dialogVisible = true
     },
     handleEdit(id) {

@@ -45,3 +45,10 @@ export function getCdeParentList() {
   })
 }
 
+export function getPath(data) {
+  return request({
+    url: '/base/paramterPath/getPath',
+    method: 'post',
+    data
+  })
+}
