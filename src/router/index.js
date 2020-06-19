@@ -191,6 +191,12 @@ export const constantRoutes = [
         component: () => import('@/views/param/paramManage/index'),
         name: '通用参数',
         meta: { title: '通用参数', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'explainNo',
+        component: () => import('@/views/param/explainNo/index'),
+        name: '结论说明码',
+        meta: { title: '结论说明码', icon: 'guide', noCache: true }
       }
     ]
   },
