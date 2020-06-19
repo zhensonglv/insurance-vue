@@ -193,6 +193,12 @@ export const constantRoutes = [
         meta: { title: '通用参数', icon: 'guide', noCache: true }
       },
       {
+        path: 'diagnosisManage',
+        component: () => import('@/views/param/diagnosisManage/index'),
+        name: '诊断管理',
+        meta: { title: '诊断管理', icon: 'guide', noCache: true }
+      },
+      {
         path: 'explainNo',
         component: () => import('@/views/param/explainNo/index'),
         name: '结论说明码',
