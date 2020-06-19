@@ -1,7 +1,7 @@
 <template>
   <el-dialog :title="dialogTitle" :before-close="handleClose" :visible.sync="dialogVisible" width="55%">
     <el-form ref="form" :inline="true" :rules="rules" :model="form" status-icon label-position="right" label-width="80px">
-      <el-form-item label="适用层级" prop="pubCoverTyp" label-width="120px">
+      <el-form-item label="适用层级" prop="applyTyp" label-width="120px">
         <el-select v-model="form.applyTyp" placeholder="请选择适用层级" @change="handlerTypChange">
           <el-option
             v-for="item in businessData.CProdApplyTyp"
@@ -11,8 +11,8 @@
           />
         </el-select>
       </el-form-item>
-      <el-form-item label="参数类型" prop="teamTyp" label-width="120px">
-        <el-select v-model="form.paramterTyp" v-loading="paramTypLoading" placeholder="请输入参数类型">
+      <el-form-item label="参数类型" prop="paramterTyp" label-width="120px">
+        <el-select v-model="form.paramterTyp" placeholder="请输入参数类型">
           <el-option
             v-for="item in saveBusinessData.prodParamterTyp"
             :key="item.value"
@@ -21,7 +21,7 @@
           />
         </el-select>
       </el-form-item>
-      <el-form-item label="参数描述" prop="teamNo" label-width="120px">
+      <el-form-item label="参数描述" prop="paramterDesc" label-width="120px">
         <el-input v-model="form.paramterDesc" placeholder="请输入参数描述" />
       </el-form-item>
     </el-form>
@@ -68,9 +68,8 @@ export default {
   },
   watch: {
     'sonData': function(newVal, oldVal) {
-      console.log(newVal, '----newVal')
-      console.log(oldVal, '----oldVal')
-
+      // console.log(JSON.stringify(newVal), '----newVal')
+      // console.log(JSON.stringify(oldVal), '----oldVal')
       this.form = newVal
       this.dialogVisible = true
       if (newVal.id != null) {
@@ -83,10 +82,6 @@ export default {
       }
     }
   },
-
-  created() {
-    console.log('created')
-  },
   methods: {
     _notify(message, type) {
       this.$message({
@@ -95,19 +90,14 @@ export default {
       })
     },
     handlerTypChange(data) {
-      console.log('---applyTyp change---')
       if (data) {
-        // 清空参数类型数据
-        this.form.paramterTyp = null
-        this.paramTypLoading = true
+        // this.paramTypLoading = true
         getCodeList({ parent: [data] }).then(res => {
           this.saveBusinessData = res.data
           for (const key in this.saveBusinessData) { // key:group  value：array
-            // 数组[{label:'限额',value:'1',parent:'duty'},{label:'免赔额',value:'2',parent:'duty'}]
-            this.saveBusinessData.prodParamterTyp = this.saveBusinessData[key]
+            this.$set(this.saveBusinessData, 'prodParamterTyp', this.saveBusinessData[key])// 实现双向绑定
           }
-          console.log(this.saveBusinessData.prodParamterTyp, '----this.saveBusinessData.prodParamterTyp ')
-          this.paramTypLoading = false
+          // this.paramTypLoading = false
         })
       }
     },
@@ -122,6 +112,7 @@ export default {
     handleClose() {
       this.clearForm()
       this.dialogVisible = false
+      this.$set(this.saveBusinessData, 'prodParamterTyp', [])
     },
     onSubmit(form) {
       this.$refs[form].validate((valid) => {
@@ -149,6 +140,7 @@ export default {
               }
             })
           }
+          this.$set(this.saveBusinessData, 'prodParamterTyp', [])
         } else {
           this.$message('error submit!!')
           return false

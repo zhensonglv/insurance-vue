@@ -13,7 +13,6 @@
         </el-select>
         <el-select
           v-model="listQuery.paramterTyp"
-          v-loading="paramLoading"
           placeholder="请选择参数类型"
         >
           <el-option
@@ -176,14 +175,12 @@ export default {
       if (this.listQuery.applyTyp) {
         // 清空参数类型数据
         this.listQuery.paramterTyp = null
-        this.paramLoading = true
         getCodeList({ parent: [this.listQuery.applyTyp] }).then(res => {
           this.paramData = res.data
           for (const key in this.paramData) { // key:group  value：array
             // 数组[{label:'限额',value:'1',parent:'duty'},{label:'免赔额',value:'2',parent:'duty'}]
             this.paramData.prodParamterTyp = this.paramData[key]
           }
-          this.paramLoading = false
         })
       }
     },
