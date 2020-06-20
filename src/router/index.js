@@ -191,6 +191,25 @@ export const constantRoutes = [
         component: () => import('@/views/param/paramManage/index'),
         name: '通用参数',
         meta: { title: '通用参数', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'diagnosisManage',
+        component: () => import('@/views/param/diagnosisManage/index'),
+        name: '诊断管理',
+        meta: { title: '诊断管理', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'explainNo',
+        component: () => import('@/views/param/explainNo/index'),
+        name: '结论说明码',
+        meta: { title: '结论说明码', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'consultDefi',
+        component: () => import('@/views/param/consultDefi/index'),
+        name: '就诊定义',
+        hidden: true,
+        meta: { title: '就诊定义', icon: 'guide', noCache: true }
       }
     ]
   },
