@@ -199,6 +199,12 @@ export const constantRoutes = [
         meta: { title: '诊断管理', icon: 'guide', noCache: true }
       },
       {
+        path: 'diagnosisMatching',
+        component: () => import('@/views/param/diagnosisMatching/index'),
+        name: '诊断匹配管理',
+        meta: { title: '诊断匹配管理', icon: 'guide', noCache: true }
+      },
+      {
         path: 'explainNo',
         component: () => import('@/views/param/explainNo/index'),
         name: '结论说明码',
@@ -210,6 +216,12 @@ export const constantRoutes = [
         name: '就诊定义',
         hidden: true,
         meta: { title: '就诊定义', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'serviceTypManage',
+        component: () => import('@/views/param/serviceTypManage/index'),
+        name: '服务类型管理',
+        meta: { title: '服务类型管理', icon: 'guide', noCache: true }
       }
     ]
   },
