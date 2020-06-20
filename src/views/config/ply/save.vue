@@ -158,9 +158,9 @@ export default {
       this.imgURL = this.form.avatar
       this.dialogVisible = true
       if (newVal.id != null) {
-        this.dialogTitle = 'Edit'
+        this.dialogTitle = '编辑保单配置'
       } else {
-        this.dialogTitle = 'Add'
+        this.dialogTitle = '增加保单配置'
       }
     }
   },

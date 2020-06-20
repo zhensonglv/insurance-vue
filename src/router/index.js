@@ -235,6 +235,22 @@ export const constantRoutes = [
       }
     ]
   },
+  {
+    path: '/config',
+    component: Layout,
+    redirect: '/config/ply',
+    alwaysShow: true,
+    name: '保单数据配置',
+    meta: { title: '保单数据配置', icon: 'guide', noCache: true },
+    children: [
+      {
+        path: 'ply',
+        component: () => import('@/views/config/ply/index'),
+        name: '保单配置',
+        meta: { title: '保单配置', icon: 'guide', noCache: true }
+      }
+    ]
+  },
   // {
   //   path: '/demo/index',
   //   component: () => import('@/views/demo/index'),
