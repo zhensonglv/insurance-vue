@@ -1,7 +1,7 @@
 <template>
   <el-dialog :title="dialogTitle" :before-close="handleClose" :visible.sync="dialogVisible" width="55%">
     <el-form ref="form" :inline="true" :rules="rules" :model="form" status-icon label-position="right" label-width="80px">
-      <el-form-item label="结论说明码" prop="plyPartNo" label-width="120px">
+      <el-form-item label="结论说明码" prop="explCde" label-width="120px">
         <el-input v-model="form.explCde" placeholder="请输入结论说明码" />
       </el-form-item>
       <el-form-item label="解释码类别" prop="explCategort" label-width="120px">
@@ -29,7 +29,7 @@
       <el-form-item label="客户解释码" prop="cusExplainNo" label-width="120px">
         <el-input v-model="form.cusExplainNo" placeholder="请输入客户解释码" />
       </el-form-item>
-      <el-form-item label="解释码说明" prop="desc" label-width="120px">
+      <el-form-item label="解释码说明" prop="descCde" label-width="120px">
         <el-input v-model="form.descCde" placeholder="请输入解释码说明" />
       </el-form-item>
     </el-form>

@@ -3,9 +3,9 @@
     <el-card>
       <div>
         <el-input v-model="listQuery.explCde" style="width: 200px;" placeholder="请输入结论说明码查询" />
-        <el-input v-model="listQuery.explCategort" style="width: 200px;" placeholder="请输入结论说明码查询" />
-        <el-input v-model="listQuery.explCdeSubcategory" style="width: 200px;" placeholder="请输入结论说明码查询" />
-        <el-input v-model="listQuery.explCdeDesc" style="width: 200px;" placeholder="请输入结论说明码查询" />
+        <el-input v-model="listQuery.explCategort" style="width: 200px;" placeholder="请输入解释码类别查询" />
+        <el-input v-model="listQuery.explCdeSubcategory" style="width: 200px;" placeholder="请输入解释码子类别查询" />
+        <el-input v-model="listQuery.explCdeDesc" style="width: 200px;" placeholder="请输入解释码描述查询" />
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
       </div>
