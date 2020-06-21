@@ -2,33 +2,40 @@
   <div class="app-container">
     <el-card>
       <div>
-        <el-input v-model="listQuery.diaMatParameterCde" style="width: 200px;" placeholder="请输入诊断匹配参数码查询" />
-        <el-input v-model="listQuery.explCategort" style="width: 200px;" placeholder="请输入说明查询" />
+        <el-input v-model="listQuery.dutyNo" style="width: 200px;" placeholder="请输入责任号查询" />
+        <el-input v-model="listQuery.dutyDesc" style="width: 200px;" placeholder="请输入责任描述查询" />
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
-        <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleRoute">明细</el-button>
       </div>
       <br>
-      <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row @selection-change="handleSelect">
-        <el-table-column
-          type="selection"
-          width="55"
-        />
+      <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
         <el-table-column align="center" label="序号" width="95">
           <template slot-scope="scope">
             {{ scope.$index +1 }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="诊断匹配参数码" width="450">
+        <el-table-column align="center" label="责任号" width="150">
           <template slot-scope="scope">
-            {{ scope.row.diaMatParameterCde }}
+            {{ scope.row.dutyNo }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="说明" width="450">
+        <el-table-column align="center" label="责任描述" width="150">
           <template slot-scope="scope">
-            {{ scope.row.explCategort }}
+            {{ scope.row.dutyDesc }}
+          </template>
+        </el-table-column>
+
+        <el-table-column align="center" label="服务类型起始码" width="150">
+          <template slot-scope="scope">
+            {{ scope.row.begSertypCde }}
+          </template>
+        </el-table-column>
+
+        <el-table-column align="center" label="服务类型结束码" width="150">
+          <template slot-scope="scope">
+            {{ scope.row.endSertypCde }}
           </template>
         </el-table-column>
 
@@ -54,8 +61,8 @@
 </template>
 
 <script>
-import { getList, findById, del, getPath } from '@/api/base'
-// mport { getCodeList } from '@/api/code'
+import { getList, findById, del } from '@/api/base'
+// import { getCodeList } from '@/api/code'
 import Pagination from '@/components/Pagination'
 import Save from './save'
 
@@ -65,11 +72,10 @@ export default {
     return {
       list: null,
       listLoading: true,
-      basePath: 'diagnosisMatching',
+      basePath: 'dutySertypMatching',
       listQuery: {
         pageNum: 1,
         pageSize: 10,
-        diaMatParameterCde: '',
         sort: '+id'
       },
       total: 0,
@@ -88,24 +94,6 @@ export default {
   mounted() {
   },
   methods: {
-    handleRoute() {
-      debugger
-      if (this.selected.length !== 1) {
-        this.$message({
-          showClose: true,
-          message: '只能选择一条查看',
-          type: 'warning'
-        })
-      } else {
-        getPath({ diaMatParameterCde: this.selected[0].diaMatParameterCde }).then(res => {
-          var typPath = res.data.typPath
-          this.$router.push({ path: '/param/' + typPath, query: { diaMatParameterCde: this.selected[0].diaMatParameterCde }})
-        })
-      }
-    },
-    handleSelect(data) {
-      this.selected = data
-    },
     _notify(message, type) {
       this.$message({
         message: message,
@@ -120,8 +108,7 @@ export default {
         this.listLoading = false
       })
     },
-    /*,
-    fetchTypeData() {
+    /* fetchTypeData() {
       // 获取codeList
       getCodeList({ parent: ['CExplCdeSubcategory'] }).then(res => {
         this.businessData = res.data

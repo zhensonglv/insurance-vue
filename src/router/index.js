@@ -199,6 +199,12 @@ export const constantRoutes = [
         meta: { title: '诊断管理', icon: 'guide', noCache: true }
       },
       {
+        path: 'dutySertypMatching',
+        component: () => import('@/views/param/dutySertypMatching/index'),
+        name: '责任服务类型匹配',
+        meta: { title: '责任服务类型匹配', icon: 'guide', noCache: true }
+      },
+      {
         path: 'diagnosisMatching',
         component: () => import('@/views/param/diagnosisMatching/index'),
         name: '诊断匹配管理',
