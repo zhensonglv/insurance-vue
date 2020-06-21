@@ -1,6 +1,13 @@
 <template>
   <div class="app-container">
     <el-card>
+      <div class="tab">
+        <span v-for="(item, index) in tabData" :key="index">
+          <span @click="handleTab(index)">{{ item }}</span>
+          <i class="el-icon-arrow-right" />
+        </span>
+      </div>
+
       <div class="left">
         <el-tree ref="tree" :data="treeData" :expand-on-click-node="false" @node-click="handleNodeClick">
           <template slot-scope="{ node, data }">
@@ -107,7 +114,8 @@ export default {
             disabled: true
           }]
         }]
-      }]
+      }],
+      tabData: ['第一级', '第二级', '第三级']
     }
   },
   created() {
@@ -119,6 +127,9 @@ export default {
         message: message,
         type: type
       })
+    },
+    handleTab(data) {
+      console.log(data, 'yayayyaya----')
     },
     add(data) {
       console.log(data, 'data----add')
