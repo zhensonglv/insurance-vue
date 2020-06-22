@@ -199,6 +199,12 @@ export const constantRoutes = [
         meta: { title: '诊断管理', icon: 'guide', noCache: true }
       },
       {
+        path: 'socialinsuAddr',
+        component: () => import('@/views/param/socialinsuAddr/index'),
+        name: '社保地',
+        meta: { title: '社保地', icon: 'guide', noCache: true }
+      },
+      {
         path: 'dutySertypMatching',
         component: () => import('@/views/param/dutySertypMatching/index'),
         name: '责任服务类型匹配',
