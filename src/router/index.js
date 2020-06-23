@@ -205,6 +205,12 @@ export const constantRoutes = [
         meta: { title: '社保地', icon: 'guide', noCache: true }
       },
       {
+        path: 'claimSpecialDefi',
+        component: () => import('@/views/param/claimSpecialDefi/index'),
+        name: '理赔审核规则定义',
+        meta: { title: '理赔审核规则定义', icon: 'guide', noCache: true }
+      },
+      {
         path: 'dutySertypMatching',
         component: () => import('@/views/param/dutySertypMatching/index'),
         name: '责任服务类型匹配',
