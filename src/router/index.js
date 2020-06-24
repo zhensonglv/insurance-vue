@@ -234,6 +234,12 @@ export const constantRoutes = [
         name: '就诊定义',
         hidden: true,
         meta: { title: '就诊定义', icon: 'guide', noCache: true }
+      }, {
+        path: 'medicdutyLimit',
+        component: () => import('@/views/param/medicdutyLimit/index'),
+        name: '责任范围',
+        // hidden: true,
+        meta: { title: '责任范围', icon: 'guide', noCache: true }
       },
       {
         path: 'serviceTypManage',
