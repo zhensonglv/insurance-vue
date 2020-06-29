@@ -199,6 +199,12 @@ export const constantRoutes = [
         meta: { title: '诊断管理', icon: 'guide', noCache: true }
       },
       {
+        path: 'serviceLine',
+        component: () => import('@/views/param/serviceLine/index'),
+        name: '业务线',
+        meta: { title: '业务线', icon: 'guide', noCache: true }
+      },
+      {
         path: 'socialinsuAddr',
         component: () => import('@/views/param/socialinsuAddr/index'),
         name: '社保地',
