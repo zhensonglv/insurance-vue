@@ -25,6 +25,7 @@
         </el-table-column>
         <el-table-column align="center" label="是否承担" width="150">
           <template slot-scope="scope">
+            <!--  {{ TrueOrFalse[scope.row.isPay] }}-->
             {{ TrueOrFalse[scope.row.isPay] }}
           </template>
         </el-table-column>
@@ -35,7 +36,7 @@
         </el-table-column>
         <el-table-column align="center" label="医保类型" width="150">
           <template slot-scope="scope">
-            {{ scope.row.medicInsureType }}
+            {{ scope.row.medicInsureDesc }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="费用类型" width="150">
@@ -96,7 +97,8 @@ export default {
       form: null,
       businessData: {},
       ClinicType: {},
-      TrueOrFalse: {}
+      TrueOrFalse: {},
+      DiaMatchTyp: {}
     }
   },
   created() {
@@ -130,15 +132,15 @@ export default {
     },
     fetchTypeData() {
       // 获取codeList
-      var parentData = ['ClinicType', 'TrueOrFalse', 'DiaMatchTyp', 'TreatCodeTyp', 'CSocialinsuTyp', 'CostTyp']
+      var parentData = ['ClinicType', 'TrueOrFalse', 'DiaMatchTyp', 'TreatCodeTyp', 'MedicInsureType', 'CostTyp']
       getCodeList({ parent: parentData }).then(res => {
         this.businessData = res.data
         // 组装table 的map
         for (const key in this.businessData) {
           this.businessData[key].forEach(item => {
             this[key][item.value] = item.label
-            console.log(this[key][item.value])
           })
+          console.log(this[key], key)
         }
       })
     },

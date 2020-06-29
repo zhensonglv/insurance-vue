@@ -82,12 +82,11 @@
       <el-form-item label="医保类型" prop="medicInsureType" label-width="240px">
         <el-checkbox v-model="checkAll" :indeterminate="isIndeterminate" @change="handleCheckAllChange">全选</el-checkbox>
         <div style="margin: 15px 0;" />
-        <el-checkbox-group v-model="form.medicInsureType" @change="handleCheckedCitiesChange">
+        <el-checkbox-group v-model="form.medicInsureDesc" @change="handleCheckedCitiesChange">
           <el-checkbox
-            v-for="item in businessData.CSocialinsuTyp"
+            v-for="item in businessData.MedicInsureType"
             :key="item.value"
             :label="item.label"
-            :value="item.value"
           >{{ item.label }}</el-checkbox>
 
         </el-checkbox-group>
@@ -153,11 +152,11 @@ export default {
         id: '',
         paramCde: '',
         docTyp: '',
-        medicInsureType: []
+        medicInsureDesc: []
       },
+      medicInsureType: [],
       checkAll: false,
       isIndeterminate: true,
-      checkInsureTypes: [],
       rules: {
         isPay: [{ required: true, trigger: 'blur', message: '请选择是否承担' }],
         docTyp: [{ required: true, trigger: 'blur', message: '请选择就诊类型' }]
@@ -183,18 +182,13 @@ export default {
       })
     },
     handleCheckAllChange(val) {
-      this.businessData.CSocialinsuTyp.forEach(item => {
-        this.checkInsureTypes.push(item.value)
-      })
-      console.log(this.checkInsureTypes)
-      this.form.medicInsureType = val ? this.checkInsureTypes : []
-      console.log(this.form.medicInsureType)
+      this.form.medicInsureDesc = val ? this.businessData.MedicInsureType : []
       this.isIndeterminate = false
     },
     handleCheckedCitiesChange(value) {
       const checkedCount = value.length
-      this.checkAll = checkedCount === this.businessData.CSocialinsuTyp.length
-      this.isIndeterminate = checkedCount > 0 && checkedCount < this.businessData.CSocialinsuTyp.length
+      this.checkAll = checkedCount === this.businessData.MedicInsureType.length
+      this.isIndeterminate = checkedCount > 0 && checkedCount < this.businessData.MedicInsureType.length
     },
 
     clearForm() {
@@ -210,6 +204,7 @@ export default {
       this.$refs[form].validate((valid) => {
         if (valid) {
           if (this.form.id === null) {
+            console.log(this.form.medicInsureDesc)
             save(this.basePath, this.form).then(response => {
               if (response.code === 200) {
                 this._notify(response.msg, 'success')
