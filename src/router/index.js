@@ -181,6 +181,22 @@ export const constantRoutes = [
   {
     path: '/param',
     component: Layout,
+    redirect: '/productData/product',
+    alwaysShow: true,
+    name: '产品数据配置',
+    meta: { title: '产品数据配置', icon: 'guide', noCache: true },
+    children: [
+      {
+        path: 'product',
+        component: () => import('@/views/productData/product/index'),
+        name: '产品',
+        meta: { title: '产品', icon: 'guide', noCache: true }
+      }
+    ]
+  },
+  {
+    path: '/param',
+    component: Layout,
     redirect: '/pram/paramManage',
     alwaysShow: true,
     name: '通用编码',
