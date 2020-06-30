@@ -2,8 +2,8 @@
   <div class="app-container">
     <el-card>
       <div>
-        <el-input v-model="listQuery.diaCde" style="width: 200px;" placeholder="请输入业务线号查询" />
-        <el-input v-model="listQuery.diaDesc" style="width: 200px;" placeholder="请输入公司查询" />
+        <el-input v-model="listQuery.serviceLineNo" style="width: 200px;" placeholder="请输入业务线号查询" />
+        <el-input v-model="listQuery.company" style="width: 200px;" placeholder="请输入公司查询" />
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
       </div>
