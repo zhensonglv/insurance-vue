@@ -112,14 +112,14 @@ export default {
       form: null,
       businessData: {},
       paramData: {},
-      CProdApplyTyp: {},
-      CParamTyps: {},
+      /*    CProdApplyTyp: {},
+      CParamTyps: {},*/
       prodParamterTyp: {},
       selected: []
     }
   },
   created() {
-    this.fetchData()
+    // this.fetchData()
     this.fetchTypeData()
   },
   mounted() {
@@ -169,9 +169,11 @@ export default {
         // 组装table 的map
         for (const key in this.businessData) {
           this.businessData[key].forEach(item => {
+            !this[key] && (this[key] = {})
             this[key][item.value] = item.label
           })
         }
+        this.fetchData()
       })
     },
     applyTypChange(data) {

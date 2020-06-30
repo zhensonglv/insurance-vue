@@ -137,9 +137,8 @@ export default {
             !this[key] && (this[key] = {})
             this[key][item.value] = item.label
           })
-          this.fetchData()
-          console.log(this[key], key)
         }
+        this.fetchData()
       })
     },
     handleSave() {

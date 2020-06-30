@@ -117,7 +117,7 @@ export default {
     if (this.$route.query.paramCde) { // 上级页面传入参数
       this.listQuery.paramCde = this.$route.query.paramCde
     }
-    this.fetchData()
+    // this.fetchData()
     this.fetchTypeData()
   },
   mounted() {
@@ -148,9 +148,11 @@ export default {
         // 组装table 的map
         for (const key in this.businessData) {
           this.businessData[key].forEach(item => {
+            !this[key] && (this[key] = {})
             this[key][item.value] = item.label
           })
         }
+        this.fetchData()
       })
     },
     handleSave() {

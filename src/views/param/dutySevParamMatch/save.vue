@@ -5,8 +5,14 @@
         <el-input v-model="form.paramCde" placeholder="请输入就参数码" disabled="disabled" />
       </el-form-item>
       <el-form-item label="责任号" prop="dutyNo" label-width="120px">
-        <el-input v-model="form.dutyNo" placeholder="请输入责任号" />
+        <el-input
+          v-model="form.dutyNo"
+          placeholder="请选择责任号"
+        >
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch" />
+        </el-input>
       </el-form-item>
+      <match v-model="matchVisable" @matchConfirm="matchConfirm" />
       <el-form-item label="责任描述" prop="dutyDesc" label-width="120px">
         <el-input v-model="form.dutyDesc" placeholder="请输入责任说明" />
       </el-form-item>
@@ -30,8 +36,12 @@
 
 <script>
 import { save, edit } from '@/api/base'
-
+import Match from './match'
 export default {
+
+  components: {
+    Match
+  },
   // 父组件向子组件传值，通过props获取。
   // 一旦父组件改变了`sonData`对应的值，子组件的`sonData`会立即改变，通过watch函数可以实时监听到值的变化
   // `props`不属于data，但是`props`中的参数可以像data中的参数一样直接使用
@@ -49,6 +59,7 @@ export default {
         serviceTypBgnCde: '',
         serviceTypEndCde: ''
       },
+      matchVisable: false,
       rules: {
         dutyNo: [{ required: true, trigger: 'blur', message: '请输入责任号' }],
         serviceTypBgnCde: [{ required: true, trigger: 'blur', message: '请输入服务类型起始码' }],
@@ -74,6 +85,16 @@ export default {
         type: type
       })
     },
+    hanldeMatch() {
+      this.matchVisable = true
+    },
+    matchConfirm(data) {
+      this.form.dutyNo = data[0].dutyNo
+      this.form.dutyDesc = data[0].dutyDesc
+      this.form.serviceTypBgnCde = data[0].begSertypCde
+      this.form.serviceTypEndCde = data[0].endSertypCde
+    },
+
     clearForm() {
       this.form.id = null
       this.form.paramCde = null
@@ -87,6 +108,7 @@ export default {
       this.dialogVisible = false
     },
     onSubmit(form) {
+      console.log(JSON.stringify(this.form))
       this.$refs[form].validate((valid) => {
         if (valid) {
           if (this.form.id === null) {
