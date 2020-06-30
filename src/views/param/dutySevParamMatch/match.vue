@@ -124,6 +124,7 @@ export default {
         })
         return
       }
+      this.resetData()
       this.$emit('matchConfirm', this.multipleSelection)
       this.dialogTableVisible = false
     }

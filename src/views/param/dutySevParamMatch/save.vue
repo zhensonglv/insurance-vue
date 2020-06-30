@@ -14,7 +14,7 @@
       </el-form-item>
       <match v-model="matchVisable" @matchConfirm="matchConfirm" />
       <el-form-item label="责任描述" prop="dutyDesc" label-width="120px">
-        <el-input v-model="form.dutyDesc" placeholder="请输入责任说明" />
+        <el-input v-model="form.dutyDesc" placeholder="请输入责任描述" />
       </el-form-item>
       <el-form-item label="服务类型起始码" prop="serviceTypBgnCde" label-width="120px">
         <el-input v-model="form.serviceTypBgnCde" placeholder="请输入服务类型起始码" />
@@ -108,7 +108,6 @@ export default {
       this.dialogVisible = false
     },
     onSubmit(form) {
-      console.log(JSON.stringify(this.form))
       this.$refs[form].validate((valid) => {
         if (valid) {
           if (this.form.id === null) {
