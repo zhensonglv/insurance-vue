@@ -252,6 +252,13 @@ export const constantRoutes = [
         component: () => import('@/views/param/serviceTypManage/index'),
         name: '服务类型管理',
         meta: { title: '服务类型管理', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'dutySevParamMatch',
+        component: () => import('@/views/param/dutySevParamMatch/index'),
+        name: '责任服务类型参数匹配',
+        hidden: true,
+        meta: { title: '责任服务类型参数匹配', icon: 'guide', noCache: true }
       }
     ]
   },
