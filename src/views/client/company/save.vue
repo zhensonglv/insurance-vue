@@ -29,7 +29,7 @@
         </el-input>
       </el-form-item>
     </el-form>
-    <hospital :hospital-visable="hospitalVisable" @hospitalConfirm="hospitalConfirm" />
+    <hospital v-model="hospitalVisable" @hospitalConfirm="hospitalConfirm" />
     <div slot="footer" class="dialog-footer">
       <el-button @click="handleClose">
         取消
@@ -82,6 +82,7 @@ export default {
   },
   watch: {
     'sonData': function(newVal, oldVal) {
+      console.log(JSON.stringify(newVal), '---', JSON.stringify(oldVal))
       this.form = newVal
       this.imgURL = this.form.avatar
       this.dialogVisible = true
@@ -145,7 +146,7 @@ export default {
       })
     },
     hospitalConfirm(data) {
-      this.form.insuBranckHospitalGroup = data
+      this.form.insuBranckHospitalGroup = data[0].name
     }
   }
 }
