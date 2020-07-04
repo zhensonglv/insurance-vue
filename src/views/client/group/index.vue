@@ -7,67 +7,67 @@
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
       </div>
       <br>
-      <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
+      <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row style="width: 100%" size="mini">
         <el-table-column align="center" label="序号" width="95">
           <template slot-scope="scope">
             {{ scope.$index +1 }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="集团号" width="150">
+        <el-table-column align="center" label="集团号">
           <template slot-scope="scope">
             {{ scope.row.groupNo }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="集团名称" width="150">
+        <el-table-column align="center" label="集团名称">
           <template slot-scope="scope">
             {{ scope.row.groupNme }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="联系人" width="150">
+        <el-table-column align="center" label="联系人">
           <template slot-scope="scope">
             {{ scope.row.contactNme }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="集团电话" width="150">
+        <el-table-column align="center" label="集团电话">
           <template slot-scope="scope">
             {{ scope.row.groupTel }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="集团手机" width="150">
+        <el-table-column align="center" label="集团手机">
           <template slot-scope="scope">
             {{ scope.row.groupPhone }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="集团传真" width="150">
+        <el-table-column align="center" label="集团传真">
           <template slot-scope="scope">
             {{ scope.row.groupFax }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="集团地址" width="150">
+        <el-table-column align="center" label="集团地址">
           <template slot-scope="scope">
             {{ scope.row.groupAddress }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="电子邮件" width="150">
+        <el-table-column align="center" label="电子邮件">
           <template slot-scope="scope">
             {{ scope.row.groupEmail }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="地区代码" width="150">
+        <el-table-column align="center" label="地区代码">
           <template slot-scope="scope">
             {{ scope.row.groupAreaCde }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="邮编" width="150">
+        <el-table-column align="center" label="邮编">
           <template slot-scope="scope">
             {{ scope.row.theInsuredPostcode }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="操作" fixed="right">
+        <el-table-column align="center" label="操作" width="200">
           <template slot-scope="scope">
-            <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)">编辑</el-button>
-            <el-button type="danger" size="mini" icon="el-icon-delete" class="action-button" @click="handleDel(scope.row.id)">删除</el-button>
-            <el-button type="primary" size="mini" icon="el-icon-view" class="action-button" @click="handleRoute(scope.row.id)">查看</el-button>
+            <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)" />
+            <el-button type="danger" size="mini" icon="el-icon-delete" class="action-button" @click="handleDel(scope.row.id)" />
+            <el-button type="primary" size="mini" icon="el-icon-view" class="action-button" @click="handleRoute(scope.row.id)" />
           </template>
         </el-table-column>
       </el-table>
