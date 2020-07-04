@@ -175,6 +175,12 @@ export const constantRoutes = [
         component: () => import('@/views/client/clientAlias/index'),
         name: '别名管理',
         meta: { title: '别名管理', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'claim',
+        component: () => import('@/views/client/claim/index'),
+        name: '理赔信息',
+        meta: { title: '理赔信息【demo】', icon: 'guide', noCache: true }
       }
     ]
   },
