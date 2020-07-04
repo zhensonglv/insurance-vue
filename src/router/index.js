@@ -322,6 +322,24 @@ export const constantRoutes = [
       }
     ]
   },
+
+  {
+    path: '/claim',
+    component: Layout,
+    redirect: '/claim/batch',
+    alwaysShow: true,
+    name: '理赔',
+    meta: { title: '理赔', icon: 'guide', noCache: true },
+    children: [
+      {
+        path: 'batch',
+        component: () => import('@/views/claim/batch/index'),
+        name: '批次理赔信息',
+        meta: { title: '批次理赔信息', icon: 'guide', noCache: true }
+      }
+    ]
+  },
+
   // {
   //   path: '/demo/index',
   //   component: () => import('@/views/demo/index'),
