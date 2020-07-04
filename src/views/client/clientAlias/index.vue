@@ -8,46 +8,51 @@
         <el-button style="margin-left: 10px;" type="info" icon="el-icon-edit" @click="handleRoute(listQuery)">页面跳转</el-button>
       </div>
       <br>
-      <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
+      <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row style="width: 100%" size="mini">
+        <el-table-column v-if="aggregate" type="expand">
+          <template>
+            <group />
+          </template>
+        </el-table-column>
         <el-table-column align="center" label="序号" width="95">
           <template slot-scope="scope">
             {{ scope.$index +1 }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="主被保险人客户标识号" width="200">
+        <el-table-column align="center" label="主被保险人客户标识号">
           <template slot-scope="scope">
             {{ scope.row.principalInsuredClientNo }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="被保险人客户号" width="200">
+        <el-table-column align="center" label="被保险人客户号">
           <template slot-scope="scope">
             {{ scope.row.insuredNo }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="被保人姓名" width="200">
+        <el-table-column align="center" label="被保人姓名">
           <template slot-scope="scope">
             {{ scope.row.insuredNme }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="被保人证件号" width="200">
+        <el-table-column align="center" label="被保人证件号">
           <template slot-scope="scope">
             {{ scope.row.insuredCert }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="投保单位" width="200">
+        <el-table-column align="center" label="投保单位">
           <template slot-scope="scope">
             {{ scope.row.insuranceApplication }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="别名" width="200">
+        <el-table-column align="center" label="别名">
           <template slot-scope="scope">
             {{ scope.row.aliasNme }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="操作" fixed="right">
+        <el-table-column align="center" label="操作" width="200">
           <template slot-scope="scope">
-            <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)">编辑</el-button>
-            <el-button type="danger" size="mini" icon="el-icon-delete" class="action-button" @click="handleDel(scope.row.id)">删除</el-button>
+            <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)" />
+            <el-button type="danger" size="mini" icon="el-icon-delete" @click="handleDel(scope.row.id)" />
           </template>
         </el-table-column>
       </el-table>
@@ -68,10 +73,17 @@
 <script>
 import { getList, findById, del } from '@/api/base'
 import Pagination from '@/components/Pagination'
+import group from '../group'
 import Save from './save'
 
 export default {
-  components: { Pagination, Save },
+  components: { Pagination, Save, group },
+  props: {
+    aggregate: {
+      type: Boolean,
+      default: false
+    }
+  },
   data() {
     return {
       list: null,

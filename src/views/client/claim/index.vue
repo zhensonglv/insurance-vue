@@ -1,15 +1,16 @@
 <template>
   <div class="app-container">
-    <table-component :list="list" :list-query="listQuery" />
+    <!-- <table-component :list="list" :list-query="listQuery" /> -->
+    <company aggregate />
   </div>
 </template>
 
 <script>
 import { getList, findById } from '@/api/base'
-import tableComponent from './tableComponent'
+import company from '../company'
 
 export default {
-  components: { tableComponent },
+  components: { company },
   data() {
     return {
       list: null,
@@ -63,5 +64,8 @@ export default {
 <style lang='scss' scoped>
 .app-container >>> .el-table__expanded-cell {
   padding: 10px 20px;
+  .app-container {
+    padding: 0;
+  }
 }
 </style>

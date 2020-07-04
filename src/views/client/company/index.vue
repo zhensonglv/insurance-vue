@@ -8,42 +8,47 @@
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
       </div>
       <br>
-      <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
+      <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row style="width: 100%" size="mini">
+        <el-table-column v-if="aggregate" type="expand">
+          <template>
+            <client-alias aggregate />
+          </template>
+        </el-table-column>
         <el-table-column align="center" label="序号" width="95">
           <template slot-scope="scope">
             {{ scope.$index +1 }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="直保公司代码" width="150">
+        <el-table-column align="center" label="直保公司代码">
           <template slot-scope="scope">
             {{ scope.row.insuCompanyCde }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="直保公司名称" width="150">
+        <el-table-column align="center" label="直保公司名称">
           <template slot-scope="scope">
             {{ scope.row.insuCompanyNme }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="直保分公司名称" width="150">
+        <el-table-column align="center" label="直保分公司名称">
           <template slot-scope="scope">
             {{ scope.row.insuBranckCompanyNme }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="创建时间" width="150">
+        <el-table-column align="center" label="创建时间">
           <template slot-scope="scope">
             {{ scope.row.crtTm }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="创建人" width="150">
+        <el-table-column align="center" label="创建人">
           <template slot-scope="scope">
             {{ scope.row.crtCde }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="操作" fixed="right">
+        <el-table-column align="center" label="操作">
           <template slot-scope="scope">
-            <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)">编辑</el-button>
-            <el-button type="danger" icon="el-icon-delete" size="mini" class="action-button" @click="handleDel(scope.row.id)">删除</el-button>
+            <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)" />
+            <el-button type="danger" icon="el-icon-delete" size="mini" @click="handleDel(scope.row.id)" />
           </template>
         </el-table-column>
 
@@ -65,10 +70,17 @@
 <script>
 import { getList, findById, del } from '@/api/client/company'
 import Pagination from '@/components/Pagination'
+import clientAlias from '../clientAlias'
 import Save from './save'
 
 export default {
-  components: { Pagination, Save },
+  components: { Pagination, clientAlias, Save },
+  props: {
+    aggregate: {
+      type: Boolean,
+      default: false
+    }
+  },
   data() {
     return {
       list: null,
