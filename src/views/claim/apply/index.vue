@@ -1,41 +1,8 @@
 <template>
   <div class="app-container">
     <el-card>
-      <div>
-        <el-input v-model="listQuery.batchNo" style="width: 200px;" placeholder="请输入批次号查询" />
-        <el-input v-model="listQuery.groupNme" style="width: 200px;" placeholder="请输入团体名称查询" />
-        <el-input v-model="listQuery.plyNo" style="width: 200px;" placeholder="请输入保单号称查询" />
 
-        <el-select v-model="listQuery.batchStatus" placeholder="请选择批次状态">
-          <!--<el-option
-            v-for="item in businessData.CTeamTyp"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          />-->
-        </el-select>
-        <el-select v-model="listQuery.batchOrigin" placeholder="请选择批次来源">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          />-->
-        </el-select>
-        <el-select v-model="listQuery.batchTyp" placeholder="请选择批次类型">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          />-->
-        </el-select>
-      </div>
       <div>
-        <el-input v-model="listQuery.medicalAuditor" style="width: 200px;" placeholder="请输入医疗审核人员查询" />
-
-        <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
-        <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="resetData">重置</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
       </div>
 
@@ -50,15 +17,15 @@
             {{ scope.$index +1 }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="批次号" width="150">
+        <el-table-column align="center" label="校验审核信息" width="150">
           <template slot-scope="scope">
-            {{ scope.row.batchNo }}
+            {{ scope.row.auditInformation }}
           <!--  <{{ scope.row.pubCoverTyp }}-->
           </template>
         </el-table-column>
-        <el-table-column align="center" label="客户批次号" width="150">
+        <el-table-column align="center" label="申请人姓名" width="150">
           <template slot-scope="scope">
-            {{ scope.row.customBatchNo }}
+            {{ scope.row.appNme }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="保单号" width="150">
@@ -66,45 +33,80 @@
             {{ scope.row.plyNo }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="团体名称" width="150">
+        <el-table-column align="center" label="被保人id" width="150">
           <template slot-scope="scope">
-            {{ scope.row.groupNme }}
+            {{ scope.row.insuresId }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="诊断复核人" width="150">
+        <el-table-column align="center" label="申请人证件号" width="150">
           <template slot-scope="scope">
-            {{ scope.row.diagReviewer }}
+            {{ scope.row.appCertCde }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="医疗审核人员" width="150">
+        <el-table-column align="center" label="客户申请号" width="150">
           <template slot-scope="scope">
-            {{ scope.row.medicalAuditor }}
+            {{ scope.row.customAppNo }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="签批人员" width="150">
+        <el-table-column align="center" label="分单号" width="150">
           <template slot-scope="scope">
-            {{ scope.row.singedStaff }}
+            {{ scope.row.plyPartNo }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="收件日" width="150">
+        <el-table-column align="center" label="账户号" width="150">
           <template slot-scope="scope">
-            {{ scope.row.comsignTm }}
+            {{ scope.row.acctNo }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="案件数量" width="150">
+        <el-table-column align="center" label="账户名" width="150">
           <template slot-scope="scope">
-            {{ scope.row.caseNumber }}
+            {{ scope.row.acctNme }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="批次案件状态" width="150">
+        <el-table-column align="center" label="总金额" width="150">
+          <template slot-scope="scope">
+            {{ scope.row.invoiceSum }}
+          </template>
+        </el-table-column>
+
+        <el-table-column align="center" label="赔付金额" width="150">
+          <template slot-scope="scope">
+            {{ scope.row.compensateAmt }}
+          </template>
+        </el-table-column>
+
+        <el-table-column align="center" label="最终赔付金额" width="150">
+          <template slot-scope="scope">
+            {{ scope.row.finalCompensateAmt }}
+          </template>
+        </el-table-column>
+
+        <el-table-column align="center" label="案件状态" width="150">
           <template slot-scope="scope">
             {{ scope.row.caseStatus }}
           </template>
         </el-table-column>
+
+        <el-table-column align="center" label="调查件状态" width="150">
+          <template slot-scope="scope">
+            {{ scope.row.questionStatus }}
+          </template>
+        </el-table-column>
+
+        <el-table-column align="center" label="问题件状态" width="150">
+          <template slot-scope="scope">
+            {{ scope.row.questionZhStatus }}
+          </template>
+        </el-table-column>
+
+        <el-table-column align="center" label="结论描述" width="150">
+          <template slot-scope="scope">
+            {{ scope.row.conclusionDesc }}
+          </template>
+        </el-table-column>
+
         <el-table-column align="center" label="操作" fixed="right" width="120">
           <template slot-scope="scope">
-            <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)">数据明细</el-button>
-            <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)">解锁</el-button>
             <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)">编辑</el-button>
             <el-button type="danger" size="mini" icon="el-icon-delete" class="action-button" @click="handleDel(scope.row.id)">删除</el-button>
           </template>
@@ -125,7 +127,7 @@
 </template>
 
 <script>
-import { getList, findById, del } from '@/api/claim/batch'
+import { getList, findById, del } from '@/api/claim/apply'
 import { getCodeList } from '@/api/code'
 import Pagination from '@/components/Pagination'
 import Save from './save'
@@ -139,16 +141,6 @@ export default {
       listQuery: {
         pageNum: 1,
         pageSize: 10,
-        /* teamTyp: '',
-        teamNo: '',
-        pubCoverTyp: '',*/
-        batchNo: '',
-        groupNme: '',
-        plyNo: '',
-        batchStatus: '',
-        batchOrigin: '',
-        batchTyp: '',
-        medicalAuditor: '',
         sort: '+id'
       },
       total: 0,
@@ -161,7 +153,7 @@ export default {
     }
   },
   created() {
-    this.fetchData()
+    this.fetchData(2)
     this.fetchTypeData()
   },
   mounted() {
@@ -178,31 +170,22 @@ export default {
         this.$router.push({ path: '/client/plyPartPubCov', query: { pubCoverId: this.selected[0].id }})
       }
     },*/
-    /* handleSelect(data) {
-      this.selected = data
-    },*/
+
     _notify(message, type) {
       this.$message({
         message: message,
         type: type
       })
     },
-    fetchData() {
+    fetchData(id) {
       this.listLoading = true
-      getList(this.listQuery).then(response => {
+      getList(this.listQuery, id).then(response => {
         this.list = response.data.data
         this.total = response.data.total
         this.listLoading = false
       })
     },
     resetData() {
-      this.listQuery.batchNo = null
-      this.listQuery.groupNme = null
-      this.listQuery.plyNo = null
-      this.listQuery.batchStatus = null
-      this.listQuery.batchOrigin = null
-      this.listQuery.batchTyp = null
-      this.listQuery.medicalAuditor = null
     },
     fetchTypeData() {
       // 获取codeList
