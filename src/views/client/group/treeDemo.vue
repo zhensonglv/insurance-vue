@@ -15,7 +15,7 @@
               <svg-icon :icon-class="data.icon || 'group'" />
               {{ data.label }}
               <span class="action">
-                <el-button type="text" @click="add(data)">新增</el-button>
+                <el-button type="text" @click="add(data, node)">新增</el-button>
                 <el-button type="text" @click="update(data)">修改</el-button>
                 <el-button type="text" @click="remove(data, node)">删除</el-button>
               </span>
@@ -57,16 +57,18 @@
         />
       </div>
     </el-card>
+    <addTree-dialog :dialog-visible="dialogVisible" />
   </div>
 </template>
 
 <script>
 import { getList, findById, del } from '@/api/base'
 import Pagination from '@/components/Pagination'
-let id = 1000
+import addTreeDialog from './addTree-dialog'
+// const id = 1000
 
 export default {
-  components: { Pagination },
+  components: { Pagination, addTreeDialog },
   data() {
     return {
       list: null,
@@ -133,12 +135,13 @@ export default {
     },
     add(data) {
       console.log(data, 'data----add')
+      this.dialogVisible = true
       // 钱总可以在这个之前写业务逻辑获取
-      const newChild = { id: id++, label: 'testtest', children: [] }
-      if (!data.children) {
-        this.$set(data, 'children', [])
-      }
-      data.children.push(newChild)
+      // const newChild = { id: id++, label: 'testtest', children: [] }
+      // if (!data.children) {
+      //   this.$set(data, 'children', [])
+      // }
+      // data.children.push(newChild)
     },
     update(data) {
       console.log(data, 'data----update')
