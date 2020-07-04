@@ -2,8 +2,10 @@
   <div class="app-container">
     <el-card>
       <div>
-        <el-input v-model="listQuery.plyNo" style="width: 200px;" placeholder="请输入保单标识号查询" />
-        <el-input v-model="listQuery.deptNme" style="width: 200px;" placeholder="请输入投保单位名称查询" />
+        <el-input v-model="listQuery.plyNo" style="width: 200px;" placeholder="请输入保单标识号" />
+        <el-input v-model="listQuery.certCde" style="width: 200px;" placeholder="请输入证件号" />
+        <el-input v-model="listQuery.plyPartNo" style="width: 200px;" placeholder="请输入分单号" />
+        <el-input v-model="listQuery.insuredNme" style="width: 200px;" placeholder="请输入被保险人姓名" />
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="resetData">重置</el-button>
@@ -15,49 +17,64 @@
             {{ scope.$index +1 }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="投保单位" width="150">
-          <template slot-scope="scope">
-            {{ scope.row.deptNme }}
-          </template>
-        </el-table-column>
         <el-table-column align="center" label="保单标识号" width="150">
           <template slot-scope="scope">
             {{ scope.row.plyNo }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="保险公司名称" width="150">
+        <el-table-column align="center" label="分单号" width="150">
           <template slot-scope="scope">
-            {{ scope.row.insuCompanyNme }}
+            {{ scope.row.plyPartNo }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="业务线" width="150">
+        <el-table-column align="center" label="被保险人姓名" width="150">
           <template slot-scope="scope">
-            {{ scope.row.serviceLine }}
+            {{ scope.row.insuredNme }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="保单申请日" width="150">
+        <el-table-column align="center" label="分单名" width="150">
           <template slot-scope="scope">
-            {{ scope.row.plyAppTm }}
+            {{ scope.row.plyPartNme }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="保单生效日" width="150">
+        <el-table-column align="center" label="证件类型" width="150">
           <template slot-scope="scope">
-            {{ scope.row.plyBgnTm }}
+            {{ scope.row.certCls }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="保单终止日" width="150">
+        <el-table-column align="center" label="证件号" width="150">
           <template slot-scope="scope">
-            {{ scope.row.plyEndTm }}
+            {{ scope.row.certCde }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="退保方式" width="150">
+        <el-table-column align="center" label="投保等级" width="150">
           <template slot-scope="scope">
-            {{ scope.row.edrSurrendTyp }}
+            {{ scope.row.insLv }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="销售渠道" width="150">
+        <el-table-column align="center" label="理赔悬挂" width="150">
           <template slot-scope="scope">
-            {{ scope.row.sellChannel }}
+            {{ scope.row.claimSuspend }}
+          </template>
+        </el-table-column>
+        <el-table-column align="center" label="保全悬挂" width="150">
+          <template slot-scope="scope">
+            {{ scope.row.preserveSuspend }}
+          </template>
+        </el-table-column>
+        <el-table-column align="center" label="特别约定" width="150">
+          <template slot-scope="scope">
+            {{ scope.row.specialAppoint }}
+          </template>
+        </el-table-column>
+        <el-table-column align="center" label="保单责任生效起期" width="150">
+          <template slot-scope="scope">
+            {{ scope.row.plyDutyStartTm }}
+          </template>
+        </el-table-column>
+        <el-table-column align="center" label="保单责任生效止期" width="150">
+          <template slot-scope="scope">
+            {{ scope.row.plyDutyEndTm }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="操作" fixed="right">
@@ -92,13 +109,15 @@ export default {
   data() {
     return {
       list: null,
-      basePath: 'plyConfig',
+      basePath: 'plyPart',
       listLoading: true,
       listQuery: {
         pageNum: 1,
         pageSize: 10,
         plyNo: undefined,
-        deptNme: undefined,
+        certCde: undefined,
+        plyPartNo: undefined,
+        insuredNme: undefined,
         sort: '+id'
       },
       total: 0,
@@ -126,7 +145,9 @@ export default {
     },
     resetData() {
       this.listQuery.plyNo = null
-      this.listQuery.deptNme = null
+      this.listQuery.certCde = null
+      this.listQuery.plyPartNo = null
+      this.listQuery.insuredNme = null
     },
     handleSave() {
       this.form = { id: null }
