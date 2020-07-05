@@ -342,6 +342,12 @@ export const constantRoutes = [
         component: () => import('@/views/claim/apply/index'),
         name: '申请理赔信息',
         meta: { title: '申请理赔信息', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'duty',
+        component: () => import('@/views/claim/duty/index'),
+        name: '理赔责任信息',
+        meta: { title: '理赔责任信息', icon: 'guide', noCache: true }
       }
     ]
   },
