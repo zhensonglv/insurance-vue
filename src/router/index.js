@@ -203,6 +203,12 @@ export const constantRoutes = [
         component: () => import('@/views/productData/insuranceType/index'),
         name: '险种',
         meta: { title: '险种', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'proDuty',
+        component: () => import('@/views/productData/proDuty/index'),
+        name: '责任',
+        meta: { title: '责任', icon: 'guide', noCache: true }
       }
     ]
   },
