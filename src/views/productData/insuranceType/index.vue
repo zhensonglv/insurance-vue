@@ -2,57 +2,58 @@
   <div class="app-container">
     <el-card>
       <div>
-        <el-input v-model="listQuery.aliasNme" style="width: 200px;" placeholder="请输入别名查询" />
+        <el-input v-model="listQuery.insuName" style="width: 200px;" placeholder="请输入险种名称查询" />
+        <el-input v-model="listQuery.insuTypeNo" style="width: 200px;" placeholder="请输入险种代码查询" />
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
-        <el-button style="margin-left: 10px;" type="info" icon="el-icon-edit" @click="handleRoute(listQuery)">页面跳转</el-button>
       </div>
       <br>
-      <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row style="width: 100%" size="mini">
-        <el-table-column v-if="aggregate" type="expand">
-          <template>
-            <group />
-          </template>
-        </el-table-column>
+      <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
         <el-table-column align="center" label="序号" width="95">
           <template slot-scope="scope">
             {{ scope.$index +1 }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="主被保险人客户标识号">
+        <el-table-column align="center" label="险种名称" width="150">
           <template slot-scope="scope">
-            {{ scope.row.principalInsuredClientNo }}
+            {{ scope.row.insuName }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="被保险人客户号">
+        <el-table-column align="center" label="险种代码" width="150">
           <template slot-scope="scope">
-            {{ scope.row.insuredNo }}
+            {{ scope.row.insuTypeNo }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="被保人姓名">
+        <el-table-column align="center" label="险种生效日" width="150">
           <template slot-scope="scope">
-            {{ scope.row.insuredNme }}
+            {{ scope.row.insuranceStartTm }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="被保人证件号">
+        <el-table-column align="center" label="险种终止日" width="150">
           <template slot-scope="scope">
-            {{ scope.row.insuredCert }}
+            {{ scope.row.insuranceEndTm }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="投保单位">
+        <el-table-column align="center" label="业务线" width="150">
           <template slot-scope="scope">
-            {{ scope.row.insuranceApplication }}
+            {{ scope.row.proServiceLine }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="别名">
+        <el-table-column align="center" label="社保规则" width="150">
           <template slot-scope="scope">
-            {{ scope.row.aliasNme }}
+            {{ scope.row.socialSecurityRule }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="操作" width="200">
+        <el-table-column align="center" label="备注" width="150">
           <template slot-scope="scope">
-            <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)" />
-            <el-button type="danger" size="mini" icon="el-icon-delete" @click="handleDel(scope.row.id)" />
+            {{ scope.row.remark }}
+          </template>
+        </el-table-column>
+        <el-table-column align="center" label="操作" fixed="right">
+          <template slot-scope="scope">
+            <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)">编辑</el-button>
+            <el-button type="danger" size="mini" icon="el-icon-delete" class="action-button" @click="handleDel(scope.row.id)">删除</el-button>
+            <!--<el-button type="primary" size="mini" icon="el-icon-view" class="action-button" @click="handleRoute(scope.row.id)">查看</el-button>-->
           </template>
         </el-table-column>
       </el-table>
@@ -73,26 +74,20 @@
 <script>
 import { getList, findById, del } from '@/api/base'
 import Pagination from '@/components/Pagination'
-import group from '../group'
 import Save from './save'
 
 export default {
-  components: { Pagination, Save, group },
-  props: {
-    aggregate: {
-      type: Boolean,
-      default: false
-    }
-  },
+  components: { Pagination, Save },
   data() {
     return {
       list: null,
-      basePath: 'clientAlias',
+      basePath: 'insuranceType',
       listLoading: true,
       listQuery: {
         pageNum: 1,
         pageSize: 10,
-        aliasNme: '',
+        insuName: '',
+        insuTypeNo: '',
         sort: '+id'
       },
       total: 0,
@@ -129,9 +124,9 @@ export default {
       })
     },
 
-    handleRoute(data) {
-      console.log(data, '钱总来了---')
-      this.$router.push({ path: '/system/dict', params: data })
+    handleRoute(id) {
+      console.log(id, '--')
+      this.$router.push({ path: '/system/dict', query: { id: id }})
     },
 
     // 子组件的状态Flag，子组件通过`this.$emit('sonStatus', val)`给父组件传值
@@ -143,7 +138,7 @@ export default {
     },
 
     handleDel(id) {
-      this.$confirm('你确定永久删除此别名？, 是否继续?', '提示', {
+      this.$confirm('你确定永久删除此业务线？, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'

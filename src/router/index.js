@@ -197,6 +197,18 @@ export const constantRoutes = [
         component: () => import('@/views/productData/product/index'),
         name: '产品',
         meta: { title: '产品', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'insuranceType',
+        component: () => import('@/views/productData/insuranceType/index'),
+        name: '险种',
+        meta: { title: '险种', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'proDuty',
+        component: () => import('@/views/productData/proDuty/index'),
+        name: '责任',
+        meta: { title: '责任', icon: 'guide', noCache: true }
       }
     ]
   },
@@ -227,6 +239,7 @@ export const constantRoutes = [
         meta: { title: '业务线', icon: 'guide', noCache: true }
       },
       {
+
         path: 'socialinsuAddr',
         component: () => import('@/views/param/socialinsuAddr/index'),
         name: '社保地',
@@ -334,6 +347,42 @@ export const constantRoutes = [
       }
     ]
   },
+
+  {
+    path: '/claim',
+    component: Layout,
+    redirect: '/claim/batch',
+    alwaysShow: true,
+    name: '理赔',
+    meta: { title: '理赔', icon: 'guide', noCache: true },
+    children: [
+      {
+        path: 'batch',
+        component: () => import('@/views/claim/batch/index'),
+        name: '批次理赔信息',
+        meta: { title: '批次理赔信息', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'apply',
+        component: () => import('@/views/claim/apply/index'),
+        name: '申请理赔信息',
+        meta: { title: '申请理赔信息', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'duty',
+        component: () => import('@/views/claim/duty/index'),
+        name: '理赔责任信息',
+        meta: { title: '理赔责任信息', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'visit',
+        component: () => import('@/views/claim/visit/index'),
+        name: '理赔就诊信息',
+        meta: { title: '理赔就诊信息', icon: 'guide', noCache: true }
+      }
+    ]
+  },
+
   // {
   //   path: '/demo/index',
   //   component: () => import('@/views/demo/index'),

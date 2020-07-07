@@ -1,78 +1,83 @@
 <template>
   <div class="app-container">
     <el-card>
+
       <div>
-        <el-input v-model="listQuery.groupNme" style="width: 200px;" placeholder="请输入集团名称查询" />
-        <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
       </div>
+
       <br>
-      <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row style="width: 100%" size="mini">
+      <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row @selection-change="handleSelect">
+        <el-table-column
+          type="selection"
+          width="55"
+        />
         <el-table-column align="center" label="序号" width="95">
           <template slot-scope="scope">
             {{ scope.$index +1 }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="集团号">
+        <el-table-column align="center" label="甲方产品名称" width="150">
           <template slot-scope="scope">
-            {{ scope.row.groupNo }}
+            {{ scope.row.partaProdName }}
+          <!--  <{{ scope.row.pubCoverTyp }}-->
           </template>
         </el-table-column>
-        <el-table-column align="center" label="集团名称">
+        <el-table-column align="center" label="甲方险种名称" width="150">
           <template slot-scope="scope">
-            {{ scope.row.groupNme }}
+            {{ scope.row.partaCvrgName }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="联系人">
+        <el-table-column align="center" label="甲方责任名称" width="150">
           <template slot-scope="scope">
-            {{ scope.row.contactNme }}
+            {{ scope.row.partaResponseName }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="集团电话">
+        <el-table-column align="center" label="总金额" width="150">
           <template slot-scope="scope">
-            {{ scope.row.groupTel }}
+            {{ scope.row.invoiceSum }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="集团手机">
+        <el-table-column align="center" label="扣除金额" width="150">
           <template slot-scope="scope">
-            {{ scope.row.groupPhone }}
+            {{ scope.row.deductAmt }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="集团传真">
+        <el-table-column align="center" label="可理算金额" width="150">
           <template slot-scope="scope">
-            {{ scope.row.groupFax }}
+            {{ scope.row.clacAmt }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="集团地址">
+        <el-table-column align="center" label="赔付金额" width="150">
           <template slot-scope="scope">
-            {{ scope.row.groupAddress }}
+            {{ scope.row.compensate_amt }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="电子邮件">
+        <el-table-column align="center" label="最终赔付金额" width="150">
           <template slot-scope="scope">
-            {{ scope.row.groupEmail }}
+            {{ scope.row.finalCompensateAmt }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="地区代码">
+        <el-table-column align="center" label="赔付结论" width="150">
           <template slot-scope="scope">
-            {{ scope.row.groupAreaCde }}
+            {{ scope.row.compensate_result }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="邮编">
+        <el-table-column align="center" label="操作" width="150">
           <template slot-scope="scope">
-            {{ scope.row.theInsuredPostcode }}
+            {{ scope.row.invoiceSum }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="操作" width="200">
+
+        <el-table-column align="center" label="操作" fixed="right" width="120">
           <template slot-scope="scope">
-            <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)" />
-            <el-button type="danger" size="mini" icon="el-icon-delete" class="action-button" @click="handleDel(scope.row.id)" />
-            <el-button type="primary" size="mini" icon="el-icon-view" class="action-button" @click="handleRoute(scope.row.id)" />
+            <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)">编辑</el-button>
+            <el-button type="danger" size="mini" icon="el-icon-delete" class="action-button" @click="handleDel(scope.row.id)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
 
-      <save :son-data="form" @sonStatus="status" />
+      <save :son-data="form" :business-data="businessData" @sonStatus="status" />
 
       <pagination
         v-show="total>0"
@@ -86,7 +91,8 @@
 </template>
 
 <script>
-import { getList, findById, del } from '@/api/base'
+import { getList, findById, del } from '@/api/claim/duty'
+import { getCodeList } from '@/api/code'
 import Pagination from '@/components/Pagination'
 import Save from './save'
 
@@ -95,38 +101,66 @@ export default {
   data() {
     return {
       list: null,
-      basePath: 'group',
       listLoading: true,
       listQuery: {
         pageNum: 1,
         pageSize: 10,
-        groupNme: undefined,
-        importance: undefined,
-        title: undefined,
-        type: undefined,
         sort: '+id'
       },
       total: 0,
       dialogVisible: false,
-      form: null
+      form: null,
+      businessData: {},
+      CTeamTyp: {},
+      CPubCoverTyp: {},
+      selected: []
     }
   },
   created() {
-    this.fetchData()
+    this.fetchData(2)
+    this.fetchTypeData()
+  },
+  mounted() {
   },
   methods: {
+    /* handleRoute() {
+      if (this.selected.length !== 1) {
+        this.$message({
+          showClose: true,
+          message: '只能选择一条查看',
+          type: 'warning'
+        })
+      } else {
+        this.$router.push({ path: '/client/plyPartPubCov', query: { pubCoverId: this.selected[0].id }})
+      }
+    },*/
+
     _notify(message, type) {
       this.$message({
         message: message,
         type: type
       })
     },
-    fetchData() {
+    fetchData(id) {
       this.listLoading = true
-      getList(this.basePath, this.listQuery).then(response => {
+      getList(this.listQuery, id).then(response => {
         this.list = response.data.data
         this.total = response.data.total
         this.listLoading = false
+      })
+    },
+    resetData() {
+    },
+    fetchTypeData() {
+      // 获取codeList
+      getCodeList({ parent: ['CTeamTyp', 'CPubCoverTyp'] }).then(res => {
+        this.businessData = res.data
+        // 组装table 的map
+        for (const key in this.businessData) {
+          this.businessData[key].forEach(item => {
+            this[key][item.value] = item.label
+          })
+        }
       })
     },
     handleSave() {
@@ -135,16 +169,10 @@ export default {
     },
     handleEdit(id) {
       // 跳转到新的页面
-      findById(this.basePath, id).then(response => {
+      findById(id).then(response => {
         this.form = response.data
       })
     },
-
-    handleRoute(id) {
-      console.log(id, '--')
-      this.$router.push({ path: '/system/dict', query: { id: id }})
-    },
-
     // 子组件的状态Flag，子组件通过`this.$emit('sonStatus', val)`给父组件传值
     // 父组件通过`@sonStatus`的方法`status`监听到子组件传递的值
     status(data) {
@@ -154,12 +182,12 @@ export default {
     },
 
     handleDel(id) {
-      this.$confirm('你确定永久删除此集团？, 是否继续?', '提示', {
+      this.$confirm('你确定永久删除此数据？, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        del(this.basePath, id).then(response => {
+        del(id).then(response => {
           if (response.code === 200) {
             this._notify(response.msg, 'success')
           } else {

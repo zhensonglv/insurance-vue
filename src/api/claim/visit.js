@@ -1,8 +1,8 @@
 import request from '@/utils/request'
 
-export function getList(data) {
+export function getList(data, id) {
   return request({
-    url: '/base/company/list',
+    url: '/base/visit/list/' + 2,
     method: 'post',
     data
   })
@@ -10,14 +10,14 @@ export function getList(data) {
 
 export function findById(id) {
   return request({
-    url: '/base/company/query/' + id,
+    url: '/base/visit/query/' + id,
     method: 'get'
   })
 }
 
-export function save(data) {
+export function save(data, id) {
   return request({
-    url: '/base/company/save',
+    url: '/base/visit/save',
     method: 'post',
     data
   })
@@ -25,14 +25,14 @@ export function save(data) {
 
 export function del(id) {
   return request({
-    url: '/base/company/' + id,
+    url: '/base/visit/' + id,
     method: 'delete'
   })
 }
 
 export function edit(data) {
   return request({
-    url: '/base/company/edit',
+    url: '/base/visit/edit',
     method: 'put',
     data
   })
