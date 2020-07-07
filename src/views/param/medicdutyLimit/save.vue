@@ -87,6 +87,7 @@
             v-for="item in businessData.MedicInsureType"
             :key="item.value"
             :label="item.label"
+            :value="item.value"
           >{{ item.label }}</el-checkbox>
 
         </el-checkbox-group>
@@ -154,7 +155,7 @@ export default {
         docTyp: '',
         medicInsureDesc: []
       },
-      medicInsureType: [],
+      medicInsureArr: ['A-甲类', 'B-乙类', 'C-丙类'],
       checkAll: false,
       isIndeterminate: true,
       rules: {
@@ -182,7 +183,8 @@ export default {
       })
     },
     handleCheckAllChange(val) {
-      this.form.medicInsureDesc = val ? this.businessData.MedicInsureType : []
+      this.form.medicInsureDesc = val ? this.medicInsureArr : []
+      console.log(this.form.medicInsureDesc)
       this.isIndeterminate = false
     },
     handleCheckedCitiesChange(value) {

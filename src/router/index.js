@@ -185,7 +185,7 @@ export const constantRoutes = [
     ]
   },
   {
-    path: '/param',
+    path: '/productData',
     component: Layout,
     redirect: '/productData/product',
     alwaysShow: true,
@@ -294,6 +294,18 @@ export const constantRoutes = [
         name: '责任服务类型参数匹配',
         hidden: true,
         meta: { title: '责任服务类型参数匹配', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'quotaConfig',
+        component: () => import('@/views/param/quotaConfig/index'),
+        name: '限额',
+        meta: { title: '限额', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'deductibleExcessConfig',
+        component: () => import('@/views/param/deductibleExcessConfig/index'),
+        name: '免赔额',
+        meta: { title: '免赔额', icon: 'guide', noCache: true }
       }
     ]
   },
