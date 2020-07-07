@@ -126,6 +126,9 @@ export default {
     }
   },
   created() {
+    if (this.$route.query.plyNo) {
+      this.listQuery.plyNo = this.$route.query.plyNo
+    }
     this.fetchData()
   },
   methods: {
