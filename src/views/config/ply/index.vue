@@ -7,9 +7,20 @@
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="resetData">重置</el-button>
+        <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handlePlyConfig">保单配置</el-button>
+        <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handlePlyPart">查询分单</el-button>
       </div>
       <br>
       <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
+        <el-table-column
+          type="center"
+          label="选择"
+          width="55"
+        >
+          <template slot-scope="scope">
+            <el-radio v-model="plyRadio" :label="scope.$index" @change.native="handleSelect(scope.row.plyNo)">&nbsp;</el-radio>
+          </template>
+        </el-table-column>
         <el-table-column align="center" label="序号" width="95">
           <template slot-scope="scope">
             {{ scope.$index +1 }}
@@ -103,13 +114,40 @@ export default {
       },
       total: 0,
       dialogVisible: false,
-      form: null
+      form: null,
+      selected: null,
+      plyRadio: false
     }
   },
   created() {
     this.fetchData()
   },
   methods: {
+    handlePlyConfig() {
+      if (this.selected == null) {
+        this.$message({
+          showClose: true,
+          message: '选择一条查看',
+          type: 'warning'
+        })
+      } else {
+        this.$router.push({ path: '/config/plyTreeConfig', query: { plyNo: this.selected }})
+      }
+    },
+    handlePlyPart() {
+      if (this.selected == null) {
+        this.$message({
+          showClose: true,
+          message: '选择一条查看',
+          type: 'warning'
+        })
+      } else {
+        this.$router.push({ path: '/config/plyPart', query: { plyNo: this.selected }})
+      }
+    },
+    handleSelect(data) {
+      this.selected = data
+    },
     _notify(message, type) {
       this.$message({
         message: message,

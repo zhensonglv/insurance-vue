@@ -319,6 +319,18 @@ export const constantRoutes = [
         component: () => import('@/views/config/ply/index'),
         name: '保单配置',
         meta: { title: '保单配置', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'plyTreeConfig',
+        component: () => import('@/views/config/ply/treeConfig'),
+        name: '保单投保等级',
+        meta: { title: '保单投保等级', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'plyPart',
+        component: () => import('@/views/config/plyPart/index'),
+        name: '分单配置',
+        meta: { title: '分单配置', icon: 'guide', noCache: true }
       }
     ]
   },
