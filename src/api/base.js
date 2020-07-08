@@ -52,3 +52,10 @@ export function getPath(data) {
     data
   })
 }
+
+export function getTree(path) {
+  return request({
+    url: '/base/' + path + '/getTree',
+    method: 'get'
+  })
+}

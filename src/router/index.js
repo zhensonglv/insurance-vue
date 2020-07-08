@@ -185,7 +185,7 @@ export const constantRoutes = [
     ]
   },
   {
-    path: '/param',
+    path: '/productData',
     component: Layout,
     redirect: '/productData/product',
     alwaysShow: true,
@@ -197,6 +197,18 @@ export const constantRoutes = [
         component: () => import('@/views/productData/product/index'),
         name: '产品',
         meta: { title: '产品', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'insuranceType',
+        component: () => import('@/views/productData/insuranceType/index'),
+        name: '险种',
+        meta: { title: '险种', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'proDuty',
+        component: () => import('@/views/productData/proDuty/index'),
+        name: '责任',
+        meta: { title: '责任', icon: 'guide', noCache: true }
       }
     ]
   },
@@ -227,6 +239,7 @@ export const constantRoutes = [
         meta: { title: '业务线', icon: 'guide', noCache: true }
       },
       {
+
         path: 'socialinsuAddr',
         component: () => import('@/views/param/socialinsuAddr/index'),
         name: '社保地',
@@ -281,6 +294,18 @@ export const constantRoutes = [
         name: '责任服务类型参数匹配',
         hidden: true,
         meta: { title: '责任服务类型参数匹配', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'quotaConfig',
+        component: () => import('@/views/param/quotaConfig/index'),
+        name: '限额',
+        meta: { title: '限额', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'deductibleExcessConfig',
+        component: () => import('@/views/param/deductibleExcessConfig/index'),
+        name: '免赔额',
+        meta: { title: '免赔额', icon: 'guide', noCache: true }
       }
     ]
   },
@@ -319,6 +344,18 @@ export const constantRoutes = [
         component: () => import('@/views/config/ply/index'),
         name: '保单配置',
         meta: { title: '保单配置', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'plyTreeConfig',
+        component: () => import('@/views/config/ply/treeConfig'),
+        name: '保单投保等级',
+        meta: { title: '保单投保等级', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'plyPart',
+        component: () => import('@/views/config/plyPart/index'),
+        name: '分单配置',
+        meta: { title: '分单配置', icon: 'guide', noCache: true }
       }
     ]
   },

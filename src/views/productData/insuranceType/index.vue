@@ -2,80 +2,58 @@
   <div class="app-container">
     <el-card>
       <div>
-        <el-input v-model="listQuery.plyNo" style="width: 200px;" placeholder="请输入保单标识号查询" />
-        <el-input v-model="listQuery.deptNme" style="width: 200px;" placeholder="请输入投保单位名称查询" />
+        <el-input v-model="listQuery.insuName" style="width: 200px;" placeholder="请输入险种名称查询" />
+        <el-input v-model="listQuery.insuTypeNo" style="width: 200px;" placeholder="请输入险种代码查询" />
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
-        <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="resetData">重置</el-button>
-        <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handlePlyConfig">保单配置</el-button>
-        <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handlePlyPart">查询分单</el-button>
       </div>
       <br>
       <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
-        <el-table-column
-          type="center"
-          label="选择"
-          width="55"
-        >
-          <template slot-scope="scope">
-            <el-radio v-model="plyRadio" :label="scope.$index" @change.native="handleSelect(scope.row.plyNo)">&nbsp;</el-radio>
-          </template>
-        </el-table-column>
         <el-table-column align="center" label="序号" width="95">
           <template slot-scope="scope">
             {{ scope.$index +1 }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="投保单位" width="150">
+        <el-table-column align="center" label="险种名称" width="150">
           <template slot-scope="scope">
-            {{ scope.row.deptNme }}
+            {{ scope.row.insuName }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="保单标识号" width="150">
+        <el-table-column align="center" label="险种代码" width="150">
           <template slot-scope="scope">
-            {{ scope.row.plyNo }}
+            {{ scope.row.insuTypeNo }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="保险公司名称" width="150">
+        <el-table-column align="center" label="险种生效日" width="150">
           <template slot-scope="scope">
-            {{ scope.row.insuCompanyNme }}
+            {{ scope.row.insuranceStartTm }}
+          </template>
+        </el-table-column>
+        <el-table-column align="center" label="险种终止日" width="150">
+          <template slot-scope="scope">
+            {{ scope.row.insuranceEndTm }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="业务线" width="150">
           <template slot-scope="scope">
-            {{ scope.row.serviceLine }}
+            {{ scope.row.proServiceLine }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="保单申请日" width="150">
+        <el-table-column align="center" label="社保规则" width="150">
           <template slot-scope="scope">
-            {{ scope.row.plyAppTm }}
+            {{ scope.row.socialSecurityRule }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="保单生效日" width="150">
+        <el-table-column align="center" label="备注" width="150">
           <template slot-scope="scope">
-            {{ scope.row.plyBgnTm }}
-          </template>
-        </el-table-column>
-        <el-table-column align="center" label="保单终止日" width="150">
-          <template slot-scope="scope">
-            {{ scope.row.plyEndTm }}
-          </template>
-        </el-table-column>
-        <el-table-column align="center" label="退保方式" width="150">
-          <template slot-scope="scope">
-            {{ scope.row.edrSurrendTyp }}
-          </template>
-        </el-table-column>
-        <el-table-column align="center" label="销售渠道" width="150">
-          <template slot-scope="scope">
-            {{ scope.row.sellChannel }}
+            {{ scope.row.remark }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="操作" fixed="right">
           <template slot-scope="scope">
             <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)">编辑</el-button>
             <el-button type="danger" size="mini" icon="el-icon-delete" class="action-button" @click="handleDel(scope.row.id)">删除</el-button>
-            <el-button type="primary" size="mini" icon="el-icon-view" class="action-button" @click="handleRoute(scope.row.id)">查看</el-button>
+            <!--<el-button type="primary" size="mini" icon="el-icon-view" class="action-button" @click="handleRoute(scope.row.id)">查看</el-button>-->
           </template>
         </el-table-column>
       </el-table>
@@ -103,51 +81,24 @@ export default {
   data() {
     return {
       list: null,
-      basePath: 'plyConfig',
+      basePath: 'insuranceType',
       listLoading: true,
       listQuery: {
         pageNum: 1,
         pageSize: 10,
-        plyNo: undefined,
-        deptNme: undefined,
+        insuName: '',
+        insuTypeNo: '',
         sort: '+id'
       },
       total: 0,
       dialogVisible: false,
-      form: null,
-      selected: null,
-      plyRadio: false
+      form: null
     }
   },
   created() {
     this.fetchData()
   },
   methods: {
-    handlePlyConfig() {
-      if (this.selected == null) {
-        this.$message({
-          showClose: true,
-          message: '选择一条查看',
-          type: 'warning'
-        })
-      } else {
-        this.$router.push({ path: '/config/plyTreeConfig', query: { plyNo: this.selected }})
-      }
-    },
-    handlePlyPart() {
-      if (this.selected == null) {
-        this.$message({
-          showClose: true,
-          message: '选择一条查看',
-          type: 'warning'
-        })
-      } else {
-        this.$router.push({ path: '/config/plyPart', query: { plyNo: this.selected }})
-      }
-    },
-    handleSelect(data) {
-      this.selected = data
-    },
     _notify(message, type) {
       this.$message({
         message: message,
@@ -162,10 +113,6 @@ export default {
         this.listLoading = false
       })
     },
-    resetData() {
-      this.listQuery.plyNo = null
-      this.listQuery.deptNme = null
-    },
     handleSave() {
       this.form = { id: null }
       this.dialogVisible = true
@@ -177,6 +124,11 @@ export default {
       })
     },
 
+    handleRoute(id) {
+      console.log(id, '--')
+      this.$router.push({ path: '/system/dict', query: { id: id }})
+    },
+
     // 子组件的状态Flag，子组件通过`this.$emit('sonStatus', val)`给父组件传值
     // 父组件通过`@sonStatus`的方法`status`监听到子组件传递的值
     status(data) {
@@ -186,7 +138,7 @@ export default {
     },
 
     handleDel(id) {
-      this.$confirm('你确定永久删除此配置？, 是否继续?', '提示', {
+      this.$confirm('你确定永久删除此业务线？, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
