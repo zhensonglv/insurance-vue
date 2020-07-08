@@ -4,10 +4,10 @@
       <div>
 
         <el-input v-model="listQuery.paramCde" style="width: 200px;" placeholder="请输入参数码查询" disabled="disabled" />
-
-        <el-select v-model="listQuery.docTyp" placeholder="请选择就诊类型">
+        <el-input v-model="listQuery.deductibleExcessDesc" style="width: 200px;" placeholder="请输入免赔额描述" />
+        <el-select v-model="listQuery.deductibleExcessTyp" placeholder="请选择免赔额类型">
           <el-option
-            v-for="item in businessData.ClinicType"
+            v-for="item in businessData.CDeductibleExcessTyp"
             :key="item.value"
             :label="item.label"
             :value="item.value"
@@ -29,39 +29,24 @@
             {{ scope.row.paramCde }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="就诊类型" width="150">
+        <el-table-column align="center" label="免赔额类型" width="150">
           <template slot-scope="scope">
-            {{ ClinicType[scope.row.docTyp] }}
+            {{ CDeductibleExcessTyp[scope.row.deductibleExcessTyp] }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="就诊天数" width="150">
+        <el-table-column align="center" label="就诊原因" width="150">
           <template slot-scope="scope">
-            {{ scope.row.consultDays }}
+            {{ QuotaVisitReason[scope.row.visitReason] }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="诊断码" width="150">
+        <el-table-column align="center" label="适用条件" width="150">
           <template slot-scope="scope">
-            {{ TrueOrFalse[scope.row.isDiagnoseCde] }}
+            {{ CiRateCondition[scope.row.applyCondition] }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="就诊医院" width="150">
+        <el-table-column align="center" label="免赔额" width="150">
           <template slot-scope="scope">
-            {{ TrueOrFalse[scope.row.isDiagnoseHospital] }}
-          </template>
-        </el-table-column>
-        <el-table-column align="center" label="就诊科室" width="150">
-          <template slot-scope="scope">
-            {{ TrueOrFalse[scope.row.isDiagnoseDepartment] }}
-          </template>
-        </el-table-column>
-        <el-table-column align="center" label="是否合并门诊" width="150">
-          <template slot-scope="scope">
-            {{ TrueOrFalse[scope.row.isCombineClinic] }}
-          </template>
-        </el-table-column>
-        <el-table-column align="center" label="备注" width="150">
-          <template slot-scope="scope">
-            {{ scope.row.descCrible }}
+            {{ scope.row.deductibleExcessAmt }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="操作" fixed="right">
@@ -97,12 +82,13 @@ export default {
     return {
       list: null,
       listLoading: true,
-      basePath: 'consultDefi',
+      basePath: 'deductibleExcessConfig',
       listQuery: {
         pageNum: 1,
         pageSize: 10,
         paramCde: '',
-        docTyp: '',
+        deductibleExcessDesc: '',
+        deductibleExcessTyp: '',
         sort: '+id'
       },
       total: 0,
@@ -110,7 +96,10 @@ export default {
       form: null,
       businessData: {},
       ClinicType: {},
-      TrueOrFalse: {}
+      CDeductibleExcessTyp: {},
+      QuotaVisitReason: {},
+      CiRateCondition: {},
+      CiRateBillTyp: {}
     }
   },
   created() {
@@ -138,12 +127,14 @@ export default {
       })
     },
     resetData() {
-      this.listQuery.paramCde = null
-      this.listQuery.docTyp = null
+      this.listQuery.deductibleExcessTyp = null
+      this.listQuery.deductibleExcessDesc = null
     },
     fetchTypeData() {
       // 获取codeList
-      getCodeList({ parent: ['ClinicType', 'TrueOrFalse'] }).then(res => {
+      var parentData = ['CDeductibleExcessTyp', 'QuotaVisitReason', 'CiRateCondition',
+        'CiRateBillTyp', 'ClinicType', 'TrueOrFalse']
+      getCodeList({ parent: parentData }).then(res => {
         this.businessData = res.data
         // 组装table 的map
         for (const key in this.businessData) {

@@ -4,33 +4,10 @@
       <el-form-item label="参数码" prop="paramCde" label-width="120px">
         <el-input v-model="form.paramCde" placeholder="请输入就参数码" disabled="disabled" />
       </el-form-item>
-      <el-form-item label="就诊天数" prop="consultDays" label-width="120px">
-        <el-input v-model="form.consultDays" placeholder="请输入就诊天数" />
-      </el-form-item>
-      <el-form-item label="诊断码" prop="isDiagnoseCde" label-width="120px">
-        <el-select v-model="form.isDiagnoseCde" placeholder="请选择">
+      <el-form-item label="限额类型" prop="quotaTyp" label-width="120px">
+        <el-select v-model="form.quotaTyp" placeholder="请选择">
           <el-option
-            v-for="item in businessData.TrueOrFalse"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          />
-        </el-select>
-      </el-form-item>
-      <el-form-item label="就诊医院" prop="isDiagnoseHospital" label-width="120px">
-        <el-select v-model="form.isDiagnoseHospital" placeholder="请选择">
-          <el-option
-            v-for="item in businessData.TrueOrFalse"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          />
-        </el-select>
-      </el-form-item>
-      <el-form-item label="就诊科室" prop="isDiagnoseDepartment" label-width="120px">
-        <el-select v-model="form.isDiagnoseDepartment" placeholder="请选择">
-          <el-option
-            v-for="item in businessData.TrueOrFalse"
+            v-for="item in businessData.QuotaTyp"
             :key="item.value"
             :label="item.label"
             :value="item.value"
@@ -47,8 +24,48 @@
           />
         </el-select>
       </el-form-item>
-      <el-form-item label="是否合并门诊" prop="isCombineClinic" label-width="120px">
-        <el-select v-model="form.isCombineClinic" placeholder="请选择">
+      <el-form-item label="金额类型" prop="amountTyp" label-width="120px">
+        <el-select v-model="form.amountTyp" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.QuotaAmountTyp"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
+      </el-form-item>
+      <el-form-item label="就诊原因" prop="visitReason" label-width="120px">
+        <el-select v-model="form.visitReason" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.QuotaVisitReason"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
+      </el-form-item>
+      <el-form-item label="适用条件" prop="applyCondition" label-width="120px">
+        <el-select v-model="form.applyCondition" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.CiRateCondition"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
+      </el-form-item>
+      <el-form-item label="账单类型" prop="billTyp" label-width="120px">
+        <el-select v-model="form.billTyp" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.CiRateBillTyp"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
+      </el-form-item>
+      <el-form-item label="阶梯" prop="isLadder" label-width="120px">
+        <el-select v-model="form.isLadder" placeholder="请选择">
           <el-option
             v-for="item in businessData.TrueOrFalse"
             :key="item.value"
@@ -57,8 +74,52 @@
           />
         </el-select>
       </el-form-item>
-      <el-form-item label="备注" prop="descCrible" label-width="120px">
-        <el-input v-model="form.descCrible" placeholder="请输入参数描述" />
+      <el-form-item label="限额次数类型" prop="timesTyp" label-width="120px">
+        <el-select v-model="form.timesTyp" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.QuotaTimesTyp"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
+      </el-form-item>
+      <el-form-item label="限额次数" prop="qoutaTimes" label-width="120px">
+        <el-input v-model="form.qoutaTimes" placeholder="请输入参数描述" />
+      </el-form-item>
+      <el-form-item label="累计次数" prop="sumTimes" label-width="120px">
+        <el-input v-model="form.sumTimes" placeholder="请输入参数描述" />
+      </el-form-item>
+      <el-form-item label="累计限额" prop="aggregateLimitDesc" label-width="120px">
+        <el-input v-model="form.aggregateLimitDesc" placeholder="请输入参数描述" />
+      </el-form-item>
+      <el-form-item label="治疗类型" prop="treatmentDesc" label-width="120px">
+        <el-input v-model="form.treatmentDesc" placeholder="请输入参数描述" />
+      </el-form-item>
+      <el-form-item label="医院网络码" prop="medicalNetworkCde" label-width="120px">
+        <el-input v-model="form.medicalNetworkCde" placeholder="请输入参数描述" />
+      </el-form-item>
+      <el-form-item label="解释码" prop="explainCde" label-width="120px">
+        <el-input v-model="form.explainCde" placeholder="请输入参数描述" />
+      </el-form-item>
+      <el-form-item label="解释码描述" prop="explainDesc" label-width="120px">
+        <el-input v-model="form.explainDesc" placeholder="请输入参数描述" />
+      </el-form-item>
+      <el-form-item label="是否医保投保" prop="isMedical" label-width="120px">
+        <el-select v-model="form.isMedical" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
+      </el-form-item>
+      <el-form-item label="限额" prop="quotaAmt" label-width="120px">
+        <el-input v-model="form.quotaAmt" placeholder="请输入参数描述" />
+      </el-form-item>
+      <el-form-item label="限额描述" prop="quotaDesc" label-width="120px">
+        <el-input v-model="form.quotaDesc" placeholder="请输入参数描述" />
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -84,25 +145,37 @@ export default {
     return {
       dialogVisible: false,
       dialogTitle: '新增',
-      basePath: 'consultDefi',
+      basePath: 'quotaConfig',
       form: {
         id: '',
         paramCde: '',
-        consultDays: '',
-        isDiagnoseCde: '',
-        isDiagnoseHospital: '',
-        isDiagnoseDepartment: '',
-        suitlevel: '',
+        quotaDesc: '',
+        medicalNetworkCde: '',
+        quotaTyp: '',
+        visitReason: '',
+        explainCde: '',
+        explainDesc: '',
+        quotaAmt: '',
+        amountTyp: '',
+        billTyp: '',
+        applyCondition: '',
+        aggregateLimitDesc: '',
+        timesTyp: '',
+        qoutaTimes: '',
+        sumTimes: '',
         docTyp: '',
-        isCombineClinic: '',
-        bgnDays: '',
-        afterDays: '',
-        hbcode: '',
-        descCrible: ''
+        isMedical: '',
+        treatmentDesc: '',
+        isLadder: ''
+
       },
       rules: {
-        consultDays: [{ required: true, trigger: 'blur', message: '请输入就诊天数' }],
-        docTyp: [{ required: true, trigger: 'blur', message: '请输入就诊类型' }]
+        quotaDesc: [{ required: true, trigger: 'blur', message: '请输入限额描述' }],
+        quotaTyp: [{ required: true, trigger: 'blur', message: '请选择限额类型' }],
+        visitReason: [{ required: true, trigger: 'blur', message: '请选择就诊原因' }],
+        amountTyp: [{ required: true, trigger: 'blur', message: '请选择金额类型' }],
+        quotaAmt: [{ required: true, trigger: 'blur', message: '请输入限额' }],
+        isLadder: [{ required: true, trigger: 'blur', message: '请选择阶梯' }]
       }
     }
   },
@@ -127,17 +200,24 @@ export default {
     clearForm() {
       this.form.id = null
       this.form.paramCde = null
-      this.form.consultDays = null
-      this.form.isDiagnoseCde = null
-      this.form.isDiagnoseHospital = null
-      this.form.isDiagnoseDepartment = null
-      this.form.suitlevel = null
+      this.form.quotaDesc = null
+      this.form.medicalNetworkCde = null
+      this.form.quotaTyp = null
+      this.form.visitReason = null
+      this.form.explainCde = null
+      this.form.explainDesc = null
+      this.form.quotaAmt = null
+      this.form.amountTyp = null
+      this.form.billTyp = null
+      this.form.applyCondition = null
+      this.form.aggregateLimitDesc = null
+      this.form.timesTyp = null
+      this.form.qoutaTimes = null
+      this.form.sumTimes = null
       this.form.docTyp = null
-      this.form.isCombineClinic = null
-      this.form.bgnDays = null
-      this.form.afterDays = null
-      this.form.hbcode = null
-      this.form.descCrible = null
+      this.form.isMedical = null
+      this.form.treatmentDesc = null
+      this.form.isLadder = null
     },
     handleClose() {
       this.clearForm()

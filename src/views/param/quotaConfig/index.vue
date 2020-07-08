@@ -36,17 +36,17 @@
         </el-table-column>
         <el-table-column align="center" label="限额类型" width="150">
           <template slot-scope="scope">
-            {{ scope.row.quotaTyp }}
+            {{ QuotaTyp[scope.row.quotaTyp] }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="就诊原因" width="150">
           <template slot-scope="scope">
-            {{ scope.row.visitReason }}
+            {{ QuotaVisitReason[scope.row.visitReason] }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="适用条件" width="150">
           <template slot-scope="scope">
-            {{ scope.row.applyCondition }}
+            {{ CiRateCondition[scope.row.applyCondition] }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="限额" width="150">
@@ -105,8 +105,9 @@ export default {
       dialogVisible: false,
       form: null,
       businessData: {},
-      ClinicType: {},
-      TrueOrFalse: {}
+      QuotaTyp: {},
+      QuotaVisitReason: {},
+      CiRateCondition: {}
     }
   },
   created() {
@@ -139,7 +140,9 @@ export default {
     },
     fetchTypeData() {
       // 获取codeList
-      getCodeList({ parent: ['QuotaTyp'] }).then(res => {
+      var parantData = ['QuotaTyp', 'QuotaVisitReason', 'CiRateCondition', 'ClinicType',
+        'TrueOrFalse', 'QuotaAmountTyp', 'CiRateBillTyp', 'QuotaTimesTyp']
+      getCodeList({ parent: parantData }).then(res => {
         this.businessData = res.data
         // 组装table 的map
         for (const key in this.businessData) {
