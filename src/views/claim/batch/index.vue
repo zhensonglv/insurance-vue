@@ -37,6 +37,7 @@
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="resetData">重置</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
+        <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleDtl">数据明细</el-button>
       </div>
 
       <br>
@@ -161,26 +162,14 @@ export default {
     }
   },
   created() {
-    this.fetchData()
     this.fetchTypeData()
   },
   mounted() {
   },
   methods: {
-    /* handleRoute() {
-      if (this.selected.length !== 1) {
-        this.$message({
-          showClose: true,
-          message: '只能选择一条查看',
-          type: 'warning'
-        })
-      } else {
-        this.$router.push({ path: '/client/plyPartPubCov', query: { pubCoverId: this.selected[0].id }})
-      }
-    },*/
-    /* handleSelect(data) {
+    handleSelect(data) {
       this.selected = data
-    },*/
+    },
     _notify(message, type) {
       this.$message({
         message: message,
@@ -214,6 +203,7 @@ export default {
             this[key][item.value] = item.label
           })
         }
+        this.fetchData()
       })
     },
     handleSave() {
@@ -225,6 +215,17 @@ export default {
       findById(id).then(response => {
         this.form = response.data
       })
+    },
+    handleDtl() {
+      if (this.selected.length !== 1) {
+        this.$message({
+          showClose: true,
+          message: '只能选择一条查看',
+          type: 'warning'
+        })
+      } else {
+        this.$router.push({ path: '/claim/apply', query: { batchNo: this.selected[0].batchNo }})
+      }
     },
     // 子组件的状态Flag，子组件通过`this.$emit('sonStatus', val)`给父组件传值
     // 父组件通过`@sonStatus`的方法`status`监听到子组件传递的值

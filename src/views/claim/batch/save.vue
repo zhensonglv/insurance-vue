@@ -1,7 +1,9 @@
 <template>
   <el-dialog :title="dialogTitle" :before-close="handleClose" :visible.sync="dialogVisible" width="55%">
     <el-form ref="form" :inline="true" :rules="rules" :model="form" status-icon label-position="right" label-width="80px">
-
+      <el-form-item label="批次号" prop="batchNo" label-width="120px">
+        <el-input v-model="form.batchNo" placeholder="请输入客户批次号" />
+      </el-form-item>
       <el-form-item label="客户批次号" prop="customBatchNo" label-width="120px">
         <el-input v-model="form.customBatchNo" placeholder="请输入客户批次号" />
       </el-form-item>
@@ -333,6 +335,7 @@ export default {
       dialogTitle: '新增',
       form: {
         id: '',
+        batchNo: '',
         customBatchNo: '',
         adminAssist: '',
         company: '',
@@ -385,6 +388,7 @@ export default {
         value: 'code'
       },*/
       rules: {
+        batchNo: [{ required: true, trigger: 'blur', message: '请输入批次号' }],
         customBatchNo: [{ required: true, trigger: 'blur', message: '请输入客户批次号' }],
         plyNo: [{ required: true, trigger: 'blur', message: '请输入保单号' }],
         cusConsignTm: [{ required: true, trigger: 'blur', message: '请输入客户收件日' }],
