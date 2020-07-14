@@ -310,6 +310,22 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/medical',
+    component: Layout,
+    redirect: '/medical/medicalGroup',
+    alwaysShow: true,
+    name: '医疗机构配置',
+    meta: { title: '医疗机构配置', icon: 'guide', noCache: true },
+    children: [
+      {
+        path: 'medicalGroup',
+        component: () => import('@/views/medical/medicalGroup/index'),
+        name: '医疗集团管理',
+        meta: { title: '医疗集团管理', icon: 'guide', noCache: true }
+      }
+    ]
+  },
+  {
     path: '/system',
     component: Layout,
     redirect: '/system/dict',
