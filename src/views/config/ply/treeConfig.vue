@@ -57,16 +57,17 @@
         />
       </div>
     </el-card>
+    <saveTreeDialog :son-data="form" :dialog-visible="dialogVisible" @sonStatus="status" />
   </div>
 </template>
 
 <script>
 import { findById, del, getTree } from '@/api/base'
 import Pagination from '@/components/Pagination'
-let id = 1000
+import saveTreeDialog from './saveTreeDialog'
 
 export default {
-  components: { Pagination },
+  components: { Pagination, saveTreeDialog },
   data() {
     return {
       list: null,
@@ -103,16 +104,14 @@ export default {
       console.log(data, 'yayayyaya----')
     },
     add(data) {
-      console.log(data, 'data----add')
-      // 钱总可以在这个之前写业务逻辑获取
-      const newChild = { id: id++, label: 'testtest', children: [] }
-      if (!data.children) {
-        this.$set(data, 'children', [])
-      }
-      data.children.push(newChild)
+      this.form = { pid: data.id, id: null }
+      this.dialogVisible = true
     },
     update(data) {
-      console.log(data, 'data----update')
+      findById(this.basePath, data.id).then(response => {
+        this.form = response.data
+      })
+      this.dialogVisible = true
     },
     remove(data, node) {
       // 钱总可以在这个之前写业务逻辑获取
@@ -140,7 +139,6 @@ export default {
     },
     handleSave() {
       this.form = { id: null }
-      this.dialogVisible = true
     },
     handleEdit(id) {
       // 跳转到新的页面
@@ -158,6 +156,7 @@ export default {
     // 父组件通过`@sonStatus`的方法`status`监听到子组件传递的值
     status(data) {
       if (data) {
+        this.fetchTreeData()
         this.fetchData()
       }
     },
