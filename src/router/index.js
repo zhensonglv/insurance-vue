@@ -322,6 +322,12 @@ export const constantRoutes = [
         component: () => import('@/views/medical/medicalGroup/index'),
         name: '医疗集团管理',
         meta: { title: '医疗集团管理', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'hospitalManage',
+        component: () => import('@/views/medical/hospitalManage/index'),
+        name: '医院管理',
+        meta: { title: '医院管理', icon: 'guide', noCache: true }
       }
     ]
   },
