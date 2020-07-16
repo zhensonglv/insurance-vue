@@ -53,9 +53,18 @@ export function getPath(data) {
   })
 }
 
-export function getTree(path) {
+export function getTree(path, data) {
   return request({
     url: '/base/' + path + '/getTree',
-    method: 'get'
+    method: 'post',
+    data
+  })
+}
+
+export function delTree(path, data) {
+  return request({
+    url: '/base/' + path + '/deleteTree',
+    method: 'post',
+    data
   })
 }

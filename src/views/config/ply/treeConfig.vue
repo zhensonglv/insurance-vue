@@ -13,7 +13,7 @@
           <template slot-scope="{ node, data }">
             <div>
               <svg-icon :icon-class="data.icon || 'group'" />
-              {{ data.label }}
+              {{ data.name }}
               <span class="action">
                 <el-button type="text" @click="add(data)">新增</el-button>
                 <el-button type="text" @click="update(data)">修改</el-button>
@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import { findById, del, getTree } from '@/api/base'
+import { del, findById, getTree, delTree } from '@/api/base'
 import Pagination from '@/components/Pagination'
 import saveTreeDialog from './saveTreeDialog'
 
@@ -84,12 +84,20 @@ export default {
       },
       total: 0,
       dialogVisible: false,
+      treeQuery: {
+        dataNo: null,
+        level: null
+      },
       form: null,
       treeData: [],
-      tabData: ['第一级', '第二级', '第三级']
+      tabData: ['集团', ' 团体', '保单', ' 等级', '产品', ' 险种', '责任']
     }
   },
   created() {
+    if (this.$route.query.plyNo) {
+      this.treeQuery.dataNo = this.$route.query.plyNo
+      this.treeQuery.level = 3
+    }
     this.fetchTreeData()
     this.fetchData()
   },
@@ -114,18 +122,29 @@ export default {
       this.dialogVisible = true
     },
     remove(data, node) {
-      // 钱总可以在这个之前写业务逻辑获取
-      const parent = node.parent
-      const children = parent.data.children || parent.data
-      const index = children.findIndex(d => d.id === data.id)
-      children.splice(index, 1)
-      console.log(data, 'data----delete')
+      this.$confirm('你确定永久删除此配置？, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        delTree(this.basePath, data).then(response => {
+          if (response.code === 200) {
+            this._notify(response.msg, 'success')
+          } else {
+            this._notify(response.msg, 'error')
+          }
+          this.fetchTreeData()
+          this.fetchData()
+        })
+      }).catch(() => {
+        this._notify('已取消删除', 'info')
+      })
     },
     handleNodeClick(data) {
       console.log(data, '---')
     },
     fetchTreeData() {
-      getTree(this.basePath).then(response => {
+      getTree(this.basePath, this.treeQuery).then(response => {
         this.treeData = response.data
       })
     },
