@@ -375,7 +375,7 @@ export const constantRoutes = [
       },
       {
         path: 'plyPart',
-        component: () => import('@/views/config/plyPart/index'),
+        component: () => import('@/views/config/plypart/index'),
         name: '分单配置',
         meta: { title: '分单配置', icon: 'guide', noCache: true }
       }
@@ -419,6 +419,18 @@ export const constantRoutes = [
         component: () => import('@/views/claim/inv/index'),
         name: '理赔发票信息',
         meta: { title: '理赔发票信息', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'treat',
+        component: () => import('@/views/claim/treat/index'),
+        name: '诊疗明细信息',
+        meta: { title: '诊疗明细信息', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'deduct',
+        component: () => import('@/views/claim/deduct/index'),
+        name: '理赔扣减信息',
+        meta: { title: '理赔扣减信息', icon: 'guide', noCache: true }
       }
     ]
   },
