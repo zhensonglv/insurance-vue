@@ -7,7 +7,21 @@
       </div>
 
       <br>
-      <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row @selection-change="handleSelect">
+      <el-table
+        v-loading="listLoading"
+        :data="list"
+        element-loading-text="Loading"
+        border
+        fit
+        highlight-current-row
+        @expand-change="expandChange"
+        @selection-change="handleSelect"
+      >
+        <el-table-column v-if="aggregate" type="expand">
+          <template>
+            <treat aggregate :inv-id="invId" />
+          </template>
+        </el-table-column>
         <el-table-column
           type="selection"
           width="55"
@@ -80,7 +94,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="操作" fixed="right" width="120">
+        <el-table-column align="center" label="操作" width="120">
           <template slot-scope="scope">
             <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)">编辑</el-button>
             <el-button type="danger" size="mini" icon="el-icon-delete" class="action-button" @click="handleDel(scope.row.id)">删除</el-button>
@@ -106,12 +120,23 @@ import { getList, findById, del } from '@/api/claim/inv'
 import { getCodeList } from '@/api/code'
 import Pagination from '@/components/Pagination'
 import Save from './save'
+import treat from '../treat'
 
 export default {
-  components: { Pagination, Save },
+  components: { Pagination, Save, treat },
+  props: {
+    aggregate: {
+      type: Boolean,
+      default: false
+    },
+    visitId: {
+      type: Number
+    }
+  },
   data() {
     return {
       list: null,
+      invId: null,
       listLoading: true,
       listQuery: {
         pageNum: 1,
@@ -134,6 +159,10 @@ export default {
   mounted() {
   },
   methods: {
+    handleSelect() {},
+    expandChange(row, extend) {
+      this.invId = row.id
+    },
     /* handleRoute() {
       if (this.selected.length !== 1) {
         this.$message({
@@ -154,6 +183,9 @@ export default {
     },
     fetchData(id) {
       this.listLoading = true
+      if (this.visitId) {
+        this.listQuery.id = this.visitId
+      }
       getList(this.listQuery, id).then(response => {
         this.list = response.data.data
         this.total = response.data.total

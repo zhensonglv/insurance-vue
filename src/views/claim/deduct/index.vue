@@ -29,7 +29,7 @@
         </el-table-column>
       </el-table>
 
-      <save :son-data="form" :business-data="businessData" @sonStatus="status" />
+      <!-- <save :son-data="form" :business-data="businessData" @sonStatus="status" /> -->
 
       <pagination
         v-show="total>0"
@@ -49,6 +49,15 @@ import Pagination from '@/components/Pagination'
 
 export default {
   components: { Pagination },
+  props: {
+    aggregate: {
+      type: Boolean,
+      default: false
+    },
+    treatId: {
+      type: Number
+    }
+  },
   data() {
     return {
       list: null,
@@ -74,6 +83,7 @@ export default {
   mounted() {
   },
   methods: {
+    handleSelect() {},
     /* handleRoute() {
       if (this.selected.length !== 1) {
         this.$message({
@@ -94,6 +104,9 @@ export default {
     },
     fetchData(id) {
       this.listLoading = true
+      if (this.treatId) {
+        this.listQuery.id = this.treatId
+      }
       getList(this.listQuery, id).then(response => {
         this.list = response.data.data
         this.total = response.data.total

@@ -7,7 +7,21 @@
       </div>
 
       <br>
-      <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row @selection-change="handleSelect">
+      <el-table
+        v-loading="listLoading"
+        :data="list"
+        element-loading-text="Loading"
+        border
+        fit
+        highlight-current-row
+        @expand-change="expandChange"
+        @selection-change="handleSelect"
+      >
+        <el-table-column type="expand">
+          <template>
+            <duty aggregate :apply-id="applyId" />
+          </template>
+        </el-table-column>
         <el-table-column
           type="selection"
           width="55"
@@ -105,7 +119,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="操作" fixed="right" width="120">
+        <el-table-column align="center" label="操作" width="120">
           <template slot-scope="scope">
             <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)">编辑</el-button>
             <el-button type="danger" size="mini" icon="el-icon-delete" class="action-button" @click="handleDel(scope.row.id)">删除</el-button>
@@ -131,12 +145,14 @@ import { getList, findById, del } from '@/api/claim/apply'
 import { getCodeList } from '@/api/code'
 import Pagination from '@/components/Pagination'
 import Save from './save'
+import duty from '../duty'
 
 export default {
-  components: { Pagination, Save },
+  components: { Pagination, Save, duty },
   data() {
     return {
       list: null,
+      applyId: null,
       listLoading: true,
       listQuery: {
         pageNum: 1,
@@ -161,6 +177,9 @@ export default {
   methods: {
     handleSelect(data) {
       this.selected = data
+    },
+    expandChange(row, extend) {
+      this.applyId = row.id
     },
     _notify(message, type) {
       this.$message({
@@ -229,3 +248,12 @@ export default {
   }
 }
 </script>
+
+<style lang='scss' scoped>
+.app-container >>> .el-table__expanded-cell {
+  padding: 10px 20px;
+  .app-container {
+    padding: 0;
+  }
+}
+</style>
