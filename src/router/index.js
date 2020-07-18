@@ -375,7 +375,7 @@ export const constantRoutes = [
       },
       {
         path: 'plyPart',
-        component: () => import('@/views/config/plypart/index'),
+        component: () => import('@/views/config/plyPart/index'),
         name: '分单配置',
         meta: { title: '分单配置', icon: 'guide', noCache: true }
       }
