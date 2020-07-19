@@ -149,7 +149,7 @@ export default {
     }
   },
   created() {
-    this.fetchData(2)
+    this.fetchData()
     this.fetchTypeData()
   },
   mounted() {
@@ -177,12 +177,10 @@ export default {
         type: type
       })
     },
-    fetchData(id) {
+    fetchData() {
       this.listLoading = true
-      if (this.dutyId) {
-        this.listQuery.id = this.dutyId
-      }
-      getList(this.listQuery, id).then(response => {
+      console.log(this.dutyId)
+      getList(this.listQuery, this.dutyId).then(response => {
         this.list = response.data.data
         this.total = response.data.total
         this.listLoading = false
@@ -203,7 +201,7 @@ export default {
       })
     },
     handleSave() {
-      this.form = { id: null }
+      this.form = { id: null, dutyId: this.dutyId }
       this.dialogVisible = true
     },
     handleEdit(id) {

@@ -165,7 +165,7 @@ export default {
     }
   },
   created() {
-    this.fetchData(2)
+    this.fetchData()
     this.fetchTypeData()
   },
   mounted() {
@@ -195,10 +195,7 @@ export default {
     },
     fetchData(id) {
       this.listLoading = true
-      if (this.invId) {
-        this.listQuery.id = this.invId
-      }
-      getList(this.listQuery, id).then(response => {
+      getList(this.listQuery, this.invId).then(response => {
         this.list = response.data.data
         this.total = response.data.total
         this.listLoading = false
@@ -219,7 +216,7 @@ export default {
       })
     },
     handleSave() {
-      this.form = { id: null }
+      this.form = { id: null, invId: this.invId }
       this.dialogVisible = true
     },
     handleEdit(id) {

@@ -142,38 +142,25 @@ export default {
     }
   },
   mounted() {
-    this.fetchData(2)
-    this.fetchTypeData()
+    this.fetchData()
   },
   methods: {
     handleSelect() {},
     expandChange(row, extend) {
       this.dutyId = row.id
     },
-    /* handleRoute() {
-      if (this.selected.length !== 1) {
-        this.$message({
-          showClose: true,
-          message: '只能选择一条查看',
-          type: 'warning'
-        })
-      } else {
-        this.$router.push({ path: '/client/plyPartPubCov', query: { pubCoverId: this.selected[0].id }})
-      }
-    },*/
-
     _notify(message, type) {
       this.$message({
         message: message,
         type: type
       })
     },
-    fetchData(id) {
+    fetchData() {
       this.listLoading = true
-      if (this.applyId) {
-        this.listQuery.id = this.applyId
-      }
-      getList(this.listQuery, id).then(response => {
+      /* if (this.applyId) {
+        this.listQuery.clmAppId = this.applyId
+      }*/
+      getList(this.listQuery, this.applyId).then(response => {
         this.list = response.data.data
         this.total = response.data.total
         this.listLoading = false
@@ -194,7 +181,7 @@ export default {
       })
     },
     handleSave() {
-      this.form = { id: null }
+      this.form = { id: null, clmAppId: this.applyId }
       this.dialogVisible = true
     },
     handleEdit(id) {

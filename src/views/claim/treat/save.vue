@@ -214,7 +214,9 @@
       <el-form-item label="校验审核信息" prop="auditInformation" label-width="120px">
         <el-input v-model="form.auditInformation" placeholder="请输入批次号" />
       </el-form-item>
-
+      <el-form-item label="账单层id" prop="invId" label-width="120px">
+        <el-input v-model="form.invId" placeholder="请输入批次号" />
+      </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="handleClose">
@@ -241,6 +243,7 @@ export default {
       dialogTitle: '新增',
       form: {
         id: '',
+        invId: '',
         batchNo: '',
         plyPartNo: '',
         customAppNo: '',
@@ -314,6 +317,7 @@ export default {
 
     clearForm() {
       this.form.id = null
+      this.form.invId = null
       this.form.batchNo = null
       this.form.plyPartNo = null
       this.form.customAppNo = null

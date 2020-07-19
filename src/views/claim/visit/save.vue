@@ -422,7 +422,9 @@
       <el-form-item label="结论描述" prop="conclusionDesc" label-width="120px">
         <el-input v-model="form.conclusionDesc" placeholder="请输入批次号" />
       </el-form-item>
-
+      <el-form-item label="责任层id" prop="dutyId" label-width="120px">
+        <el-input v-model="form.dutyId" placeholder="请输入批次号" />
+      </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="handleClose">
@@ -449,6 +451,7 @@ export default {
       dialogTitle: '新增',
       form: {
         id: '',
+        dutyId: '',
         isAccident: '',
         isEmergTreat: '',
         isLackMaterial: '',
@@ -546,6 +549,7 @@ export default {
 
     clearForm() {
       this.form.id = null
+      this.form.dutyId = null
       this.form.isAccident = null
       this.form.isEmergTreat = null
       this.form.isLackMaterial = null

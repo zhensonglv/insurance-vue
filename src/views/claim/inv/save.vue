@@ -491,6 +491,9 @@
           placeholder="选择日期时间"
         />
       </el-form-item>
+      <el-form-item label="就诊层id" prop="visitId" label-width="120px">
+        <el-input v-model="form.visitId" placeholder="请输入批次号" />
+      </el-form-item>
 
       <!--<el-form-item label="赔付结论" prop="conclusionDesc" label-width="120px">
         <el-date-picker
@@ -527,6 +530,7 @@ export default {
       dialogTitle: '新增',
       form: {
         id: '',
+        visitId: '',
         batchNo: '',
         customAppNo: '',
         plyPartNo: '',
@@ -636,6 +640,7 @@ export default {
 
     clearForm() {
       this.form.id = null
+      this.form.visitId = null
       this.form.batchNo = null
       this.form.customAppNo = null
       this.form.plyPartNo = null

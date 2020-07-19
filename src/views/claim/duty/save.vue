@@ -81,7 +81,9 @@
       <el-form-item label="赔付结论" prop="plyPartNo" label-width="120px">
         <el-input v-model="form.compensateResult" placeholder="请输入分单号" />
       </el-form-item>
-
+      <el-form-item label="申请层id" prop="clmAppId" label-width="120px">
+        <el-input v-model="form.clmAppId" placeholder="请输入分单号" />
+      </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="handleClose">
@@ -108,6 +110,7 @@ export default {
       dialogTitle: '新增',
       form: {
         id: '',
+        clmAppId: '',
         batchNo: '',
         plyPartNo: '',
         plyNo: '',
@@ -156,6 +159,7 @@ export default {
 
     clearForm() {
       this.form.id = null
+      this.form.clmAppId = null
       this.form.batchNo = null
       this.form.plyPartNo = null
       this.form.plyNo = null

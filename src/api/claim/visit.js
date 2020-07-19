@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function getList(data, id) {
   return request({
-    url: '/base/visit/list/' + 2,
+    url: '/base/visit/list/' + id,
     method: 'post',
     data
   })

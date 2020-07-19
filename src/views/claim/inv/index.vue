@@ -153,7 +153,7 @@ export default {
     }
   },
   created() {
-    this.fetchData(2)
+    this.fetchData()
     this.fetchTypeData()
   },
   mounted() {
@@ -183,10 +183,7 @@ export default {
     },
     fetchData(id) {
       this.listLoading = true
-      if (this.visitId) {
-        this.listQuery.id = this.visitId
-      }
-      getList(this.listQuery, id).then(response => {
+      getList(this.listQuery, this.visitId).then(response => {
         this.list = response.data.data
         this.total = response.data.total
         this.listLoading = false
@@ -207,7 +204,7 @@ export default {
       })
     },
     handleSave() {
-      this.form = { id: null }
+      this.form = { id: null, visitId: this.visitId }
       this.dialogVisible = true
     },
     handleEdit(id) {
