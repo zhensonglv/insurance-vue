@@ -108,8 +108,12 @@
 
         <el-table-column align="center" label="操作" width="120">
           <template slot-scope="scope">
-            <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)">编辑</el-button>
-            <el-button type="danger" size="mini" icon="el-icon-delete" class="action-button" @click="handleDel(scope.row.id)">删除</el-button>
+            <el-tooltip class="item" effect="dark" content="编辑" placement="top-start">
+              <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)" />
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="删除" placement="top-start">
+              <el-button type="danger" size="mini" icon="el-icon-delete" class="action-button" @click="handleDel(scope.row.id)" />
+            </el-tooltip>
           </template>
         </el-table-column>
       </el-table>
@@ -142,7 +146,8 @@ export default {
       default: false
     },
     invId: {
-      type: Number
+      type: Number,
+      defalut: 0
     }
   },
   data() {
@@ -254,3 +259,9 @@ export default {
   }
 }
 </script>
+
+<style lang='scss' scoped>
+.el-table >>> .el-table__body-wrapper td {
+  padding: 0;
+}
+</style>

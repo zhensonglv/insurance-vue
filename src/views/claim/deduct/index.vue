@@ -55,7 +55,8 @@ export default {
       default: false
     },
     treatId: {
-      type: Number
+      type: Number,
+      defalut: 0
     }
   },
   data() {
@@ -134,3 +135,9 @@ export default {
   }
 }
 </script>
+
+<style lang='scss' scoped>
+.el-table >>> .el-table__body-wrapper td {
+  padding: 0;
+}
+</style>

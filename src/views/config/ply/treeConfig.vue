@@ -8,71 +8,101 @@
         </span>
       </div>
 
-      <div class="left">
-        <el-tree ref="tree" :data="treeData" :expand-on-click-node="false" @node-click="handleNodeClick">
-          <template slot-scope="{ node, data }">
-            <div>
-              <svg-icon :icon-class="data.icon || 'group'" />
-              {{ data.name }}
-              <span class="action">
-                <el-button type="text" @click="add(data)">新增</el-button>
-                <el-button type="text" @click="update(data)">修改</el-button>
-                <el-button type="text" @click="remove(data, node)">删除</el-button>
-              </span>
-            </div>
-          </template>
-        </el-tree>
-      </div>
-      <br>
-      <div class="right">
-        <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
-          <el-table-column align="center" label="序号" width="95">
-            <template slot-scope="scope">
-              {{ scope.$index +1 }}
+      <div class="content">
+        <div class="left">
+          <el-tree
+            ref="tree"
+            :data="treeData"
+            :expand-on-click-node="false"
+            @node-click="handleNodeClick"
+          >
+            <template slot-scope="{ node, data }">
+              <div>
+                <svg-icon :icon-class="data.icon || 'group'" />
+                {{ data.name }}
+                <span class="action">
+                  <el-button type="text" @click="add(data)">新增</el-button>
+                  <el-button type="text" @click="update(data)">修改</el-button>
+                  <el-button type="text" @click="remove(data, node)">删除</el-button>
+                </span>
+              </div>
             </template>
-          </el-table-column>
-          <el-table-column align="center" label="集团号" width="150">
-            <template slot-scope="scope">
-              {{ scope.row.groupNo }}
-            </template>
-          </el-table-column>
-          <el-table-column align="center" label="集团名称" width="150">
-            <template slot-scope="scope">
-              {{ scope.row.groupNme }}
-            </template>
-          </el-table-column>
-          <el-table-column align="center" label="操作" fixed="right">
-            <template slot-scope="scope">
-              <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)">编辑</el-button>
-              <el-button type="danger" size="mini" icon="el-icon-delete" class="action-button" @click="handleDel(scope.row.id)">删除</el-button>
-            </template>
-          </el-table-column>
-        </el-table>
-        <pagination
-          v-show="total>0"
-          :total="total"
-          :page.sync="listQuery.pageNum"
-          :limit.sync="listQuery.pageSize"
-          @pagination="fetchData"
-        />
+          </el-tree>
+        </div>
+        <div class="right">
+          <tableTop :tree-id="treeId" />
+          <br>
+          <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
+            <el-table-column align="center" label="序号" width="95">
+              <template slot-scope="scope">
+                {{ scope.$index +1 }}
+              </template>
+            </el-table-column>
+            <el-table-column align="center" label="操作" width="95">
+              <template slot-scope="scope">
+                <el-button type="text" size="mini" class="action-button" @click="set(scope.row)">设置</el-button>
+              </template>
+            </el-table-column>
+            <el-table-column align="center" label="集团号" width="150">
+              <template slot-scope="scope">
+                {{ scope.row.groupNo }}
+              </template>
+            </el-table-column>
+            <el-table-column align="center" label="集团名称" width="150">
+              <template slot-scope="scope">
+                {{ scope.row.groupNme }}
+              </template>
+            </el-table-column>
+            <el-table-column align="center" label="操作" fixed="right">
+              <template slot-scope="scope">
+                <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)">编辑</el-button>
+                <el-button type="danger" size="mini" icon="el-icon-delete" class="action-button" @click="handleDel(scope.row.id)">删除</el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+          <pagination
+            v-show="total>0"
+            :total="total"
+            :page.sync="listQuery.pageNum"
+            :limit.sync="listQuery.pageSize"
+            @pagination="fetchData"
+          />
+        </div>
       </div>
     </el-card>
     <saveTreeDialog :son-data="form" :dialog-visible="dialogVisible" @sonStatus="status" />
+    <setDialog :id="rowId" :set-dialog-visible="setDialogVisible" />
   </div>
 </template>
 
 <script>
-import { del, findById, getTree, delTree } from '@/api/base'
+import { del, findById, getTree, delTree, getList } from '@/api/base'
 import Pagination from '@/components/Pagination'
 import saveTreeDialog from './saveTreeDialog'
+import tableTop from './table'
+import setDialog from './setDialog'
 
 export default {
-  components: { Pagination, saveTreeDialog },
+  components: { Pagination, saveTreeDialog, tableTop, setDialog },
   data() {
     return {
-      list: null,
+      list: [
+        {
+          id: 1,
+          groupNo: 1,
+          groupNme: '测试'
+        },
+        {
+          id: 2,
+          groupNo: 2,
+          groupNme: '测试2'
+        }
+      ],
+      treeId: null,
+      rowId: null,
       basePath: 'policyTreeConfig',
-      listLoading: true,
+      setDialogVisible: false,
+      listLoading: false,
       listQuery: {
         pageNum: 1,
         pageSize: 10,
@@ -108,6 +138,10 @@ export default {
         type: type
       })
     },
+    set(row) {
+      this.rowId = row.id
+      this.setDialogVisible = true
+    },
     handleTab(data) {
       console.log(data, 'yayayyaya----')
     },
@@ -142,6 +176,9 @@ export default {
     },
     handleNodeClick(data) {
       console.log(data, '---')
+      this.listQuery.id = this.treeId
+      this.treeId = data.id
+      this.fetchData()
     },
     fetchTreeData() {
       getTree(this.basePath, this.treeQuery).then(response => {
@@ -149,12 +186,12 @@ export default {
       })
     },
     fetchData() {
-      this.listLoading = true
-      // getList(this.basePath, this.listQuery).then(response => {
-      //   this.list = response.data.data
-      //   this.total = response.data.total
-      //   this.listLoading = false
-      // })
+      // this.listLoading = true
+      getList(this.basePath, this.listQuery).then(response => {
+        this.list = response.data.data
+        this.total = response.data.total
+        this.listLoading = false
+      })
     },
     handleSave() {
       this.form = { id: null }
@@ -202,14 +239,15 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.content {
+  display: flex;
+  justify-content: space-between;
+}
 .left {
-  float: left;
   width: 40%;
 }
 .right {
-  display: inline-block;
-  width: 50%;
-  clear: left;
+  width: 60%;
 }
 .action {
   margin-left: 50px;
