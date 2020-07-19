@@ -9,7 +9,7 @@
       </el-form-item>
 
       <el-form-item label="行政助理" prop="adminAssist" label-width="120px">
-        <el-input v-model="form.adminAssist" placeholder="请输入客户批次号" />
+        <el-input v-model="form.adminAssist" placeholder="请输入行政助理" />
       </el-form-item>
 
       <el-form-item label="公司" prop="company" label-width="120px">
@@ -176,7 +176,7 @@
       </el-form-item>
 
       <el-form-item label="银行号" prop="bankNo" label-width="120px">
-        <el-input v-model="form.bankNo" placeholder="请输入申请人数" />
+        <el-input v-model="form.bankNo" placeholder="请输入银行号" />
       </el-form-item>
 
       <el-form-item label="银行类型" prop="bankTyp" label-width="120px">

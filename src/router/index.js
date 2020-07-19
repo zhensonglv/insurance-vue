@@ -374,8 +374,8 @@ export const constantRoutes = [
         meta: { title: '保单投保等级', icon: 'guide', noCache: true }
       },
       {
-        path: 'plyPart',
-        component: () => import('@/views/config/plyPart/index'),
+        path: 'plypart',
+        component: () => import('@/views/config/plypart/index'),
         name: '分单配置',
         meta: { title: '分单配置', icon: 'guide', noCache: true }
       }
