@@ -63,6 +63,7 @@ export default {
     },
     handleClose() {
       this.clearForm()
+      this.$parent.setDialogVisible = false
       this.loadVisible = false
     }
   }

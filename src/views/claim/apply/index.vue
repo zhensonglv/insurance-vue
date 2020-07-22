@@ -173,11 +173,9 @@ export default {
       selected: []
     }
   },
-  created() {
+  mounted() {
     this.fetchData(2)
     this.fetchTypeData()
-  },
-  mounted() {
   },
   methods: {
     handleSelect(data) {
