@@ -252,6 +252,12 @@ export const constantRoutes = [
         meta: { title: '理赔审核规则定义', icon: 'guide', noCache: true }
       },
       {
+        path: 'accidentDiaCde',
+        component: () => import('@/views/param/accidentDiaCde/index'),
+        name: '意外诊断码',
+        meta: { title: '意外诊断码', icon: 'guide', noCache: true }
+      },
+      {
         path: 'dutySertypMatching',
         component: () => import('@/views/param/dutySertypMatching/index'),
         name: '责任服务类型匹配',
