@@ -147,7 +147,11 @@ export default {
     }
   },
   mounted() {
-    this.fetchData()
+    if (this.$route.path.indexOf('claim/apply') >= 0) {
+      if (this.applyId) this.fetchData()
+    } else {
+      this.fetchData()
+    }
   },
   methods: {
     handleSelect() {},

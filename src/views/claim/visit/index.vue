@@ -154,8 +154,15 @@ export default {
     }
   },
   created() {
-    this.fetchData()
-    this.fetchTypeData()
+    if (this.$route.path.indexOf('claim/apply') >= 0) {
+      if (this.dutyId) {
+        this.fetchData()
+        this.fetchTypeData()
+      }
+    } else {
+      this.fetchData()
+      this.fetchTypeData()
+    }
   },
   mounted() {
   },
