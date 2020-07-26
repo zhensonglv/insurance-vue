@@ -19,7 +19,7 @@
       >
         <el-table-column v-if="aggregate" type="expand">
           <template>
-            <visit aggregate :duty-id="dutyId" />
+            <deduct aggregate :treat-id="treatId" />
           </template>
         </el-table-column>
         <el-table-column
@@ -31,55 +31,78 @@
             {{ scope.$index +1 }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="甲方产品名称" width="150">
+        <el-table-column align="center" label="发票号" width="150">
           <template slot-scope="scope">
-            {{ scope.row.partaProdName }}
+            {{ scope.row.invNo }}
+            <!--  <{{ scope.row.pubCoverTyp }}-->
+          </template>
+        </el-table-column>
+        <el-table-column align="center" label="大项号" width="150">
+          <template slot-scope="scope">
+            {{ scope.row.maxtermNo }}
           <!--  <{{ scope.row.pubCoverTyp }}-->
           </template>
         </el-table-column>
-        <el-table-column align="center" label="甲方险种名称" width="150">
+        <el-table-column align="center" label="服务类型" width="150">
           <template slot-scope="scope">
-            {{ scope.row.partaCvrgName }}
+            {{ scope.row.serviceTyp }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="甲方责任名称" width="150">
+        <el-table-column align="center" label="社保类型" width="150">
           <template slot-scope="scope">
-            {{ scope.row.partaResponseName }}
+            {{ scope.row.secuTyp }}
+          </template>
+        </el-table-column>
+        <el-table-column align="center" label="费用名称" width="150">
+          <template slot-scope="scope">
+            {{ scope.row.payName }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="总金额" width="150">
           <template slot-scope="scope">
-            {{ scope.row.invoiceSum }}
+            {{ scope.row.sumAmt }}
           </template>
         </el-table-column>
+
         <el-table-column align="center" label="扣除金额" width="150">
           <template slot-scope="scope">
             {{ scope.row.deductAmt }}
           </template>
         </el-table-column>
+
         <el-table-column align="center" label="可理算金额" width="150">
           <template slot-scope="scope">
-            {{ scope.row.clacAmt }}
+            {{ scope.row.reasonableAmt }}
           </template>
         </el-table-column>
+
         <el-table-column align="center" label="赔付金额" width="150">
           <template slot-scope="scope">
-            {{ scope.row.compensate_amt }}
+            {{ scope.row.compensateAmt }}
           </template>
         </el-table-column>
+
         <el-table-column align="center" label="最终赔付金额" width="150">
           <template slot-scope="scope">
-            {{ scope.row.finalCompensateAmt }}
+            {{ scope.row.finalPay }}
           </template>
         </el-table-column>
+
         <el-table-column align="center" label="赔付结论" width="150">
           <template slot-scope="scope">
-            {{ scope.row.compensate_result }}
+            {{ scope.row.compensateResult }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="操作" width="150">
+
+        <el-table-column align="center" label="结论描述" width="150">
           <template slot-scope="scope">
-            {{ scope.row.invoiceSum }}
+            {{ scope.row.conclusionDesc }}
+          </template>
+        </el-table-column>
+
+        <el-table-column align="center" label="校验审核信息" width="150">
+          <template slot-scope="scope">
+            {{ scope.row.auditInformation }}
           </template>
         </el-table-column>
 
@@ -109,20 +132,20 @@
 </template>
 
 <script>
-import { getList, findById, del } from '@/api/claim/duty'
+import { getList, findById, del } from '@/api/claim/treat'
 import { getCodeList } from '@/api/code'
 import Pagination from '@/components/Pagination'
 import Save from './save'
-import visit from '../visit'
+import deduct from '../deduct'
 
 export default {
-  components: { Pagination, Save, visit },
+  components: { Pagination, Save, deduct },
   props: {
     aggregate: {
       type: Boolean,
       default: false
     },
-    applyId: {
+    invId: {
       type: Number,
       defalut: 0
     }
@@ -130,7 +153,7 @@ export default {
   data() {
     return {
       list: null,
-      dutyId: null,
+      treatId: null,
       listLoading: true,
       listQuery: {
         pageNum: 1,
@@ -146,30 +169,45 @@ export default {
       selected: []
     }
   },
-  mounted() {
+  created() {
     if (this.$route.path.indexOf('claim/apply') >= 0) {
-      if (this.applyId) this.fetchData()
+      if (this.invId) {
+        this.fetchData()
+        this.fetchTypeData()
+      }
     } else {
       this.fetchData()
+      this.fetchTypeData()
     }
+  },
+  mounted() {
   },
   methods: {
     handleSelect() {},
     expandChange(row, extend) {
-      this.dutyId = row.id
+      this.treatId = row.id
     },
+    /* handleRoute() {
+      if (this.selected.length !== 1) {
+        this.$message({
+          showClose: true,
+          message: '只能选择一条查看',
+          type: 'warning'
+        })
+      } else {
+        this.$router.push({ path: '/client/plyPartPubCov', query: { pubCoverId: this.selected[0].id }})
+      }
+    },*/
+
     _notify(message, type) {
       this.$message({
         message: message,
         type: type
       })
     },
-    fetchData() {
+    fetchData(id) {
       this.listLoading = true
-      /* if (this.applyId) {
-        this.listQuery.clmAppId = this.applyId
-      }*/
-      getList(this.listQuery, this.applyId).then(response => {
+      getList(this.listQuery, this.invId).then(response => {
         this.list = response.data.data
         this.total = response.data.total
         this.listLoading = false
@@ -190,7 +228,7 @@ export default {
       })
     },
     handleSave() {
-      this.form = { id: null, clmAppId: this.applyId }
+      this.form = { id: null, invId: this.invId }
       this.dialogVisible = true
     },
     handleEdit(id) {

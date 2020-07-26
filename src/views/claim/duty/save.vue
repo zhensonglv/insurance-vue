@@ -11,77 +11,79 @@
       </el-form-item>
 
       <el-form-item label="保单号" prop="plyPartNo" label-width="120px">
-        <el-input v-model="form.plyNo" placeholder="请输入分单号" />
+        <el-input v-model="form.plyNo" placeholder="请输入保单号" />
       </el-form-item>
 
       <el-form-item label="客户申请号" prop="plyPartNo" label-width="120px">
-        <el-input v-model="form.customAppNo" placeholder="请输入分单号" />
+        <el-input v-model="form.customAppNo" placeholder="请输入客户申请号" />
       </el-form-item>
 
       <el-form-item label="产品号" prop="plyPartNo" label-width="120px">
-        <el-input v-model="form.prodNo" placeholder="请输入分单号" />
+        <el-input v-model="form.prodNo" placeholder="请输入产品号" />
       </el-form-item>
 
       <el-form-item label="产品名称" prop="plyPartNo" label-width="120px">
-        <el-input v-model="form.prodName" placeholder="请输入分单号" />
+        <el-input v-model="form.prodName" placeholder="请输入产品名称" />
       </el-form-item>
 
       <el-form-item label="险种号" prop="plyPartNo" label-width="120px">
-        <el-input v-model="form.cvrgNo" placeholder="请输入分单号" />
+        <el-input v-model="form.cvrgNo" placeholder="请输入险种号" />
       </el-form-item>
 
       <el-form-item label="责任号" prop="plyPartNo" label-width="120px">
-        <el-input v-model="form.responseNo" placeholder="请输入分单号" />
+        <el-input v-model="form.responseNo" placeholder="请输入责任号" />
       </el-form-item>
 
       <el-form-item label="甲方产品号" prop="plyPartNo" label-width="120px">
-        <el-input v-model="form.partaProdNo" placeholder="请输入分单号" />
+        <el-input v-model="form.partaProdNo" placeholder="请输入甲方产品号" />
       </el-form-item>
 
       <el-form-item label="甲方产品名称" prop="plyPartNo" label-width="120px">
-        <el-input v-model="form.partaProdName" placeholder="请输入分单号" />
+        <el-input v-model="form.partaProdName" placeholder="请输入甲方产品名称" />
       </el-form-item>
 
       <el-form-item label="甲方险种号" prop="plyPartNo" label-width="120px">
-        <el-input v-model="form.partaCvrgNo" placeholder="请输入分单号" />
+        <el-input v-model="form.partaCvrgNo" placeholder="请输入甲方险种号" />
       </el-form-item>
 
       <el-form-item label="甲方险种名称" prop="plyPartNo" label-width="120px">
-        <el-input v-model="form.partaCvrgName" placeholder="请输入分单号" />
+        <el-input v-model="form.partaCvrgName" placeholder="请输入甲方险种名称" />
       </el-form-item>
 
       <el-form-item label="甲方责任号" prop="plyPartNo" label-width="120px">
-        <el-input v-model="form.partaResponseNo" placeholder="请输入分单号" />
+        <el-input v-model="form.partaResponseNo" placeholder="请输入甲方责任号" />
       </el-form-item>
 
       <el-form-item label="甲方责任名称" prop="plyPartNo" label-width="120px">
-        <el-input v-model="form.partaResponseName" placeholder="请输入分单号" />
+        <el-input v-model="form.partaResponseName" placeholder="请输入甲方责任名称" />
       </el-form-item>
 
       <el-form-item label="总金额" prop="plyPartNo" label-width="120px">
-        <el-input v-model="form.invoiceSum" placeholder="请输入分单号" />
+        <el-input v-model="form.invoiceSum" placeholder="请输入总金额" />
       </el-form-item>
 
       <el-form-item label="扣除金额" prop="plyPartNo" label-width="120px">
-        <el-input v-model="form.deductAmt" placeholder="请输入分单号" />
+        <el-input v-model="form.deductAmt" placeholder="请输入扣除金额" />
       </el-form-item>
 
       <el-form-item label="可理算金额" prop="plyPartNo" label-width="120px">
-        <el-input v-model="form.clacAmt" placeholder="请输入分单号" />
+        <el-input v-model="form.clacAmt" placeholder="请输入可理算金额" />
       </el-form-item>
 
       <el-form-item label="赔付金额" prop="plyPartNo" label-width="120px">
-        <el-input v-model="form.compensateAmt" placeholder="请输入分单号" />
+        <el-input v-model="form.compensateAmt" placeholder="请输入赔付金额" />
       </el-form-item>
 
       <el-form-item label="最终赔付金额" prop="plyPartNo" label-width="120px">
-        <el-input v-model="form.finalCompensateAmt" placeholder="请输入分单号" />
+        <el-input v-model="form.finalCompensateAmt" placeholder="请输入最终赔付金额" />
       </el-form-item>
 
       <el-form-item label="赔付结论" prop="plyPartNo" label-width="120px">
-        <el-input v-model="form.compensateResult" placeholder="请输入分单号" />
+        <el-input v-model="form.compensateResult" placeholder="请输入赔付结论" />
       </el-form-item>
-
+      <el-form-item label="申请层id" prop="clmAppId" label-width="120px">
+        <el-input v-model="form.clmAppId" placeholder="请输入申请层id" />
+      </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="handleClose">
@@ -108,6 +110,7 @@ export default {
       dialogTitle: '新增',
       form: {
         id: '',
+        clmAppId: '',
         batchNo: '',
         plyPartNo: '',
         plyNo: '',
@@ -156,6 +159,7 @@ export default {
 
     clearForm() {
       this.form.id = null
+      this.form.clmAppId = null
       this.form.batchNo = null
       this.form.plyPartNo = null
       this.form.plyNo = null

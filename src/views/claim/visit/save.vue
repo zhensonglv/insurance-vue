@@ -3,7 +3,7 @@
     <el-form ref="form" :inline="true" :rules="rules" :model="form" status-icon label-position="right" label-width="80px">
 
       <el-form-item label="意外" prop="isAccident" label-width="120px">
-        <el-select v-model="form.isAccident" placeholder="请选择提交对象">
+        <el-select v-model="form.isAccident" placeholder="请选择">
           <!--<el-option
             v-for="item in businessData.CPubCoverTyp"
             :key="item.value"
@@ -14,7 +14,7 @@
       </el-form-item>
 
       <el-form-item label="急诊" prop="isEmergTreat" label-width="120px">
-        <el-select v-model="form.isEmergTreat" placeholder="请选择提交对象">
+        <el-select v-model="form.isEmergTreat" placeholder="请选择">
           <!--<el-option
             v-for="item in businessData.CPubCoverTyp"
             :key="item.value"
@@ -25,7 +25,7 @@
       </el-form-item>
 
       <el-form-item label="缺材料" prop="isLackMaterial" label-width="120px">
-        <el-select v-model="form.isLackMaterial" placeholder="请选择提交对象">
+        <el-select v-model="form.isLackMaterial" placeholder="请选择">
           <!--<el-option
             v-for="item in businessData.CPubCoverTyp"
             :key="item.value"
@@ -36,7 +36,7 @@
       </el-form-item>
 
       <el-form-item label="既往病史" prop="isMedicalHistory" label-width="120px">
-        <el-select v-model="form.isMedicalHistory" placeholder="请选择提交对象">
+        <el-select v-model="form.isMedicalHistory" placeholder="请选择">
           <!--<el-option
             v-for="item in businessData.CPubCoverTyp"
             :key="item.value"
@@ -47,7 +47,7 @@
       </el-form-item>
 
       <el-form-item label="生育" prop="isBirth" label-width="120px">
-        <el-select v-model="form.isBirth" placeholder="请选择提交对象">
+        <el-select v-model="form.isBirth" placeholder="请选择">
           <!--<el-option
             v-for="item in businessData.CPubCoverTyp"
             :key="item.value"
@@ -58,7 +58,7 @@
       </el-form-item>
 
       <el-form-item label="工伤" prop="isInjuryJob" label-width="120px">
-        <el-select v-model="form.isInjuryJob" placeholder="请选择提交对象">
+        <el-select v-model="form.isInjuryJob" placeholder="请选择">
           <!--<el-option
             v-for="item in businessData.CPubCoverTyp"
             :key="item.value"
@@ -69,7 +69,7 @@
       </el-form-item>
 
       <el-form-item label="重疾" prop="stricken" label-width="120px">
-        <el-select v-model="form.stricken" placeholder="请选择提交对象">
+        <el-select v-model="form.stricken" placeholder="请选择">
           <!--<el-option
             v-for="item in businessData.CPubCoverTyp"
             :key="item.value"
@@ -80,7 +80,7 @@
       </el-form-item>
 
       <el-form-item label="是否特需" prop="isMust" label-width="120px">
-        <el-select v-model="form.isMust" placeholder="请选择提交对象">
+        <el-select v-model="form.isMust" placeholder="请选择">
           <!--<el-option
             v-for="item in businessData.CPubCoverTyp"
             :key="item.value"
@@ -91,11 +91,11 @@
       </el-form-item>
 
       <el-form-item label="小项描述" prop="xresponseMme" label-width="120px">
-        <el-input v-model="form.xresponseMme" placeholder="请输入批次号" />
+        <el-input v-model="form.xresponseMme" placeholder="请输入小项描述" />
       </el-form-item>
 
       <el-form-item label="指定医院" prop="isDesignHospital" label-width="120px">
-        <el-select v-model="form.isDesignHospital" placeholder="请选择提交对象">
+        <el-select v-model="form.isDesignHospital" placeholder="请选择指定医院">
           <!--<el-option
             v-for="item in businessData.CPubCoverTyp"
             :key="item.value"
@@ -106,7 +106,7 @@
       </el-form-item>
 
       <el-form-item label="是否忽略等待期" prop="isignWait" label-width="120px">
-        <el-select v-model="form.isignWait" placeholder="请选择提交对象">
+        <el-select v-model="form.isignWait" placeholder="请选择">
           <!--<el-option
             v-for="item in businessData.CPubCoverTyp"
             :key="item.value"
@@ -117,7 +117,7 @@
       </el-form-item>
 
       <el-form-item label="是否医保投保" prop="isHasMedical" label-width="120px">
-        <el-select v-model="form.isHasMedical" placeholder="请选择提交对象">
+        <el-select v-model="form.isHasMedical" placeholder="请选择">
           <!--<el-option
             v-for="item in businessData.CPubCoverTyp"
             :key="item.value"
@@ -128,7 +128,7 @@
       </el-form-item>
 
       <el-form-item label="是否使用医保卡" prop="isUseMedical" label-width="120px">
-        <el-select v-model="form.isUseMedical" placeholder="请选择提交对象">
+        <el-select v-model="form.isUseMedical" placeholder="请选择">
           <!--<el-option
             v-for="item in businessData.CPubCoverTyp"
             :key="item.value"
@@ -139,7 +139,7 @@
       </el-form-item>
 
       <el-form-item label="齿科" prop="dentidtry" label-width="120px">
-        <el-select v-model="form.dentidtry" placeholder="请选择提交对象">
+        <el-select v-model="form.dentidtry" placeholder="请选择">
           <!--<el-option
             v-for="item in businessData.CPubCoverTyp"
             :key="item.value"
@@ -158,26 +158,26 @@
       </el-form-item>
 
       <el-form-item label="客户申请号" prop="customAppNo" label-width="120px">
-        <el-input v-model="form.customAppNo" placeholder="请输入分单号" />
+        <el-input v-model="form.customAppNo" placeholder="请输入客户申请号" />
       </el-form-item>
 
       <el-form-item label="出险人号" prop="riskNo" label-width="120px">
-        <el-input v-model="form.riskNo" placeholder="请输入分单号" />
+        <el-input v-model="form.riskNo" placeholder="请输入出险人号" />
       </el-form-item>
       <el-form-item label="医院号" prop="hospitalNo" label-width="120px">
-        <el-input v-model="form.hospitalNo" placeholder="请输入分单号" />
+        <el-input v-model="form.hospitalNo" placeholder="请输入医院号" />
       </el-form-item>
 
       <el-form-item label="医院名称" prop="hospitalNme" label-width="120px">
-        <el-input v-model="form.hospitalNme" placeholder="请输入分单号" />
+        <el-input v-model="form.hospitalNme" placeholder="请输入医院名称" />
       </el-form-item>
 
       <el-form-item label="医院科室" prop="hospitalDepart" label-width="120px">
-        <el-input v-model="form.hospitalDepart" placeholder="请输入分单号" />
+        <el-input v-model="form.hospitalDepart" placeholder="请输入医院科室" />
       </el-form-item>
 
       <el-form-item label="诊断医生" prop="doctor" label-width="120px">
-        <el-input v-model="form.doctor" placeholder="请输入分单号" />
+        <el-input v-model="form.doctor" placeholder="请输入诊断医生" />
       </el-form-item>
 
       <el-form-item label="就诊日" prop="docTm" label-width="120px">
@@ -190,31 +190,31 @@
       </el-form-item>
 
       <el-form-item label="诊断码" prop="diagCde" label-width="120px">
-        <el-input v-model="form.diagCde" placeholder="请输入分单号" />
+        <el-input v-model="form.diagCde" placeholder="请输入诊断码" />
       </el-form-item>
 
       <el-form-item label="诊断描述" prop="diagDesc" label-width="120px">
-        <el-input v-model="form.diagDesc" placeholder="请输入分单号" />
+        <el-input v-model="form.diagDesc" placeholder="请输入诊断描述" />
       </el-form-item>
 
       <el-form-item label="次诊断码1" prop="secdiagCdeOne" label-width="120px">
-        <el-input v-model="form.secdiagCdeOne" placeholder="请输入分单号" />
+        <el-input v-model="form.secdiagCdeOne" placeholder="请输入次诊断码1" />
       </el-form-item>
 
       <el-form-item label="次诊断描述1" prop="secdiagDescOne" label-width="120px">
-        <el-input v-model="form.secdiagDescOne" placeholder="请输入分单号" />
+        <el-input v-model="form.secdiagDescOne" placeholder="请输入次诊断描述1" />
       </el-form-item>
 
       <el-form-item label="次诊断码2" prop="secdiagCdeTwo" label-width="120px">
-        <el-input v-model="form.secdiagCdeTwo" placeholder="请输入分单号" />
+        <el-input v-model="form.secdiagCdeTwo" placeholder="请输入次诊断码2" />
       </el-form-item>
 
       <el-form-item label="次诊断描述2" prop="secdiagDescTwo" label-width="120px">
-        <el-input v-model="form.secdiagDescTwo" placeholder="请输入分单号" />
+        <el-input v-model="form.secdiagDescTwo" placeholder="请输入次诊断描述2" />
       </el-form-item>
 
       <el-form-item label="就诊类型" prop="docTyp" label-width="120px">
-        <el-select v-model="form.docTyp" placeholder="请选择提交对象">
+        <el-select v-model="form.docTyp" placeholder="请选择">
           <!--<el-option
             v-for="item in businessData.CPubCoverTyp"
             :key="item.value"
@@ -243,7 +243,7 @@
       </el-form-item>
 
       <el-form-item label="津贴类型" prop="hospTyp" label-width="120px">
-        <el-select v-model="form.hospTyp" placeholder="请选择提交对象">
+        <el-select v-model="form.hospTyp" placeholder="请选择">
           <!--<el-option
             v-for="item in businessData.CPubCoverTyp"
             :key="item.value"
@@ -254,31 +254,31 @@
       </el-form-item>
 
       <el-form-item label="日津贴" prop="hospDayAmt" label-width="120px">
-        <el-input v-model="form.hospDayAmt" placeholder="请输入分单号" />
+        <el-input v-model="form.hospDayAmt" placeholder="请输入日津贴" />
       </el-form-item>
 
       <el-form-item label="住院天数" prop="inhospDays" label-width="120px">
-        <el-input v-model="form.inhospDays" placeholder="请输入分单号" />
+        <el-input v-model="form.inhospDays" placeholder="请输入住院天数" />
       </el-form-item>
 
       <el-form-item label="务工天数" prop="workingDays" label-width="120px">
-        <el-input v-model="form.workingDays" placeholder="请输入分单号" />
+        <el-input v-model="form.workingDays" placeholder="请输入务工天数" />
       </el-form-item>
 
       <el-form-item label="免赔天数" prop="deductleDays" label-width="120px">
-        <el-input v-model="form.deductleDays" placeholder="请输入分单号" />
+        <el-input v-model="form.deductleDays" placeholder="请输入免赔天数" />
       </el-form-item>
 
       <el-form-item label="超限额天数" prop="exclimitQuotaDays" label-width="120px">
-        <el-input v-model="form.exclimitQuotaDays" placeholder="请输入分单号" />
+        <el-input v-model="form.exclimitQuotaDays" placeholder="请输入超限额天数" />
       </el-form-item>
 
       <el-form-item label="就诊序号" prop="clmVisitId" label-width="120px">
-        <el-input v-model="form.clmVisitId" placeholder="请输入分单号" />
+        <el-input v-model="form.clmVisitId" placeholder="请输入就诊序号" />
       </el-form-item>
 
       <el-form-item label="是否原始就诊" prop="isOriginalVis" label-width="120px">
-        <el-select v-model="form.isOriginalVis" placeholder="请选择提交对象">
+        <el-select v-model="form.isOriginalVis" placeholder="请选择">
           <!--<el-option
             v-for="item in businessData.CPubCoverTyp"
             :key="item.value"
@@ -316,75 +316,75 @@
       </el-form-item>
 
       <el-form-item label="客户理赔号" prop="customClmNo" label-width="120px">
-        <el-input v-model="form.customClmNo" placeholder="请输入批次号" />
+        <el-input v-model="form.customClmNo" placeholder="请输入客户理赔号" />
       </el-form-item>
 
       <el-form-item label="历史理赔号" prop="historyClmNo" label-width="120px">
-        <el-input v-model="form.historyClmNo" placeholder="请输入批次号" />
+        <el-input v-model="form.historyClmNo" placeholder="请输入历史理赔号" />
       </el-form-item>
 
       <el-form-item label="历史赔付金额" prop="historyClmSum" label-width="120px">
-        <el-input v-model="form.historyClmSum" placeholder="请输入批次号" />
+        <el-input v-model="form.historyClmSum" placeholder="请输入历史赔付金额" />
       </el-form-item>
 
       <el-form-item label="发票张数" prop="invoiceNum" label-width="120px">
-        <el-input v-model="form.invoiceNum" placeholder="请输入批次号" />
+        <el-input v-model="form.invoiceNum" placeholder="请输入发票张数" />
       </el-form-item>
 
       <el-form-item label="就诊总金额" prop="invoiceSum" label-width="120px">
-        <el-input v-model="form.invoiceSum" placeholder="请输入批次号" />
+        <el-input v-model="form.invoiceSum" placeholder="请输入就诊总金额" />
       </el-form-item>
 
       <el-form-item label="社保支付金额" prop="overallAmt" label-width="120px">
-        <el-input v-model="form.overallAmt" placeholder="请输入批次号" />
+        <el-input v-model="form.overallAmt" placeholder="请输入社保支付金额" />
       </el-form-item>
 
       <el-form-item label="分类自付金额" prop="categSelfAmt" label-width="120px">
-        <el-input v-model="form.categSelfAmt" placeholder="请输入批次号" />
+        <el-input v-model="form.categSelfAmt" placeholder="请输入分类自付金额" />
       </el-form-item>
 
       <el-form-item label="自费金额" prop="selfAmt" label-width="120px">
-        <el-input v-model="form.selfAmt" placeholder="请输入批次号" />
+        <el-input v-model="form.selfAmt" placeholder="请输入自费金额" />
       </el-form-item>
 
       <el-form-item label="不合理金额" prop="unreasonableAmt" label-width="120px">
-        <el-input v-model="form.unreasonableAmt" placeholder="请输入批次号" />
+        <el-input v-model="form.unreasonableAmt" placeholder="请输入不合理金额" />
       </el-form-item>
 
       <el-form-item label="公共保额给付金额" prop="commonPrestaAmt" label-width="120px">
-        <el-input v-model="form.commonPrestaAmt" placeholder="请输入批次号" />
+        <el-input v-model="form.commonPrestaAmt" placeholder="请输入公共保额给付金额" />
       </el-form-item>
 
       <el-form-item label="扣除金额" prop="deductAmt" label-width="120px">
-        <el-input v-model="form.deductAmt" placeholder="请输入批次号" />
+        <el-input v-model="form.deductAmt" placeholder="请输入扣除金额" />
       </el-form-item>
 
       <el-form-item label="可理算金额" prop="clacAmt" label-width="120px">
-        <el-input v-model="form.clacAmt" placeholder="请输入批次号" />
+        <el-input v-model="form.clacAmt" placeholder="请输入可理算金额" />
       </el-form-item>
 
       <el-form-item label="赔付金额" prop="compensateAmt" label-width="120px">
-        <el-input v-model="form.compensateAmt" placeholder="请输入批次号" />
+        <el-input v-model="form.compensateAmt" placeholder="请输入赔付金额" />
       </el-form-item>
 
       <el-form-item label="调整金额" prop="adjustAmt" label-width="120px">
-        <el-input v-model="form.adjustAmt" placeholder="请输入批次号" />
+        <el-input v-model="form.adjustAmt" placeholder="请输入调整金额" />
       </el-form-item>
 
       <el-form-item label="金额调整原因" prop="adjustDesc" label-width="120px">
-        <el-input v-model="form.adjustDesc" placeholder="请输入批次号" />
+        <el-input v-model="form.adjustDesc" placeholder="请输入金额调整原因" />
       </el-form-item>
 
       <el-form-item label="最终赔付" prop="finalPay" label-width="120px">
-        <el-input v-model="form.finalPay" placeholder="请输入批次号" />
+        <el-input v-model="form.finalPay" placeholder="请输入最终赔付" />
       </el-form-item>
 
       <el-form-item label="被保险人支付" prop="insuredPay" label-width="120px">
-        <el-input v-model="form.insuredPay" placeholder="请输入批次号" />
+        <el-input v-model="form.insuredPay" placeholder="请输入被保险人支付" />
       </el-form-item>
 
       <el-form-item label="账单赔付" prop="billPay" label-width="120px">
-        <el-input v-model="form.billPay" placeholder="请输入批次号" />
+        <el-input v-model="form.billPay" placeholder="请输入账单赔付" />
       </el-form-item>
 
       <!--<el-form-item label="就诊序号" prop="clmVisitId" label-width="120px">
@@ -396,33 +396,35 @@
       </el-form-item>-->
 
       <el-form-item label="解释码描述" prop="interpDesc" label-width="120px">
-        <el-input v-model="form.interpDesc" placeholder="请输入批次号" />
+        <el-input v-model="form.interpDesc" placeholder="请输入解释码描述" />
       </el-form-item>
 
       <el-form-item label="基金账户支取方式" prop="fundacctTyp" label-width="120px">
-        <el-input v-model="form.fundacctTyp" placeholder="请输入批次号" />
+        <el-input v-model="form.fundacctTyp" placeholder="请输入基金账户支取方式" />
       </el-form-item>
 
       <el-form-item label="基金" prop="fund" label-width="120px">
-        <el-input v-model="form.fund" placeholder="请输入批次号" />
+        <el-input v-model="form.fund" placeholder="请输入基金" />
       </el-form-item>
 
       <el-form-item label="原件影像" prop="orignImage" label-width="120px">
-        <el-input v-model="form.orignImage" placeholder="请输入批次号" />
+        <el-input v-model="form.orignImage" placeholder="请输入原件影像" />
       </el-form-item>
 
       <el-form-item label="备注" prop="description" label-width="120px">
-        <el-input v-model="form.description" placeholder="请输入批次号" />
+        <el-input v-model="form.description" placeholder="请输入备注" />
       </el-form-item>
 
       <el-form-item label="赔付结论" prop="compensateResult" label-width="120px">
-        <el-input v-model="form.compensateResult" placeholder="请输入批次号" />
+        <el-input v-model="form.compensateResult" placeholder="请输入赔付结论" />
       </el-form-item>
 
       <el-form-item label="结论描述" prop="conclusionDesc" label-width="120px">
-        <el-input v-model="form.conclusionDesc" placeholder="请输入批次号" />
+        <el-input v-model="form.conclusionDesc" placeholder="请输入结论描述" />
       </el-form-item>
-
+      <el-form-item label="责任层id" prop="dutyId" label-width="120px">
+        <el-input v-model="form.dutyId" placeholder="请输入责任层id" />
+      </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="handleClose">
@@ -449,6 +451,7 @@ export default {
       dialogTitle: '新增',
       form: {
         id: '',
+        dutyId: '',
         isAccident: '',
         isEmergTreat: '',
         isLackMaterial: '',
@@ -546,6 +549,7 @@ export default {
 
     clearForm() {
       this.form.id = null
+      this.form.dutyId = null
       this.form.isAccident = null
       this.form.isEmergTreat = null
       this.form.isLackMaterial = null

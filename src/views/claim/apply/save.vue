@@ -201,11 +201,11 @@
       </el-form-item>
 
       <el-form-item label="就诊次数" prop="visitNum" label-width="120px">
-        <el-input v-model="form.visitNum" placeholder="请输入发票张数" />
+        <el-input v-model="form.visitNum" placeholder="请输入就诊次数" />
       </el-form-item>
 
       <el-form-item label="发票总金额" prop="invoiceSum" label-width="120px">
-        <el-input v-model="form.invoiceSum" placeholder="请输入发票张数" />
+        <el-input v-model="form.invoiceSum" placeholder="请输入发票总金额" />
       </el-form-item>
 
       <el-form-item label="可理算金额" prop="reasonableAmt" label-width="120px">
@@ -249,7 +249,7 @@
       </el-form-item>
 
       <el-form-item label="理算说明" prop="explanation" label-width="120px">
-        <el-input v-model="form.explanation" placeholder="请输入理赔结论说明" />
+        <el-input v-model="form.explanation" placeholder="请输入理算说明" />
       </el-form-item>
 
       <el-form-item label="原件影像" prop="orignImage" label-width="120px">
@@ -281,7 +281,7 @@
       </el-form-item>
 
       <el-form-item label="备注" prop="description" label-width="120px">
-        <el-input v-model="form.description" placeholder="请输入理算优先顺序" />
+        <el-input v-model="form.description" placeholder="请输入备注" />
       </el-form-item>
 
       <el-form-item label="受益人" prop="beneficiary" label-width="120px">

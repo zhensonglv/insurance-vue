@@ -7,7 +7,21 @@
       </div>
 
       <br>
-      <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row @selection-change="handleSelect">
+      <el-table
+        v-loading="listLoading"
+        :data="list"
+        element-loading-text="Loading"
+        border
+        fit
+        highlight-current-row
+        @expand-change="expandChange"
+        @selection-change="handleSelect"
+      >
+        <el-table-column v-if="aggregate" type="expand">
+          <template>
+            <treat aggregate :inv-id="invId" />
+          </template>
+        </el-table-column>
         <el-table-column
           type="selection"
           width="55"
@@ -80,10 +94,14 @@
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="操作" fixed="right" width="120">
+        <el-table-column align="center" label="操作" width="120">
           <template slot-scope="scope">
-            <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)">编辑</el-button>
-            <el-button type="danger" size="mini" icon="el-icon-delete" class="action-button" @click="handleDel(scope.row.id)">删除</el-button>
+            <el-tooltip class="item" effect="dark" content="编辑" placement="top-start">
+              <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)" />
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="删除" placement="top-start">
+              <el-button type="danger" size="mini" icon="el-icon-delete" class="action-button" @click="handleDel(scope.row.id)" />
+            </el-tooltip>
           </template>
         </el-table-column>
       </el-table>
@@ -106,12 +124,24 @@ import { getList, findById, del } from '@/api/claim/inv'
 import { getCodeList } from '@/api/code'
 import Pagination from '@/components/Pagination'
 import Save from './save'
+import treat from '../treat'
 
 export default {
-  components: { Pagination, Save },
+  components: { Pagination, Save, treat },
+  props: {
+    aggregate: {
+      type: Boolean,
+      default: false
+    },
+    visitId: {
+      type: Number,
+      defalut: 0
+    }
+  },
   data() {
     return {
       list: null,
+      invId: null,
       listLoading: true,
       listQuery: {
         pageNum: 1,
@@ -128,12 +158,23 @@ export default {
     }
   },
   created() {
-    this.fetchData(2)
-    this.fetchTypeData()
+    if (this.$route.path.indexOf('claim/apply') >= 0) {
+      if (this.visitId) {
+        this.fetchData()
+        this.fetchTypeData()
+      }
+    } else {
+      this.fetchData()
+      this.fetchTypeData()
+    }
   },
   mounted() {
   },
   methods: {
+    handleSelect() {},
+    expandChange(row, extend) {
+      this.invId = row.id
+    },
     /* handleRoute() {
       if (this.selected.length !== 1) {
         this.$message({
@@ -154,7 +195,7 @@ export default {
     },
     fetchData(id) {
       this.listLoading = true
-      getList(this.listQuery, id).then(response => {
+      getList(this.listQuery, this.visitId).then(response => {
         this.list = response.data.data
         this.total = response.data.total
         this.listLoading = false
@@ -175,7 +216,7 @@ export default {
       })
     },
     handleSave() {
-      this.form = { id: null }
+      this.form = { id: null, visitId: this.visitId }
       this.dialogVisible = true
     },
     handleEdit(id) {
@@ -213,3 +254,9 @@ export default {
   }
 }
 </script>
+
+<style lang='scss' scoped>
+.el-table >>> .el-table__body-wrapper td {
+  padding: 0;
+}
+</style>
