@@ -71,7 +71,7 @@ export default {
   data() {
     return {
       list: null,
-      basePath: 'policyTreeConfig',
+      basePath: 'plyTreeConfig',
       listLoading: true,
       listQuery: {
         pageNum: 1,

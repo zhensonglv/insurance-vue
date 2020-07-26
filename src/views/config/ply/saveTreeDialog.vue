@@ -44,7 +44,7 @@ export default {
   data() {
     return {
       dialogTitle: '新增tree节点',
-      basePath: 'policyTreeConfig',
+      basePath: 'plyTreeConfig',
       loadVisible: this.dialogVisible,
       form: {
         id: null,
