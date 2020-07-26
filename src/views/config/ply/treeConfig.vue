@@ -13,6 +13,7 @@
           <el-tree
             ref="tree"
             :data="treeData"
+            node-key="id"
             :expand-on-click-node="false"
             @node-click="handleNodeClick"
           >
@@ -143,7 +144,8 @@ export default {
       this.setDialogVisible = true
     },
     handleTab(data) {
-      console.log(data, 'yayayyaya----')
+      console.log(data, this.$refs.tree, 'yayayyaya----')
+      this.$refs.tree.setCurrentNode(this.treeData[0])
     },
     add(data) {
       this.form = { pid: data.id, id: null }
