@@ -312,6 +312,12 @@ export const constantRoutes = [
         component: () => import('@/views/param/deductibleExcessConfig/index'),
         name: '免赔额',
         meta: { title: '免赔额', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'pastIllnes',
+        component: () => import('@/views/param/pastIllnes/index'),
+        name: '既往病史',
+        meta: { title: '既往病史', icon: 'guide', noCache: true }
       }
     ]
   },
