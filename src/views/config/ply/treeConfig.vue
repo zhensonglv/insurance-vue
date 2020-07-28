@@ -254,6 +254,10 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.tab {
+  cursor: pointer;
+  margin-bottom: 10px;
+}
 .content {
   display: flex;
   justify-content: space-between;
