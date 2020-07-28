@@ -4,15 +4,7 @@
       <div>
 
         <el-input v-model="listQuery.paramCde" style="width: 200px;" placeholder="请输入参数码查询" disabled="disabled" />
-
-        <el-select v-model="listQuery.codeTyp" placeholder="请选择代码类型">
-          <el-option
-            v-for="item in businessData.DiaMatchTyp"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          />
-        </el-select>
+        <el-input v-model="listQuery.dutyDesc" style="width: 200px;" placeholder="请输入诊断转换描述查询" />
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="resetData">重置</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
@@ -29,15 +21,14 @@
             {{ scope.row.paramCde }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="代码类型" width="150">
+        <el-table-column align="center" label="责任号" width="150">
           <template slot-scope="scope">
-            {{ DiaMatchTyp[scope.row.codeTyp] }}
+            {{ scope.row.dutyNo }}
           </template>
         </el-table-column>
-
-        <el-table-column align="center" label="既往病史说明" width="150">
+        <el-table-column align="center" label="诊断转换描述" width="150">
           <template slot-scope="scope">
-            {{ scope.row.illnessDesc }}
+            {{ scope.row.dutyDesc }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="操作" fixed="right">
@@ -73,12 +64,12 @@ export default {
     return {
       list: null,
       listLoading: true,
-      basePath: 'pastIllnes',
+      basePath: 'diagnosisConvert',
       listQuery: {
         pageNum: 1,
         pageSize: 10,
         paramCde: '',
-        codeTyp: '',
+        dutyDesc: '',
         sort: '+id'
       },
       total: 0,

@@ -4,6 +4,14 @@
       <el-form-item label="参数码" prop="paramCde" label-width="120px">
         <el-input v-model="form.paramCde" placeholder="请输入就参数码" disabled="disabled" />
       </el-form-item>
+      <el-form-item label="责任号" prop="dutyNo" label-width="120px">
+        <el-input v-model="form.dutyNo" placeholder="责任号" />
+      </el-form-item>
+
+      <el-form-item label="诊断转换描述" prop="dutyDesc" label-width="120px">
+        <el-input v-model="form.dutyDesc" placeholder="诊断转换说明" />
+      </el-form-item>
+
       <el-form-item label="代码类型" prop="codeTyp" label-width="120px">
         <el-select v-model="form.codeTyp" placeholder="请选择">
           <el-option
@@ -14,26 +22,23 @@
           />
         </el-select>
       </el-form-item>
-      <el-form-item label="起始码" prop="starCde" label-width="120px">
-        <el-input v-model="form.starCde" placeholder="请输入起始码" />
+      <el-form-item label="起始码" prop="diaBgnCde" label-width="120px">
+        <el-input v-model="form.diaBgnCde" placeholder="请输入起始码" />
       </el-form-item>
-      <el-form-item label="起始码描述" prop="starCodeDesc" label-width="120px">
-        <el-input v-model="form.starCodeDesc" placeholder="请输入起始码描述" />
+      <el-form-item label="起始码描述" prop="diaBgnCdeDesc" label-width="120px">
+        <el-input v-model="form.diaBgnCdeDesc" placeholder="请输入起始码描述" />
       </el-form-item>
-      <el-form-item label="终止码" prop="endCde" label-width="120px">
-        <el-input v-model="form.endCde" placeholder="请输入终止码" />
+      <el-form-item label="终止码" prop="diaEndCde" label-width="120px">
+        <el-input v-model="form.diaEndCde" placeholder="请输入终止码" />
       </el-form-item>
-      <el-form-item label="终止码描述" prop="endCodeDesc" label-width="120px">
-        <el-input v-model="form.endCodeDesc" placeholder="请输入终止码描述" />
+      <el-form-item label="终止码描述" prop="diaEndCdeDesc" label-width="120px">
+        <el-input v-model="form.diaEndCdeDesc" placeholder="请输入终止码描述" />
       </el-form-item>
       <el-form-item label="高层诊断码" prop="diaMatParameterCde" label-width="120px">
         <el-input v-model="form.diaMatParameterCde" placeholder="请输入高层诊断码" />
       </el-form-item>
       <el-form-item label="高层诊断码描述" prop="diaMatParameterDesc" label-width="120px">
         <el-input v-model="form.diaMatParameterDesc" placeholder="请输入高层诊断码描述" />
-      </el-form-item>
-      <el-form-item label="既往病史说明" prop="illnessDesc" label-width="120px">
-        <el-input v-model="form.illnessDesc" placeholder="请输入既往病史说明" />
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -59,21 +64,23 @@ export default {
     return {
       dialogVisible: false,
       dialogTitle: '新增',
-      basePath: 'pastIllnes',
+      basePath: 'diagnosisConvert',
       form: {
         id: '',
         paramCde: '',
         codeTyp: '',
-        starCde: '',
-        starCodeDesc: '',
-        endCde: '',
-        endCodeDesc: '',
+        diaBgnCde: '',
+        diaBgnCdeDesc: '',
+        diaEndCde: '',
+        diaEndCdeDesc: '',
         diaMatParameterCde: '',
         diaMatParameterDesc: '',
-        illnessDesc: ''
+        dutyNo: '',
+        dutyDesc: ''
       },
       rules: {
-        illnessDesc: [{ required: true, trigger: 'blur', message: '请输入既往病史说明' }],
+        dutyNo: [{ required: true, trigger: 'blur', message: '请输入责任号' }],
+        dutyDesc: [{ required: true, trigger: 'blur', message: '请输入诊断转换描述' }],
         codeTyp: [{ required: true, trigger: 'blur', message: '请选择代码类型' }]
       }
     }
@@ -100,13 +107,14 @@ export default {
       this.form.id = null
       this.form.paramCde = null
       this.form.codeTyp = null
-      this.form.starCde = null
-      this.form.starCodeDesc = null
-      this.form.endCde = null
-      this.form.endCodeDesc = null
+      this.form.diaBgnCde = null
+      this.form.diaBgnCdeDesc = null
+      this.form.diaEndCde = null
+      this.form.diaEndCdeDesc = null
       this.form.diaMatParameterCde = null
       this.form.diaMatParameterDesc = null
-      this.form.illnessDesc = null
+      this.form.dutyNo = null
+      this.form.dutyDesc = null
     },
     handleClose() {
       this.clearForm()

@@ -318,6 +318,12 @@ export const constantRoutes = [
         component: () => import('@/views/param/pastIllnes/index'),
         name: '既往病史',
         meta: { title: '既往病史', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'diagnosisConvert',
+        component: () => import('@/views/param/diagnosisConvert/index'),
+        name: '诊断转换',
+        meta: { title: '诊断转换', icon: 'guide', noCache: true }
       }
     ]
   },
