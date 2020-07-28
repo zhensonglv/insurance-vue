@@ -258,6 +258,12 @@ export const constantRoutes = [
         meta: { title: '意外诊断码', icon: 'guide', noCache: true }
       },
       {
+        path: 'waitPeriod',
+        component: () => import('@/views/param/waitPeriod/index'),
+        name: '等待期',
+        meta: { title: '等待期', icon: 'guide', noCache: true }
+      },
+      {
         path: 'dutySertypMatching',
         component: () => import('@/views/param/dutySertypMatching/index'),
         name: '责任服务类型匹配',
