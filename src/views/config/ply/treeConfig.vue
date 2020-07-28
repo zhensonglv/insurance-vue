@@ -14,6 +14,7 @@
             ref="tree"
             :data="treeData"
             node-key="id"
+            :default-expanded-keys="expandArr"
             :expand-on-click-node="false"
             @node-click="handleNodeClick"
           >
@@ -99,6 +100,7 @@ export default {
           groupNme: '测试2'
         }
       ],
+      expandArr: [],
       treeId: null,
       rowId: null,
       basePath: 'plyTreeConfig',
@@ -143,9 +145,20 @@ export default {
       this.rowId = row.id
       this.setDialogVisible = true
     },
-    handleTab(data) {
-      console.log(data, this.$refs.tree, 'yayayyaya----')
-      this.$refs.tree.setCurrentNode(this.treeData[0])
+    handleTab(count) {
+      this.expandArr = []
+      const levelIds = this.getExpandArr(this.treeData)
+      this.expandArr = levelIds.slice(0, count + 1)
+    },
+    getExpandArr(data) {
+      return data.reduce((list, item) => {
+        const { children, id } = item
+        list.push(id)
+        if (children && children.length > 0) {
+          list = list.concat(this.getExpandArr(children))
+        }
+        return list
+      }, [])
     },
     add(data) {
       this.form = { pid: data.id, id: null }
