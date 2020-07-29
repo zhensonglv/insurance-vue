@@ -45,19 +45,16 @@
                 <el-button type="text" size="mini" class="action-button" @click="set(scope.row)">设置</el-button>
               </template>
             </el-table-column>
-            <el-table-column align="center" label="集团号" width="150">
+            <el-table-column align="center" label="通用参数名称" width="150">
               <template slot-scope="scope">
                 {{ scope.row.groupNo }}
               </template>
             </el-table-column>
-            <el-table-column align="center" label="集团名称" width="150">
-              <template slot-scope="scope">
-                {{ scope.row.groupNme }}
-              </template>
-            </el-table-column>
+            <el-table-column align="center" prop="groupNme" label="参数码" width="150" />
+            <el-table-column align="center" prop="groupNme" label="描述" width="150" />
+            <el-table-column align="center" prop="groupNme" label="版本状态" width="150" />
             <el-table-column align="center" label="操作" fixed="right">
               <template slot-scope="scope">
-                <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)">编辑</el-button>
                 <el-button type="danger" size="mini" icon="el-icon-delete" class="action-button" @click="handleDel(scope.row.id)">删除</el-button>
               </template>
             </el-table-column>
@@ -263,10 +260,10 @@ export default {
   justify-content: space-between;
 }
 .left {
-  width: 40%;
+  width: 35%;
 }
 .right {
-  width: 60%;
+  width: 65%;
 }
 .action {
   margin-left: 50px;
