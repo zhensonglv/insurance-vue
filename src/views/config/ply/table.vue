@@ -54,7 +54,7 @@ export default {
       list: [],
       rowId: null,
       setDialogVisible: false,
-      basePath: 'policyTreeConfig',
+      basePath: 'plyTreeSetParam',
       listLoading: false,
       listQuery: {
         pageNum: 1,
