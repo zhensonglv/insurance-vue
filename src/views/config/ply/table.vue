@@ -12,10 +12,10 @@
             <el-button type="text" size="mini" class="action-button" @click="set(scope.row.id)">设置</el-button>
           </template>
         </el-table-column>
-        <el-table-column align="center" prop="groupNo" label="基础参数名称" width="150" />
-        <el-table-column align="center" prop="groupNme" label="参数码" width="150" />
-        <el-table-column align="center" prop="groupNme" label="描述" width="150" />
-        <el-table-column align="center" prop="groupNme" label="版本状态" width="150" />
+        <el-table-column align="center" prop="paramDesc" label="基础参数名称" width="150" />
+        <el-table-column align="center" prop="paramCode" label="参数码" width="150" />
+        <el-table-column align="center" prop="paramDesc" label="描述" width="150" />
+        <el-table-column align="center" prop="isValid" label="状态" width="150" />
         <el-table-column align="center" label="操作" fixed="right">
           <template slot-scope="scope">
             <el-button type="danger" size="mini" icon="el-icon-delete" class="action-button" @click="handleDel(scope.row.id)">删除</el-button>
@@ -51,18 +51,7 @@ export default {
   },
   data() {
     return {
-      list: [
-        {
-          id: 1,
-          groupNo: 1,
-          groupNme: '测试'
-        },
-        {
-          id: 2,
-          groupNo: 2,
-          groupNme: '测试2'
-        }
-      ],
+      list: [],
       rowId: null,
       setDialogVisible: false,
       basePath: 'policyTreeConfig',
@@ -70,9 +59,7 @@ export default {
       listQuery: {
         pageNum: 1,
         pageSize: 10,
-        groupNme: undefined,
-        importance: undefined,
-        title: undefined,
+        plyTreeId: undefined,
         type: undefined,
         sort: '+id'
       },
@@ -95,10 +82,6 @@ export default {
     }
   },
   created() {
-    if (this.$route.query.plyNo) {
-      this.treeQuery.dataNo = this.$route.query.plyNo
-      this.treeQuery.level = 3
-    }
     this.fetchData()
   },
   methods: {
@@ -114,7 +97,8 @@ export default {
     },
     fetchData() {
       // this.listLoading = true
-      this.listQuery.id = this.treeId
+      this.listQuery.plyTreeId = this.treeId
+      this.listQuery.type = 1
       getList(this.basePath, this.listQuery).then(response => {
         this.list = response.data.data
         this.total = response.data.total
