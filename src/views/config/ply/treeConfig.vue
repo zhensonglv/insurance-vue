@@ -45,19 +45,16 @@
                 <el-button type="text" size="mini" class="action-button" @click="set(scope.row)">设置</el-button>
               </template>
             </el-table-column>
-            <el-table-column align="center" label="集团号" width="150">
+            <el-table-column align="center" label="通用参数名称" width="150">
               <template slot-scope="scope">
-                {{ scope.row.groupNo }}
+                {{ scope.row.paramDesc }}
               </template>
             </el-table-column>
-            <el-table-column align="center" label="集团名称" width="150">
-              <template slot-scope="scope">
-                {{ scope.row.groupNme }}
-              </template>
-            </el-table-column>
+            <el-table-column align="center" prop="paramCode" label="参数码" width="150" />
+            <el-table-column align="center" prop="paramDesc" label="描述" width="150" />
+            <el-table-column align="center" prop="isValid" label="状态" width="150" />
             <el-table-column align="center" label="操作" fixed="right">
               <template slot-scope="scope">
-                <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)">编辑</el-button>
                 <el-button type="danger" size="mini" icon="el-icon-delete" class="action-button" @click="handleDel(scope.row.id)">删除</el-button>
               </template>
             </el-table-column>
@@ -88,31 +85,20 @@ export default {
   components: { Pagination, saveTreeDialog, tableTop, setDialog },
   data() {
     return {
-      list: [
-        {
-          id: 1,
-          groupNo: 1,
-          groupNme: '测试'
-        },
-        {
-          id: 2,
-          groupNo: 2,
-          groupNme: '测试2'
-        }
-      ],
+      list: [],
       expandArr: [],
       treeId: null,
       rowId: null,
       basePath: 'plyTreeConfig',
+      paramPath: 'plyTreeSetParam',
       setDialogVisible: false,
       listLoading: false,
       listQuery: {
         pageNum: 1,
         pageSize: 10,
-        groupNme: undefined,
-        importance: undefined,
-        title: undefined,
+        plyTreeId: undefined,
         type: undefined,
+        level: undefined,
         sort: '+id'
       },
       total: 0,
@@ -191,8 +177,9 @@ export default {
     },
     handleNodeClick(data) {
       console.log(data, '---')
-      this.listQuery.id = this.treeId
       this.treeId = data.id
+      this.listQuery.plyTreeId = this.treeId
+      this.listQuery.level = data.level
       this.fetchData()
     },
     fetchTreeData() {
@@ -201,8 +188,8 @@ export default {
       })
     },
     fetchData() {
-      // this.listLoading = true
-      getList(this.basePath, this.listQuery).then(response => {
+      this.listQuery.type = 2
+      getList(this.paramPath, this.listQuery).then(response => {
         this.list = response.data.data
         this.total = response.data.total
         this.listLoading = false
@@ -233,7 +220,7 @@ export default {
     },
 
     handleDel(id) {
-      this.$confirm('你确定永久删除此集团？, 是否继续?', '提示', {
+      this.$confirm('你确定永久删除此配置？, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
@@ -263,10 +250,10 @@ export default {
   justify-content: space-between;
 }
 .left {
-  width: 40%;
+  width: 35%;
 }
 .right {
-  width: 60%;
+  width: 65%;
 }
 .action {
   margin-left: 50px;
