@@ -264,6 +264,12 @@ export const constantRoutes = [
         meta: { title: '等待期', icon: 'guide', noCache: true }
       },
       {
+        path: 'medicalNetworkDetail',
+        component: () => import('@/views/param/medicalNetworkDetail/index'),
+        name: '医院网络码',
+        meta: { title: '医院网络码', icon: 'guide', noCache: true }
+      },
+      {
         path: 'dutySertypMatching',
         component: () => import('@/views/param/dutySertypMatching/index'),
         name: '责任服务类型匹配',
