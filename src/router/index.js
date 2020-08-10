@@ -276,6 +276,12 @@ export const constantRoutes = [
         meta: { title: '医保卡使用规则', icon: 'guide', noCache: true }
       },
       {
+        path: 'speDisease',
+        component: () => import('@/views/param/speDisease/index'),
+        name: '门诊特殊病',
+        meta: { title: '门诊特殊病', icon: 'guide', noCache: true }
+      },
+      {
         path: 'dutySertypMatching',
         component: () => import('@/views/param/dutySertypMatching/index'),
         name: '责任服务类型匹配',
