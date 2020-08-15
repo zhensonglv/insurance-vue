@@ -12,7 +12,7 @@
             <el-button type="text" size="mini" class="action-button" @click="set(scope.row.id)">设置</el-button>
           </template>
         </el-table-column>
-        <el-table-column align="center" prop="paramDesc" label="基础参数名称" width="150" />
+        <el-table-column align="center" prop="paramDesc" :label="type == 1 ? '基础参数名称' : '通用参数名称'" width="150" />
         <el-table-column align="center" prop="paramCode" label="参数码" width="150" />
         <el-table-column align="center" prop="paramDesc" label="描述" width="150" />
         <el-table-column align="center" prop="isValid" label="状态" width="150" />
@@ -30,28 +30,32 @@
         @pagination="fetchData"
       />
     </div>
-    <saveTreeDialog :son-data="form" :dialog-visible="dialogVisible" @sonStatus="status" />
-    <setDialog :id="rowId" :set-dialog-visible="setDialogVisible" />
+    <setDialog :set-dialog-visible="setDialogVisible" />
   </div>
 </template>
 
 <script>
-import { del, findById, getList } from '@/api/base'
+import { del, getList } from '@/api/base'
 import Pagination from '@/components/Pagination'
-import saveTreeDialog from './saveTreeDialog'
 import setDialog from './setDialog'
 
 export default {
-  components: { Pagination, saveTreeDialog, setDialog },
+  components: { Pagination, setDialog },
   props: {
-    treeId: {
-      type: Number,
-      defalut: 0
-    }
+    treeId: Number,
+    type: Number
   },
   data() {
     return {
-      list: [],
+      list: [
+        {
+          id: 1,
+          paramDesc: 1,
+          paramCode: 1,
+          paramDesc2: 1,
+          isValid: 1
+        }
+      ],
       rowId: null,
       setDialogVisible: false,
       basePath: 'plyTreeSetParam',
@@ -64,12 +68,10 @@ export default {
         sort: '+id'
       },
       total: 0,
-      dialogVisible: false,
       treeQuery: {
         dataNo: null,
         level: null
       },
-      form: null,
       treeData: []
     }
   },
@@ -80,9 +82,6 @@ export default {
       },
       immediate: true
     }
-  },
-  created() {
-    this.fetchData()
   },
   methods: {
     _notify(message, type) {
@@ -100,26 +99,11 @@ export default {
       this.listQuery.plyTreeId = this.treeId
       this.listQuery.type = 1
       getList(this.basePath, this.listQuery).then(response => {
-        this.list = response.data.data
+        this.list = response.data.data || this.list
         this.total = response.data.total
         this.listLoading = false
       })
     },
-    handleEdit(id) {
-      // 跳转到新的页面
-      findById(this.basePath, id).then(response => {
-        this.form = response.data
-      })
-    },
-
-    // 子组件的状态Flag，子组件通过`this.$emit('sonStatus', val)`给父组件传值
-    // 父组件通过`@sonStatus`的方法`status`监听到子组件传递的值
-    status(data) {
-      if (data) {
-        this.fetchData()
-      }
-    },
-
     handleDel(id) {
       this.$confirm('你确定永久删除此集团？, 是否继续?', '提示', {
         confirmButtonText: '确定',

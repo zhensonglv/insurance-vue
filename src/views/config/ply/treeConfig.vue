@@ -32,76 +32,30 @@
           </el-tree>
         </div>
         <div class="right">
-          <tableTop :tree-id="treeId" />
+          <tableTop :tree-id="treeId" :type="1" />
           <br>
-          <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
-            <el-table-column align="center" label="序号" width="95">
-              <template slot-scope="scope">
-                {{ scope.$index +1 }}
-              </template>
-            </el-table-column>
-            <el-table-column align="center" label="操作" width="95">
-              <template slot-scope="scope">
-                <el-button type="text" size="mini" class="action-button" @click="set(scope.row)">设置</el-button>
-              </template>
-            </el-table-column>
-            <el-table-column align="center" label="通用参数名称" width="150">
-              <template slot-scope="scope">
-                {{ scope.row.paramDesc }}
-              </template>
-            </el-table-column>
-            <el-table-column align="center" prop="paramCode" label="参数码" width="150" />
-            <el-table-column align="center" prop="paramDesc" label="描述" width="150" />
-            <el-table-column align="center" prop="isValid" label="状态" width="150" />
-            <el-table-column align="center" label="操作" fixed="right">
-              <template slot-scope="scope">
-                <el-button type="danger" size="mini" icon="el-icon-delete" class="action-button" @click="handleDel(scope.row.id)">删除</el-button>
-              </template>
-            </el-table-column>
-          </el-table>
-          <pagination
-            v-show="total>0"
-            :total="total"
-            :page.sync="listQuery.pageNum"
-            :limit.sync="listQuery.pageSize"
-            @pagination="fetchData"
-          />
+          <tableTop :tree-id="treeId" :type="2" />
         </div>
       </div>
     </el-card>
     <saveTreeDialog :son-data="form" :dialog-visible="dialogVisible" @sonStatus="status" />
-    <setDialog :id="rowId" :set-dialog-visible="setDialogVisible" />
   </div>
 </template>
 
 <script>
-import { del, findById, getTree, delTree, getList } from '@/api/base'
-import Pagination from '@/components/Pagination'
+import { findById, getTree, delTree } from '@/api/base'
 import saveTreeDialog from './saveTreeDialog'
 import tableTop from './table'
-import setDialog from './setDialog'
 
 export default {
-  components: { Pagination, saveTreeDialog, tableTop, setDialog },
+  components: { saveTreeDialog, tableTop },
   data() {
     return {
-      list: [],
       expandArr: [],
       treeId: null,
       rowId: null,
       basePath: 'plyTreeConfig',
       paramPath: 'plyTreeSetParam',
-      setDialogVisible: false,
-      listLoading: false,
-      listQuery: {
-        pageNum: 1,
-        pageSize: 10,
-        plyTreeId: undefined,
-        type: undefined,
-        level: undefined,
-        sort: '+id'
-      },
-      total: 0,
       dialogVisible: false,
       treeQuery: {
         dataNo: null,
@@ -118,7 +72,6 @@ export default {
       this.treeQuery.level = 3
     }
     this.fetchTreeData()
-    this.fetchData()
   },
   methods: {
     _notify(message, type) {
@@ -126,10 +79,6 @@ export default {
         message: message,
         type: type
       })
-    },
-    set(row) {
-      this.rowId = row.id
-      this.setDialogVisible = true
     },
     handleTab(count) {
       this.expandArr = []
@@ -169,7 +118,6 @@ export default {
             this._notify(response.msg, 'error')
           }
           this.fetchTreeData()
-          this.fetchData()
         })
       }).catch(() => {
         this._notify('已取消删除', 'info')
@@ -178,21 +126,10 @@ export default {
     handleNodeClick(data) {
       console.log(data, '---')
       this.treeId = data.id
-      this.listQuery.plyTreeId = this.treeId
-      this.listQuery.level = data.level
-      this.fetchData()
     },
     fetchTreeData() {
       getTree(this.basePath, this.treeQuery).then(response => {
         this.treeData = response.data
-      })
-    },
-    fetchData() {
-      this.listQuery.type = 2
-      getList(this.paramPath, this.listQuery).then(response => {
-        this.list = response.data.data
-        this.total = response.data.total
-        this.listLoading = false
       })
     },
     handleSave() {
@@ -215,27 +152,7 @@ export default {
     status(data) {
       if (data) {
         this.fetchTreeData()
-        this.fetchData()
       }
-    },
-
-    handleDel(id) {
-      this.$confirm('你确定永久删除此配置？, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        del(this.basePath, id).then(response => {
-          if (response.code === 200) {
-            this._notify(response.msg, 'success')
-          } else {
-            this._notify(response.msg, 'error')
-          }
-          this.fetchData()
-        })
-      }).catch(() => {
-        this._notify('已取消删除', 'info')
-      })
     }
   }
 }

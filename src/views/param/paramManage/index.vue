@@ -29,7 +29,15 @@
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleRoute">明细</el-button>
       </div>
       <br>
-      <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row @selection-change="handleSelect">
+      <el-table
+        v-loading="listLoading"
+        :data="list"
+        element-loading-text="Loading"
+        border
+        fit
+        highlight-current-row
+        @selection-change="handleSelect"
+      >
         <el-table-column
           type="selection"
           width="55"
@@ -141,6 +149,7 @@ export default {
     },
     handleSelect(data) {
       this.selected = data
+      this.$emit('selectVal', data)
     },
     _notify(message, type) {
       this.$message({
