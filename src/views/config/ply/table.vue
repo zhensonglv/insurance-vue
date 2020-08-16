@@ -9,10 +9,10 @@
         </el-table-column>
         <el-table-column align="center" label="操作" width="95">
           <template slot-scope="scope">
-            <el-button type="text" size="mini" class="action-button" @click="set(scope.row.id)">设置</el-button>
+            <el-button type="text" size="mini" class="action-button" @click="set(scope.row)">设置</el-button>
           </template>
         </el-table-column>
-        <el-table-column align="center" prop="paramDesc" :label="type == 1 ? '基础参数名称' : '通用参数名称'" width="150" />
+        <el-table-column align="center" prop="paramType" :label="type == 1 ? '基础参数名称' : '通用参数名称'" width="150" />
         <el-table-column align="center" prop="paramCode" label="参数码" width="150" />
         <el-table-column align="center" prop="paramDesc" label="描述" width="150" />
         <el-table-column align="center" prop="isValid" label="状态" width="150" />
@@ -30,7 +30,7 @@
         @pagination="fetchData"
       />
     </div>
-    <setDialog :set-dialog-visible="setDialogVisible" />
+    <setDialog :son-data="paramData" :set-dialog-visible="setDialogVisible" @sonStatus="status" />
   </div>
 </template>
 
@@ -48,15 +48,8 @@ export default {
   data() {
     return {
       list: [
-        {
-          id: 1,
-          paramDesc: 1,
-          paramCode: 1,
-          paramDesc2: 1,
-          isValid: 1
-        }
       ],
-      rowId: null,
+      paramData: null,
       setDialogVisible: false,
       basePath: 'plyTreeSetParam',
       listLoading: false,
@@ -90,22 +83,27 @@ export default {
         type: type
       })
     },
-    set(row) {
-      this.rowId = row.id
+    set(data) {
+      this.paramData = data
       this.setDialogVisible = true
     },
     fetchData() {
       // this.listLoading = true
       this.listQuery.plyTreeId = this.treeId
-      this.listQuery.type = 1
+      this.listQuery.type = this.type
       getList(this.basePath, this.listQuery).then(response => {
-        this.list = response.data.data || this.list
+        this.list = response.data.data
         this.total = response.data.total
         this.listLoading = false
       })
     },
+    status(data) {
+      if (data) {
+        this.fetchData()
+      }
+    },
     handleDel(id) {
-      this.$confirm('你确定永久删除此集团？, 是否继续?', '提示', {
+      this.$confirm('你确定永久删除此配置？, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'

@@ -100,6 +100,9 @@ import Save from './save'
 
 export default {
   components: { Pagination, Save },
+  props: {
+    setParamType: String
+  },
   data() {
     return {
       list: null,
@@ -124,6 +127,14 @@ export default {
       CParamTyps: {},*/
       prodParamterTyp: {},
       selected: []
+    }
+  },
+  watch: {
+    setParamType: {
+      handler(v) {
+        this.listQuery.paramterTyp = v
+      },
+      immediate: true
     }
   },
   created() {

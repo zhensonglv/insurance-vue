@@ -8,7 +8,17 @@
         <el-input v-model="form.name" placeholder="请输入甲方数据名称" />
       </el-form-item>
       <el-form-item label="类型" prop="type" label-width="120px">
-        <el-input v-model="form.type" placeholder="请输入类型" />
+        <el-select
+          v-model="form.type"
+          placeholder="请选择类型"
+        >
+          <el-option
+            v-for="item in typeData.CProdApplyTyp"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
       <el-form-item label="系统代码" prop="dataNo" label-width="120px">
         <el-input v-model="form.dataNo" placeholder="请输入系统代码" />
@@ -30,6 +40,7 @@
 
 <script>
 import { save, edit } from '@/api/base'
+import { getCodeList } from '@/api/code'
 
 export default {
   components: {
@@ -54,6 +65,7 @@ export default {
         dataNme: null,
         type: null
       },
+      typeData: {},
       rules: {
       }
     }
@@ -68,7 +80,11 @@ export default {
       } else {
         this.dialogTitle = '新增tree节点'
       }
+      this.fetchTypeData()
     }
+  },
+  created() {
+    //
   },
   methods: {
     _notify(message, type) {
@@ -84,6 +100,18 @@ export default {
       this.form.dataNo = null
       this.form.dataNme = null
       this.form.type = null
+    },
+    fetchTypeData() {
+      // 获取codeList
+      getCodeList({ parent: ['CProdApplyTyp'] }).then(res => {
+        this.typeData = res.data
+        for (const key in this.typeData) {
+          this.typeData[key].forEach(item => {
+            !this[key] && (this[key] = {})
+            this[key][item.value] = item.label
+          })
+        }
+      })
     },
     handleClose() {
       this.clearForm()

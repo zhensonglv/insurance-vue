@@ -63,7 +63,7 @@ export default {
       },
       form: null,
       treeData: [],
-      tabData: ['集团', ' 团体', '保单', ' 等级', '产品', ' 险种', '责任']
+      tabData: ['集团', '团体', '保单', '等级', '产品', '险种', '责任']
     }
   },
   created() {
