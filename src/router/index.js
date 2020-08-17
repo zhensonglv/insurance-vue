@@ -294,6 +294,12 @@ export const constantRoutes = [
         meta: { title: '诊断匹配管理', icon: 'guide', noCache: true }
       },
       {
+        path: 'claimSpecialMatch',
+        component: () => import('@/views/param/claimSpecialMatch/index'),
+        name: '理赔审核规则匹配',
+        meta: { title: '理赔审核规则匹配', icon: 'guide', noCache: true }
+      },
+      {
         path: 'explainNo',
         component: () => import('@/views/param/explainNo/index'),
         name: '结论说明码',
