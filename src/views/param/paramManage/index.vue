@@ -36,12 +36,16 @@
         border
         fit
         highlight-current-row
-        @selection-change="handleSelect"
       >
         <el-table-column
-          type="selection"
+          type="center"
+          label="选择"
           width="55"
-        />
+        >
+          <template slot-scope="scope">
+            <el-radio v-model="paramRadio" :label="scope.$index" @change.native="handleSelect(scope.row)">&nbsp;</el-radio>
+          </template>
+        </el-table-column>
         <el-table-column align="center" label="序号" width="95">
           <template slot-scope="scope">
             {{ scope.$index +1 }}
@@ -101,7 +105,7 @@ import Save from './save'
 export default {
   components: { Pagination, Save },
   props: {
-    setParamType: String
+    setParamData: Object
   },
   data() {
     return {
@@ -126,13 +130,16 @@ export default {
       /*    CProdApplyTyp: {},
       CParamTyps: {},*/
       prodParamterTyp: {},
-      selected: []
+      selected: null,
+      paramRadio: false
     }
   },
   watch: {
-    setParamType: {
+    setParamData: {
       handler(v) {
-        this.listQuery.paramterTyp = v
+        this.listQuery.applyTyp = v.treeType
+        this.listQuery.paramterTyp = v.paramType
+        this.fetchTypeData()
       },
       immediate: true
     }
@@ -145,14 +152,14 @@ export default {
   },
   methods: {
     handleRoute() {
-      if (this.selected.length !== 1) {
+      if (this.selected == null) {
         this.$message({
           showClose: true,
           message: '只能选择一条查看',
           type: 'warning'
         })
       } else {
-        getPath({ paramterTyp: this.selected[0].paramterTyp }).then(res => {
+        getPath({ paramterTyp: this.selected.paramterTyp }).then(res => {
           var typPath = res.data.typPath
           this.$router.push({ path: '/param/' + typPath, query: { paramCde: this.selected[0].prodCde }})
         })
@@ -191,6 +198,16 @@ export default {
           this.businessData[key].forEach(item => {
             !this[key] && (this[key] = {})
             this[key][item.value] = item.label
+          })
+        }
+        // 参数类型配置
+        if (this.listQuery.applyTyp) {
+          getCodeList({ parent: [this.listQuery.applyTyp] }).then(res => {
+            this.paramData = res.data
+            for (const key in this.paramData) { // key:group  value：array
+              // 数组[{label:'限额',value:'1',parent:'duty'},{label:'免赔额',value:'2',parent:'duty'}]
+              this.paramData.prodParamterTyp = this.paramData[key]
+            }
           })
         }
         this.fetchData()

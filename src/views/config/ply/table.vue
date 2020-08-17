@@ -18,7 +18,7 @@
         <el-table-column align="center" prop="isValid" label="状态" width="150" />
         <el-table-column align="center" label="操作" fixed="right">
           <template slot-scope="scope">
-            <el-button type="danger" size="mini" icon="el-icon-delete" class="action-button" @click="handleDel(scope.row.id)">删除</el-button>
+            <el-button v-if="scope.row.id != null" type="danger" size="mini" icon="el-icon-delete" class="action-button" @click="handleDel(scope.row.id)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -42,7 +42,7 @@ import setDialog from './setDialog'
 export default {
   components: { Pagination, setDialog },
   props: {
-    treeId: Number,
+    setTreeData: Object,
     type: Number
   },
   data() {
@@ -50,6 +50,8 @@ export default {
       list: [
       ],
       paramData: null,
+      treeType: null,
+      treeId: null,
       setDialogVisible: false,
       basePath: 'plyTreeSetParam',
       listLoading: false,
@@ -69,8 +71,10 @@ export default {
     }
   },
   watch: {
-    treeId: {
+    setTreeData: {
       handler(v) {
+        this.treeType = v.type
+        this.treeId = v.id
         this.fetchData()
       },
       immediate: true
@@ -85,6 +89,7 @@ export default {
     },
     set(data) {
       this.paramData = data
+      this.paramData.treeType = this.treeType
       this.setDialogVisible = true
     },
     fetchData() {

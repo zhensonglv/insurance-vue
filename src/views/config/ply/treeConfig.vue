@@ -32,9 +32,9 @@
           </el-tree>
         </div>
         <div class="right">
-          <tableTop :tree-id="treeId" :type="1" />
+          <tableTop :set-tree-data="setTreeData" :type="1" />
           <br>
-          <tableTop :tree-id="treeId" :type="2" />
+          <tableTop :set-tree-data="setTreeData" :type="2" />
         </div>
       </div>
     </el-card>
@@ -52,7 +52,7 @@ export default {
   data() {
     return {
       expandArr: [],
-      treeId: null,
+      setTreeData: {},
       rowId: null,
       basePath: 'plyTreeConfig',
       paramPath: 'plyTreeSetParam',
@@ -125,7 +125,7 @@ export default {
     },
     handleNodeClick(data) {
       console.log(data, '---')
-      this.treeId = data.id
+      this.setTreeData = data
     },
     fetchTreeData() {
       getTree(this.basePath, this.treeQuery).then(response => {

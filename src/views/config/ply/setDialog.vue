@@ -1,6 +1,6 @@
 <template>
   <el-dialog title="设置" :before-close="handleClose" :visible.sync="loadVisible" width="70%">
-    <paramManage :set-param-type="paramData.paramType" @selectVal="getSelectVal" />
+    <paramManage :set-param-data="setParamData" @selectVal="getSelectVal" />
 
     <div slot="footer" class="dialog-footer">
       <el-button @click="handleClose">
@@ -24,19 +24,23 @@ export default {
       type: Boolean,
       default: false
     },
-    sonData: Object
+    sonData: Object,
+    treeType: String
   },
   data() {
     return {
       loadVisible: false,
-      selectValues: null,
+      selectValue: null,
       basePath: 'plyTreeSetParam',
-      paramData: {}
+      paramData: {},
+      setParamData: {}
     }
   },
   watch: {
     sonData: function(newVal, oldVal) {
       this.paramData = newVal
+      this.setParamData.paramType = newVal.paramType
+      this.setParamData.treeType = newVal.treeType
       this.loadVisible = true
     }
   },
@@ -51,22 +55,22 @@ export default {
       })
     },
     getSelectVal(value) {
-      this.selectValues = value
+      this.selectValue = value
     },
     handleClose() {
       this.$parent.setDialogVisible = false
       this.loadVisible = false
     },
     onSubmit() {
-      if (this.selectValues.length !== 1) {
+      if (this.selectValue == null) {
         this.$message({
           showClose: true,
           message: '只能选择一条查看',
           type: 'warning'
         })
       } else {
-        this.paramData.paramCode = this.selectValues[0].prodCde
-        this.paramData.paramDesc = this.selectValues[0].paramterDesc
+        this.paramData.paramCode = this.selectValue.prodCde
+        this.paramData.paramDesc = this.selectValue.paramterDesc
         if (this.paramData.id > 0) {
           edit(this.basePath, this.paramData).then(response => {
             if (response.code === 200) {
