@@ -95,7 +95,7 @@ export default {
     fetchData() {
       // this.listLoading = true
       this.listQuery.plyTreeId = this.treeId
-      this.listQuery.type = 1
+      this.listQuery.type = this.type
       getList(this.basePath, this.listQuery).then(({ data }) => {
         if (data) {
           this.list = data.data
