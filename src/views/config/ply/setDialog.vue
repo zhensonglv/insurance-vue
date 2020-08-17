@@ -1,6 +1,6 @@
 <template>
   <el-dialog title="设置" :before-close="handleClose" :visible.sync="loadVisible" width="70%">
-    <paramManage :set-param-data="setParamData" @selectVal="getSelectVal" />
+    <paramManage v-if="loadVisible" :set-param-data="setParamData" @selectVal="getSelectVal" />
 
     <div slot="footer" class="dialog-footer">
       <el-button @click="handleClose">
@@ -42,6 +42,12 @@ export default {
       this.setParamData.paramType = newVal.paramType
       this.setParamData.treeType = newVal.treeType
       this.loadVisible = true
+    },
+    setDialogVisible: {
+      handler(v) {
+        this.loadVisible = v
+      },
+      immediate: true
     }
   },
   created() {

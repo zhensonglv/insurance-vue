@@ -95,10 +95,12 @@ export default {
     fetchData() {
       // this.listLoading = true
       this.listQuery.plyTreeId = this.treeId
-      this.listQuery.type = this.type
-      getList(this.basePath, this.listQuery).then(response => {
-        this.list = response.data.data
-        this.total = response.data.total
+      this.listQuery.type = 1
+      getList(this.basePath, this.listQuery).then(({ data }) => {
+        if (data) {
+          this.list = data.data
+          this.total = data.total
+        }
         this.listLoading = false
       })
     },
