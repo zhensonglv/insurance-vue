@@ -294,6 +294,12 @@ export const constantRoutes = [
         meta: { title: '诊断匹配管理', icon: 'guide', noCache: true }
       },
       {
+        path: 'amtConfig',
+        component: () => import('@/views/param/amtConfig/index'),
+        name: '集团公共保额',
+        meta: { title: '集团公共保额', icon: 'guide', noCache: true }
+      },
+      {
         path: 'adjustmentOrder',
         component: () => import('@/views/param/adjustmentOrder/index'),
         name: '理算顺序',
