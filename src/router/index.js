@@ -306,6 +306,12 @@ export const constantRoutes = [
         meta: { title: '理算顺序', icon: 'guide', noCache: true }
       },
       {
+        path: 'ciRate',
+        component: () => import('@/views/param/ciRate/index'),
+        name: '赔付比例',
+        meta: { title: '赔付比例', icon: 'guide', noCache: true }
+      },
+      {
         path: 'claimSpecialMatch',
         component: () => import('@/views/param/claimSpecialMatch/index'),
         name: '理赔审核规则匹配',
