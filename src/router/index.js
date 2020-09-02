@@ -318,6 +318,12 @@ export const constantRoutes = [
         meta: { title: '津贴', icon: 'guide', noCache: true }
       },
       {
+        path: 'exclusionsDuty',
+        component: () => import('@/views/param/exclusionsDuty/index'),
+        name: '除外责任',
+        meta: { title: '除外责任', icon: 'guide', noCache: true }
+      },
+      {
         path: 'claimSpecialMatch',
         component: () => import('@/views/param/claimSpecialMatch/index'),
         name: '理赔审核规则匹配',
