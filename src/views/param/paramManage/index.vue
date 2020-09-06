@@ -105,7 +105,10 @@ import Save from './save'
 export default {
   components: { Pagination, Save },
   props: {
-    setParamData: Object
+    setParamData: {
+      type: Object,
+      default: _ => {}
+    }
   },
   data() {
     return {
@@ -160,8 +163,8 @@ export default {
         })
       } else {
         getPath({ paramterTyp: this.selected.paramterTyp }).then(res => {
-          var typPath = res.data.typPath
-          this.$router.push({ path: '/param/' + typPath, query: { paramCde: this.selected[0].prodCde }})
+          var typPath = res.data.typPath || ''
+          this.$router.push({ path: '/param/' + typPath, query: { paramCde: this.selected.prodCde }})
         })
       }
     },

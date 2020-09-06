@@ -4,11 +4,22 @@
       <div>
         <el-input v-model="listQuery.dutyNo" style="width: 200px;" placeholder="请输入责任号查询" />
         <el-input v-model="listQuery.dutyDesc" style="width: 200px;" placeholder="请输入责任描述查询" />
-        <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
-        <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
+        <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="queryData">查询</el-button>
+        <el-button v-if="dialog" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
+        <el-button v-else style="margin-left: 10px;" type="success" icon="el-icon-search" @click="resetData">重置</el-button>
       </div>
       <br>
-      <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
+      <el-table
+        v-loading="listLoading"
+        :data="list"
+        element-loading-text="Loading"
+        border
+        fit
+        highlight-current-row
+        type="selection"
+        @selection-change="handleSelectionChange"
+      >
+        <el-table-column v-if="dialog" type="selection" width="55" />
         <el-table-column align="center" label="序号" width="95">
           <template slot-scope="scope">
             {{ scope.$index +1 }}
@@ -39,7 +50,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="操作" fixed="right">
+        <el-table-column v-if="!dialog" align="center" label="操作" fixed="right">
           <template slot-scope="scope">
             <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)">编辑</el-button>
             <el-button type="danger" size="mini" icon="el-icon-delete" class="action-button" @click="handleDel(scope.row.id)">删除</el-button>
@@ -54,7 +65,7 @@
         :total="total"
         :page.sync="listQuery.pageNum"
         :limit.sync="listQuery.pageSize"
-        @pagination="fetchData"
+        @pagination="queryData"
       />
     </el-card>
   </div>
@@ -68,6 +79,12 @@ import Save from './save'
 
 export default {
   components: { Pagination, Save },
+  props: {
+    dialog: {
+      type: Boolean,
+      default: false
+    }
+  },
   data() {
     return {
       list: null,
@@ -88,7 +105,8 @@ export default {
     /* if (this.$route.query.pubCoverId) { // 上级页面传入参数
         this.listQuery.pubCoverId = this.$route.query.pubCoverId
       }*/
-    this.fetchData()
+    this.resetData()
+    this.queryData()
     // this.fetchTypeData()
   },
   mounted() {
@@ -100,7 +118,14 @@ export default {
         type: type
       })
     },
-    fetchData() {
+    resetData() {
+      this.listQuery.dutyNo = null
+      this.listQuery.dutyDesc = null
+    },
+    handleSelectionChange(val) {
+      this.$emit('setMultipleSeleValues', val)
+    },
+    queryData() {
       this.listLoading = true
       getList(this.basePath, this.listQuery).then(response => {
         this.list = response.data.data
@@ -138,7 +163,7 @@ export default {
     // 父组件通过`@sonStatus`的方法`status`监听到子组件传递的值
     status(data) {
       if (data) {
-        this.fetchData()
+        this.queryData()
       }
     },
 
@@ -154,7 +179,7 @@ export default {
           } else {
             this._notify(response.msg, 'error')
           }
-          this.fetchData()
+          this.queryData()
         })
       }).catch(() => {
         this._notify('已取消删除', 'info')
