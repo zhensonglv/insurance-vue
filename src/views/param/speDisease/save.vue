@@ -7,8 +7,15 @@
       <el-form-item label="代码类型" prop="codeTyp" label-width="120px">
         <el-input v-model="form.codeTyp" placeholder="请输入代码类型" />
       </el-form-item>
-      <el-form-item label="起始代码" prop="bgnCde" label-width="120px">
-        <el-input v-model="form.bgnCde" placeholder="请输入起始代码" />
+      <el-form-item label="代码类型" prop="codeTyp" label-width="120px">
+        <el-select v-model="form.codeTyp" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.DiaMatchTyp"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
 
       <el-form-item label="终止代码" prop="endCde" label-width="120px">

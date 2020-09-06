@@ -4,11 +4,23 @@
       <el-form-item label="津贴码" prop="hospitalizationCde" label-width="120px">
         <el-input v-model="form.hospitalizationCde" placeholder="请输入津贴码" />
       </el-form-item>
+
       <el-form-item label="住院津贴说明" prop="hospitalizationDesc" label-width="120px">
         <el-input v-model="form.hospitalizationDesc" placeholder="请输入住院津贴说明" />
       </el-form-item>
       <el-form-item label="津贴类型" prop="hospitalizationTyp" label-width="120px">
         <el-input v-model="form.hospitalizationTyp" placeholder="请输入津贴类型" />
+      </el-form-item>
+
+      <el-form-item label="津贴类型1" prop="hospitalizationTyp" label-width="120px">
+        <el-select v-model="form.hospitalizationTyp" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.ClinicType"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
 
       <el-form-item label="免赔天数" prop="deductionDays" label-width="120px">

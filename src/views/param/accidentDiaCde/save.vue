@@ -4,9 +4,18 @@
       <el-form-item label="意外诊断码" prop="accidentDiaCde" label-width="120px">
         <el-input v-model="form.accidentDiaCde" placeholder="请输入意外诊断码" />
       </el-form-item>
+
       <el-form-item label="代码类型" prop="codeTyp" label-width="120px">
-        <el-input v-model="form.codeTyp" placeholder="请输入代码类型" />
+        <el-select v-model="form.codeTyp" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.DiaMatchTyp"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
+
       <el-form-item label="起始代码" prop="bgnCde" label-width="120px">
         <el-input v-model="form.bgnCde" placeholder="请输入起始代码" />
       </el-form-item>
