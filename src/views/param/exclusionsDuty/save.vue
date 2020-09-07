@@ -12,7 +12,14 @@
       </el-form-item>
 
       <el-form-item label="就诊类型" prop="invoiceTyp" label-width="120px">
-        <el-input v-model="form.invoiceTyp" placeholder="请输入就诊类型" />
+        <el-select v-model="form.invoiceTyp" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.ClinicType"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
 
       <el-form-item label="治疗类型" prop="treamentTyp" label-width="120px">
@@ -28,7 +35,14 @@
       </el-form-item>
 
       <el-form-item label="代码类型" prop="quotaCodeTyp" label-width="120px">
-        <el-input v-model="form.quotaCodeTyp" placeholder="请输入代码类型" />
+        <el-select v-model="form.quotaCodeTyp" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.DiaMatchTyp"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
 
       <el-form-item label="起始代码" prop="quotaStarCde" label-width="120px">
@@ -56,7 +70,14 @@
       </el-form-item>
 
       <el-form-item label="性别" prop="sex" label-width="120px">
-        <el-input v-model="form.sex" placeholder="请输入性别" />
+        <el-select v-model="form.sex" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.CEasyDiaSex"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
 
       <el-form-item label="医院网络码" prop="hospitalNetCde" label-width="120px">
