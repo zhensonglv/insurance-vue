@@ -4,15 +4,15 @@
       <el-form-item label="赔付比例码" prop="ciRateCde" label-width="120px">
         <el-input v-model="form.ciRateCde" placeholder="请输入赔付比例码" />
       </el-form-item>
-      <el-form-item label="适用条件" prop="condition" label-width="120px">
-        <el-input v-model="form.condition" placeholder="请输入适用条件" />
+      <el-form-item label="适用条件" prop="conditionCde" label-width="120px">
+        <el-input v-model="form.conditionCde" placeholder="请输入适用条件" />
       </el-form-item>
       <el-form-item label="赔付比例说明" prop="ciRateExplain" label-width="120px">
         <el-input v-model="form.ciRateExplain" placeholder="请输入赔付比例说明" />
       </el-form-item>
 
-      <el-form-item label="是否设置阶梯共保比例" prop="ladder" label-width="120px">
-        <el-input v-model="form.ladder" placeholder="请输入是否设置阶梯共保比例" />
+      <el-form-item label="是否设置阶梯共保比例" prop="ladderCde" label-width="120px">
+        <el-input v-model="form.ladderCde" placeholder="请输入是否设置阶梯共保比例" />
       </el-form-item>
 
       <el-form-item label="赔付比例" prop="ciRate" label-width="120px">
@@ -23,8 +23,8 @@
         <el-input v-model="form.ciRateTyp" placeholder="请输入赔付比例类型" />
       </el-form-item>
 
-      <el-form-item label="医院网络码" prop="medicalNetworkCde" label-width="120px">
-        <el-input v-model="form.medicalNetworkCde" placeholder="请输入医院网络码" />
+      <el-form-item label="医院网络码" prop="medicalNetwork" label-width="120px">
+        <el-input v-model="form.medicalNetwork" placeholder="请输入医院网络码" />
       </el-form-item>
 
       <el-form-item label="就诊原因" prop="visitReson" label-width="120px">
@@ -82,13 +82,13 @@ export default {
       basePath: 'ciRate',
       form: {
         id: '',
-        condition: '',
+        conditionCde: '',
         ciRateCde: '',
         ciRateExplain: '',
-        ladder: '',
+        ladderCde: '',
         ciRate: '',
         ciRateTyp: '',
-        medicalNetworkCde: '',
+        medicalNetwork: '',
         visitReson: '',
         billTyp: '',
         visitTyp: '',
@@ -123,13 +123,13 @@ export default {
     },
     clearForm() {
       this.form.id = null
-      this.form.condition = null
+      this.form.conditionCde = null
       this.form.ciRateCde = null
       this.form.ciRateExplain = null
-      this.form.ladder = null
+      this.form.ladderCde = null
       this.form.ciRate = null
       this.form.ciRateTyp = null
-      this.form.medicalNetworkCde = null
+      this.form.medicalNetwork = null
       this.form.visitReson = null
       this.form.billTyp = null
       this.form.visitTyp = null
