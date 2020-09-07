@@ -7,6 +7,7 @@
       <el-form-item label="代码类型" prop="codeTyp" label-width="120px">
         <el-input v-model="form.codeTyp" placeholder="请输入代码类型" />
       </el-form-item>
+
       <el-form-item label="代码类型" prop="codeTyp" label-width="120px">
         <el-select v-model="form.codeTyp" placeholder="请选择">
           <el-option
@@ -17,6 +18,9 @@
           />
         </el-select>
       </el-form-item>
+      <el-form-item label="起始代码" prop="bgnCde" label-width="120px">
+        <el-input v-model="form.bgnCde" placeholder="请输入起始代码" />
+      </el-form-item>
 
       <el-form-item label="终止代码" prop="endCde" label-width="120px">
         <el-input v-model="form.endCde" placeholder="请输入终止代码" />
@@ -26,13 +30,35 @@
         <el-input v-model="form.socialSecurityErea" placeholder="请输入社保地" />
       </el-form-item>
 
-      <el-form-item label="门诊类型" prop="mentorTyp" label-width="120px">
+      <!--<el-form-item label="门诊类型" prop="mentorTyp" label-width="120px">
         <el-input v-model="form.mentorTyp" placeholder="请输入门诊类型" />
+      </el-form-item>-->
+
+      <el-form-item label="门诊类型" prop="mentorTyp" label-width="120px">
+        <el-select v-model="form.mentorTyp" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.MentorTyp"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
 
       <el-form-item label="就诊类型" prop="clinicTyp" label-width="120px">
-        <el-input v-model="form.clinicTyp" placeholder="请输入就诊类型" />
+        <el-select v-model="form.clinicTyp" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.ClinicType"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
+
+      <!--<el-form-item label="就诊类型" prop="clinicTyp" label-width="120px">
+        <el-input v-model="form.clinicTyp" placeholder="请输入就诊类型" />
+      </el-form-item>-->
 
     </el-form>
     <div slot="footer" class="dialog-footer">

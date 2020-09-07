@@ -36,13 +36,13 @@
 
         <el-table-column align="center" label="门诊类型" width="250">
           <template slot-scope="scope">
-            {{ scope.row.mentorTyp }}
+            {{ MentorTyp[scope.row.mentorTyp] }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="就诊类型" width="250">
+        <el-table-column align="center" label="就诊类型" width="150">
           <template slot-scope="scope">
-            {{ scope.row.clinicTyp }}
+            {{ ClinicType[scope.row.clinicTyp] }}
           </template>
         </el-table-column>
 
@@ -89,7 +89,8 @@ export default {
       dialogVisible: false,
       form: null,
       DiaMatchTyp: {},
-      businessData: {}
+      businessData: {},
+      ClinicType: {}
     }
   },
   created() {
@@ -118,7 +119,7 @@ export default {
     },
     fetchTypeData() {
       // 获取codeList
-      getCodeList({ parent: ['DiaMatchTyp'] }).then(res => {
+      getCodeList({ parent: ['DiaMatchTyp', 'ClinicType', 'MentorTyp'] }).then(res => {
         debugger
         this.businessData = res.data
         // 组装table 的map
