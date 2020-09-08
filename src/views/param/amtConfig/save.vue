@@ -4,15 +4,32 @@
       <el-form-item label="公共保额码" prop="amtCde" label-width="120px">
         <el-input v-model="form.amtCde" placeholder="请输入公共保额码" />
       </el-form-item>
+
       <el-form-item label="公共保额类型" prop="amtTyp" label-width="120px">
-        <el-input v-model="form.amtTyp" placeholder="请输入公共保额类型" />
+        <el-select v-model="form.amtTyp" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.CPubCoverTyp"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
       <el-form-item label="起始日" prop="plyBgnTm" label-width="120px">
-        <el-input v-model="form.plyBgnTm" placeholder="请输入起始日" />
+        <el-date-picker
+          v-model="form.plyBgnTm"
+          type="datetime"
+          value-format="yyyy-MM-dd"
+          placeholder="选择日期时间"
+        />
       </el-form-item>
-
       <el-form-item label="终止日" prop="plyEndTm" label-width="120px">
-        <el-input v-model="form.plyEndTm" placeholder="请输入终止日" />
+        <el-date-picker
+          v-model="form.plyEndTm"
+          type="datetime"
+          value-format="yyyy-MM-dd"
+          placeholder="选择日期时间"
+        />
       </el-form-item>
 
       <el-form-item label="说明" prop="amtDesc" label-width="120px">
@@ -24,11 +41,25 @@
       </el-form-item>
 
       <el-form-item label="额度类型" prop="quotaTyp" label-width="120px">
-        <el-input v-model="form.quotaTyp" placeholder="请输入额度类型" />
+        <el-select v-model="form.quotaTyp" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.CQuotaTyp"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
 
       <el-form-item label="就诊类型" prop="clineCtype" label-width="120px">
-        <el-input v-model="form.clineCtype" placeholder="请输入就诊类型" />
+        <el-select v-model="form.clineCtype" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.CProDutyDesc"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
 
       <el-form-item label="单位申请" prop="companyApply" label-width="120px">

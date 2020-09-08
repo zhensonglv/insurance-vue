@@ -34,7 +34,7 @@
 
         <el-table-column align="center" label="是否使用医保卡" width="350">
           <template slot-scope="scope">
-            {{ scope.row.isUseMedicare }}
+            {{ TrueOrFalse[scope.row.isUseMedicare] }}
           </template>
         </el-table-column>
 
@@ -52,13 +52,14 @@
 
         <el-table-column align="center" label="就诊类型" width="350">
           <template slot-scope="scope">
-            {{ scope.row.visitTyp }}
+            {{ CProDutyDesc[scope.row.visitTyp] }}
           </template>
         </el-table-column>
 
         <el-table-column align="center" label="事故类型" width="350">
           <template slot-scope="scope">
-            {{ scope.row.userTyp }}
+            {{ AccidentType[scope.row.userTyp] }}
+
           </template>
         </el-table-column>
 
@@ -91,7 +92,7 @@
 
 <script>
 import { getList, findById, del } from '@/api/base'
-// import { getCodeList } from '@/api/code'
+import { getCodeList } from '@/api/code'
 import Pagination from '@/components/Pagination'
 import Save from './save'
 
@@ -110,15 +111,19 @@ export default {
       total: 0,
       dialogVisible: false,
       form: null,
-      businessData: {}
+      businessData: {},
+      TrueOrFalse: {},
+      CProDutyDesc: {},
+      AccidentType: {}
     }
   },
   created() {
     /* if (this.$route.query.pubCoverId) { // 上级页面传入参数
           this.listQuery.pubCoverId = this.$route.query.pubCoverId
         }*/
-    this.fetchData()
-    // this.fetchTypeData()
+    // this.fetchData()
+    debugger
+    this.fetchTypeData()
   },
   mounted() {
   },
@@ -137,18 +142,21 @@ export default {
         this.listLoading = false
       })
     },
-    /* fetchTypeData() {
-        // 获取codeList
-        getCodeList({ parent: ['CExplCdeSubcategory'] }).then(res => {
-          this.businessData = res.data
-          // 组装table 的map
-          for (const key in this.businessData) {
-            this.businessData[key].forEach(item => {
-              this[key][item.value] = item.label
-            })
-          }
-        })
-      },*/
+    fetchTypeData() {
+      // 获取codeList
+      getCodeList({ parent: ['TrueOrFalse', 'AccidentType', 'CProDutyDesc'] }).then(res => {
+        debugger
+        this.businessData = res.data
+        // 组装table 的map
+        for (const key in this.businessData) {
+          this.businessData[key].forEach(item => {
+            !this[key] && (this[key] = {})
+            this[key][item.value] = item.label
+          })
+        }
+        this.fetchData()
+      })
+    },
     handleSave() {
       this.form = { id: null }
       /* if (this.$route.query.pubCoverId) { // 上级页面传入参数

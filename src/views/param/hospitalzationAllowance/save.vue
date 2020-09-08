@@ -8,14 +8,11 @@
       <el-form-item label="住院津贴说明" prop="hospitalizationDesc" label-width="120px">
         <el-input v-model="form.hospitalizationDesc" placeholder="请输入住院津贴说明" />
       </el-form-item>
-      <el-form-item label="津贴类型" prop="hospitalizationTyp" label-width="120px">
-        <el-input v-model="form.hospitalizationTyp" placeholder="请输入津贴类型" />
-      </el-form-item>
 
-      <el-form-item label="津贴类型1" prop="hospitalizationTyp" label-width="120px">
+      <el-form-item label="津贴类型" prop="hospitalizationTyp" label-width="120px">
         <el-select v-model="form.hospitalizationTyp" placeholder="请选择">
           <el-option
-            v-for="item in businessData.ClinicType"
+            v-for="item in businessData.CHospitalizationTyp"
             :key="item.value"
             :label="item.label"
             :value="item.value"
@@ -68,15 +65,32 @@
       </el-form-item>
 
       <el-form-item label="就诊原因" prop="visitReson" label-width="120px">
-        <el-input v-model="form.visitReson" placeholder="请输入就诊原因" />
+        <el-select v-model="form.visitReson" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.QuotaVisitReason"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
 
       <el-form-item label="住院天数调整" prop="inHospitalDays" label-width="120px">
         <el-input v-model="form.inHospitalDays" placeholder="请输入住院天数调整" />
       </el-form-item>
 
-      <el-form-item label="治疗类型" prop="treatmentTyp" label-width="120px">
-        <el-input v-model="form.treatmentTyp" placeholder="请输入治疗类型" />
+      <el-form-item label="治疗类型" prop="treatmentTyp" label-width="240px">
+        <el-checkbox v-model="checkAll" :indeterminate="isIndeterminate" @change="handleCheckAllChange">全选</el-checkbox>
+        <div style="margin: 15px 0;" />
+        <el-checkbox-group v-model="form.medicInsureDesc" @change="handleCheckedCitiesChange">
+          <el-checkbox
+            v-for="item in businessData.CiTreatmentTyp"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          >{{ item.label }}</el-checkbox>
+
+        </el-checkbox-group>
       </el-form-item>
 
     </el-form>
@@ -122,8 +136,12 @@ export default {
         visitReson: '',
         inHospitalDays: '',
         treatmentTyp: '',
-        diaMatParameterCde: ''
+        diaMatParameterCde: '',
+        medicInsureDesc: []
       },
+      medicInsureArr: ['特需就诊', '康复就诊', '一般就诊', '急诊'],
+      checkAll: false,
+      isIndeterminate: true,
       rules: {
         hospitalizationCde: [{ required: true, trigger: 'blur', message: '请输入津贴码' }],
         hospitalizationDesc: [{ required: true, trigger: 'blur', message: '请输入津贴码说明' }],
@@ -177,10 +195,22 @@ export default {
       this.clearForm()
       this.dialogVisible = false
     },
+    handleCheckAllChange(val) {
+      this.form.medicInsureDesc = val ? this.medicInsureArr : []
+      console.log(this.form.medicInsureDesc)
+      this.isIndeterminate = false
+    },
+    handleCheckedCitiesChange(value) {
+      debugger
+      const checkedCount = value.length
+      this.checkAll = checkedCount === this.businessData.CiTreatmentTyp.length
+      this.isIndeterminate = checkedCount > 0 && checkedCount < this.businessData.CiTreatmentTyp.length
+    },
     onSubmit(form) {
       this.$refs[form].validate((valid) => {
         if (valid) {
           if (this.form.id === null) {
+            console.log(this.form.medicInsureDesc)
             save(this.basePath, this.form).then(response => {
               if (response.code === 200) {
                 this._notify(response.msg, 'success')

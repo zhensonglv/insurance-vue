@@ -22,7 +22,8 @@
 
         <el-table-column align="center" label="公共保额类型" width="250">
           <template slot-scope="scope">
-            {{ scope.row.amtTyp }}
+            {{ CPubCoverTyp[scope.row.amtTyp] }}
+
           </template>
         </el-table-column>
 
@@ -67,7 +68,7 @@
 
 <script>
 import { getList, findById, del } from '@/api/base'
-// import { getCodeList } from '@/api/code'
+import { getCodeList } from '@/api/code'
 import Pagination from '@/components/Pagination'
 import Save from './save'
 
@@ -86,15 +87,18 @@ export default {
       total: 0,
       dialogVisible: false,
       form: null,
-      businessData: {}
+      businessData: {},
+      CPubCoverTyp: {},
+      CQuotaTyp: {},
+      CProDutyDesc: {}
     }
   },
   created() {
     /* if (this.$route.query.pubCoverId) { // 上级页面传入参数
           this.listQuery.pubCoverId = this.$route.query.pubCoverId
         }*/
-    this.fetchData()
-    // this.fetchTypeData()
+    //
+    this.fetchTypeData()
   },
   mounted() {
   },
@@ -113,18 +117,19 @@ export default {
         this.listLoading = false
       })
     },
-    /* fetchTypeData() {
-        // 获取codeList
-        getCodeList({ parent: ['CExplCdeSubcategory'] }).then(res => {
-          this.businessData = res.data
-          // 组装table 的map
-          for (const key in this.businessData) {
-            this.businessData[key].forEach(item => {
-              this[key][item.value] = item.label
-            })
-          }
-        })
-      },*/
+    fetchTypeData() {
+      // 获取codeList
+      getCodeList({ parent: ['CPubCoverTyp', 'CQuotaTyp', 'CProDutyDesc'] }).then(res => {
+        this.businessData = res.data
+        // 组装table 的map
+        for (const key in this.businessData) {
+          this.businessData[key].forEach(item => {
+            this[key][item.value] = item.label
+          })
+        }
+        this.fetchData()
+      })
+    },
     handleSave() {
       this.form = { id: null }
       /* if (this.$route.query.pubCoverId) { // 上级页面传入参数
