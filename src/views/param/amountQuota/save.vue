@@ -47,6 +47,7 @@
           />
         </el-select>
       </el-form-item>
+
       <el-form-item label="是否关联" prop="isRelation" label-width="120px">
         <el-select v-model="form.isRelation" placeholder="请选择">
           <el-option

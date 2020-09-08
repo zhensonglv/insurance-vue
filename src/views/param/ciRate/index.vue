@@ -2,9 +2,9 @@
   <div class="app-container">
     <el-card>
       <div>
-        <el-input v-model="listQuery.ciRateCde" style="width: 200px;" placeholder="请输入赔付比例码查询" />
-        <el-input v-model="listQuery.ciRateExplain" style="width: 200px;" placeholder="请输入赔付比例说明查询" />
-        <el-input v-model="listQuery.ciRateTyp" style="width: 200px;" placeholder="请输入赔付比例类型查询" />
+        <el-input v-model="listQuery.accidentDiaCde" style="width: 200px;" placeholder="请输入赔付比例码查询" />
+        <el-input v-model="listQuery.accidentDiaExp" style="width: 200px;" placeholder="请输入赔付比例说明查询" />
+        <el-input v-model="listQuery.accidentDiaExp" style="width: 200px;" placeholder="请输入赔付比例类型查询" />
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
       </div>
@@ -16,45 +16,45 @@
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="赔付比例码" width="250">
+        <el-table-column align="center" label="赔付比例码" width="200">
           <template slot-scope="scope">
             {{ scope.row.ciRateCde }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="阶梯" width="250">
+        <el-table-column align="center" label="阶梯" width="200">
           <template slot-scope="scope">
-            {{ scope.row.ladderCde }}
+            {{ TrueOrFalse[scope.row.ladder] }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="赔付比例" width="250">
+        <el-table-column align="center" label="赔付比例" width="200">
           <template slot-scope="scope">
             {{ scope.row.ciRate }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="赔付比例类型" width="250">
+        <el-table-column align="center" label="赔付比例类型" width="150">
           <template slot-scope="scope">
-            {{ scope.row.ciRateTyp }}
+            {{ CiRateTyp[scope.row.ciRateTyp] }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="医院网络码" width="150">
+        <el-table-column align="center" label="医院网络码" width="200">
           <template slot-scope="scope">
-            {{ scope.row.medicalNetwork }}
+            {{ scope.row.medicalNetworkCde }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="就诊原因" width="150">
+        <el-table-column align="center" label="就诊原因" width="200">
           <template slot-scope="scope">
-            {{ scope.row.visitReson }}
+            {{ QuotaVisitReason[scope.row.visitReson] }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="账单类型" width="150">
+        <el-table-column align="center" label="账单类型" width="200">
           <template slot-scope="scope">
-            {{ scope.row.billTyp }}
+            {{ CiRateBillTyp[scope.row.billTyp] }}
           </template>
         </el-table-column>
 
@@ -100,18 +100,19 @@ export default {
       total: 0,
       dialogVisible: false,
       form: null,
-      DiaMatchTyp: {},
       businessData: {},
-      ClinicType: {}
+      CiRateTyp: {},
+      TrueOrFalse: {},
+      QuotaVisitReason: {},
+      CiRateBillTyp: {}
     }
   },
   created() {
-    debugger
     /* if (this.$route.query.pubCoverId) { // 上级页面传入参数
-            this.listQuery.pubCoverId = this.$route.query.pubCoverId
-          }*/
-    this.fetchData()
-    // this.fetchTypeData()
+          this.listQuery.pubCoverId = this.$route.query.pubCoverId
+        }*/
+    // this.fetchData()
+    this.fetchTypeData()
   },
   mounted() {
   },
@@ -132,12 +133,11 @@ export default {
     },
     fetchTypeData() {
       // 获取codeList
-      getCodeList({ parent: ['DiaMatchTyp', 'ClinicType', 'MentorTyp'] }).then(res => {
+      getCodeList({ parent: ['CiRateTyp', 'TrueOrFalse', 'QuotaVisitReason', 'CiRateBillTyp', 'CiRateCondition', 'CDocTyp', 'CiTreatmentTyp'] }).then(res => {
         this.businessData = res.data
         // 组装table 的map
         for (const key in this.businessData) {
           this.businessData[key].forEach(item => {
-            !this[key] && (this[key] = {})
             this[key][item.value] = item.label
           })
         }
@@ -147,8 +147,8 @@ export default {
     handleSave() {
       this.form = { id: null }
       /* if (this.$route.query.pubCoverId) { // 上级页面传入参数
-              this.form.pubCoverId = this.$route.query.pubCoverId
-            }*/
+            this.form.pubCoverId = this.$route.query.pubCoverId
+          }*/
       this.dialogVisible = true
     },
     handleEdit(id) {

@@ -4,15 +4,31 @@
       <el-form-item label="赔付比例码" prop="ciRateCde" label-width="120px">
         <el-input v-model="form.ciRateCde" placeholder="请输入赔付比例码" />
       </el-form-item>
+
       <el-form-item label="适用条件" prop="conditionCde" label-width="120px">
-        <el-input v-model="form.conditionCde" placeholder="请输入适用条件" />
+        <el-select v-model="form.conditionCde" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.CiRateCondition"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
+
       <el-form-item label="赔付比例说明" prop="ciRateExplain" label-width="120px">
         <el-input v-model="form.ciRateExplain" placeholder="请输入赔付比例说明" />
       </el-form-item>
 
-      <el-form-item label="是否设置阶梯共保比例" prop="ladderCde" label-width="120px">
-        <el-input v-model="form.ladderCde" placeholder="请输入是否设置阶梯共保比例" />
+      <el-form-item label="是否设置阶梯共保比例" prop="ladder" label-width="120px">
+        <el-select v-model="form.ladder" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
 
       <el-form-item label="赔付比例" prop="ciRate" label-width="120px">
@@ -20,23 +36,51 @@
       </el-form-item>
 
       <el-form-item label="赔付比例类型" prop="ciRateTyp" label-width="120px">
-        <el-input v-model="form.ciRateTyp" placeholder="请输入赔付比例类型" />
+        <el-select v-model="form.ciRateTyp" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.CiRateTyp"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
 
-      <el-form-item label="医院网络码" prop="medicalNetwork" label-width="120px">
-        <el-input v-model="form.medicalNetwork" placeholder="请输入医院网络码" />
+      <el-form-item label="医院网络码" prop="medicalNetworkCde" label-width="120px">
+        <el-input v-model="form.medicalNetworkCde" placeholder="请输入医院网络码" />
       </el-form-item>
 
       <el-form-item label="就诊原因" prop="visitReson" label-width="120px">
-        <el-input v-model="form.visitReson" placeholder="请输入就诊原因" />
+        <el-select v-model="form.visitReson" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.QuotaVisitReason"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
 
       <el-form-item label="账单类型" prop="billTyp" label-width="120px">
-        <el-input v-model="form.billTyp" placeholder="请输入账单类型" />
+        <el-select v-model="form.billTyp" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.CiRateBillTyp"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
 
       <el-form-item label="就诊类型" prop="visitTyp" label-width="120px">
-        <el-input v-model="form.visitTyp" placeholder="请输入就诊类型" />
+        <el-select v-model="form.visitTyp" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.CDocTyp"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
 
       <el-form-item label="解释码" prop="explainCde" label-width="120px">
@@ -48,11 +92,25 @@
       </el-form-item>
 
       <el-form-item label="治疗类型" prop="treatmentTyp" label-width="120px">
-        <el-input v-model="form.treatmentTyp" placeholder="请输入治疗类型" />
+        <el-select v-model="form.treatmentTyp" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.CiTreatmentTyp"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
 
       <el-form-item label="是否医保投保" prop="ismedicalIns" label-width="120px">
-        <el-input v-model="form.ismedicalIns" placeholder="请输入是否医保投保" />
+        <el-select v-model="form.ismedicalIns" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
 
     </el-form>
@@ -85,10 +143,10 @@ export default {
         conditionCde: '',
         ciRateCde: '',
         ciRateExplain: '',
-        ladderCde: '',
+        ladder: '',
         ciRate: '',
         ciRateTyp: '',
-        medicalNetwork: '',
+        medicalNetworkCde: '',
         visitReson: '',
         billTyp: '',
         visitTyp: '',
@@ -126,10 +184,10 @@ export default {
       this.form.conditionCde = null
       this.form.ciRateCde = null
       this.form.ciRateExplain = null
-      this.form.ladderCde = null
+      this.form.ladder = null
       this.form.ciRate = null
       this.form.ciRateTyp = null
-      this.form.medicalNetwork = null
+      this.form.medicalNetworkCde = null
       this.form.visitReson = null
       this.form.billTyp = null
       this.form.visitTyp = null

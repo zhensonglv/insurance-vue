@@ -383,6 +383,18 @@ export const constantRoutes = [
         component: () => import('@/views/param/diagnosisConvert/index'),
         name: '诊断转换',
         meta: { title: '诊断转换', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'amountQuota',
+        component: () => import('@/views/param/amountQuota/index'),
+        name: '合计限额',
+        meta: { title: '合计限额', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'amountDeductible',
+        component: () => import('@/views/param/amountDeductible/index'),
+        name: '合计免赔额',
+        meta: { title: '合计免赔额', icon: 'guide', noCache: true }
       }
     ]
   },

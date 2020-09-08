@@ -7,8 +7,16 @@
       <el-form-item label="等待期说明" prop="waitPeriodDesc" label-width="120px">
         <el-input v-model="form.waitPeriodDesc" placeholder="请输入等待期说明" />
       </el-form-item>
+
       <el-form-item label="就诊原因" prop="visitReason" label-width="120px">
-        <el-input v-model="form.visitReason" placeholder="请输入就诊原因" />
+        <el-select v-model="form.visitReason" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.QuotaVisitReason"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
 
       <el-form-item label="等待天数" prop="waitDays" label-width="120px">
@@ -16,7 +24,14 @@
       </el-form-item>
 
       <el-form-item label="等待期起算期" prop="nwaitDaysStart" label-width="120px">
-        <el-input v-model="form.nwaitDaysStart" placeholder="请输入等待期起算期" />
+        <el-select v-model="form.nwaitDaysStart" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.CNWaitDaysStart"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
 
       <el-form-item label="解释码" prop="explCde" label-width="120px">
