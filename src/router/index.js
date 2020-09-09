@@ -177,6 +177,12 @@ export const constantRoutes = [
         meta: { title: '别名管理', icon: 'guide', noCache: true }
       },
       {
+        path: 'clientNaturalPersion',
+        component: () => import('@/views/client/clientNaturalPersion/index'),
+        name: '自然人管理',
+        meta: { title: '自然人管理', icon: 'guide', noCache: true }
+      },
+      {
         path: 'claim',
         component: () => import('@/views/client/claim/index'),
         name: '理赔信息',
@@ -209,6 +215,12 @@ export const constantRoutes = [
         component: () => import('@/views/productData/proDuty/index'),
         name: '责任',
         meta: { title: '责任', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'dataMatch',
+        component: () => import('@/views/productData/dataMatch/index'),
+        name: '甲方金科匹配',
+        meta: { title: '甲方金科匹配', icon: 'guide', noCache: true }
       }
     ]
   },

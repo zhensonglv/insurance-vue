@@ -2,7 +2,11 @@
   <div class="app-container">
     <el-card>
       <div>
-        <el-input v-model="listQuery.exclusionsCde" style="width: 200px;" placeholder="请输入除外责任码查询" />
+        <el-input v-model="listQuery.noTyp" style="width: 200px;" placeholder="请输入数据类型查询" />
+        <el-input v-model="listQuery.partyCde" style="width: 200px;" placeholder="请输入甲方代码查询" />
+        <el-input v-model="listQuery.partyName" style="width: 200px;" placeholder="请输入甲方名称查询" />
+        <el-input v-model="listQuery.jkCde" style="width: 200px;" placeholder="请输入金科代码查询" />
+        <el-input v-model="listQuery.jkName" style="width: 200px;" placeholder="请输入金科名称查询" />
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
       </div>
@@ -14,45 +18,39 @@
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="除外责任码" width="150">
+        <el-table-column align="center" label="数据类型" width="200">
           <template slot-scope="scope">
-            {{ scope.row.exclusionsCde }}
+            {{ scope.row.noTyp }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="除外责任说明" width="150">
+        <el-table-column align="center" label="甲方代码" width="200">
           <template slot-scope="scope">
-            {{ scope.row.exclusionsDesc }}
+            {{ scope.row.partyCde }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="除外责任类型" width="150">
+        <el-table-column align="center" label="甲方名称" width="200">
           <template slot-scope="scope">
-            {{ scope.row.exclusionsTyp }}
+            {{ scope.row.partyName }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="就诊类型" width="150">
+        <el-table-column align="center" label="金科代码" width="200">
           <template slot-scope="scope">
-            {{ ClinicType[scope.row.invoiceTyp] }}
+            {{ scope.row.jkCde }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="解释码" width="150">
+        <el-table-column align="center" label="金科名称" width="200">
           <template slot-scope="scope">
-            {{ scope.row.explainCde }}
+            {{ scope.row.jkName }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="解释码描述" width="150">
+        <el-table-column align="center" label="甲方公司名称" width="200">
           <template slot-scope="scope">
-            {{ scope.row.explainCdeDesc }}
-          </template>
-        </el-table-column>
-
-        <el-table-column align="center" label="代码类型" width="250">
-          <template slot-scope="scope">
-            {{ DiaMatchTyp[scope.row.quotaCodeTyp] }}
+            {{ scope.row.partyCompanyName }}
           </template>
         </el-table-column>
 
@@ -89,17 +87,17 @@ export default {
     return {
       list: null,
       listLoading: true,
-      basePath: 'exclusionsDuty',
+      basePath: 'dataMatch',
       listQuery: {
         pageNum: 1,
         pageSize: 10,
-        exclusionsCde: '',
         sort: '+id'
       },
       total: 0,
       dialogVisible: false,
       form: null,
-      businessData: {}
+      businessData: {},
+      DiaMatchTyp: {}
     }
   },
   created() {
@@ -128,7 +126,7 @@ export default {
     },
     fetchTypeData() {
       // 获取codeList
-      getCodeList({ parent: ['DiaMatchTyp', 'ClinicType', 'CEasyDiaSex'] }).then(res => {
+      getCodeList({ parent: ['DiaMatchTyp'] }).then(res => {
         this.businessData = res.data
         // 组装table 的map
         for (const key in this.businessData) {
