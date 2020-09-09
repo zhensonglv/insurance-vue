@@ -2,69 +2,61 @@
   <div class="app-container">
     <el-card>
       <div>
-        <el-input v-model="listQuery.exclusionsCde" style="width: 200px;" placeholder="请输入除外责任码查询" />
+        <el-input v-model="listQuery.insuredNo" style="width: 200px;" placeholder="被保险人号" />
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
       </div>
       <br>
-      <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
+      <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row style="width: 100%" size="mini">
+        <el-table-column v-if="aggregate" type="expand">
+          <template>
+            <group />
+          </template>
+        </el-table-column>
         <el-table-column align="center" label="序号" width="95">
           <template slot-scope="scope">
             {{ scope.$index +1 }}
           </template>
         </el-table-column>
-
-        <el-table-column align="center" label="除外责任码" width="150">
+        <el-table-column align="center" label="被保人姓名">
           <template slot-scope="scope">
-            {{ scope.row.exclusionsCde }}
+            {{ scope.row.insuredNme }}
           </template>
         </el-table-column>
-
-        <el-table-column align="center" label="除外责任说明" width="150">
+        <el-table-column align="center" label="被保人Id">
           <template slot-scope="scope">
-            {{ scope.row.exclusionsDesc }}
+            {{ scope.row.insuredNo }}
           </template>
         </el-table-column>
-
-        <el-table-column align="center" label="除外责任类型" width="150">
+        <el-table-column align="center" label="自然人姓名">
           <template slot-scope="scope">
-            {{ scope.row.exclusionsTyp }}
+            {{ scope.row.nme }}
           </template>
         </el-table-column>
-
-        <el-table-column align="center" label="就诊类型" width="150">
+        <el-table-column align="center" label="自然人证件类型">
           <template slot-scope="scope">
-            {{ ClinicType[scope.row.invoiceTyp] }}
+            {{ scope.row.certCls }}
           </template>
         </el-table-column>
-
-        <el-table-column align="center" label="解释码" width="150">
+        <el-table-column align="center" label="自然人证件号">
           <template slot-scope="scope">
-            {{ scope.row.explainCde }}
+            {{ scope.row.certCde }}
           </template>
         </el-table-column>
-
-        <el-table-column align="center" label="解释码描述" width="150">
+        <el-table-column align="center" label="性别">
           <template slot-scope="scope">
-            {{ scope.row.explainCdeDesc }}
+            {{ scope.row.sex }}
           </template>
         </el-table-column>
-
-        <el-table-column align="center" label="代码类型" width="250">
+        <el-table-column align="center" label="操作" width="200">
           <template slot-scope="scope">
-            {{ DiaMatchTyp[scope.row.quotaCodeTyp] }}
-          </template>
-        </el-table-column>
-
-        <el-table-column align="center" label="操作" fixed="right">
-          <template slot-scope="scope">
-            <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)">编辑</el-button>
-            <el-button type="danger" size="mini" icon="el-icon-delete" class="action-button" @click="handleDel(scope.row.id)">删除</el-button>
+            <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)" />
+            <el-button type="danger" size="mini" icon="el-icon-delete" @click="handleDel(scope.row.id)" />
           </template>
         </el-table-column>
       </el-table>
 
-      <save :son-data="form" :business-data="businessData" @sonStatus="status" />
+      <save :son-data="form" @sonStatus="status" />
 
       <pagination
         v-show="total>0"
@@ -79,37 +71,36 @@
 
 <script>
 import { getList, findById, del } from '@/api/base'
-import { getCodeList } from '@/api/code'
 import Pagination from '@/components/Pagination'
+import group from '../group'
 import Save from './save'
 
 export default {
-  components: { Pagination, Save },
+  components: { Pagination, Save, group },
+  props: {
+    aggregate: {
+      type: Boolean,
+      default: false
+    }
+  },
   data() {
     return {
       list: null,
+      basePath: 'clientNaturalPersion',
       listLoading: true,
-      basePath: 'exclusionsDuty',
       listQuery: {
         pageNum: 1,
         pageSize: 10,
-        exclusionsCde: '',
+        insuredNo: '',
         sort: '+id'
       },
       total: 0,
       dialogVisible: false,
-      form: null,
-      businessData: {}
+      form: null
     }
   },
   created() {
-    /* if (this.$route.query.pubCoverId) { // 上级页面传入参数
-          this.listQuery.pubCoverId = this.$route.query.pubCoverId
-        }*/
-    // this.fetchData()
-    this.fetchTypeData()
-  },
-  mounted() {
+    this.fetchData()
   },
   methods: {
     _notify(message, type) {
@@ -126,25 +117,8 @@ export default {
         this.listLoading = false
       })
     },
-    fetchTypeData() {
-      // 获取codeList
-      getCodeList({ parent: ['DiaMatchTyp', 'ClinicType', 'CEasyDiaSex'] }).then(res => {
-        this.businessData = res.data
-        // 组装table 的map
-        for (const key in this.businessData) {
-          this.businessData[key].forEach(item => {
-            !this[key] && (this[key] = {})
-            this[key][item.value] = item.label
-          })
-        }
-        this.fetchData()
-      })
-    },
     handleSave() {
       this.form = { id: null }
-      /* if (this.$route.query.pubCoverId) { // 上级页面传入参数
-            this.form.pubCoverId = this.$route.query.pubCoverId
-          }*/
       this.dialogVisible = true
     },
     handleEdit(id) {
@@ -152,6 +126,11 @@ export default {
       findById(this.basePath, id).then(response => {
         this.form = response.data
       })
+    },
+
+    handleRoute(data) {
+      console.log(data, '钱总来了---')
+      this.$router.push({ path: '/system/dict', params: data })
     },
 
     // 子组件的状态Flag，子组件通过`this.$emit('sonStatus', val)`给父组件传值
@@ -163,7 +142,7 @@ export default {
     },
 
     handleDel(id) {
-      this.$confirm('你确定永久删除此数据？, 是否继续?', '提示', {
+      this.$confirm('你确定永久删除此自然人信息？, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
