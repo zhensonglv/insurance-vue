@@ -177,6 +177,12 @@ export const constantRoutes = [
         meta: { title: '别名管理', icon: 'guide', noCache: true }
       },
       {
+        path: 'clientInsuranceDept',
+        component: () => import('@/views/client/clientInsuranceDept/index'),
+        name: '投保单位',
+        meta: { title: '投保单位', icon: 'guide', noCache: true }
+      },
+      {
         path: 'clientNaturalPersion',
         component: () => import('@/views/client/clientNaturalPersion/index'),
         name: '自然人管理',
