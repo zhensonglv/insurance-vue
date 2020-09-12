@@ -199,6 +199,12 @@ export const constantRoutes = [
         component: () => import('@/views/client/claim/index'),
         name: '理赔信息',
         meta: { title: '理赔信息【demo】', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'clientSubInsuranceDept',
+        component: () => import('@/views/client/clientSubInsuranceDept/index'),
+        name: '子投保单位管理',
+        meta: { title: '子投保单位管理', icon: 'guide', noCache: true }
       }
     ]
   },
