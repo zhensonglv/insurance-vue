@@ -205,6 +205,12 @@ export const constantRoutes = [
         component: () => import('@/views/client/clientSubInsuranceDept/index'),
         name: '子投保单位管理',
         meta: { title: '子投保单位管理', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'insuranceCompany',
+        component: () => import('@/views/client/insuranceCompany/index'),
+        name: '保险公司',
+        meta: { title: '保险公司', icon: 'guide', noCache: true }
       }
     ]
   },
