@@ -2,7 +2,11 @@
   <div class="app-container">
     <el-card>
       <div>
-        <el-input v-model="listQuery.principalInsuredClientNo" style="width: 200px;" placeholder="请输入主被保险人客户标识号查询" />
+        <el-input v-model="listQuery.quotaCde" style="width: 200px;" placeholder="请输入限额码查询" />
+        <el-input v-model="listQuery.quotaDesc" style="width: 200px;" placeholder="请输入限额说明查询" />
+        <el-input v-model="listQuery.starCodeDesc" style="width: 200px;" placeholder="请输入起始代码描述查询" />
+        <el-input v-model="listQuery.endCodeDesc" style="width: 200px;" placeholder="请输入终止代码描述查询" />
+
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
       </div>
@@ -14,33 +18,39 @@
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="主被保险人客户标识号" width="250">
+        <el-table-column align="center" label="限额码" width="200">
           <template slot-scope="scope">
-            {{ scope.row.principalInsuredClientNo }}
+            {{ scope.row.quotaCde }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="被保险人客户标识号" width="250">
+        <el-table-column align="center" label="代码类型" width="350">
           <template slot-scope="scope">
-            {{ scope.row.insuredNo }}
+            {{ DiaMatchTyp[scope.row.codeTyp] }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="生效日" width="250">
+        <el-table-column align="center" label="起始代码" width="200">
           <template slot-scope="scope">
-            {{ scope.row.effectiveTm }}
+            {{ scope.row.starCde }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="终止日" width="250">
+        <el-table-column align="center" label="起始代码描述" width="200">
           <template slot-scope="scope">
-            {{ scope.row.expiryTm }}
+            {{ scope.row.starCodeDesc }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="生活方式描述" width="250">
+        <el-table-column align="center" label="终止代码" width="200">
           <template slot-scope="scope">
-            {{ scope.row.lifeStyleDesc }}
+            {{ scope.row.endCde }}
+          </template>
+        </el-table-column>
+
+        <el-table-column align="center" label="终止代码描述" width="200">
+          <template slot-scope="scope">
+            {{ scope.row.endCodeDesc }}
           </template>
         </el-table-column>
 
@@ -67,7 +77,7 @@
 
 <script>
 import { getList, findById, del } from '@/api/base'
-// import { getCodeList } from '@/api/code'
+import { getCodeList } from '@/api/code'
 import Pagination from '@/components/Pagination'
 import Save from './save'
 
@@ -77,7 +87,7 @@ export default {
     return {
       list: null,
       listLoading: true,
-      basePath: 'clientLifeStyle',
+      basePath: 'quotaCodeConfig',
       listQuery: {
         pageNum: 1,
         pageSize: 10,
@@ -86,16 +96,16 @@ export default {
       total: 0,
       dialogVisible: false,
       form: null,
-      businessData: {}
-      // DiaMatchTyp: {}
+      businessData: {},
+      DiaMatchTyp: {}
     }
   },
   created() {
     /* if (this.$route.query.pubCoverId) { // 上级页面传入参数
           this.listQuery.pubCoverId = this.$route.query.pubCoverId
         }*/
-    this.fetchData()
-    // this.fetchTypeData()
+    // this.fetchData()
+    this.fetchTypeData()
   },
   mounted() {
   },
@@ -114,7 +124,7 @@ export default {
         this.listLoading = false
       })
     },
-    /* fetchTypeData() {
+    fetchTypeData() {
       // 获取codeList
       getCodeList({ parent: ['DiaMatchTyp'] }).then(res => {
         debugger
@@ -128,7 +138,7 @@ export default {
         }
         this.fetchData()
       })
-    },*/
+    },
     handleSave() {
       this.form = { id: null }
       /* if (this.$route.query.pubCoverId) { // 上级页面传入参数

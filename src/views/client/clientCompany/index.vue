@@ -2,7 +2,7 @@
   <div class="app-container">
     <el-card>
       <div>
-        <el-input v-model="listQuery.principalInsuredClientNo" style="width: 200px;" placeholder="请输入主被保险人客户标识号查询" />
+        <el-input v-model="listQuery.deptNme" style="width: 200px;" placeholder="请输入投保单位名称查询" />
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
       </div>
@@ -14,33 +14,39 @@
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="主被保险人客户标识号" width="250">
+        <el-table-column align="center" label="投保单位标识号" width="200">
           <template slot-scope="scope">
-            {{ scope.row.principalInsuredClientNo }}
+            {{ scope.row.deptNo }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="被保险人客户标识号" width="250">
+        <el-table-column align="center" label="投保单位名称" width="200">
           <template slot-scope="scope">
-            {{ scope.row.insuredNo }}
+            {{ scope.row.deptNme }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="生效日" width="250">
+        <el-table-column align="center" label="公司类型" width="200">
           <template slot-scope="scope">
-            {{ scope.row.effectiveTm }}
+            {{ scope.row.companyTyp }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="终止日" width="250">
+        <el-table-column align="center" label="集团名称" width="200">
           <template slot-scope="scope">
-            {{ scope.row.expiryTm }}
+            {{ scope.row.groupNme }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="生活方式描述" width="250">
+        <el-table-column align="center" label="所属保险公司" width="200">
           <template slot-scope="scope">
-            {{ scope.row.lifeStyleDesc }}
+            {{ scope.row.insuCompanyCde }}
+          </template>
+        </el-table-column>
+
+        <el-table-column align="center" label="所属保险分公司" width="200">
+          <template slot-scope="scope">
+            {{ scope.row.insuBranchCompanyCde }}
           </template>
         </el-table-column>
 
@@ -77,7 +83,7 @@ export default {
     return {
       list: null,
       listLoading: true,
-      basePath: 'clientLifeStyle',
+      basePath: 'clientCompany',
       listQuery: {
         pageNum: 1,
         pageSize: 10,
