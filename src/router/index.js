@@ -189,6 +189,12 @@ export const constantRoutes = [
         meta: { title: '投保单位', icon: 'guide', noCache: true }
       },
       {
+        path: 'clientCompany',
+        component: () => import('@/views/client/clientCompany/index'),
+        name: '投保公司',
+        meta: { title: '投保公司', icon: 'guide', noCache: true }
+      },
+      {
         path: 'clientNaturalPersion',
         component: () => import('@/views/client/clientNaturalPersion/index'),
         name: '自然人管理',
@@ -280,6 +286,12 @@ export const constantRoutes = [
         component: () => import('@/views/param/socialinsuAddr/index'),
         name: '社保地',
         meta: { title: '社保地', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'quotaCodeConfig',
+        component: () => import('@/views/param/quotaCodeConfig/index'),
+        name: '限额代码类型配置',
+        meta: { title: '限额代码类型配置', icon: 'guide', noCache: true }
       },
       {
         path: 'claimSpecialDefi',
