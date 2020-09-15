@@ -201,6 +201,12 @@ export const constantRoutes = [
         meta: { title: '自然人管理', icon: 'guide', noCache: true }
       },
       {
+        path: 'clientBankAcctInfo',
+        component: () => import('@/views/client/clientBankAcctInfo/index'),
+        name: '银行账号信息',
+        meta: { title: '银行账号信息', icon: 'guide', noCache: true }
+      },
+      {
         path: 'claim',
         component: () => import('@/views/client/claim/index'),
         name: '理赔信息',
@@ -212,6 +218,13 @@ export const constantRoutes = [
         name: '子投保单位管理',
         meta: { title: '子投保单位管理', icon: 'guide', noCache: true }
       },
+      {
+        path: 'clientworkplace',
+        component: () => import('@/views/client/clientworkplace/index'),
+        name: '社保地区管理',
+        meta: { title: '社保地区管理', icon: 'guide', noCache: true }
+      },
+
       {
         path: 'insuranceCompany',
         component: () => import('@/views/client/insuranceCompany/index'),
@@ -267,6 +280,12 @@ export const constantRoutes = [
         component: () => import('@/views/param/paramManage/index'),
         name: '通用参数',
         meta: { title: '通用参数', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'sicknessScope',
+        component: () => import('@/views/param/sicknessScope/index'),
+        name: '疾病范围',
+        meta: { title: '疾病范围', icon: 'guide', noCache: true }
       },
       {
         path: 'diagnosisManage',
