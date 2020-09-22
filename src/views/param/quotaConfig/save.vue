@@ -97,8 +97,12 @@
         <el-input v-model="form.treatmentDesc" placeholder="请输入参数描述" />
       </el-form-item>
       <el-form-item label="医院网络码" prop="medicalNetworkCde" label-width="120px">
-        <el-input v-model="form.medicalNetworkCde" placeholder="请输入参数描述" />
+        <el-input v-model="form.medicalNetworkCde" placeholder="请输入参数描述">
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch" />
+        </el-input>
       </el-form-item>
+      <match v-model="matchVisable" @matchConfirm="matchConfirm" />
+
       <el-form-item label="解释码" prop="explainCde" label-width="120px">
         <el-input v-model="form.explainCde" placeholder="请输入参数描述" />
       </el-form-item>
@@ -135,12 +139,17 @@
 
 <script>
 import { save, edit } from '@/api/base'
+import Match from './match'
 
 export default {
+  components: {
+    Match
+  },
   // 父组件向子组件传值，通过props获取。
   // 一旦父组件改变了`sonData`对应的值，子组件的`sonData`会立即改变，通过watch函数可以实时监听到值的变化
   // `props`不属于data，但是`props`中的参数可以像data中的参数一样直接使用
   props: ['sonData', 'businessData'],
+
   data() {
     return {
       dialogVisible: false,
@@ -169,6 +178,7 @@ export default {
         isLadder: ''
 
       },
+      matchVisable: false,
       rules: {
         quotaDesc: [{ required: true, trigger: 'blur', message: '请输入限额描述' }],
         quotaTyp: [{ required: true, trigger: 'blur', message: '请选择限额类型' }],
@@ -219,6 +229,15 @@ export default {
       this.form.treatmentDesc = null
       this.form.isLadder = null
     },
+
+    hanldeMatch() {
+      this.matchVisable = true
+    },
+    matchConfirm(data) {
+      debugger
+      this.form.medicalNetworkCde = data[0].prodCde
+    },
+
     handleClose() {
       this.clearForm()
       this.dialogVisible = false
