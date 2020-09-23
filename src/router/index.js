@@ -131,6 +131,47 @@ export const constantRoutes = [
       }
     ]
   },
+
+  {
+    path: '/preview',
+    component: Layout,
+    redirect: '/preview/treatMatch',
+    alwaysShow: true,
+    name: '初审',
+    meta: { title: '初审', icon: 'guide', noCache: true },
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/preview/treatMatch/index'),
+        name: '文本匹配',
+        meta: { title: '文本匹配', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'index',
+        component: () => import('@/views/client/group/index'),
+        name: '客户定位',
+        meta: { title: '客户定位', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'index',
+        component: () => import('@/views/client/group/index'),
+        name: '理赔数据录入',
+        meta: { title: '理赔数据录入', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'index',
+        component: () => import('@/views/client/group/index'),
+        name: '二级初审规则',
+        meta: { title: '二级初审规则', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'index',
+        component: () => import('@/views/client/group/index'),
+        name: '二级初审',
+        meta: { title: '二级初审', icon: 'guide', noCache: true }
+      }
+    ]
+  },
   {
     path: '/client',
     component: Layout,
