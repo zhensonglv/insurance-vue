@@ -12,7 +12,11 @@
             <el-button type="text" size="mini" class="action-button" @click="set(scope.row)">设置</el-button>
           </template>
         </el-table-column>
-        <el-table-column align="center" prop="paramType" :label="type == 1 ? '基础参数名称' : '通用参数名称'" width="150" />
+        <el-table-column align="center" :label="type == 1 ? '基础参数名称' : '通用参数名称'" width="150">
+          <template slot-scope="scope">
+            {{ CParamTyps[scope.row.paramType] }}
+          </template>
+        </el-table-column>
         <el-table-column align="center" prop="paramCode" label="参数码" width="150" />
         <el-table-column align="center" prop="paramDesc" label="描述" width="150" />
         <el-table-column align="center" prop="isValid" label="状态" width="150" />
@@ -37,6 +41,7 @@
 <script>
 import { del, getList } from '@/api/base'
 import Pagination from '@/components/Pagination'
+import { getCodeList } from '@/api/code'
 import setDialog from './setDialog'
 
 export default {
@@ -67,7 +72,8 @@ export default {
         dataNo: null,
         level: null
       },
-      treeData: []
+      treeData: [],
+      selectData: {}
     }
   },
   watch: {
@@ -75,7 +81,7 @@ export default {
       handler(v) {
         this.treeType = v.type
         this.treeId = v.id
-        this.fetchData()
+        this.fetchTypeData()
       },
       immediate: true
     }
@@ -92,6 +98,20 @@ export default {
       this.paramData.treeType = this.treeType
       this.setDialogVisible = true
     },
+    fetchTypeData() {
+      // 获取codeList
+      getCodeList({ parent: ['CParamTyps'] }).then(res => {
+        this.businessData = res.data
+        // 组装table 的map
+        for (const key in this.businessData) {
+          this.businessData[key].forEach(item => {
+            !this[key] && (this[key] = {})
+            this[key][item.value] = item.label
+          })
+        }
+        this.fetchData()
+      })
+    },
     fetchData() {
       // this.listLoading = true
       this.listQuery.plyTreeId = this.treeId
@@ -106,7 +126,7 @@ export default {
     },
     status(data) {
       if (data) {
-        this.fetchData()
+        this.fetchTypeData()
       }
     },
     handleDel(id) {
