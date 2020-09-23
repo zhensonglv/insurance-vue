@@ -19,7 +19,11 @@
         </el-table-column>
         <el-table-column align="center" prop="paramCode" label="参数码" width="150" />
         <el-table-column align="center" prop="paramDesc" label="描述" width="150" />
-        <el-table-column align="center" prop="isValid" label="状态" width="150" />
+        <el-table-column align="center" label="状态" width="150">
+          <template slot-scope="scope">
+            {{ isValid[scope.row.isValid] }}
+          </template>
+        </el-table-column>
         <el-table-column align="center" label="操作" fixed="right">
           <template slot-scope="scope">
             <el-button v-if="scope.row.id != null" type="danger" size="mini" icon="el-icon-delete" class="action-button" @click="handleDel(scope.row.id)">删除</el-button>
@@ -100,7 +104,7 @@ export default {
     },
     fetchTypeData() {
       // 获取codeList
-      getCodeList({ parent: ['CParamTyps'] }).then(res => {
+      getCodeList({ parent: ['CParamTyps', 'isValid'] }).then(res => {
         this.businessData = res.data
         // 组装table 的map
         for (const key in this.businessData) {
