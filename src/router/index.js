@@ -159,16 +159,16 @@ export const constantRoutes = [
         meta: { title: '理赔数据录入', icon: 'guide', noCache: true }
       },
       {
-        path: 'index',
-        component: () => import('@/views/client/group/index'),
+        path: 'secondRule',
+        component: () => import('@/views/preview/secondRule/index'),
         name: '二级初审规则',
         meta: { title: '二级初审规则', icon: 'guide', noCache: true }
       },
       {
         path: 'index',
         component: () => import('@/views/client/group/index'),
-        name: '二级初审',
-        meta: { title: '二级初审', icon: 'guide', noCache: true }
+        name: '诊断详情',
+        meta: { title: '诊断详情', icon: 'guide', noCache: true }
       }
     ]
   },

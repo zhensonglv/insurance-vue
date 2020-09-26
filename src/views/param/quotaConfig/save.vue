@@ -234,7 +234,6 @@ export default {
       this.matchVisable = true
     },
     matchConfirm(data) {
-      debugger
       this.form.medicalNetworkCde = data[0].prodCde
     },
 
