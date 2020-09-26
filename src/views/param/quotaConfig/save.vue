@@ -234,7 +234,7 @@ export default {
       this.matchVisable = true
     },
     matchConfirm(data) {
-      this.form.medicalNetworkCde = data[0].prodCde
+      this.form.medicalNetworkCde = data.prodCde
     },
 
     handleClose() {

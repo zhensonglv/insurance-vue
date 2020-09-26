@@ -70,8 +70,8 @@
     <el-card>
 
       <el-form ref="form" :inline="true" :rules="rules" :model="form" status-icon label-position="right" label-width="80px">
-        <el-form-item label="规则描述" prop="ruleDesc" label-width="700px">
-          <el-input v-model="form.ruleDesc" placeholder="规则描述" />
+        <el-form-item label="规则描述" prop="ruleDesc" label-width="500px">
+          <el-input v-model="form.ruleDesc" placeholder="规则描述" type="textarea" class="text" />
         </el-form-item>
       </el-form>
       <el-table v-loading="listLoading" :data="detailList" element-loading-text="Loading" border fit highlight-current-row @selection-change="handleSelect">
@@ -99,9 +99,10 @@
 
         <el-table-column align="center" label="操作" fixed="right">
           <template slot-scope="scope">
-            <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)">设置</el-button>
+            <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row)">设置</el-button>
           </template>
         </el-table-column>
+        <DialogSet v-model="setVisable" :type="typeData" />
       </el-table>
     </el-card>
     <br>
@@ -111,16 +112,25 @@
   </div>
 </template>
 
+<style>
+.text {
+  width: 400px;
+}
+</style>
+
 <script>
-import { getList, findById, del, save } from '@/api/base'
+import { getList, del, save } from '@/api/base'
 /* import { getCodeList } from '@/api/code'*/
 import Pagination from '@/components/Pagination'
+import DialogSet from './dialogSet'
 
 export default {
-  components: { Pagination },
+  components: { Pagination, DialogSet },
   data() {
     return {
       list: null,
+      typeData: null,
+      setVisable: false,
       listLoading: true,
       detailList: [
         { ruleTyp: '1', condition: '' },
@@ -199,11 +209,13 @@ export default {
       this.selected = data
     },
 
-    handleEdit(id) {
+    handleEdit(row) {
+      this.setVisable = true
+      this.typeData = row.ruleTyp
       // 跳转到新的页面
-      findById(this.basePath, id).then(response => {
-        this.form = response.data
-      })
+      // findById(this.basePath, row.id).then(response => {
+      //   this.form = response.data
+      // })
     },
 
     // 子组件的状态Flag，子组件通过`this.$emit('sonStatus', val)`给父组件传值

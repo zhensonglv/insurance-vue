@@ -1,6 +1,21 @@
 <template>
-  <el-dialog title="医院网络码" :visible.sync="dialogTableVisible" append-to-body width="80%">
-    <paramManage dialog :param-type="paramType" @setMultipleSeleValues="setMultipleSeleValues" />
+  <el-dialog title="设置" :visible.sync="dialogTableVisible" append-to-body width="80%">
+    <div>
+      <template v-if="type == 1">
+        <h1>保单号</h1>
+        <el-input v-model="a" style="width: 200px;" placeholder="保单号" />
+      </template>
+
+      <template v-if="type == 2">
+        <h1>甲方公司</h1>
+        <el-input v-model="a" style="width: 200px;" placeholder="甲方公司" />
+      </template>
+
+      <template v-if="type == 3">
+        <h1>诊断码</h1>
+        <el-input v-model="a" style="width: 200px;" placeholder="诊断码" />
+      </template>
+    </div>
     <div slot="footer" class="dialog-footer">
       <el-button @click="handleClose">
         取消
@@ -13,18 +28,21 @@
 </template>
 <script>
 import { getList } from '@/api/base'
-import paramManage from '../paramManage'
 export default {
-  name: 'Match',
-  components: { paramManage },
+  name: 'DialogSet',
   props: {
     value: {
       type: Boolean,
       default: false
+    },
+    type: {
+      type: String,
+      default: ''
     }
   },
   data() {
     return {
+      a: '',
       paramType: 'param_0015',
       list: null,
       listLoading: true,

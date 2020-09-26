@@ -2,29 +2,31 @@
   <div class="app-container">
     <el-card>
       <div>
-        <el-input v-model="listQuery.prodCde" style="width: 200px;" placeholder="请输入参数码查询" />
-        <el-select v-model="listQuery.applyTyp" placeholder="请选择适用层级" @change="applyTypChange">
-          <el-option
-            v-for="item in businessData.CProdApplyTyp"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          />
-        </el-select>
-        <el-select
-          v-model="listQuery.paramterTyp"
-          placeholder="请选择参数类型"
-        >
-          <el-option
-            v-for="item in paramData.prodParamterTyp"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          />
-        </el-select>
-        <el-input v-model="listQuery.paramterDesc" style="width: 200px;" placeholder="请输入参数描述查询" />
-        <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
-        <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="resetData">重置</el-button>
+        <template v-if="paramType != &quot;param_0015&quot;">
+          <el-input v-model="listQuery.prodCde" style="width: 200px;" placeholder="请输入参数码查询" />
+          <el-select v-model="listQuery.applyTyp" placeholder="请选择适用层级" @change="applyTypChange">
+            <el-option
+              v-for="item in businessData.CProdApplyTyp"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            />
+          </el-select>
+          <el-select
+            v-model="listQuery.paramterTyp"
+            placeholder="请选择参数类型"
+          >
+            <el-option
+              v-for="item in paramData.prodParamterTyp"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            />
+          </el-select>
+          <el-input v-model="listQuery.paramterDesc" style="width: 200px;" placeholder="请输入参数描述查询" />
+          <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
+          <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="resetData">重置</el-button>
+        </template>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleRoute">明细</el-button>
       </div>
@@ -108,6 +110,10 @@ export default {
     setParamData: {
       type: Object,
       default: _ => {}
+    },
+    paramType: {
+      type: String,
+      default: ''
     }
   },
   data() {
@@ -140,8 +146,8 @@ export default {
   watch: {
     setParamData: {
       handler(v) {
-        this.listQuery.applyTyp = v.treeType
-        this.listQuery.paramterTyp = v.paramType
+        this.listQuery.applyTyp = v && v.treeType
+        this.listQuery.paramterTyp = v && v.paramType
         this.fetchTypeData()
       },
       immediate: true
@@ -170,7 +176,7 @@ export default {
     },
     handleSelect(data) {
       this.selected = data
-      this.$emit('selectVal', data)
+      this.$emit('setMultipleSeleValues', data)
     },
     _notify(message, type) {
       this.$message({
@@ -179,6 +185,9 @@ export default {
       })
     },
     fetchData() {
+      if (this.paramType === 'param_0015') {
+        this.listQuery.paramterTyp = this.paramType
+      }
       this.listLoading = true
       getList(this.basePath, this.listQuery).then(response => {
         this.list = response.data.data
