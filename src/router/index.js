@@ -509,6 +509,12 @@ export const constantRoutes = [
         component: () => import('@/views/param/quotaDetail/index'),
         name: '限额阶梯明细',
         meta: { title: '限额阶梯明细', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'treatmentMesManage',
+        component: () => import('@/views/param/treatmentMesManage/index'),
+        name: '诊疗信息管理',
+        meta: { title: '诊疗信息管理', icon: 'guide', noCache: true }
       }
     ]
   },
