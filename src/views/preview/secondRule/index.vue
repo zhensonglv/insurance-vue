@@ -74,7 +74,7 @@
           <el-input v-model="form.ruleDesc" placeholder="规则描述" type="textarea" class="text" />
         </el-form-item>
       </el-form>
-      <el-table v-loading="listLoading" :data="detailList" element-loading-text="Loading" border fit highlight-current-row @selection-change="handleSelect">
+      <el-table v-loading="false" :data="detailList" element-loading-text="Loading" border fit highlight-current-row @selection-change="handleSelect">
         <el-table-column
           type="selection"
           width="55"
@@ -99,7 +99,7 @@
 
         <el-table-column align="center" label="操作" fixed="right">
           <template slot-scope="scope">
-            <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row)">设置</el-button>
+            <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleSet(scope.row)">设置</el-button>
           </template>
         </el-table-column>
         <DialogSet v-model="setVisable" :type="typeData" />
@@ -107,7 +107,7 @@
     </el-card>
     <br>
     <div>
-      <el-button style="margin-left: 750px;" type="success" icon="el-icon-search" @click="handleSave">保存</el-button>
+      <el-button style="margin-left: 750px;" type="success" icon="el-icon-search" @click="handleSave('form')">保存</el-button>
     </div>
   </div>
 </template>
@@ -119,7 +119,7 @@
 </style>
 
 <script>
-import { getList, del, save } from '@/api/base'
+import { getList, del, save, findById } from '@/api/base'
 /* import { getCodeList } from '@/api/code'*/
 import Pagination from '@/components/Pagination'
 import DialogSet from './dialogSet'
@@ -179,7 +179,7 @@ export default {
       })
     },
 
-    handleSave() {
+    handleSave(form) {
       if (this.selected == null) {
         this.$message({
           showClose: true,
@@ -187,12 +187,17 @@ export default {
           type: 'warning'
         })
       } else {
-        this.form.detailList = this.selected
-        save(this.basePath, this.form).then(response => {
-          if (response.code === 200) {
-            this._notify(response.msg, 'success')
-          } else {
-            this._notify(response.msg, 'error')
+        this.$refs[form].validate((valid) => {
+          if (valid) {
+            this.form.detailList = this.selected
+            save(this.basePath, this.form).then(response => {
+              if (response.code === 200) {
+                this._notify(response.msg, 'success')
+                this.fetchData()
+              } else {
+                this._notify(response.msg, 'error')
+              }
+            })
           }
         })
       }
@@ -203,19 +208,21 @@ export default {
       this.form.detailList = [{ ruleTyp: '1', condition: '' },
         { ruleTyp: '2', condition: '' },
         { ruleTyp: '3', condition: '' }]
+      this.detailList = this.form.detailList
     },
 
     handleSelect(data) {
       this.selected = data
     },
-
-    handleEdit(row) {
+    handleEdit(id) {
+      findById(this.basePath, id).then(response => {
+        this.form = response.data
+        this.detailList = this.form.detailList
+      })
+    },
+    handleSet(row) {
       this.setVisable = true
       this.typeData = row.ruleTyp
-      // 跳转到新的页面
-      // findById(this.basePath, row.id).then(response => {
-      //   this.form = response.data
-      // })
     },
 
     // 子组件的状态Flag，子组件通过`this.$emit('sonStatus', val)`给父组件传值

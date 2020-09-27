@@ -5,7 +5,6 @@
         <el-input v-model="listQuery.aliasNme" style="width: 200px;" placeholder="请输入别名查询" />
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
-        <el-button style="margin-left: 10px;" type="info" icon="el-icon-edit" @click="handleRoute(listQuery)">页面跳转</el-button>
       </div>
       <br>
       <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row style="width: 100%" size="mini">
@@ -128,12 +127,6 @@ export default {
         this.form = response.data
       })
     },
-
-    handleRoute(data) {
-      console.log(data, '钱总来了---')
-      this.$router.push({ path: '/system/dict', params: data })
-    },
-
     // 子组件的状态Flag，子组件通过`this.$emit('sonStatus', val)`给父组件传值
     // 父组件通过`@sonStatus`的方法`status`监听到子组件传递的值
     status(data) {

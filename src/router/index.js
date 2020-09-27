@@ -199,12 +199,6 @@ export const constantRoutes = [
         meta: { title: '公共保额管理', icon: 'guide', noCache: true }
       },
       {
-        path: 'treeTabel',
-        component: () => import('@/views/client/group/treeDemo'),
-        name: 'list',
-        meta: { title: 'tree', icon: 'guide', noCache: true }
-      },
-      {
         path: 'plyPartPubCov',
         component: () => import('@/views/client/plyPartPubCov/index'),
         name: '分单公共保额管理',
@@ -246,12 +240,6 @@ export const constantRoutes = [
         component: () => import('@/views/client/clientBankAcctInfo/index'),
         name: '银行账号信息',
         meta: { title: '银行账号信息', icon: 'guide', noCache: true }
-      },
-      {
-        path: 'claim',
-        component: () => import('@/views/client/claim/index'),
-        name: '理赔信息',
-        meta: { title: '理赔信息【demo】', icon: 'guide', noCache: true }
       },
       {
         path: 'clientSubInsuranceDept',
