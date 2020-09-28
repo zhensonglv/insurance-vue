@@ -138,6 +138,7 @@ export default {
         // 组装table 的map
         for (const key in this.businessData) {
           this.businessData[key].forEach(item => {
+            !this[key] && (this[key] = {})
             this[key][item.value] = item.label
           })
         }

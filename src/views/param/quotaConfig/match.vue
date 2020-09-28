@@ -12,7 +12,6 @@
   </el-dialog>
 </template>
 <script>
-import { getList } from '@/api/base'
 import paramManage from '../paramManage'
 export default {
   name: 'Match',
@@ -52,19 +51,10 @@ export default {
     }
   },
   created() {
-    /* this.listQuery.paramterTyp = 'param_0015'*/
-    /* this.queryData()*/
+
   },
   methods: {
-    queryData() {
-      debugger
-      this.listLoading = true
-      getList(this.basePath, this.listQuery).then(response => {
-        this.list = response.data.data
-        this.total = response.data.total
-        this.listLoading = false
-      })
-    },
+
     handleClose() {
       this.dialogTableVisible = false
     },
