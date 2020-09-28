@@ -119,7 +119,7 @@
 </style>
 
 <script>
-import { getList, del, save, findById } from '@/api/base'
+import { getList, deleteByCascade, save, findById } from '@/api/base'
 /* import { getCodeList } from '@/api/code'*/
 import Pagination from '@/components/Pagination'
 import DialogSet from './dialogSet'
@@ -175,6 +175,7 @@ export default {
       getList(this.basePath, this.listQuery).then(response => {
         this.list = response.data.data
         this.total = response.data.total
+        this.add()
         this.listLoading = false
       })
     },
@@ -239,7 +240,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        del(this.basePath, id).then(response => {
+        deleteByCascade(this.basePath, id).then(response => {
           if (response.code === 200) {
             this._notify(response.msg, 'success')
           } else {

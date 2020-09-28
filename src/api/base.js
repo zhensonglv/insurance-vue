@@ -29,6 +29,12 @@ export function del(path, id) {
     method: 'delete'
   })
 }
+export function deleteByCascade(path, id) {
+  return request({
+    url: '/base/' + path + '/deleteByCascade/' + id,
+    method: 'delete'
+  })
+}
 
 export function edit(path, data) {
   return request({
