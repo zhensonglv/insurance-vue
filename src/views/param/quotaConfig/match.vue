@@ -1,6 +1,12 @@
 <template>
-  <el-dialog title="医院网络码" :visible.sync="dialogTableVisible" append-to-body width="80%">
-    <paramManage dialog :param-type="paramType" @setMultipleSeleValues="setMultipleSeleValues" />
+  <el-dialog :title="title" :visible.sync="dialogTableVisible" append-to-body width="80%">
+
+    <div v-if="matchTyp == 1">
+      <paramManage dialog :param-type="paramType" @setMultipleSeleValues="setMultipleSeleValues" />
+    </div>
+    <div v-else>
+      <explainNo dialog @setMultipleSeleValues="setMultipleSeleValues" />
+    </div>
     <div slot="footer" class="dialog-footer">
       <el-button @click="handleClose">
         取消
@@ -13,13 +19,18 @@
 </template>
 <script>
 import paramManage from '../paramManage'
+import explainNo from '../explainNo'
 export default {
   name: 'Match',
-  components: { paramManage },
+  components: { paramManage, explainNo },
   props: {
     value: {
       type: Boolean,
       default: false
+    },
+    matchTyp: {
+      type: Number,
+      default: 0
     }
   },
   data() {
@@ -27,7 +38,7 @@ export default {
       paramType: 'param_0015',
       list: null,
       listLoading: true,
-      basePath: 'paramManage',
+      basePath: null,
       listQuery: {
         pageNum: 1,
         pageSize: 10,
@@ -39,19 +50,28 @@ export default {
       },
       total: 0,
       multipleSeleValues: [],
-      dialogTableVisible: false
+      dialogTableVisible: false,
+      title: null
     }
   },
   watch: {
     value(val) {
       this.dialogTableVisible = val
     },
+    matchTyp(val) {
+      if (val === 1) {
+        this.basePath = 'paramManage'
+        this.title = '医院网络码'
+      } else if (val === 2) {
+        this.basePath = 'explainNo'
+        this.title = '解释码'
+      }
+    },
     dialogTableVisible(val) {
       this.$emit('input', val)
     }
   },
   created() {
-
   },
   methods: {
 

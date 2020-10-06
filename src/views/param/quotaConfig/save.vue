@@ -97,17 +97,21 @@
         <el-input v-model="form.treatmentDesc" placeholder="请输入参数描述" />
       </el-form-item>
       <el-form-item label="医院网络码" prop="medicalNetworkCde" label-width="120px">
-        <el-input v-model="form.medicalNetworkCde" placeholder="请输入参数描述">
-          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch" />
+        <el-input v-model="form.medicalNetworkCde" placeholder="请选择医院网络码">
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(1)" />
         </el-input>
       </el-form-item>
-      <match v-model="matchVisable" @matchConfirm="matchConfirm" />
+      <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
 
       <el-form-item label="解释码" prop="explainCde" label-width="120px">
-        <el-input v-model="form.explainCde" placeholder="请输入参数描述" />
+        <el-input v-model="form.explainCde" placeholder="请输入解释码">
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(2)" />
+        </el-input>
       </el-form-item>
+      <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
+
       <el-form-item label="解释码描述" prop="explainDesc" label-width="120px">
-        <el-input v-model="form.explainDesc" placeholder="请输入参数描述" />
+        <el-input v-model="form.explainDesc" placeholder="请输入解释码描述" />
       </el-form-item>
       <el-form-item label="是否医保投保" prop="isMedical" label-width="120px">
         <el-select v-model="form.isMedical" placeholder="请选择">
@@ -179,6 +183,7 @@ export default {
 
       },
       matchVisable: false,
+      matchTyp: null,
       rules: {
         quotaDesc: [{ required: true, trigger: 'blur', message: '请输入限额描述' }],
         quotaTyp: [{ required: true, trigger: 'blur', message: '请选择限额类型' }],
@@ -230,11 +235,18 @@ export default {
       this.form.isLadder = null
     },
 
-    hanldeMatch() {
+    hanldeMatch(matchTyp) {
       this.matchVisable = true
+      this.matchTyp = matchTyp
     },
     matchConfirm(data) {
-      this.form.medicalNetworkCde = data.prodCde
+      if (data.prodCde) { // 参数码
+        this.form.medicalNetworkCde = data.prodCde
+      }
+      if (data.explCde) { // 解释码
+        this.form.explainCde = data.explCde
+        this.form.explainDesc = data.explCdeDesc
+      }
     },
 
     handleClose() {

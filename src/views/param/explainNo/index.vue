@@ -11,6 +11,15 @@
       </div>
       <br>
       <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
+        <el-table-column
+          type="center"
+          label="选择"
+          width="55"
+        >
+          <template slot-scope="scope">
+            <el-radio v-model="paramRadio" :label="scope.$index" @change.native="handleSelect(scope.row)">&nbsp;</el-radio>
+          </template>
+        </el-table-column>
         <el-table-column align="center" label="序号" width="95">
           <template slot-scope="scope">
             {{ scope.$index +1 }}
@@ -84,7 +93,9 @@ export default {
       dialogVisible: false,
       form: null,
       businessData: {},
-      CExplCdeSubcategory: {}
+      CExplCdeSubcategory: {},
+      selected: null,
+      paramRadio: false
     }
   },
   created() {
@@ -123,6 +134,11 @@ export default {
         }
       })
     },
+    handleSelect(data) {
+      this.selected = data
+      this.$emit('setMultipleSeleValues', data)
+    },
+
     handleSave() {
       this.form = { id: null }
       /* if (this.$route.query.pubCoverId) { // 上级页面传入参数
