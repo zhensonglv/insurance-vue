@@ -1,6 +1,6 @@
 <template>
   <el-dialog title="设置" :before-close="handleClose" :visible.sync="loadVisible" width="70%">
-    <paramManage v-if="loadVisible" :set-param-data="setParamData" @selectVal="getSelectVal" />
+    <paramManage v-if="loadVisible" :set-param-data="setParamData" @setMultipleSeleValues="setMultipleSeleValues" />
 
     <div slot="footer" class="dialog-footer">
       <el-button @click="handleClose">
@@ -60,9 +60,12 @@ export default {
         type: type
       })
     },
-    getSelectVal(value) {
+    setMultipleSeleValues(value) {
       this.selectValue = value
     },
+    /* getSelectVal(value) {debugger
+      this.selectValue = value
+    },*/
     handleClose() {
       this.$parent.setDialogVisible = false
       this.loadVisible = false
