@@ -27,8 +27,11 @@
       </el-form-item>
 
       <el-form-item label="解释码" prop="explainCde" label-width="120px">
-        <el-input v-model="form.explainCde" placeholder="请输入解释码" />
+        <el-input v-model="form.explainCde" placeholder="请选择解释码">
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(2)" />
+        </el-input>
       </el-form-item>
+      <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
 
       <el-form-item label="解释码描述" prop="explainCdeDesc" label-width="120px">
         <el-input v-model="form.explainCdeDesc" placeholder="请输入解释码描述" />
@@ -46,16 +49,22 @@
       </el-form-item>
 
       <el-form-item label="起始代码" prop="quotaStarCde" label-width="120px">
-        <el-input v-model="form.quotaStarCde" placeholder="请输入起始代码" />
+        <el-input v-model="form.quotaStarCde" placeholder="请选择起始代码">
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(3)" />
+        </el-input>
       </el-form-item>
+      <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
 
       <el-form-item label="起始代码描述" prop="quotaStarCdeDesc" label-width="120px">
         <el-input v-model="form.quotaStarCdeDesc" placeholder="请输入起始代码描述" />
       </el-form-item>
 
       <el-form-item label="终止代码" prop="quotaEndCde" label-width="120px">
-        <el-input v-model="form.quotaEndCde" placeholder="请输入终止代码" />
+        <el-input v-model="form.quotaEndCde" placeholder="请选择起始代码">
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(4)" />
+        </el-input>
       </el-form-item>
+      <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
 
       <el-form-item label="终止代码描述" prop="quotaEndCdeDesc" label-width="120px">
         <el-input v-model="form.quotaEndCdeDesc" placeholder="请输入终止代码描述" />
@@ -81,8 +90,11 @@
       </el-form-item>
 
       <el-form-item label="医院网络码" prop="hospitalNetCde" label-width="120px">
-        <el-input v-model="form.hospitalNetCde" placeholder="请输入医院网络码" />
+        <el-input v-model="form.hospitalNetCde" placeholder="请选择医院网络码">
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(1)" />
+        </el-input>
       </el-form-item>
+      <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
 
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -98,11 +110,15 @@
 
 <script>
 import { save, edit } from '@/api/base'
+import Match from './match'
 
 export default {
   // 父组件向子组件传值，通过props获取。
   // 一旦父组件改变了`sonData`对应的值，子组件的`sonData`会立即改变，通过watch函数可以实时监听到值的变化
   // `props`不属于data，但是`props`中的参数可以像data中的参数一样直接使用
+  components: {
+    Match
+  },
   props: ['sonData', 'businessData'],
   data() {
     return {
@@ -152,6 +168,8 @@ export default {
 
         diaMatParameterCde: ''
       },
+      matchVisable: false,
+      matchTyp: null,
       rules: {
         exclusionsCde: [{ required: true, trigger: 'blur', message: '请输入除外责任码' }],
         exclusionsDesc: [{ required: true, trigger: 'blur', message: '请输入除外责任说明' }],
@@ -205,6 +223,27 @@ export default {
       this.form.treamentTyp = null
       this.form.diaMatDesc = null
       this.form.diaMatParameterCde = null
+    },
+    hanldeMatch(matchTyp) {
+      this.matchVisable = true
+      this.matchTyp = matchTyp
+    },
+    matchConfirm(data) {
+      if (data.prodCde) { // 参数码
+        this.form.hospitalNetCde = data.prodCde
+      }
+      if (data.explCde) { // 解释码
+        this.form.explainCde = data.explCde
+        this.form.explainCdeDesc = data.explCdeDesc
+      }
+      if (data.diaCde && this.matchTyp === '3') {
+        this.form.quotaStarCde = data.diaCde
+        this.form.quotaStarCdeDesc = data.diaDesc
+      }
+      if (data.diaCde && this.matchTyp === '4') {
+        this.form.quotaEndCde = data.diaCde
+        this.form.quotaEndCdeDesc = data.diaDesc
+      }
     },
     handleClose() {
       this.clearForm()
