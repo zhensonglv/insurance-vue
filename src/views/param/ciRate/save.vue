@@ -46,9 +46,12 @@
         </el-select>
       </el-form-item>
 
-      <el-form-item label="医院网络码" prop="medicalNetworkCde" label-width="120px">
-        <el-input v-model="form.medicalNetworkCde" placeholder="请输入医院网络码" />
+      <el-form-item label="医院网络码" prop="medicalNetwork" label-width="120px">
+        <el-input v-model="form.medicalNetwork" placeholder="请选择医院网络码">
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(1)" />
+        </el-input>
       </el-form-item>
+      <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
 
       <el-form-item label="就诊原因" prop="visitReson" label-width="120px">
         <el-select v-model="form.visitReson" placeholder="请选择">
@@ -84,8 +87,11 @@
       </el-form-item>
 
       <el-form-item label="解释码" prop="explainCde" label-width="120px">
-        <el-input v-model="form.explainCde" placeholder="请输入解释码" />
+        <el-input v-model="form.explainCde" placeholder="请选择解释码">
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(2)" />
+        </el-input>
       </el-form-item>
+      <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
 
       <el-form-item label="解释码描述" prop="explainCdeDesc" label-width="120px">
         <el-input v-model="form.explainCdeDesc" placeholder="请输入解释码描述" />
@@ -127,8 +133,12 @@
 
 <script>
 import { save, edit } from '@/api/base'
+import Match from './match'
 
 export default {
+  components: {
+    Match
+  },
   // 父组件向子组件传值，通过props获取。
   // 一旦父组件改变了`sonData`对应的值，子组件的`sonData`会立即改变，通过watch函数可以实时监听到值的变化
   // `props`不属于data，但是`props`中的参数可以像data中的参数一样直接使用
@@ -146,7 +156,7 @@ export default {
         ladder: '',
         ciRate: '',
         ciRateTyp: '',
-        medicalNetworkCde: '',
+        medicalNetwork: '',
         visitReson: '',
         billTyp: '',
         visitTyp: '',
@@ -155,6 +165,8 @@ export default {
         treatmentTyp: '',
         ismedicalIns: ''
       },
+      matchVisable: false,
+      matchTyp: null,
       rules: {
         ciRateCde: [{ required: true, trigger: 'blur', message: '请输入赔付比例码' }]
 
@@ -187,7 +199,7 @@ export default {
       this.form.ladder = null
       this.form.ciRate = null
       this.form.ciRateTyp = null
-      this.form.medicalNetworkCde = null
+      this.form.medicalNetwork = null
       this.form.visitReson = null
       this.form.billTyp = null
       this.form.visitTyp = null
@@ -196,6 +208,20 @@ export default {
       this.form.treatmentTyp = null
       this.form.ismedicalIns = null
     },
+    hanldeMatch(matchTyp) {
+      this.matchVisable = true
+      this.matchTyp = matchTyp
+    },
+    matchConfirm(data) {
+      if (data.prodCde) { // 医院网络码
+        this.form.medicalNetwork = data.prodCde
+      }
+      if (data.explCde) { // 解释码
+        this.form.explainCde = data.explCde
+        this.form.explainCdeDesc = data.explCdeDesc
+      }
+    },
+
     handleClose() {
       this.clearForm()
       this.dialogVisible = false

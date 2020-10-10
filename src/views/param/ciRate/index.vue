@@ -42,7 +42,7 @@
 
         <el-table-column align="center" label="医院网络码" width="200">
           <template slot-scope="scope">
-            {{ scope.row.medicalNetworkCde }}
+            {{ scope.row.medicalNetwork }}
           </template>
         </el-table-column>
 
