@@ -22,15 +22,23 @@
           />
         </el-select>
       </el-form-item>
-      <el-form-item label="起始码" prop="diaBgnCde" label-width="120px">
-        <el-input v-model="form.diaBgnCde" placeholder="请输入起始码" />
+      <el-form-item label="起始代码" prop="diaBgnCde" label-width="120px">
+        <el-input v-model="form.diaBgnCde" placeholder="请选择起始代码">
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(1)" />
+        </el-input>
       </el-form-item>
+      <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
+
       <el-form-item label="起始码描述" prop="diaBgnCdeDesc" label-width="120px">
         <el-input v-model="form.diaBgnCdeDesc" placeholder="请输入起始码描述" />
       </el-form-item>
-      <el-form-item label="终止码" prop="diaEndCde" label-width="120px">
-        <el-input v-model="form.diaEndCde" placeholder="请输入终止码" />
+      <el-form-item label="终止代码" prop="diaEndCde" label-width="120px">
+        <el-input v-model="form.diaEndCde" placeholder="请选择起始代码">
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(2)" />
+        </el-input>
       </el-form-item>
+      <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
+
       <el-form-item label="终止码描述" prop="diaEndCdeDesc" label-width="120px">
         <el-input v-model="form.diaEndCdeDesc" placeholder="请输入终止码描述" />
       </el-form-item>
@@ -54,11 +62,15 @@
 
 <script>
 import { save, edit } from '@/api/base'
+import Match from './match'
 
 export default {
   // 父组件向子组件传值，通过props获取。
   // 一旦父组件改变了`sonData`对应的值，子组件的`sonData`会立即改变，通过watch函数可以实时监听到值的变化
   // `props`不属于data，但是`props`中的参数可以像data中的参数一样直接使用
+  components: {
+    Match
+  },
   props: ['sonData', 'businessData'],
   data() {
     return {
@@ -78,6 +90,8 @@ export default {
         dutyNo: '',
         dutyDesc: ''
       },
+      matchVisable: false,
+      matchTyp: null,
       rules: {
         dutyNo: [{ required: true, trigger: 'blur', message: '请输入责任号' }],
         dutyDesc: [{ required: true, trigger: 'blur', message: '请输入诊断转换描述' }],
@@ -119,6 +133,20 @@ export default {
     handleClose() {
       this.clearForm()
       this.dialogVisible = false
+    },
+    hanldeMatch(matchTyp) {
+      this.matchVisable = true
+      this.matchTyp = matchTyp
+    },
+    matchConfirm(data) {
+      if (this.matchTyp === '1') {
+        this.form.diaBgnCde = data.diaCde
+        this.form.diaBgnCdeDesc = data.diaDesc
+      }
+      if (this.matchTyp === '2') {
+        this.form.diaEndCde = data.diaCde
+        this.form.diaEndCdeDesc = data.diaDesc
+      }
     },
     onSubmit(form) {
       this.$refs[form].validate((valid) => {
