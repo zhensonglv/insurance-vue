@@ -20,8 +20,12 @@
         <el-input v-model="form.quotaAmount" placeholder="请输入限额" />
       </el-form-item>
       <el-form-item label="解释码" prop="explainCde" label-width="120px">
-        <el-input v-model="form.explainCde" placeholder="请输入解释码" />
+        <el-input v-model="form.explainCde" placeholder="请选择解释码">
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch" />
+        </el-input>
       </el-form-item>
+      <match v-model="matchVisable" @matchConfirm="matchConfirm" />
+
       <el-form-item label="解释码描述" prop="explainCdeDesc" label-width="120px">
         <el-input v-model="form.explainCdeDesc" placeholder="请输入解释码描述" />
       </el-form-item>
@@ -40,11 +44,15 @@
 
 <script>
 import { save, edit } from '@/api/base'
+import Match from './match'
 
 export default {
   // 父组件向子组件传值，通过props获取。
   // 一旦父组件改变了`sonData`对应的值，子组件的`sonData`会立即改变，通过watch函数可以实时监听到值的变化
   // `props`不属于data，但是`props`中的参数可以像data中的参数一样直接使用
+  components: {
+    Match
+  },
   props: ['sonData', 'businessData'],
   data() {
     return {
@@ -62,6 +70,7 @@ export default {
         explainCdeDesc: ''
 
       },
+      matchVisable: false,
       rules: {
         quotaCde: [{ required: true, trigger: 'blur', message: '请输入限额码' }],
         quotaDesc: [{ required: true, trigger: 'blur', message: '请输入限额说明' }],
@@ -102,6 +111,13 @@ export default {
     handleClose() {
       this.clearForm()
       this.dialogVisible = false
+    },
+    hanldeMatch() {
+      this.matchVisable = true
+    },
+    matchConfirm(data) {
+      this.form.explainCde = data.explCde
+      this.form.explainCdeDesc = data.explCdeDesc
     },
     onSubmit(form) {
       this.$refs[form].validate((valid) => {

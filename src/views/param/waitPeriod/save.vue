@@ -35,8 +35,11 @@
       </el-form-item>
 
       <el-form-item label="解释码" prop="explCde" label-width="120px">
-        <el-input v-model="form.explCde" placeholder="请输入解释码" />
+        <el-input v-model="form.explCde" placeholder="请选择解释码">
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch" />
+        </el-input>
       </el-form-item>
+      <match v-model="matchVisable" @matchConfirm="matchConfirm" />
 
       <el-form-item label="解释码说明" prop="explCdeDesc" label-width="120px">
         <el-input v-model="form.explCdeDesc" placeholder="请输入解释码说明" />
@@ -56,11 +59,15 @@
 
 <script>
 import { save, edit } from '@/api/base'
+import Match from './match'
 
 export default {
   // 父组件向子组件传值，通过props获取。
   // 一旦父组件改变了`sonData`对应的值，子组件的`sonData`会立即改变，通过watch函数可以实时监听到值的变化
   // `props`不属于data，但是`props`中的参数可以像data中的参数一样直接使用
+  components: {
+    Match
+  },
   props: ['sonData', 'businessData'],
   data() {
     return {
@@ -77,6 +84,7 @@ export default {
         nwaitDaysStart: '',
         waitPeriodDesc: ''
       },
+      matchVisable: false,
       rules: {
         waitPeriodCde: [{ required: true, trigger: 'blur', message: '请输入等待期码' }],
         waitPeriodDesc: [{ required: true, trigger: 'blur', message: '请输入等待期说明' }],
@@ -115,6 +123,13 @@ export default {
       this.form.nwaitDaysStart = null
       this.form.explCde = null
       this.form.explCdeDesc = null
+    },
+    hanldeMatch() {
+      this.matchVisable = true
+    },
+    matchConfirm(data) {
+      this.form.explCde = data.explCde
+      this.form.explCdeDesc = data.explCdeDesc
     },
     handleClose() {
       this.clearForm()

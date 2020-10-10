@@ -14,15 +14,23 @@
           />
         </el-select>
       </el-form-item>
-      <el-form-item label="起始码" prop="starCde" label-width="120px">
-        <el-input v-model="form.starCde" placeholder="请输入起始码" />
+      <el-form-item label="起始代码" prop="starCde" label-width="120px">
+        <el-input v-model="form.starCde" placeholder="请选择起始代码">
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(1)" />
+        </el-input>
       </el-form-item>
+      <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
+
       <el-form-item label="起始码描述" prop="starCodeDesc" label-width="120px">
         <el-input v-model="form.starCodeDesc" placeholder="请输入起始码描述" />
       </el-form-item>
-      <el-form-item label="终止码" prop="endCde" label-width="120px">
-        <el-input v-model="form.endCde" placeholder="请输入终止码" />
+      <el-form-item label="终止代码" prop="endCde" label-width="120px">
+        <el-input v-model="form.endCde" placeholder="请选择起始代码">
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(2)" />
+        </el-input>
       </el-form-item>
+      <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
+
       <el-form-item label="终止码描述" prop="endCodeDesc" label-width="120px">
         <el-input v-model="form.endCodeDesc" placeholder="请输入终止码描述" />
       </el-form-item>
@@ -49,11 +57,15 @@
 
 <script>
 import { save, edit } from '@/api/base'
+import Match from './match'
 
 export default {
   // 父组件向子组件传值，通过props获取。
   // 一旦父组件改变了`sonData`对应的值，子组件的`sonData`会立即改变，通过watch函数可以实时监听到值的变化
   // `props`不属于data，但是`props`中的参数可以像data中的参数一样直接使用
+  components: {
+    Match
+  },
   props: ['sonData', 'businessData'],
   data() {
     return {
@@ -72,6 +84,8 @@ export default {
         diaMatParameterDesc: '',
         illnessDesc: ''
       },
+      matchVisable: false,
+      matchTyp: null,
       rules: {
         illnessDesc: [{ required: true, trigger: 'blur', message: '请输入既往病史说明' }],
         codeTyp: [{ required: true, trigger: 'blur', message: '请选择代码类型' }]
@@ -111,6 +125,20 @@ export default {
     handleClose() {
       this.clearForm()
       this.dialogVisible = false
+    },
+    hanldeMatch(matchTyp) {
+      this.matchVisable = true
+      this.matchTyp = matchTyp
+    },
+    matchConfirm(data) {
+      if (this.matchTyp === '1') {
+        this.form.starCde = data.diaCde
+        this.form.starCodeDesc = data.diaDesc
+      }
+      if (this.matchTyp === '2') {
+        this.form.endCde = data.diaCde
+        this.form.endCodeDesc = data.diaDesc
+      }
     },
     onSubmit(form) {
       this.$refs[form].validate((valid) => {
