@@ -33,8 +33,11 @@
       </el-form-item>
 
       <el-form-item label="医院网络码" prop="medicalNetworkCde" label-width="120px">
-        <el-input v-model="form.medicalNetworkCde" placeholder="请输入医院网络码" />
+        <el-input v-model="form.medicalNetworkCde" placeholder="请选择医院网络码">
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(1)" />
+        </el-input>
       </el-form-item>
+      <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
 
       <el-form-item label="医院描述" prop="hospitalDesc" label-width="120px">
         <el-input v-model="form.hospitalDesc" placeholder="请输入医院描述" />
@@ -57,8 +60,11 @@
       </el-form-item>
 
       <el-form-item label="解释码" prop="explainCde" label-width="120px">
-        <el-input v-model="form.explainCde" placeholder="请输入解释码" />
+        <el-input v-model="form.explainCde" placeholder="请输入解释码">
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(2)" />
+        </el-input>
       </el-form-item>
+      <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
 
       <el-form-item label="解释码描述" prop="explainCodeDesc" label-width="120px">
         <el-input v-model="form.explainCodeDesc" placeholder="请输入解释码描述" />
@@ -107,11 +113,15 @@
 
 <script>
 import { save, edit } from '@/api/base'
+import Match from './match'
 
 export default {
   // 父组件向子组件传值，通过props获取。
   // 一旦父组件改变了`sonData`对应的值，子组件的`sonData`会立即改变，通过watch函数可以实时监听到值的变化
   // `props`不属于data，但是`props`中的参数可以像data中的参数一样直接使用
+  components: {
+    Match
+  },
   props: ['sonData', 'businessData'],
   data() {
     return {
@@ -142,6 +152,8 @@ export default {
       medicInsureArr: ['特需就诊', '康复就诊', '一般就诊', '急诊'],
       checkAll: false,
       isIndeterminate: true,
+      matchVisable: false,
+      matchTyp: null,
       rules: {
         hospitalizationCde: [{ required: true, trigger: 'blur', message: '请输入津贴码' }],
         hospitalizationDesc: [{ required: true, trigger: 'blur', message: '请输入津贴码说明' }],
@@ -190,6 +202,20 @@ export default {
       this.form.inHospitalDays = null
       this.form.treatmentTyp = null
       this.form.diaMatParameterCde = null
+    },
+    hanldeMatch(matchTyp) {
+      this.matchVisable = true
+      this.matchTyp = matchTyp
+    },
+    matchConfirm(data) {
+      if (data.prodCde) { // 参数码
+        this.form.medicalNetworkCde = data.prodCde
+        this.form.hospitalDesc = data.paramterDesc
+      }
+      if (data.explCde) { // 解释码
+        this.form.explainCde = data.explCde
+        this.form.explainCodeDesc = data.explCdeDesc
+      }
     },
     handleClose() {
       this.clearForm()
