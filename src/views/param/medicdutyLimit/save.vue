@@ -36,14 +36,22 @@
       </el-form-item>
 
       <el-form-item label="起始代码" prop="bgnCode" label-width="120px">
-        <el-input v-model="form.bgnCode" placeholder="请输入起始代码" />
+        <el-input v-model="form.bgnCode" placeholder="请选择起始代码">
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(2)" />
+        </el-input>
       </el-form-item>
+      <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
+
       <el-form-item label="起始代码描述" prop="bgnCodeDesc" label-width="120px">
         <el-input v-model="form.bgnCodeDesc" placeholder="请输入起始代码描述" />
       </el-form-item>
       <el-form-item label="终止代码" prop="endCode" label-width="120px">
-        <el-input v-model="form.endCode" placeholder="请输入终止代码" />
+        <el-input v-model="form.endCode" placeholder="请选择起始代码">
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(3)" />
+        </el-input>
       </el-form-item>
+      <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
+
       <el-form-item label="终止代码描述" prop="endCodeDesc" label-width="120px">
         <el-input v-model="form.endCodeDesc" placeholder="请输入终止代码描述" />
       </el-form-item>
@@ -55,8 +63,12 @@
       </el-form-item>
 
       <el-form-item label="解释码" prop="explianCde" label-width="120px">
-        <el-input v-model="form.explianCde" placeholder="请输入解释码" />
+        <el-input v-model="form.explianCde" placeholder="请选择解释码">
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(1)" />
+        </el-input>
       </el-form-item>
+      <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
+
       <el-form-item label="解释码描述" prop="explainDesc" label-width="120px">
         <el-input v-model="form.explainDesc" placeholder="请输入解释码描述" />
       </el-form-item>
@@ -138,11 +150,15 @@
 
 <script>
 import { save, edit } from '@/api/base'
+import Match from './match'
 
 export default {
   // 父组件向子组件传值，通过props获取。
   // 一旦父组件改变了`sonData`对应的值，子组件的`sonData`会立即改变，通过watch函数可以实时监听到值的变化
   // `props`不属于data，但是`props`中的参数可以像data中的参数一样直接使用
+  components: {
+    Match
+  },
   props: ['sonData', 'businessData'],
   data() {
     return {
@@ -158,6 +174,8 @@ export default {
       medicInsureArr: ['A-甲类', 'B-乙类', 'C-丙类'],
       checkAll: false,
       isIndeterminate: true,
+      matchVisable: false,
+      matchTyp: null,
       rules: {
         isPay: [{ required: true, trigger: 'blur', message: '请选择是否承担' }],
         docTyp: [{ required: true, trigger: 'blur', message: '请选择就诊类型' }]
@@ -192,7 +210,24 @@ export default {
       this.checkAll = checkedCount === this.businessData.MedicInsureType.length
       this.isIndeterminate = checkedCount > 0 && checkedCount < this.businessData.MedicInsureType.length
     },
-
+    hanldeMatch(matchTyp) {
+      this.matchVisable = true
+      this.matchTyp = matchTyp
+    },
+    matchConfirm(data) {
+      if (data.explCde) { // 解释码
+        this.form.explianCde = data.explCde
+        this.form.explainDesc = data.explCdeDesc
+      }
+      if (data.diaCde && this.matchTyp === '2') {
+        this.form.bgnCode = data.diaCde
+        this.form.bgnCodeDesc = data.diaDesc
+      }
+      if (data.diaCde && this.matchTyp === '3') {
+        this.form.endCode = data.diaCde
+        this.form.endCodeDesc = data.diaDesc
+      }
+    },
     clearForm() {
       this.form.id = null
       this.form.paramCde = null
