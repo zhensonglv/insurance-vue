@@ -49,9 +49,14 @@
       <el-form-item label="平均年就诊次数" prop="diaYeareClinicTime" label-width="120px">
         <el-input v-model="form.diaYeareClinicTime" placeholder="请输入平均年就诊次数" />
       </el-form-item>
+
       <el-form-item label="解释码" prop="explCde" label-width="120px">
-        <el-input v-model="form.explCde" placeholder="请输入解释码" />
+        <el-input v-model="form.explCde" placeholder="请选择解释码">
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch" />
+        </el-input>
       </el-form-item>
+      <match v-model="matchVisable" @matchConfirm="matchConfirm" />
+
       <el-form-item label="解释码描述" prop="explCdeDesc" label-width="120px">
         <el-input v-model="form.explCdeDesc" placeholder="请输入解释码描述" />
       </el-form-item>
@@ -69,11 +74,15 @@
 
 <script>
 import { save, edit } from '@/api/base'
+import Match from './match'
 
 export default {
   // 父组件向子组件传值，通过props获取。
   // 一旦父组件改变了`sonData`对应的值，子组件的`sonData`会立即改变，通过watch函数可以实时监听到值的变化
   // `props`不属于data，但是`props`中的参数可以像data中的参数一样直接使用
+  components: {
+    Match
+  },
   props: ['sonData'],
 
   data() {
@@ -102,6 +111,7 @@ export default {
         explCde: '',
         explCdeDesc: ''
       },
+      matchVisable: false,
       rules: {
         diaCde: [{ required: true, trigger: 'blur', message: '请输入诊断ICD主码' }],
         diaDesc: [{ required: true, trigger: 'blur', message: '请输入诊断描述' }]
@@ -151,6 +161,13 @@ export default {
     handleClose() {
       this.clearForm()
       this.dialogVisible = false
+    },
+    hanldeMatch() {
+      this.matchVisable = true
+    },
+    matchConfirm(data) {
+      this.form.explCde = data.explCde
+      this.form.explCdeDesc = data.explCdeDesc
     },
     onSubmit(form) {
       this.$refs[form].validate((valid) => {
