@@ -14,8 +14,11 @@
       </el-form-item>
 
       <el-form-item label="金科代码" prop="jkCde" label-width="120px">
-        <el-input v-model="form.jkCde" placeholder="请输入金科代码" />
+        <el-input v-model="form.jkCde" placeholder="请选择金科代码">
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch" />
+        </el-input>
       </el-form-item>
+      <match v-model="matchVisable" @matchConfirm="matchConfirm" />
 
       <el-form-item label="金科名称" prop="jkName" label-width="120px">
         <el-input v-model="form.jkName" placeholder="请输入金科名称" />
@@ -39,11 +42,15 @@
 
 <script>
 import { save, edit } from '@/api/base'
+import Match from './match'
 
 export default {
   // 父组件向子组件传值，通过props获取。
   // 一旦父组件改变了`sonData`对应的值，子组件的`sonData`会立即改变，通过watch函数可以实时监听到值的变化
   // `props`不属于data，但是`props`中的参数可以像data中的参数一样直接使用
+  components: {
+    Match
+  },
   props: ['sonData', 'businessData'],
   data() {
     return {
@@ -59,6 +66,7 @@ export default {
         jkName: '',
         partyCompanyName: ''
       },
+      matchVisable: false,
       rules: {
         noTyp: [{ required: true, trigger: 'blur', message: '请输入数据类型' }],
         jkCde: [{ required: true, trigger: 'blur', message: '请输入金科代码' }],
@@ -96,6 +104,15 @@ export default {
     handleClose() {
       this.clearForm()
       this.dialogVisible = false
+    },
+    hanldeMatch() {
+      this.matchVisable = true
+    },
+    matchConfirm(data) {
+      if (data.prodNo) {
+        this.form.jkCde = data.prodNo
+        this.form.jkName = data.proFullName
+      }
     },
     onSubmit(form) {
       this.$refs[form].validate((valid) => {
