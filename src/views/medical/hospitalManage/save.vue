@@ -48,9 +48,18 @@
       <el-form-item label="医院性质" prop="hospitalNature" label-width="120px">
         <el-input v-model="form.hospitalNature" placeholder="请输入医院性质" />
       </el-form-item>
-      <el-form-item label="医疗集团号" prop="mediGroupNo" label-width="120px">
+
+      <!--<el-form-item label="医疗集团号" prop="mediGroupNo" label-width="120px">
         <el-input v-model="form.mediGroupNo" placeholder="请输入医疗集团号" />
+      </el-form-item>-->
+
+      <el-form-item label="医疗集团号" prop="mediGroupNo" label-width="120px">
+        <el-input v-model="form.mediGroupNo" placeholder="请选择医疗集团号">
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch" />
+        </el-input>
       </el-form-item>
+      <match v-model="matchVisable" @matchConfirm="matchConfirm" />
+
       <el-form-item label="社保地区" prop="sociInsuArea" label-width="120px">
         <el-input v-model="form.sociInsuArea" placeholder="请输入社保地区" />
       </el-form-item>
@@ -72,11 +81,14 @@
 
 <script>
 import { save, edit } from '@/api/base'
-
+import Match from './match'
 export default {
   // 父组件向子组件传值，通过props获取。
   // 一旦父组件改变了`sonData`对应的值，子组件的`sonData`会立即改变，通过watch函数可以实时监听到值的变化
   // `props`不属于data，但是`props`中的参数可以像data中的参数一样直接使用
+  components: {
+    Match
+  },
   props: ['sonData', 'businessData'],
   data() {
     return {
@@ -102,6 +114,7 @@ export default {
         sociInsuArea: '',
         sociInsuHosp: ''
       },
+      matchVisable: false,
       rules: {
         hospNo: [{ required: true, trigger: 'blur', message: '请输入医院号' }]
         /* specialTyp: [{ required: true, trigger: 'blur', message: '请输入悬挂类型' }],
@@ -151,6 +164,14 @@ export default {
       this.form.mediGroupNo = null
       this.form.sociInsuArea = null
       this.form.sociInsuHosp = null
+    },
+    hanldeMatch() {
+      this.matchVisable = true
+    },
+    matchConfirm(data) {
+      if (data.groupNo) { // 集团号
+        this.form.mediGroupNo = data.groupNo
+      }
     },
     handleClose() {
       this.clearForm()

@@ -8,6 +8,15 @@
       </div>
       <br>
       <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row style="width: 100%" size="mini">
+        <el-table-column
+          type="center"
+          label="选择"
+          width="55"
+        >
+          <template slot-scope="scope">
+            <el-radio v-model="paramRadio" :label="scope.$index" @change.native="handleSelect(scope.row)">&nbsp;</el-radio>
+          </template>
+        </el-table-column>
         <el-table-column align="center" label="序号" width="95">
           <template slot-scope="scope">
             {{ scope.$index +1 }}
@@ -108,7 +117,9 @@ export default {
       },
       total: 0,
       dialogVisible: false,
-      form: null
+      form: null,
+      selected: null,
+      paramRadio: false
     }
   },
   created() {
@@ -128,6 +139,10 @@ export default {
         this.total = response.data.total
         this.listLoading = false
       })
+    },
+    handleSelect(data) {
+      this.selected = data
+      this.$emit('setMultipleSeleValues', data)
     },
     handleSave() {
       this.form = { id: null }
