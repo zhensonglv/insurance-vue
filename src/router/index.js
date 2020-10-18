@@ -499,6 +499,12 @@ export const constantRoutes = [
         meta: { title: '限额阶梯明细', icon: 'guide', noCache: true }
       },
       {
+        path: 'serviceTreatmentMatching',
+        component: () => import('@/views/param/serviceTreatmentMatching/index'),
+        name: '服务诊疗匹配',
+        meta: { title: '服务诊疗匹配', icon: 'guide', noCache: true }
+      },
+      {
         path: 'treatmentMesManage',
         component: () => import('@/views/param/treatmentMesManage/index'),
         name: '诊疗信息管理',
