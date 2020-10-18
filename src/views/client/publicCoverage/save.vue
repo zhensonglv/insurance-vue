@@ -22,8 +22,12 @@
         </el-select>
       </el-form-item>
       <el-form-item label="集团/团体号" prop="teamNo" label-width="120px">
-        <el-input v-model="form.teamNo" placeholder="请输入集团/团体号" />
+        <el-input v-model="form.teamNo" placeholder="请选择集团/团体号">
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(form.teamTyp)" />
+        </el-input>
       </el-form-item>
+      <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
+
       <el-form-item label="起始日" prop="startTm" label-width="120px">
         <el-date-picker
           v-model="form.startTm"
@@ -52,8 +56,12 @@
         <el-input v-model="form.pubCoverLimit" placeholder="请输入公共保额总金额" />
       </el-form-item>
       <el-form-item label="产品" prop="product" label-width="120px">
-        <el-input v-model="form.product" placeholder="请输入产品" />
+        <el-input v-model="form.product" placeholder="请选择产品">
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch('3')" />
+        </el-input>
       </el-form-item>
+      <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
+
       <el-form-item label="已用公共保额" prop="pubCoverUsed" label-width="120px">
         <el-input v-model="form.pubCoverUsed" placeholder="请输入已用公共保额" />
       </el-form-item>
@@ -75,11 +83,15 @@
 <script>
 import { save, edit } from '@/api/client/publicCoverage'
 import { level } from 'province-city-china/data'
+import Match from './match'
 
 export default {
   // 父组件向子组件传值，通过props获取。
   // 一旦父组件改变了`sonData`对应的值，子组件的`sonData`会立即改变，通过watch函数可以实时监听到值的变化
   // `props`不属于data，但是`props`中的参数可以像data中的参数一样直接使用
+  components: {
+    Match
+  },
   props: ['sonData', 'businessData'],
   data() {
     return {
@@ -105,6 +117,8 @@ export default {
         label: 'name',
         value: 'code'
       },
+      matchVisable: false,
+      matchTyp: null,
       rules: {
         pubCoverTyp: [{ required: true, trigger: 'blur', message: '请输入公共保额类型' }],
         teamTyp: [{ required: true, trigger: 'blur', message: '请输入集团/团体类型' }],
@@ -150,6 +164,28 @@ export default {
       this.form.pubCoverDesc = null
       this.form.clineCtype = null
       this.form.plyNo = null
+    },
+    hanldeMatch(matchTyp) {
+      debugger
+      this.matchVisable = true
+      if (matchTyp) {
+        this.matchTyp = matchTyp
+      } else {
+        this.$message('请选择集团/团体类型')
+      }
+    },
+    matchConfirm(data) {
+      debugger
+      if (data.groupNme && this.matchTyp === '1') { // 集团名称
+        this.form.groupNme = data.groupNme
+      }
+      if (data.insuCompanyNme && this.matchTyp === '2') { // 保险公司
+        this.form.insuCompanyCde = data.insuCompanyNme
+        this.form.insuBranchCompanyCde = data.insuBranckCompanyNme
+      }
+      if (data.prodNo) {
+        this.form.product = data.prodNo
+      }
     },
     handleClose() {
       this.clearForm()
