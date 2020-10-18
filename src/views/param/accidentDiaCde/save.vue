@@ -135,11 +135,11 @@ export default {
       this.matchTyp = matchTyp
     },
     matchConfirm(data) {
-      if (this.matchTyp === '1') {
+      if (this.matchTyp === 1) {
         this.form.bgnCde = data.diaCde
         this.form.bgnCodeDesc = data.diaDesc
       }
-      if (this.matchTyp === '2') {
+      if (this.matchTyp === 2) {
         this.form.endCde = data.diaCde
         this.form.endCodeDesc = data.diaDesc
       }

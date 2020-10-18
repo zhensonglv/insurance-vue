@@ -236,11 +236,11 @@ export default {
         this.form.explainCde = data.explCde
         this.form.explainCdeDesc = data.explCdeDesc
       }
-      if (data.diaCde && this.matchTyp === '3') {
+      if (data.diaCde && this.matchTyp === 3) {
         this.form.quotaStarCde = data.diaCde
         this.form.quotaStarCdeDesc = data.diaDesc
       }
-      if (data.diaCde && this.matchTyp === '4') {
+      if (data.diaCde && this.matchTyp === 4) {
         this.form.quotaEndCde = data.diaCde
         this.form.quotaEndCdeDesc = data.diaDesc
       }

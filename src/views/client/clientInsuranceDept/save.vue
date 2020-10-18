@@ -1,12 +1,20 @@
 <template>
   <el-dialog :title="dialogTitle" :before-close="handleClose" :visible.sync="dialogVisible" width="55%">
     <el-form ref="form" :inline="true" :rules="rules" :model="form" status-icon label-position="right" label-width="80px">
-      <el-form-item label="集团名称" prop="groupNme" label-width="160px">
-        <el-input v-model="form.groupNme" placeholder="请输入集团名称" />
+      <el-form-item label="集团名称" prop="groupNme" label-width="120px">
+        <el-input v-model="form.groupNme" placeholder="请选择集团名称">
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(1)" />
+        </el-input>
       </el-form-item>
-      <el-form-item label="投保单位名称" prop="deptNme" label-width="160px">
-        <el-input v-model="form.deptNme" placeholder="请输入投保单位名称" />
+      <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
+
+      <el-form-item label="投保单位名称" prop="deptNme" label-width="120px">
+        <el-input v-model="form.deptNme" placeholder="请选择投保单位名称">
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(2)" />
+        </el-input>
       </el-form-item>
+      <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
+
       <el-form-item label="投保单位类型" prop="deptTyp" label-width="135px">
         <el-input v-model="form.deptTyp" width="135px" placeholder="请输入投保单位类型" />
       </el-form-item>
@@ -42,8 +50,12 @@
         <el-input v-model="form.language" placeholder="请输入语言" />
       </el-form-item>
       <el-form-item label="承保机构名称" prop="insuranceAgentNme" label-width="120px">
-        <el-input v-model="form.insuranceAgentNme" placeholder="请输入承保机构名称" />
+        <el-input v-model="form.insuranceAgentNme" placeholder="请选择承保机构名称">
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(3)" />
+        </el-input>
       </el-form-item>
+      <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
+
       <el-form-item label="邮递方式" prop="postWay" label-width="120px">
         <el-input v-model="form.postWay" placeholder="请输入邮递方式" />
       </el-form-item>
@@ -92,11 +104,15 @@
 
 <script>
 import { save, edit } from '@/api/base'
+import Match from './match'
 
 export default {
   // 父组件向子组件传值，通过props获取。
   // 一旦父组件改变了`sonData`对应的值，子组件的`sonData`会立即改变，通过watch函数可以实时监听到值的变化
   // `props`不属于data，但是`props`中的参数可以像data中的参数一样直接使用
+  components: {
+    Match
+  },
   props: ['sonData'],
 
   data() {
@@ -136,6 +152,8 @@ export default {
         insuCompanyCde: '',
         insuBranchCompanyCde: ''
       },
+      matchVisable: false,
+      matchTyp: null,
       rules: {
         deptNo: [{ required: true, trigger: 'blur', message: '请输入投保单位标识号' }],
         deptNme: [{ required: true, trigger: 'blur', message: '请输入投保单位名称' }],
@@ -193,6 +211,21 @@ export default {
       this.form.idisExitBranchDept = null
       this.form.idinsuCompanyCde = null
       this.form.idinsuBranchCompanyCde = null
+    },
+    hanldeMatch(matchTyp) {
+      this.matchVisable = true
+      this.matchTyp = matchTyp
+    },
+    matchConfirm(data) {
+      if (data.groupNme) { // 集团名称
+        this.form.groupNme = data.groupNme
+      }
+      if (data.insuCompanyNme && this.matchTyp === 2) { // 保险公司
+        this.form.deptNme = data.insuCompanyNme
+      }
+      if (data.insuCompanyNme && this.matchTyp === 3) { // 保险公司
+        this.form.insuranceAgentNme = data.insuCompanyNme
+      }
     },
     handleClose() {
       this.clearForm()

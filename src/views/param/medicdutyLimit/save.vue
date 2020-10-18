@@ -219,11 +219,11 @@ export default {
         this.form.explianCde = data.explCde
         this.form.explainDesc = data.explCdeDesc
       }
-      if (data.diaCde && this.matchTyp === '2') {
+      if (data.diaCde && this.matchTyp === 2) {
         this.form.bgnCode = data.diaCde
         this.form.bgnCodeDesc = data.diaDesc
       }
-      if (data.diaCde && this.matchTyp === '3') {
+      if (data.diaCde && this.matchTyp === 3) {
         this.form.endCode = data.diaCde
         this.form.endCodeDesc = data.diaDesc
       }

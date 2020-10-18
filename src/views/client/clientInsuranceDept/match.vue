@@ -62,6 +62,9 @@ export default {
       } else if (val === 2) {
         this.basePath = 'insuranceCompany'
         this.title = '保险公司'
+      } else if (val === 3) {
+        this.basePath = 'insuranceCompany'
+        this.title = '保险公司'
       }
     },
     dialogTableVisible(val) {

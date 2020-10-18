@@ -131,11 +131,11 @@ export default {
       this.matchTyp = matchTyp
     },
     matchConfirm(data) {
-      if (this.matchTyp === '1') {
+      if (this.matchTyp === 1) {
         this.form.starCde = data.diaCde
         this.form.starCodeDesc = data.diaDesc
       }
-      if (this.matchTyp === '2') {
+      if (this.matchTyp === 2) {
         this.form.endCde = data.diaCde
         this.form.endCodeDesc = data.diaDesc
       }
