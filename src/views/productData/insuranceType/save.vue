@@ -24,8 +24,11 @@
         />
       </el-form-item>
       <el-form-item label="业务线" prop="proServiceLine" label-width="120px">
-        <el-input v-model="form.proServiceLine" placeholder="请输入业务线" />
+        <el-input v-model="form.proServiceLine" placeholder="请选择业务线">
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch" />
+        </el-input>
       </el-form-item>
+      <match v-model="matchVisable" @matchConfirm="matchConfirm" />
       <el-form-item label="社保规则" prop="socialSecurityRule" label-width="120px">
         <el-input v-model="form.socialSecurityRule" placeholder="请输入社保规则" />
       </el-form-item>
@@ -46,11 +49,15 @@
 
 <script>
 import { save, edit } from '@/api/base'
+import Match from './match'
 
 export default {
   // 父组件向子组件传值，通过props获取。
   // 一旦父组件改变了`sonData`对应的值，子组件的`sonData`会立即改变，通过watch函数可以实时监听到值的变化
   // `props`不属于data，但是`props`中的参数可以像data中的参数一样直接使用
+  components: {
+    Match
+  },
   props: ['sonData'],
 
   data() {
@@ -68,6 +75,7 @@ export default {
         socialSecurityRule: '',
         remark: ''
       },
+      matchVisable: false,
       rules: {
         insuName: [{ required: true, trigger: 'blur', message: '请输入险种名称' }],
         insuTypeNo: [{ required: true, trigger: 'blur', message: '请输入险种代码' }]
@@ -109,6 +117,12 @@ export default {
     handleClose() {
       this.clearForm()
       this.dialogVisible = false
+    },
+    hanldeMatch() {
+      this.matchVisable = true
+    },
+    matchConfirm(data) {
+      this.form.proServiceLine = data.servLineFullname
     },
     onSubmit(form) {
       this.$refs[form].validate((valid) => {
