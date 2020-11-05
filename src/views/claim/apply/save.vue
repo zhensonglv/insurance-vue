@@ -24,12 +24,12 @@
 
       <el-form-item label="是否意外" prop="isAccident" label-width="120px">
         <el-select v-model="form.isAccident" placeholder="请选择">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          />-->
+          />
         </el-select>
       </el-form-item>
 
@@ -48,23 +48,23 @@
 
       <el-form-item label="意外类型" prop="accidentTyp" label-width="120px">
         <el-select v-model="form.accidentTyp" placeholder="请选择">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
+          <el-option
+            v-for="item in businessData.AccidentTypes"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          />-->
+          />
         </el-select>
       </el-form-item>
 
       <el-form-item label="是否生育" prop="isBirth" label-width="120px">
         <el-select v-model="form.isBirth" placeholder="请选择">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          />-->
+          />
         </el-select>
       </el-form-item>
 
@@ -86,7 +86,14 @@
       </el-form-item>
 
       <el-form-item label="银行类型" prop="bankTyp" label-width="120px">
-        <el-input v-model="form.bankTyp" placeholder="请输入银行类型" />
+        <el-select v-model="form.bankTyp" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.CBankTyp"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
 
       <el-form-item label="账户号" prop="acctNo" label-width="120px">
@@ -107,45 +114,45 @@
 
       <el-form-item label="公共保额" prop="isCommonAmt" label-width="120px">
         <el-select v-model="form.isCommonAmt" placeholder="请选择">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          />-->
+          />
         </el-select>
       </el-form-item>
 
       <el-form-item label="死亡证明" prop="isDeathProve" label-width="120px">
         <el-select v-model="form.isDeathProve" placeholder="请选择">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          />-->
+          />
         </el-select>
       </el-form-item>
 
       <el-form-item label="残疾证明" prop="isDisableProve" label-width="120px">
         <el-select v-model="form.isDisableProve" placeholder="请选择">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          />-->
+          />
         </el-select>
       </el-form-item>
 
       <el-form-item label="工伤证明" prop="isInjuryJobProve" label-width="120px">
         <el-select v-model="form.isInjuryJobProve" placeholder="请选择">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          />-->
+          />
         </el-select>
       </el-form-item>
 
@@ -159,29 +166,32 @@
 
       <el-form-item label="退件" prop="isBack" label-width="120px">
         <el-select v-model="form.isBack" placeholder="请选择">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          />-->
+          />
         </el-select>
       </el-form-item>
 
       <el-form-item label="医疗赔付方式" prop="medicalCompensateTyp" label-width="120px">
         <el-select v-model="form.medicalCompensateTyp" placeholder="请选择">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
+          <el-option
+            v-for="item in businessData.MedicalRMethod"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          />-->
+          />
         </el-select>
       </el-form-item>
 
       <el-form-item label="调整解释码" prop="adjustInterpCde" label-width="120px">
-        <el-input v-model="form.adjustInterpCde" placeholder="请输入调整解释码" />
+        <el-input v-model="form.adjustInterpCde" placeholder="请输入调整解释码">
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch()" />
+        </el-input>
       </el-form-item>
+      <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
 
       <el-form-item label="解释码描述" prop="interpDesc" label-width="120px">
         <el-input v-model="form.interpDesc" placeholder="请输入解释码描述" />
@@ -271,12 +281,12 @@
 
       <el-form-item label="状态" prop="status" label-width="120px">
         <el-select v-model="form.status" placeholder="请选择">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
+          <el-option
+            v-for="item in businessData.CBatchStatus"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          />-->
+          />
         </el-select>
       </el-form-item>
 
@@ -294,23 +304,23 @@
 
       <el-form-item label="案件状态" prop="caseStatus" label-width="120px">
         <el-select v-model="form.caseStatus" placeholder="请选择">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
+          <el-option
+            v-for="item in businessData.CCaseStatuses"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          />-->
+          />
         </el-select>
       </el-form-item>
 
       <el-form-item label="线下调查" prop="investigate" label-width="120px">
         <el-select v-model="form.investigate" placeholder="请选择">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          />-->
+          />
         </el-select>
       </el-form-item>
 
@@ -340,12 +350,16 @@
 
 <script>
 import { save, edit } from '@/api/claim/apply'
+import Match from './match'
 
 export default {
   // 父组件向子组件传值，通过props获取。
   // 一旦父组件改变了`sonData`对应的值，子组件的`sonData`会立即改变，通过watch函数可以实时监听到值的变化
   // `props`不属于data，但是`props`中的参数可以像data中的参数一样直接使用
-  props: ['sonData'/*, 'businessData'*/],
+  components: {
+    Match
+  },
+  props: ['sonData', 'businessData'],
   data() {
     return {
       dialogVisible: false,
@@ -408,7 +422,7 @@ export default {
         conclusionDesc: '',
         auditInformation: ''
       },
-
+      matchVisable: false,
       rules: {
         batchNo: [{ required: true, trigger: 'blur', message: '请输入批次号' }],
         plyPartNo: [{ required: true, trigger: 'blur', message: '请输入分单号' }],
@@ -499,6 +513,13 @@ export default {
     handleClose() {
       this.clearForm()
       this.dialogVisible = false
+    },
+    hanldeMatch() {
+      this.matchVisable = true
+    },
+    matchConfirm(data) {
+      this.form.adjustInterpCde = data.explCde
+      this.form.interpDesc = data.explCdeDesc
     },
     onSubmit(form) {
       this.$refs[form].validate((valid) => {

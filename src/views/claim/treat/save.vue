@@ -19,14 +19,12 @@
       </el-form-item>
 
       <el-form-item label="起始诊疗日" prop="treatBgnTm" label-width="120px">
-        <el-select v-model="form.treatBgnTm" placeholder="请选择">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          />-->
-        </el-select>
+        <el-date-picker
+          v-model="form.treatBgnTm"
+          type="datetime"
+          value-format="yyyy-MM-dd"
+          placeholder="选择日期时间"
+        />
       </el-form-item>
 
       <el-form-item label="终止诊疗日" prop="treatEndTm" label-width="120px">
@@ -72,23 +70,23 @@
 
       <el-form-item label="既往病史" prop="isMedicalHistory" label-width="120px">
         <el-select v-model="form.isMedicalHistory" placeholder="请选择">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          />-->
+          />
         </el-select>
       </el-form-item>
 
       <el-form-item label="社保类型" prop="secuTyp" label-width="120px">
         <el-select v-model="form.secuTyp" placeholder="请选择">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
+          <el-option
+            v-for="item in businessData.CSocialinsuTyp"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          />-->
+          />
         </el-select>
       </el-form-item>
 
@@ -105,7 +103,14 @@
       </el-form-item>
 
       <el-form-item label="其它社保类型1" prop="otherSecuTypOne" label-width="120px">
-        <el-input v-model="form.otherSecuTypOne" placeholder="请输入其它社保类型1" />
+        <el-select v-model="form.otherSecuTypOne" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.OtherCSocialinsuTyp"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
 
       <el-form-item label="其它社保金额1" prop="otherSecuAmtOne" label-width="120px">
@@ -113,7 +118,14 @@
       </el-form-item>
 
       <el-form-item label="其它社保类型2" prop="otherSecuTypTwo" label-width="120px">
-        <el-input v-model="form.otherSecuTypTwo" placeholder="请输入其它社保类型2" />
+        <el-select v-model="form.otherSecuTypTwo" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.OtherCSocialinsuTyp"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
 
       <el-form-item label="其它社保金额2" prop="otherSecuAmtTwo" label-width="120px">
@@ -157,8 +169,11 @@
       </el-form-item>
 
       <el-form-item label="调整解释码" prop="adjustInterpCde" label-width="120px">
-        <el-input v-model="form.adjustInterpCde" placeholder="请输入调整解释码" />
+        <el-input v-model="form.adjustInterpCde" placeholder="请选择调整解释码">
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(1)" />
+        </el-input>
       </el-form-item>
+      <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
 
       <el-form-item label="解释码描述" prop="interpDesc" label-width="120px">
         <el-input v-model="form.interpDesc" placeholder="请输入解释码描述" />
@@ -181,8 +196,11 @@
       </el-form-item>
 
       <el-form-item label="诊疗码" prop="treatCde" label-width="120px">
-        <el-input v-model="form.treatCde" placeholder="请输入诊疗码" />
+        <el-input v-model="form.treatCde" placeholder="请选择诊疗码">
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(2)" />
+        </el-input>
       </el-form-item>
+      <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
 
       <el-form-item label="大型号" prop="maxtermNo" label-width="120px">
         <el-input v-model="form.maxtermNo" placeholder="请输入大型号" />
@@ -194,12 +212,12 @@
 
       <el-form-item label="赔付结论" prop="compensateResult" label-width="120px">
         <el-select v-model="form.compensateResult" placeholder="请选择">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
+          <el-option
+            v-for="item in businessData.AdjustmentType"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          />-->
+          />
         </el-select>
       </el-form-item>
 
@@ -231,12 +249,16 @@
 
 <script>
 import { save, edit } from '@/api/claim/treat'
+import Match from './match'
 
 export default {
   // 父组件向子组件传值，通过props获取。
   // 一旦父组件改变了`sonData`对应的值，子组件的`sonData`会立即改变，通过watch函数可以实时监听到值的变化
   // `props`不属于data，但是`props`中的参数可以像data中的参数一样直接使用
-  props: ['sonData'/*, 'businessData'*/],
+  components: {
+    Match
+  },
+  props: ['sonData', 'businessData'],
   data() {
     return {
       dialogVisible: false,
@@ -290,7 +312,8 @@ export default {
         conclusionDesc: '',
         auditInformation: ''
       },
-
+      matchVisable: false,
+      matchTyp: null,
       rules: {
         batchNo: [{ required: true, trigger: 'blur', message: '请输入批次号' }]
       }
@@ -367,6 +390,19 @@ export default {
     handleClose() {
       this.clearForm()
       this.dialogVisible = false
+    },
+    hanldeMatch(matchTyp) {
+      this.matchVisable = true
+      this.matchTyp = matchTyp
+    },
+    matchConfirm(data) {
+      if (data.treatNo) { // 诊疗码
+        this.form.treatCde = data.treatNo
+      }
+      if (data.explCde) { // 解释码
+        this.form.adjustInterpCde = data.explCde
+        this.form.interpDesc = data.explCdeDesc
+      }
     },
     onSubmit(form) {
       this.$refs[form].validate((valid) => {

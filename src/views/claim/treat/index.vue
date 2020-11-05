@@ -50,7 +50,7 @@
         </el-table-column>
         <el-table-column align="center" label="社保类型" width="150">
           <template slot-scope="scope">
-            {{ scope.row.secuTyp }}
+            {{ CSocialinsuTyp[scope.row.secuTyp] }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="费用名称" width="150">
@@ -90,7 +90,7 @@
 
         <el-table-column align="center" label="赔付结论" width="150">
           <template slot-scope="scope">
-            {{ scope.row.compensateResult }}
+            {{ AdjustmentType[scope.row.compensateResult] }}
           </template>
         </el-table-column>
 
@@ -164,8 +164,8 @@ export default {
       dialogVisible: false,
       form: null,
       businessData: {},
-      CTeamTyp: {},
-      CPubCoverTyp: {},
+      CSocialinsuTyp: {},
+      AdjustmentType: {},
       selected: []
     }
   },
@@ -217,11 +217,12 @@ export default {
     },
     fetchTypeData() {
       // 获取codeList
-      getCodeList({ parent: ['CTeamTyp', 'CPubCoverTyp'] }).then(res => {
+      getCodeList({ parent: ['TrueOrFalse', 'CSocialinsuTyp', 'OtherCSocialinsuTyp', 'AdjustmentType'] }).then(res => {
         this.businessData = res.data
         // 组装table 的map
         for (const key in this.businessData) {
           this.businessData[key].forEach(item => {
+            !this[key] && (this[key] = {})
             this[key][item.value] = item.label
           })
         }
