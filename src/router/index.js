@@ -509,6 +509,12 @@ export const constantRoutes = [
         component: () => import('@/views/param/treatmentMesManage/index'),
         name: '诊疗信息管理',
         meta: { title: '诊疗信息管理', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'baseAdjustOrder',
+        component: () => import('@/views/param/baseAdjustOrder/index'),
+        name: '基础理算顺序',
+        meta: { title: '基础理算顺序', icon: 'guide', noCache: true }
       }
     ]
   },
