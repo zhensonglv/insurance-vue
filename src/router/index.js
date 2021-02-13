@@ -515,7 +515,14 @@ export const constantRoutes = [
         component: () => import('@/views/param/baseAdjustOrder/index'),
         name: '基础理算顺序',
         meta: { title: '基础理算顺序', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'cardPeriod',
+        component: () => import('@/views/param/cardPeriod/index'),
+        name: '办卡期',
+        meta: { title: '办卡期', icon: 'guide', noCache: true }
       }
+
     ]
   },
   {

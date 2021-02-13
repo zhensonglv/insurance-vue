@@ -4,42 +4,13 @@
       <el-form-item label="参数码" prop="paramCde" label-width="120px">
         <el-input v-model="form.paramCde" placeholder="请输入就参数码" disabled="disabled" />
       </el-form-item>
-      <el-form-item label="起始日期" prop="bgnTm">
-        <el-date-picker
-          v-model="form.bgnTm"
-          type="datetime"
-          value-format="yyyy-MM-dd"
-          placeholder="选择日期时间"
-        />
+      <el-form-item label="办卡宽限期" prop="onlyDuty" label-width="120px">
+        <el-input v-model="form.cardPeriodDays" placeholder="请输入办卡宽限期" />
       </el-form-item>
-      <el-form-item label="终止日期" prop="endTm">
-        <el-date-picker
-          v-model="form.endTm"
-          type="datetime"
-          value-format="yyyy-MM-dd"
-          placeholder="选择日期时间"
-        />
-      </el-form-item>
-      <el-form-item label="理算优先级" prop="adjustOrder" label-width="120px">
-        <el-input v-model="form.adjustOrder" placeholder="请输入理算优先级" />
+      <el-form-item label="办卡期描述" prop="adjustOrder" label-width="120px">
+        <el-input v-model="form.cardPeriodDesc" placeholder="请输入办卡期描述" />
       </el-form-item>
 
-      <el-form-item label="仅责任" prop="onlyDuty" label-width="120px">
-        <el-input v-model="form.onlyDuty" placeholder="请输入" />
-      </el-form-item>
-      <el-form-item label="满保额" prop="fullPremium" label-width="120px">
-        <el-input v-model="form.fullPremium" placeholder="请输入" />
-      </el-form-item>
-      <el-form-item label="事故地" prop="accidentPlace" label-width="120px">
-        <el-input v-model="form.accidentPlace" placeholder="请输入事故地" />
-      </el-form-item>
-      <el-form-item label="承保地" prop="accptPlace" label-width="120px">
-        <el-input v-model="form.accptPlace" placeholder="请输入承保地" />
-      </el-form-item>
-
-      <el-form-item label="备注" prop="adjustRemark" label-width="120px">
-        <el-input v-model="form.adjustRemark" placeholder="请输入备注" />
-      </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="handleClose">
@@ -67,23 +38,18 @@ export default {
     return {
       dialogVisible: false,
       dialogTitle: '新增',
-      basePath: 'baseAdjustOrder',
+      basePath: 'cardPeriod',
       form: {
         id: '',
         paramCde: '',
-        bgnTm: '',
-        endTm: '',
-        adjustOrder: '',
-        accidentPlace: '',
-        accptPlace: '',
-        adjustRemark: '',
-        onlyDuty: '',
-        fullPremium: ''
+        cardPeriodDays: '',
+        cardPeriodDesc: ''
       },
       matchVisable: false,
       matchTyp: null,
       rules: {
-        adjustOrder: [{ required: true, trigger: 'blur', message: '请输入理算优先级' }]
+        cardPeriodDays: [{ required: true, trigger: 'blur', message: '请输入办卡宽限期' }],
+        cardPeriodDesc: [{ required: true, trigger: 'blur', message: '请输入办卡期描述' }]
       }
     }
   },
@@ -108,14 +74,8 @@ export default {
     clearForm() {
       this.form.id = null
       this.form.paramCde = null
-      this.form.bgnTm = null
-      this.form.endTm = null
-      this.form.adjustOrder = null
-      this.form.accidentPlace = null
-      this.form.accptPlace = null
-      this.form.adjustRemark = null
-      this.form.onlyDuty = null
-      this.form.fullPremium = null
+      this.form.cardPeriodDays = null
+      this.form.cardPeriodDesc = null
     },
     handleClose() {
       this.clearForm()
