@@ -96,7 +96,7 @@
           <div class="check">
             <el-checkbox v-model="checkAll" :indeterminate="isIndeterminate" @change="handleCheckAllChange">全选</el-checkbox>
             <div style="margin-left: 20px" />
-            <el-checkbox-group v-model="form.medicInsureType" @change="handleCheckedCitiesChange">
+            <el-checkbox-group v-model="medicInsureType" @change="handleCheckedCitiesChange">
               <el-checkbox
                 v-for="item in businessData.MedicInsureType"
                 :key="item.value"
@@ -140,7 +140,7 @@
           <div class="check">
             <el-checkbox v-model="checkCateAll" :indeterminate="isCateIndeterminate" @change="handleCheckCateAllChange">全选</el-checkbox>
             <div style="margin-left: 20px" />
-            <el-checkbox-group v-model="form.categoryNo" @change="handleCheckedCateChange">
+            <el-checkbox-group v-model="categoryNo" @change="handleCheckedCateChange">
               <el-checkbox
                 v-for="item in businessData.CostTyp"
                 :key="item.value"
@@ -197,21 +197,24 @@ export default {
         dutyValidBgnTm: '',
         dutyValidEndTm: '',
         medicInsureType: [],
+        // medicInsureDesc: '',
         treatTyp: '',
         medicDetailStart: '',
         medicDetailEnd: '',
         treatMatchCde: '',
         treatMatchDesc: '',
         categoryNo: [],
+        //  categoryDesc:'',
         descCrible: ''
       },
-      medicInsureDesc: [],
+      medicInsureType: [],
       medicInsureArr: ['A', 'B', 'C'],
       checkAll: false,
       isIndeterminate: false,
-      checkCateAll: false,
+      categoryNo: [],
       categoryNoArr: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20',
         '21', '22', '99'],
+      checkCateAll: false,
       isCateIndeterminate: false,
       matchVisable: false,
       matchTyp: null,
@@ -225,6 +228,12 @@ export default {
     'sonData': function(newVal, oldVal) {
       this.form = newVal
       this.dialogVisible = true
+      if (this.form.medicInsureType) {
+        this.medicInsureType = this.form.medicInsureType
+      }
+      if (this.form.categoryNo) {
+        this.categoryNo = this.form.categoryNo
+      }
       if (newVal.id != null) {
         this.dialogTitle = 'Edit'
       } else {
@@ -240,8 +249,7 @@ export default {
       })
     },
     handleCheckAllChange(val) {
-      debugger
-      this.form.medicInsureType = val ? this.medicInsureArr : []
+      this.medicInsureType = val ? this.medicInsureArr : []
       this.isIndeterminate = false
     },
     handleCheckedCitiesChange(value) {
@@ -251,7 +259,7 @@ export default {
     },
 
     handleCheckCateAllChange(val) {
-      this.form.categoryNo = val ? this.categoryNoArr : []
+      this.categoryNo = val ? this.categoryNoArr : []
       this.isCateIndeterminate = false
     },
     handleCheckedCateChange(value) {
@@ -295,13 +303,17 @@ export default {
       this.form.dutyValidBgnTm = null
       this.form.dutyValidEndTm = null
       this.form.medicInsureType = []
+      // this.form.medicInsureDesc = null
       this.form.treatTyp = null
       this.form.medicDetailStart = null
       this.form.medicDetailEnd = null
       this.form.treatMatchCde = null
       this.form.treatMatchDesc = null
       this.form.categoryNo = []
+      //  this.form.categoryDesc = null
       this.form.descCrible = null
+      this.medicInsureType = []
+      this.categoryNo = []
     },
     handleClose() {
       this.clearForm()
@@ -310,6 +322,8 @@ export default {
     onSubmit(form) {
       this.$refs[form].validate((valid) => {
         if (valid) {
+          this.form.medicInsureType = this.medicInsureType
+          this.form.categoryNo = this.categoryNo
           if (this.form.id === null) {
             save(this.basePath, this.form).then(response => {
               if (response.code === 200) {

@@ -36,7 +36,7 @@
         </el-table-column>
         <el-table-column align="center" label="医保类型" width="150">
           <template slot-scope="scope">
-            {{ scope.row.medicInsureDesc }}
+            {{ scope.row.medicInsureType }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="费用类型" width="150">

@@ -101,12 +101,12 @@
         <el-input v-model="form.treatMatchDesc" placeholder="请输入高层诊疗码描述" />
       </el-form-item>
 
-      <!--  <el-row>
+      <el-row>
         <el-form-item label="费用类型" prop="categoryNo" label-width="120px">
           <div class="check">
             <el-checkbox v-model="checkCateAll" :indeterminate="isCateIndeterminate" @change="handleCheckCateAllChange">全选</el-checkbox>
             <div style="margin-left: 20px" />
-            <el-checkbox-group v-model="form.categoryNo" @change="handleCheckedCateChange">
+            <el-checkbox-group v-model="categoryNo" @change="handleCheckedCateChange">
               <el-checkbox
                 v-for="item in businessData.CostTyp"
                 :key="item.value"
@@ -115,7 +115,7 @@
             </el-checkbox-group>
           </div>
         </el-form-item>
-      </el-row>-->
+      </el-row>
 
       <el-form-item label="起始年纪" prop="startingAge" label-width="120px">
         <el-input v-model="form.startingAge" placeholder="请输入起始年纪" />
@@ -203,6 +203,7 @@ export default {
       },
       matchVisable: false,
       matchTyp: null,
+      categoryNo: [],
       checkCateAll: false,
       categoryNoArr: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20',
         '21', '22', '99'],
@@ -224,6 +225,10 @@ export default {
     'sonData': function(newVal, oldVal) {
       this.form = newVal
       this.dialogVisible = true
+      if (this.form.categoryNo) {
+        this.categoryNo = this.form.categoryNo
+      }
+
       if (newVal.id != null) {
         this.dialogTitle = 'Edit'
       } else {
@@ -265,7 +270,8 @@ export default {
       this.form.medicDetailEnd = null
       this.form.treatMatchCde = null
       this.form.treatMatchDesc = null
-      this.form.categoryNo = null
+      this.form.categoryNo = []
+      this.categoryNo = []
     },
 
     handleCheckCateAllChange(val) {
@@ -306,6 +312,9 @@ export default {
     onSubmit(form) {
       this.$refs[form].validate((valid) => {
         if (valid) {
+          if (this.categoryNo) {
+            this.form.categoryNo = this.categoryNo
+          }
           if (this.form.id === null) {
             save(this.basePath, this.form).then(response => {
               if (response.code === 200) {
