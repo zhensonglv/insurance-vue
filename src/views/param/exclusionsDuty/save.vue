@@ -37,7 +37,7 @@
         <el-input v-model="form.explainCdeDesc" placeholder="请输入解释码描述" />
       </el-form-item>
 
-      <el-form-item label="代码类型" prop="quotaCodeTyp" label-width="120px">
+      <el-form-item label="诊断码代码类型" prop="quotaCodeTyp" label-width="120px">
         <el-select v-model="form.quotaCodeTyp" placeholder="请选择">
           <el-option
             v-for="item in businessData.DiaMatchTyp"
@@ -48,27 +48,74 @@
         </el-select>
       </el-form-item>
 
-      <el-form-item label="起始代码" prop="quotaStarCde" label-width="120px">
+      <el-form-item label="起始诊断代码" prop="quotaStarCde" label-width="120px">
         <el-input v-model="form.quotaStarCde" placeholder="请选择起始代码">
           <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(3)" />
         </el-input>
       </el-form-item>
       <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
 
-      <el-form-item label="起始代码描述" prop="quotaStarCdeDesc" label-width="120px">
+      <el-form-item label="起始诊断代码描述" prop="quotaStarCdeDesc" label-width="120px">
         <el-input v-model="form.quotaStarCdeDesc" placeholder="请输入起始代码描述" />
       </el-form-item>
 
-      <el-form-item label="终止代码" prop="quotaEndCde" label-width="120px">
+      <el-form-item label="终止诊断代码" prop="quotaEndCde" label-width="120px">
         <el-input v-model="form.quotaEndCde" placeholder="请选择起始代码">
           <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(4)" />
         </el-input>
       </el-form-item>
       <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
 
-      <el-form-item label="终止代码描述" prop="quotaEndCdeDesc" label-width="120px">
+      <el-form-item label="终止诊断代码描述" prop="quotaEndCdeDesc" label-width="120px">
         <el-input v-model="form.quotaEndCdeDesc" placeholder="请输入终止代码描述" />
       </el-form-item>
+
+      <el-form-item label="高层诊断码" prop="treatMatchCde" label-width="120px">
+        <el-input v-model="form.diaMatParameterCde" placeholder="请输入高层诊疗码" />
+      </el-form-item>
+      <el-form-item label="高层诊断码描述" prop="treatMatchDesc" label-width="120px">
+        <el-input v-model="form.diaMatchDesc" placeholder="请输入高层诊疗码描述" />
+      </el-form-item>
+
+      <el-form-item label="诊疗代码类型" prop="treatTyp" label-width="120px">
+        <el-select v-model="form.treatTyp" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.TreatCodeTyp"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
+      </el-form-item>
+      <el-form-item label="起始诊疗码" prop="medicDetailStart" label-width="120px">
+        <el-input v-model="form.medicDetailStart" placeholder="请输入起始诊疗码" />
+      </el-form-item>
+      <el-form-item label="终止诊疗码" prop="medicDetailEnd" label-width="120px">
+        <el-input v-model="form.medicDetailEnd" placeholder="请输入终止诊疗码" />
+      </el-form-item>
+
+      <el-form-item label="高层诊疗码" prop="treatMatchCde" label-width="120px">
+        <el-input v-model="form.treatMatchCde" placeholder="请输入高层诊疗码" />
+      </el-form-item>
+      <el-form-item label="高层诊疗码描述" prop="treatMatchDesc" label-width="120px">
+        <el-input v-model="form.treatMatchDesc" placeholder="请输入高层诊疗码描述" />
+      </el-form-item>
+
+      <!--  <el-row>
+        <el-form-item label="费用类型" prop="categoryNo" label-width="120px">
+          <div class="check">
+            <el-checkbox v-model="checkCateAll" :indeterminate="isCateIndeterminate" @change="handleCheckCateAllChange">全选</el-checkbox>
+            <div style="margin-left: 20px" />
+            <el-checkbox-group v-model="form.categoryNo" @change="handleCheckedCateChange">
+              <el-checkbox
+                v-for="item in businessData.CostTyp"
+                :key="item.value"
+                :label="item.value"
+              >{{ item.value+"-"+item.label }}</el-checkbox>
+            </el-checkbox-group>
+          </div>
+        </el-form-item>
+      </el-row>-->
 
       <el-form-item label="起始年纪" prop="startingAge" label-width="120px">
         <el-input v-model="form.startingAge" placeholder="请输入起始年纪" />
@@ -127,49 +174,39 @@ export default {
       basePath: 'exclusionsDuty',
       form: {
         id: '',
-
         exclusionsCde: '',
-
         exclusionsTyp: '',
-
         exclusionsDesc: '',
-
         invoiceTyp: '',
-
         explainCde: '',
-
         explainCdeDesc: '',
-
         quotaCodeTyp: '',
-
         quotaStarCde: '',
-
         quotaStarCdeDesc: '',
-
         quotaEndCde: '',
-
         quotaEndCdeDesc: '',
-
         sex: '',
-
         startingAge: '',
-
         endAge: '',
-
         hospitalLevel: '',
-
         hospitalTyp: '',
-
         hospitalNetCde: '',
-
         treamentTyp: '',
-
         diaMatDesc: '',
-
-        diaMatParameterCde: ''
+        diaMatParameterCde: '',
+        treatTyp: '',
+        medicDetailStart: '',
+        medicDetailEnd: '',
+        treatMatchCde: '',
+        treatMatchDesc: '',
+        categoryNo: []
       },
       matchVisable: false,
       matchTyp: null,
+      checkCateAll: false,
+      categoryNoArr: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20',
+        '21', '22', '99'],
+      isCateIndeterminate: false,
       rules: {
         exclusionsCde: [{ required: true, trigger: 'blur', message: '请输入除外责任码' }],
         exclusionsDesc: [{ required: true, trigger: 'blur', message: '请输入除外责任说明' }],
@@ -223,7 +260,24 @@ export default {
       this.form.treamentTyp = null
       this.form.diaMatDesc = null
       this.form.diaMatParameterCde = null
+      this.form.treatTyp = null
+      this.form.medicDetailStart = null
+      this.form.medicDetailEnd = null
+      this.form.treatMatchCde = null
+      this.form.treatMatchDesc = null
+      this.form.categoryNo = null
     },
+
+    handleCheckCateAllChange(val) {
+      this.form.categoryNo = val ? this.categoryNoArr : []
+      this.isCateIndeterminate = false
+    },
+    handleCheckedCateChange(value) {
+      const checkedCount = value.length
+      this.checkCateAll = checkedCount === this.businessData.CostTyp.length
+      this.isCateIndeterminate = checkedCount > 0 && checkedCount < this.businessData.CostTyp.length
+    },
+
     hanldeMatch(matchTyp) {
       this.matchVisable = true
       this.matchTyp = matchTyp

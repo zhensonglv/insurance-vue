@@ -128,7 +128,7 @@ export default {
     },
     fetchTypeData() {
       // 获取codeList
-      getCodeList({ parent: ['DiaMatchTyp', 'ClinicType', 'CEasyDiaSex'] }).then(res => {
+      getCodeList({ parent: ['DiaMatchTyp', 'ClinicType', 'CEasyDiaSex', 'TreatCodeTyp', 'CostTyp'] }).then(res => {
         this.businessData = res.data
         // 组装table 的map
         for (const key in this.businessData) {

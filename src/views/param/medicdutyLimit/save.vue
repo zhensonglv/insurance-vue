@@ -96,7 +96,7 @@
           <div class="check">
             <el-checkbox v-model="checkAll" :indeterminate="isIndeterminate" @change="handleCheckAllChange">全选</el-checkbox>
             <div style="margin-left: 20px" />
-            <el-checkbox-group v-model="medicInsureDesc" @change="handleCheckedCitiesChange">
+            <el-checkbox-group v-model="form.medicInsureType" @change="handleCheckedCitiesChange">
               <el-checkbox
                 v-for="item in businessData.MedicInsureType"
                 :key="item.value"
@@ -131,13 +131,26 @@
         <el-input v-model="form.treatMatchDesc" placeholder="请输入高层诊疗码描述" />
       </el-form-item>
 
-      <el-form-item label="费用类型" prop="categoryNo" label-width="120px">
-        <el-input v-model="form.categoryNo" placeholder="请输入参数描述" />
-      </el-form-item>
-
       <el-form-item label="描述" prop="descCrible" label-width="120px">
         <el-input v-model="form.descCrible" placeholder="请输入参数描述" />
       </el-form-item>
+
+      <el-row>
+        <el-form-item label="费用类型" prop="categoryNo" label-width="120px">
+          <div class="check">
+            <el-checkbox v-model="checkCateAll" :indeterminate="isCateIndeterminate" @change="handleCheckCateAllChange">全选</el-checkbox>
+            <div style="margin-left: 20px" />
+            <el-checkbox-group v-model="form.categoryNo" @change="handleCheckedCateChange">
+              <el-checkbox
+                v-for="item in businessData.CostTyp"
+                :key="item.value"
+                :label="item.value"
+              >{{ item.value+"-"+item.label }}</el-checkbox>
+            </el-checkbox-group>
+          </div>
+        </el-form-item>
+      </el-row>
+
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="handleClose">
@@ -170,12 +183,36 @@ export default {
       form: {
         id: '',
         paramCde: '',
-        docTyp: ''
+        docTyp: '',
+        isPay: '',
+        codeTyp: '',
+        bgnCode: '',
+        bgnCodeDesc: '',
+        endCode: '',
+        endCodeDesc: '',
+        diaMatchCde: '',
+        diaMatchDesc: '',
+        explianCde: '',
+        explainDesc: '',
+        dutyValidBgnTm: '',
+        dutyValidEndTm: '',
+        medicInsureType: [],
+        treatTyp: '',
+        medicDetailStart: '',
+        medicDetailEnd: '',
+        treatMatchCde: '',
+        treatMatchDesc: '',
+        categoryNo: [],
+        descCrible: ''
       },
       medicInsureDesc: [],
       medicInsureArr: ['A', 'B', 'C'],
       checkAll: false,
       isIndeterminate: false,
+      checkCateAll: false,
+      categoryNoArr: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20',
+        '21', '22', '99'],
+      isCateIndeterminate: false,
       matchVisable: false,
       matchTyp: null,
       rules: {
@@ -203,7 +240,8 @@ export default {
       })
     },
     handleCheckAllChange(val) {
-      this.medicInsureDesc = val ? this.medicInsureArr : []
+      debugger
+      this.form.medicInsureType = val ? this.medicInsureArr : []
       this.isIndeterminate = false
     },
     handleCheckedCitiesChange(value) {
@@ -211,6 +249,17 @@ export default {
       this.checkAll = checkedCount === this.businessData.MedicInsureType.length
       this.isIndeterminate = checkedCount > 0 && checkedCount < this.businessData.MedicInsureType.length
     },
+
+    handleCheckCateAllChange(val) {
+      this.form.categoryNo = val ? this.categoryNoArr : []
+      this.isCateIndeterminate = false
+    },
+    handleCheckedCateChange(value) {
+      const checkedCount = value.length
+      this.checkCateAll = checkedCount === this.businessData.CostTyp.length
+      this.isCateIndeterminate = checkedCount > 0 && checkedCount < this.businessData.CostTyp.length
+    },
+
     hanldeMatch(matchTyp) {
       this.matchVisable = true
       this.matchTyp = matchTyp
@@ -233,6 +282,26 @@ export default {
       this.form.id = null
       this.form.paramCde = null
       this.form.docTyp = null
+      this.form.isPay = null
+      this.form.codeTyp = null
+      this.form.bgnCode = null
+      this.form.bgnCodeDesc = null
+      this.form.endCode = null
+      this.form.endCodeDesc = null
+      this.form.diaMatchCde = null
+      this.form.diaMatchDesc = null
+      this.form.explianCde = null
+      this.form.explainDesc = null
+      this.form.dutyValidBgnTm = null
+      this.form.dutyValidEndTm = null
+      this.form.medicInsureType = []
+      this.form.treatTyp = null
+      this.form.medicDetailStart = null
+      this.form.medicDetailEnd = null
+      this.form.treatMatchCde = null
+      this.form.treatMatchDesc = null
+      this.form.categoryNo = []
+      this.form.descCrible = null
     },
     handleClose() {
       this.clearForm()
@@ -242,7 +311,6 @@ export default {
       this.$refs[form].validate((valid) => {
         if (valid) {
           if (this.form.id === null) {
-            console.log(this.form.medicInsureDesc)
             save(this.basePath, this.form).then(response => {
               if (response.code === 200) {
                 this._notify(response.msg, 'success')
