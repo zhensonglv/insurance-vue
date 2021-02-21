@@ -91,19 +91,21 @@
         />
       </el-form-item>
 
-      <el-form-item label="医保类型" prop="medicInsureType" label-width="240px">
-        <el-checkbox v-model="checkAll" :indeterminate="isIndeterminate" @change="handleCheckAllChange">全选</el-checkbox>
-        <div style="margin: 15px 0;" />
-        <el-checkbox-group v-model="form.medicInsureDesc" @change="handleCheckedCitiesChange">
-          <el-checkbox
-            v-for="item in businessData.MedicInsureType"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          >{{ item.label }}</el-checkbox>
-
-        </el-checkbox-group>
-      </el-form-item>
+      <el-row>
+        <el-form-item label="医保类型" prop="medicInsureType" label-width="120px">
+          <div class="check">
+            <el-checkbox v-model="checkAll" :indeterminate="isIndeterminate" @change="handleCheckAllChange">全选</el-checkbox>
+            <div style="margin-left: 20px" />
+            <el-checkbox-group v-model="medicInsureDesc" @change="handleCheckedCitiesChange">
+              <el-checkbox
+                v-for="item in businessData.MedicInsureType"
+                :key="item.value"
+                :label="item.value"
+              >{{ item.label }}</el-checkbox>
+            </el-checkbox-group>
+          </div>
+        </el-form-item>
+      </el-row>
 
       <el-form-item label="诊疗代码类型" prop="treatTyp" label-width="120px">
         <el-select v-model="form.treatTyp" placeholder="请选择">
@@ -168,12 +170,12 @@ export default {
       form: {
         id: '',
         paramCde: '',
-        docTyp: '',
-        medicInsureDesc: []
+        docTyp: ''
       },
-      medicInsureArr: ['A-甲类', 'B-乙类', 'C-丙类'],
+      medicInsureDesc: [],
+      medicInsureArr: ['A', 'B', 'C'],
       checkAll: false,
-      isIndeterminate: true,
+      isIndeterminate: false,
       matchVisable: false,
       matchTyp: null,
       rules: {
@@ -201,8 +203,7 @@ export default {
       })
     },
     handleCheckAllChange(val) {
-      this.form.medicInsureDesc = val ? this.medicInsureArr : []
-      console.log(this.form.medicInsureDesc)
+      this.medicInsureDesc = val ? this.medicInsureArr : []
       this.isIndeterminate = false
     },
     handleCheckedCitiesChange(value) {
@@ -304,6 +305,10 @@ export default {
     width: 178px;
     height: 178px;
     display: block;
+  }
+  .check {
+    display: flex;
+    justify-content: flex-start;
   }
 </style>
 

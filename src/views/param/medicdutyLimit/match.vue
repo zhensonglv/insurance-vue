@@ -45,6 +45,7 @@ export default {
         explCdeDesc: '',
         sort: '+id'
       },
+      title: '',
       total: 0,
       multipleSeleValues: [],
       dialogTableVisible: false
