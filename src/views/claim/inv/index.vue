@@ -45,17 +45,17 @@
         </el-table-column>
         <el-table-column align="center" label="就诊类型" width="150">
           <template slot-scope="scope">
-            {{ scope.row.docTyp }}
+            {{ ClinicType[scope.row.docTyp] }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="账单类型" width="150">
           <template slot-scope="scope">
-            {{ scope.row.billTyp }}
+            {{ CiRateBillTyp[scope.row.billtyp] }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="发票地区" width="150">
           <template slot-scope="scope">
-            {{ scope.row.invArea }}
+            {{ InInvoice[scope.row.invArea] }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="发票号" width="150">
@@ -90,7 +90,7 @@
 
         <el-table-column align="center" label="结论描述" width="150">
           <template slot-scope="scope">
-            {{ scope.row.conclusionDesc }}
+            {{ CCompensateResult[scope.row.conclusionDesc] }}
           </template>
         </el-table-column>
 
@@ -205,11 +205,12 @@ export default {
     },
     fetchTypeData() {
       // 获取codeList
-      getCodeList({ parent: ['CTeamTyp', 'CPubCoverTyp'] }).then(res => {
+      getCodeList({ parent: ['TrueOrFalse', 'CiRateBillTyp', 'CCompensateResult', 'ClinicType', 'InInvoice', 'CInvoiceTyp'] }).then(res => {
         this.businessData = res.data
         // 组装table 的map
         for (const key in this.businessData) {
           this.businessData[key].forEach(item => {
+            !this[key] && (this[key] = {})
             this[key][item.value] = item.label
           })
         }

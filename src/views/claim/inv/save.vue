@@ -56,12 +56,12 @@
 
       <el-form-item label="就诊类型" prop="docTyp" label-width="120px">
         <el-select v-model="form.docTyp" placeholder="请选择就诊类型">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
+          <el-option
+            v-for="item in businessData.ClinicType"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          />-->
+          />
         </el-select>
       </el-form-item>
 
@@ -85,100 +85,100 @@
 
       <el-form-item label="意外" prop="isAccident" label-width="120px">
         <el-select v-model="form.isAccident" placeholder="请选择">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          />-->
+          />
         </el-select>
       </el-form-item>
 
       <el-form-item label="急诊" prop="isEmergTreat" label-width="120px">
         <el-select v-model="form.isEmergTreat" placeholder="请选择">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          />-->
+          />
         </el-select>
       </el-form-item>
 
       <el-form-item label="缺材料" prop="isLackMaterial" label-width="120px">
         <el-select v-model="form.isLackMaterial" placeholder="请选择">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          />-->
+          />
         </el-select>
       </el-form-item>
 
       <el-form-item label="既往病史" prop="isMedicalHistory" label-width="120px">
         <el-select v-model="form.isMedicalHistory" placeholder="请选择">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          />-->
+          />
         </el-select>
       </el-form-item>
 
       <el-form-item label="生育" prop="isBirth" label-width="120px">
         <el-select v-model="form.isBirth" placeholder="请选择">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          />-->
+          />
         </el-select>
       </el-form-item>
 
       <el-form-item label="工伤" prop="isInjuryJob" label-width="120px">
         <el-select v-model="form.isInjuryJob" placeholder="请选择">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          />-->
+          />
         </el-select>
       </el-form-item>
 
       <el-form-item label="重疾" prop="stricken" label-width="120px">
         <el-select v-model="form.stricken" placeholder="请选择">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          />-->
+          />
         </el-select>
       </el-form-item>
 
       <el-form-item label="是否医保投保" prop="isHasMedical" label-width="120px">
         <el-select v-model="form.isHasMedical" placeholder="请选择">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          />-->
+          />
         </el-select>
       </el-form-item>
 
       <el-form-item label="是否使用医保卡" prop="isUseMedical" label-width="120px">
         <el-select v-model="form.isUseMedical" placeholder="请选择">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          />-->
+          />
         </el-select>
       </el-form-item>
 
@@ -192,23 +192,23 @@
 
       <el-form-item label="发票类型" prop="invTyp" label-width="120px">
         <el-select v-model="form.invTyp" placeholder="请选择">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
+          <el-option
+            v-for="item in businessData.CInvoiceTyp"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          />-->
+          />
         </el-select>
       </el-form-item>
 
       <el-form-item label="发票地区" prop="invArea" label-width="120px">
         <el-select v-model="form.invArea" placeholder="请选择">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
+          <el-option
+            v-for="item in businessData.InInvoice"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          />-->
+          />
         </el-select>
       </el-form-item>
 
@@ -288,23 +288,23 @@
 
       <el-form-item label="是否原始发票" prop="isOriginalInv" label-width="120px">
         <el-select v-model="form.isOriginalInv" placeholder="请选择">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          />-->
+          />
         </el-select>
       </el-form-item>
 
       <el-form-item label="是否就诊信息对应发票" prop="isVisInv" label-width="120px">
         <el-select v-model="form.isVisInv" placeholder="请选择">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          />-->
+          />
         </el-select>
       </el-form-item>
 
@@ -327,12 +327,12 @@
 
       <el-form-item label="账单类型" prop="billtyp" label-width="120px">
         <el-select v-model="form.billtyp" placeholder="请选择">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
+          <el-option
+            v-for="item in businessData.CiRateBillTyp"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          />-->
+          />
         </el-select>
       </el-form-item>
 
@@ -495,14 +495,16 @@
         <el-input v-model="form.visitId" placeholder="请输入就诊层id" />
       </el-form-item>
 
-      <!--<el-form-item label="赔付结论" prop="conclusionDesc" label-width="120px">
-        <el-date-picker
-          v-model="form.conclusionDesc"
-          type="datetime"
-          value-format="yyyy-MM-dd"
-          placeholder="选择日期时间"
-        />
-      </el-form-item>-->
+      <el-form-item label="赔付结论" prop="conclusionDesc" label-width="120px">
+        <el-select v-model="form.conclusionDesc" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.CCompensateResult"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
+      </el-form-item>
 
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -523,7 +525,7 @@ export default {
   // 父组件向子组件传值，通过props获取。
   // 一旦父组件改变了`sonData`对应的值，子组件的`sonData`会立即改变，通过watch函数可以实时监听到值的变化
   // `props`不属于data，但是`props`中的参数可以像data中的参数一样直接使用
-  props: ['sonData'/*, 'businessData'*/],
+  props: ['sonData', 'businessData'],
   data() {
     return {
       dialogVisible: false,
