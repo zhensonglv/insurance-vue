@@ -212,6 +212,12 @@ export const constantRoutes = [
         meta: { title: '别名管理', icon: 'guide', noCache: true }
       },
       {
+        path: 'clientInsured',
+        component: () => import('@/views/client/clientInsured/index'),
+        name: '被保人查询',
+        meta: { title: '被保人查询', icon: 'guide', noCache: true }
+      },
+      {
         path: 'clientLifeStyle',
         component: () => import('@/views/client/clientLifeStyle/index'),
         name: '生活方式管理',
