@@ -521,6 +521,12 @@ export const constantRoutes = [
         component: () => import('@/views/param/cardPeriod/index'),
         name: '办卡期',
         meta: { title: '办卡期', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'entityNorm',
+        component: () => import('@/views/param/entityNorm/index'),
+        name: '实体限额',
+        meta: { title: '实体限额', icon: 'guide', noCache: true }
       }
 
     ]
