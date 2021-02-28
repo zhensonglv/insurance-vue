@@ -103,9 +103,9 @@ export default {
     }
   },
   created() {
-    /* if (this.$route.query.pubCoverId) { // 上级页面传入参数
-          this.listQuery.pubCoverId = this.$route.query.pubCoverId
-        }*/
+    if (this.$route.query.paramCde) { // 上级页面传入参数
+      this.listQuery.exclusionsCde = this.$route.query.paramCde
+    }
     // this.fetchData()
     this.fetchTypeData()
   },
@@ -128,7 +128,7 @@ export default {
     },
     fetchTypeData() {
       // 获取codeList
-      getCodeList({ parent: ['DiaMatchTyp', 'ClinicType', 'CEasyDiaSex', 'TreatCodeTyp', 'CostTyp'] }).then(res => {
+      getCodeList({ parent: ['CExclusionsTyp', 'DiaMatchTyp', 'ClinicType', 'CEasyDiaSex', 'TreatCodeTyp', 'CostTyp'] }).then(res => {
         this.businessData = res.data
         // 组装table 的map
         for (const key in this.businessData) {
@@ -141,7 +141,7 @@ export default {
       })
     },
     handleSave() {
-      this.form = { id: null }
+      this.form = { id: null, exclusionsCde: this.listQuery.exclusionsCde }
       /* if (this.$route.query.pubCoverId) { // 上级页面传入参数
             this.form.pubCoverId = this.$route.query.pubCoverId
           }*/

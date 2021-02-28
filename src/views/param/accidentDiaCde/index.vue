@@ -70,6 +70,8 @@ export default {
       listQuery: {
         pageNum: 1,
         pageSize: 10,
+        accidentDiaCde: '',
+        accidentDiaExp: '',
         sort: '+id'
       },
       total: 0,
@@ -80,9 +82,9 @@ export default {
     }
   },
   created() {
-    /* if (this.$route.query.pubCoverId) { // 上级页面传入参数
-          this.listQuery.pubCoverId = this.$route.query.pubCoverId
-        }*/
+    if (this.$route.query.paramCde) { // 上级页面传入参数
+      this.listQuery.accidentDiaCde = this.$route.query.paramCde
+    }
     // this.fetchData()
     this.fetchTypeData()
   },
@@ -119,10 +121,7 @@ export default {
       })
     },
     handleSave() {
-      this.form = { id: null }
-      /* if (this.$route.query.pubCoverId) { // 上级页面传入参数
-            this.form.pubCoverId = this.$route.query.pubCoverId
-          }*/
+      this.form = { id: null, accidentDiaCde: this.listQuery.accidentDiaCde }
       this.dialogVisible = true
     },
     handleEdit(id) {

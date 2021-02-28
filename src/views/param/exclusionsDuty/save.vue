@@ -8,7 +8,14 @@
         <el-input v-model="form.exclusionsDesc" placeholder="请输入除外责任说明" />
       </el-form-item>
       <el-form-item label="除外责任类型" prop="exclusionsTyp" label-width="120px">
-        <el-input v-model="form.exclusionsTyp" placeholder="请输入除外责任类型" />
+        <el-select v-model="form.exclusionsTyp" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.CExclusionsTyp"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
 
       <el-form-item label="就诊类型" prop="invoiceTyp" label-width="120px">

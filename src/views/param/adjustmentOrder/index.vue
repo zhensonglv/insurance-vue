@@ -82,6 +82,8 @@ export default {
       listQuery: {
         pageNum: 1,
         pageSize: 10,
+        adjustmentOrderNo: '',
+        adjustmentLevel: '',
         sort: '+id'
       },
       total: 0,
@@ -91,9 +93,9 @@ export default {
     }
   },
   created() {
-    /* if (this.$route.query.pubCoverId) { // 上级页面传入参数
-          this.listQuery.pubCoverId = this.$route.query.pubCoverId
-        }*/
+    if (this.$route.query.paramCde) { // 上级页面传入参数
+      this.listQuery.adjustmentOrderNo = this.$route.query.paramCde
+    }
     this.fetchData()
     // this.fetchTypeData()
   },
