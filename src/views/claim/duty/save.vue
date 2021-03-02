@@ -78,9 +78,21 @@
         <el-input v-model="form.finalCompensateAmt" placeholder="请输入最终赔付金额" />
       </el-form-item>
 
-      <el-form-item label="赔付结论" prop="plyPartNo" label-width="120px">
-        <el-input v-model="form.compensateResult" placeholder="请输入赔付结论" />
+      <el-form-item label="赔付结论" prop="compensateResult" label-width="120px">
+        <el-select v-model="form.compensateResult" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.AdjustmentType"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
+
+      <el-form-item label="结论描述" prop="conclusionDesc" label-width="120px">
+        <el-input v-model="form.conclusionDesc" placeholder="请输入结论描述" />
+      </el-form-item>
+
       <el-form-item label="申请层id" prop="clmAppId" label-width="120px">
         <el-input v-model="form.clmAppId" placeholder="请输入申请层id" />
       </el-form-item>
@@ -103,7 +115,7 @@ export default {
   // 父组件向子组件传值，通过props获取。
   // 一旦父组件改变了`sonData`对应的值，子组件的`sonData`会立即改变，通过watch函数可以实时监听到值的变化
   // `props`不属于data，但是`props`中的参数可以像data中的参数一样直接使用
-  props: ['sonData'/*, 'businessData'*/],
+  props: ['sonData', 'businessData'],
   data() {
     return {
       dialogVisible: false,
@@ -130,7 +142,8 @@ export default {
         clacAmt: '',
         compensateAmt: '',
         finalCompensateAmt: '',
-        compensateResult: ''
+        compensateResult: '',
+        conclusionDesc: ''
       },
 
       rules: {
@@ -180,6 +193,7 @@ export default {
       this.form.compensateAmt = null
       this.form.finalCompensateAmt = null
       this.form.compensateResult = null
+      this.form.conclusionDesc = null
     },
     handleClose() {
       this.clearForm()

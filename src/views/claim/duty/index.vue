@@ -74,7 +74,13 @@
         </el-table-column>
         <el-table-column align="center" label="赔付结论" width="150">
           <template slot-scope="scope">
-            {{ scope.row.compensate_result }}
+            {{ AdjustmentType[scope.row.compensateResult] }}
+          </template>
+        </el-table-column>
+
+        <el-table-column align="center" label="结论描述" width="150">
+          <template slot-scope="scope">
+            {{ scope.row.conclusionDesc }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="操作" width="150">
@@ -143,14 +149,15 @@ export default {
       businessData: {},
       CTeamTyp: {},
       CPubCoverTyp: {},
+      AdjustmentType: {},
       selected: []
     }
   },
   mounted() {
     if (this.$route.path.indexOf('claim/apply') >= 0) {
-      if (this.applyId) this.fetchData()
+      if (this.applyId) this.fetchTypeData()
     } else {
-      this.fetchData()
+      this.fetchTypeData()
     }
   },
   methods: {
@@ -166,9 +173,6 @@ export default {
     },
     fetchData() {
       this.listLoading = true
-      /* if (this.applyId) {
-        this.listQuery.clmAppId = this.applyId
-      }*/
       getList(this.listQuery, this.applyId).then(response => {
         this.list = response.data.data
         this.total = response.data.total
@@ -178,15 +182,16 @@ export default {
     resetData() {
     },
     fetchTypeData() {
-      // 获取codeList
-      getCodeList({ parent: ['CTeamTyp', 'CPubCoverTyp'] }).then(res => {
+      getCodeList({ parent: ['TrueOrFalse', 'CiRateBillTyp', 'AdjustmentType', 'ClinicType', 'InInvoice', 'CInvoiceTyp'] }).then(res => {
         this.businessData = res.data
         // 组装table 的map
         for (const key in this.businessData) {
           this.businessData[key].forEach(item => {
+            !this[key] && (this[key] = {})
             this[key][item.value] = item.label
           })
         }
+        this.fetchData()
       })
     },
     handleSave() {

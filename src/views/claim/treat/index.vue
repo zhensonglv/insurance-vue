@@ -172,11 +172,9 @@ export default {
   created() {
     if (this.$route.path.indexOf('claim/apply') >= 0) {
       if (this.invId) {
-        this.fetchData()
         this.fetchTypeData()
       }
     } else {
-      this.fetchData()
       this.fetchTypeData()
     }
   },
@@ -226,6 +224,7 @@ export default {
             this[key][item.value] = item.label
           })
         }
+        this.fetchData()
       })
     },
     handleSave() {

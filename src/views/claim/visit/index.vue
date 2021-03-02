@@ -80,7 +80,7 @@
 
         <el-table-column align="center" label="赔付结论" width="150">
           <template slot-scope="scope">
-            {{ scope.row.compensateResult }}
+            {{ AdjustmentType[scope.row.compensateResult] }}
           </template>
         </el-table-column>
 
@@ -150,17 +150,16 @@ export default {
       businessData: {},
       CTeamTyp: {},
       CPubCoverTyp: {},
+      AdjustmentType: {},
       selected: []
     }
   },
   created() {
     if (this.$route.path.indexOf('claim/apply') >= 0) {
       if (this.dutyId) {
-        this.fetchData()
         this.fetchTypeData()
       }
     } else {
-      this.fetchData()
       this.fetchTypeData()
     }
   },
@@ -202,14 +201,16 @@ export default {
     },
     fetchTypeData() {
       // 获取codeList
-      getCodeList({ parent: ['CTeamTyp', 'CPubCoverTyp'] }).then(res => {
+      getCodeList({ parent: ['TrueOrFalse', 'CiRateBillTyp', 'AdjustmentType', 'ClinicType', 'InInvoice', 'CInvoiceTyp'] }).then(res => {
         this.businessData = res.data
         // 组装table 的map
         for (const key in this.businessData) {
           this.businessData[key].forEach(item => {
+            !this[key] && (this[key] = {})
             this[key][item.value] = item.label
           })
         }
+        this.fetchData()
       })
     },
     handleSave() {

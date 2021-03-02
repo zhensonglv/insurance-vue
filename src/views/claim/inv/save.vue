@@ -282,10 +282,6 @@
         <el-input v-model="form.description" placeholder="请输入备注" />
       </el-form-item>
 
-      <el-form-item label="结论描述" prop="conclusionDesc" label-width="120px">
-        <el-input v-model="form.conclusionDesc" placeholder="请输入结论描述" />
-      </el-form-item>
-
       <el-form-item label="是否原始发票" prop="isOriginalInv" label-width="120px">
         <el-select v-model="form.isOriginalInv" placeholder="请选择">
           <el-option
@@ -416,34 +412,34 @@
 
       <el-form-item label="发票明细" prop="invDtl" label-width="120px">
         <el-select v-model="form.invDtl" placeholder="请选择">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          />-->
+          />
         </el-select>
       </el-form-item>
 
       <el-form-item label="忽略医保卡使用规则" prop="ingMedinsureance" label-width="120px">
         <el-select v-model="form.ingMedinsureance" placeholder="请选择">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          />-->
+          />
         </el-select>
       </el-form-item>
 
       <el-form-item label="是否特需" prop="isMust" label-width="120px">
         <el-select v-model="form.isMust" placeholder="请选择">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          />-->
+          />
         </el-select>
       </el-form-item>
 
@@ -495,17 +491,19 @@
         <el-input v-model="form.visitId" placeholder="请输入就诊层id" />
       </el-form-item>
 
-      <el-form-item label="赔付结论" prop="conclusionDesc" label-width="120px">
-        <el-select v-model="form.conclusionDesc" placeholder="请选择">
+      <el-form-item label="赔付结论" prop="compensateResult" label-width="120px">
+        <el-select v-model="form.compensateResult" placeholder="请选择">
           <el-option
-            v-for="item in businessData.CCompensateResult"
+            v-for="item in businessData.AdjustmentType"
             :key="item.value"
             :label="item.label"
             :value="item.value"
           />
         </el-select>
       </el-form-item>
-
+      <el-form-item label="结论描述" prop="conclusionDesc" label-width="120px">
+        <el-input v-model="form.conclusionDesc" placeholder="请输入结论描述" />
+      </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="handleClose">
@@ -613,7 +611,8 @@ export default {
         responseDesc: '',
         prodtyp: '',
         endCasetm: '',
-        conclusionDesc: ''
+        conclusionDesc: '',
+        compensateResult: ''
       },
 
       rules: {
@@ -724,6 +723,7 @@ export default {
       this.form.prodtyp = null
       this.form.endCasetm = null
       this.form.conclusionDesc = null
+      this.form.compensateResult = null
     },
     handleClose() {
       this.clearForm()
