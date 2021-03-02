@@ -23,6 +23,7 @@
           <el-option
             v-for="item in businessData.ClinicType"
             :key="item.value"
+
             :label="item.label"
             :value="item.value"
           />

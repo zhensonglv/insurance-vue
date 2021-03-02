@@ -146,7 +146,8 @@
 </template>
 
 <script>
-import { getList, findById, del } from '@/api/claim/apply'
+import { /* getList,*/findById, del } from '@/api/claim/apply'
+import { getList } from '@/api/base'
 import { getCodeList } from '@/api/code'
 import Pagination from '@/components/Pagination'
 import Save from './save'
@@ -159,9 +160,11 @@ export default {
       list: null,
       applyId: null,
       listLoading: true,
+      basePath: 'apply',
       listQuery: {
         pageNum: 1,
         pageSize: 10,
+        batchNo: '',
         sort: '+id'
       },
       total: 0,
@@ -173,7 +176,9 @@ export default {
     }
   },
   mounted() {
-    this.fetchData(2)
+    if (this.$route.query.batchNo) { // 上级页面传入参数
+      this.listQuery.batchNo = this.$route.query.batchNo
+    }
     this.fetchTypeData()
   },
   methods: {
@@ -189,9 +194,9 @@ export default {
         type: type
       })
     },
-    fetchData(id) {
+    fetchData() {
       this.listLoading = true
-      getList(this.listQuery, id).then(response => {
+      getList(this.basePath, this.listQuery).then(response => {
         this.list = response.data.data
         this.total = response.data.total
         this.listLoading = false
@@ -210,6 +215,7 @@ export default {
             this[key][item.value] = item.label
           })
         }
+        this.fetchData()
       })
     },
     handleSave() {

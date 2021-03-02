@@ -54,7 +54,6 @@
         <el-table-column align="center" label="批次号" width="150">
           <template slot-scope="scope">
             {{ scope.row.batchNo }}
-          <!--  <{{ scope.row.pubCoverTyp }}-->
           </template>
         </el-table-column>
         <el-table-column align="center" label="客户批次号" width="150">
