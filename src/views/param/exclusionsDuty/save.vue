@@ -30,10 +30,6 @@
         </el-select>
       </el-form-item>
 
-      <el-form-item label="治疗类型" prop="treamentTyp" label-width="120px">
-        <el-input v-model="form.treamentTyp" placeholder="请输入治疗类型" />
-      </el-form-item>
-
       <el-form-item label="解释码" prop="explainCde" label-width="120px">
         <el-input v-model="form.explainCde" placeholder="请选择解释码">
           <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(2)" />
@@ -124,7 +120,21 @@
           </div>
         </el-form-item>
       </el-row>
-
+      <el-row>
+        <el-form-item label="治疗类型" prop="treatmentTyp" label-width="120px">
+          <div class="check">
+            <el-checkbox v-model="checkAll" :indeterminate="isIndeterminate" @change="handleCheckAllChange">全选</el-checkbox>
+            <div style="margin-left: 20px" />
+            <el-checkbox-group v-model="treatmentTyp" @change="handleCheckedCitiesChange">
+              <el-checkbox
+                v-for="item in businessData.CiTreatmentTyp"
+                :key="item.value"
+                :label="item.value"
+              >{{ item.value+"-"+item.label }}</el-checkbox>
+            </el-checkbox-group>
+          </div>
+        </el-form-item>
+      </el-row>
       <el-form-item label="起始年纪" prop="startingAge" label-width="120px">
         <el-input v-model="form.startingAge" placeholder="请输入起始年纪" />
       </el-form-item>
@@ -199,7 +209,7 @@ export default {
         hospitalLevel: '',
         hospitalTyp: '',
         hospitalNetCde: '',
-        treamentTyp: '',
+        treamentTyp: [],
         diaMatDesc: '',
         diaMatParameterCde: '',
         treatTyp: '',
@@ -216,6 +226,10 @@ export default {
       categoryNoArr: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20',
         '21', '22', '99'],
       isCateIndeterminate: false,
+      treatmentTyp: [],
+      treatmentTypArr: ['1', '2', '3', '4'],
+      checkAll: false,
+      isIndeterminate: true,
       rules: {
         exclusionsCde: [{ required: true, trigger: 'blur', message: '请输入除外责任码' }],
         exclusionsDesc: [{ required: true, trigger: 'blur', message: '请输入除外责任说明' }],
@@ -236,7 +250,9 @@ export default {
       if (this.form.categoryNo) {
         this.categoryNo = this.form.categoryNo
       }
-
+      if (this.form.treamentTyp) {
+        this.treatmentTyp = this.form.treamentTyp
+      }
       if (newVal.id != null) {
         this.dialogTitle = 'Edit'
       } else {
@@ -280,6 +296,7 @@ export default {
       this.form.treatMatchDesc = null
       this.form.categoryNo = []
       this.categoryNo = []
+      this.treatmentTyp = []
     },
 
     handleCheckCateAllChange(val) {
@@ -290,6 +307,16 @@ export default {
       const checkedCount = value.length
       this.checkCateAll = checkedCount === this.businessData.CostTyp.length
       this.isCateIndeterminate = checkedCount > 0 && checkedCount < this.businessData.CostTyp.length
+    },
+
+    handleCheckAllChange(val) {
+      this.treatmentTyp = val ? this.treatmentTypArr : []
+      this.isIndeterminate = false
+    },
+    handleCheckedCitiesChange(value) {
+      const checkedCount = value.length
+      this.checkAll = checkedCount === this.businessData.CiTreatmentTyp.length
+      this.isIndeterminate = checkedCount > 0 && checkedCount < this.businessData.CiTreatmentTyp.length
     },
 
     hanldeMatch(matchTyp) {
@@ -323,6 +350,7 @@ export default {
           if (this.categoryNo) {
             this.form.categoryNo = this.categoryNo
           }
+          this.form.treamentTyp = this.treatmentTyp
           if (this.form.id === null) {
             save(this.basePath, this.form).then(response => {
               if (response.code === 200) {
@@ -386,6 +414,11 @@ export default {
     width: 178px;
     height: 178px;
     display: block;
+  }
+
+  .check {
+    display: flex;
+    justify-content: flex-start;
   }
 </style>
 

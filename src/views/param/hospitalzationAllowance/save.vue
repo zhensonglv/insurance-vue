@@ -84,21 +84,21 @@
       <el-form-item label="住院天数调整" prop="inHospitalDays" label-width="120px">
         <el-input v-model="form.inHospitalDays" placeholder="请输入住院天数调整" />
       </el-form-item>
-
-      <el-form-item label="治疗类型" prop="treatmentTyp" label-width="240px">
-        <el-checkbox v-model="checkAll" :indeterminate="isIndeterminate" @change="handleCheckAllChange">全选</el-checkbox>
-        <div style="margin: 15px 0;" />
-        <el-checkbox-group v-model="form.medicInsureDesc" @change="handleCheckedCitiesChange">
-          <el-checkbox
-            v-for="item in businessData.CiTreatmentTyp"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          >{{ item.label }}</el-checkbox>
-
-        </el-checkbox-group>
-      </el-form-item>
-
+      <el-row>
+        <el-form-item label="治疗类型" prop="treatmentTyp" label-width="120px">
+          <div class="check">
+            <el-checkbox v-model="checkAll" :indeterminate="isIndeterminate" @change="handleCheckAllChange">全选</el-checkbox>
+            <div style="margin-left: 20px" />
+            <el-checkbox-group v-model="treatmentTyp" @change="handleCheckedCitiesChange">
+              <el-checkbox
+                v-for="item in businessData.CiTreatmentTyp"
+                :key="item.value"
+                :label="item.value"
+              >{{ item.value+"-"+item.label }}</el-checkbox>
+            </el-checkbox-group>
+          </div>
+        </el-form-item>
+      </el-row>
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="handleClose">
@@ -146,10 +146,10 @@ export default {
         visitReson: '',
         inHospitalDays: '',
         treatmentTyp: '',
-        diaMatParameterCde: '',
-        medicInsureDesc: []
+        diaMatParameterCde: ''
       },
-      medicInsureArr: ['特需就诊', '康复就诊', '一般就诊', '急诊'],
+      treatmentTyp: [],
+      treatmentTypArr: ['1', '2', '3', '4'],
       checkAll: false,
       isIndeterminate: true,
       matchVisable: false,
@@ -169,6 +169,9 @@ export default {
     'sonData': function(newVal, oldVal) {
       this.form = newVal
       this.dialogVisible = true
+      if (this.form.treatmentTyp) {
+        this.treatmentTyp = this.form.treatmentTyp
+      }
       if (newVal.id != null) {
         this.dialogTitle = 'Edit'
       } else {
@@ -202,6 +205,7 @@ export default {
       this.form.inHospitalDays = null
       this.form.treatmentTyp = null
       this.form.diaMatParameterCde = null
+      this.treatmentTyp = []
     },
     hanldeMatch(matchTyp) {
       this.matchVisable = true
@@ -221,20 +225,21 @@ export default {
       this.clearForm()
       this.dialogVisible = false
     },
+
     handleCheckAllChange(val) {
-      this.form.medicInsureDesc = val ? this.medicInsureArr : []
-      console.log(this.form.medicInsureDesc)
+      this.treatmentTyp = val ? this.treatmentTypArr : []
       this.isIndeterminate = false
     },
     handleCheckedCitiesChange(value) {
-      debugger
       const checkedCount = value.length
       this.checkAll = checkedCount === this.businessData.CiTreatmentTyp.length
       this.isIndeterminate = checkedCount > 0 && checkedCount < this.businessData.CiTreatmentTyp.length
     },
+
     onSubmit(form) {
       this.$refs[form].validate((valid) => {
         if (valid) {
+          this.form.treatmentTyp = this.treatmentTyp
           if (this.form.id === null) {
             console.log(this.form.medicInsureDesc)
             save(this.basePath, this.form).then(response => {
@@ -299,6 +304,10 @@ export default {
     width: 178px;
     height: 178px;
     display: block;
+  }
+  .check {
+    display: flex;
+    justify-content: flex-start;
   }
 </style>
 

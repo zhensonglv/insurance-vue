@@ -238,8 +238,8 @@
         <el-input v-model="form.overallAmt" placeholder="请输入统筹金额" />
       </el-form-item>
 
-      <el-form-item label="分类自付" prop="categSelfpay" label-width="120px">
-        <el-input v-model="form.categSelfpay" placeholder="请输入分类自付" />
+      <el-form-item label="分类自付" prop="categSelfPay" label-width="120px">
+        <el-input v-model="form.categSelfPay" placeholder="请输入分类自付" />
       </el-form-item>
 
       <el-form-item label="自付" prop="selfPay" label-width="120px">
@@ -564,7 +564,7 @@ export default {
         invEndTm: '',
         sumAmt: '',
         overallAmt: '',
-        categSelfpay: '',
+        categSelfPay: '',
         selfPay: '',
         selfExpense: '',
         reasonableAmt: '',
@@ -675,7 +675,7 @@ export default {
       this.form.invEndTm = null
       this.form.sumAmt = null
       this.form.overallAmt = null
-      this.form.categSelfpay = null
+      this.form.categSelfPay = null
       this.form.selfPay = null
       this.form.selfExpense = null
       this.form.reasonableAmt = null
