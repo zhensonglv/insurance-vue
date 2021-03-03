@@ -12,11 +12,6 @@
       </el-form-item>
 
       <el-form-item label="是否使用医保卡" prop="isUseMedicare" label-width="120px">
-        <el-input v-model="form.isUseMedicare" placeholder="请输入是否使用医保卡" />
-
-      </el-form-item>
-
-      <el-form-item label="是否使用医保卡" prop="isUseMedicare" label-width="120px">
         <el-select v-model="form.isUseMedicare" placeholder="请选择">
           <el-option
             v-for="item in businessData.TrueOrFalse"
@@ -25,10 +20,6 @@
             :value="item.value"
           />
         </el-select>
-      </el-form-item>
-
-      <el-form-item label="适用层级" prop="accidentTyp" label-width="120px">
-        <el-input v-model="form.accidentTyp" placeholder="请输入适用层级" />
       </el-form-item>
 
       <el-form-item label="人员类别" prop="suitLevel" label-width="120px">
@@ -45,8 +36,8 @@
           />
         </el-select>
       </el-form-item>
-      <el-form-item label="事故类型" prop="userTyp" label-width="120px">
-        <el-select v-model="form.userTyp" placeholder="请选择">
+      <el-form-item label="事故类型" prop="accidentTyp" label-width="120px">
+        <el-select v-model="form.accidentTyp" placeholder="请选择">
           <el-option
             v-for="item in businessData.AccidentType"
             :key="item.value"

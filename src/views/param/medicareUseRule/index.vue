@@ -14,56 +14,56 @@
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="医保规则参数码" width="350">
+        <el-table-column align="center" label="医保规则参数码" width="150">
           <template slot-scope="scope">
             {{ scope.row.medicareParamCde }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="社保地" width="350">
+        <el-table-column align="center" label="社保地" width="150">
           <template slot-scope="scope">
             {{ scope.row.medicareAddress }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="医院码" width="350">
+        <el-table-column align="center" label="医院码" width="150">
           <template slot-scope="scope">
             {{ scope.row.hospitalCde }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="是否使用医保卡" width="350">
+        <el-table-column align="center" label="是否使用医保卡" width="150">
           <template slot-scope="scope">
             {{ TrueOrFalse[scope.row.isUseMedicare] }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="适用层级" width="350">
+        <el-table-column align="center" label="适用层级" width="150">
           <template slot-scope="scope">
             {{ scope.row.accidentTyp }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="人员类别" width="350">
+        <el-table-column align="center" label="人员类别" width="150">
           <template slot-scope="scope">
             {{ scope.row.suitLevel }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="就诊类型" width="350">
+        <el-table-column align="center" label="就诊类型" width="150">
           <template slot-scope="scope">
             {{ CProDutyDesc[scope.row.visitTyp] }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="事故类型" width="350">
+        <el-table-column align="center" label="事故类型" width="150">
           <template slot-scope="scope">
             {{ AccidentType[scope.row.userTyp] }}
 
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="备注" width="350">
+        <el-table-column align="center" label="备注" width="150">
           <template slot-scope="scope">
             {{ scope.row.medicareRemark }}
           </template>
