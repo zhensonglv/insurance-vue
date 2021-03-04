@@ -36,13 +36,13 @@
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="金科代码" width="200">
+        <el-table-column align="center" label="系统代码" width="200">
           <template slot-scope="scope">
             {{ scope.row.jkCde }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="金科名称" width="200">
+        <el-table-column align="center" label="系统名称" width="200">
           <template slot-scope="scope">
             {{ scope.row.jkName }}
           </template>

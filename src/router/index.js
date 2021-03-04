@@ -297,8 +297,8 @@ export const constantRoutes = [
       {
         path: 'dataMatch',
         component: () => import('@/views/productData/dataMatch/index'),
-        name: '甲方金科匹配',
-        meta: { title: '甲方金科匹配', icon: 'guide', noCache: true }
+        name: '甲方系统代码映射',
+        meta: { title: '甲方系统代码映射', icon: 'guide', noCache: true }
       }
     ]
   },

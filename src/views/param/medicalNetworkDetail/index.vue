@@ -24,13 +24,7 @@
 
         <el-table-column align="center" label="是否包括" width="150">
           <template slot-scope="scope">
-            {{ scope.row.isInclude }}
-          </template>
-        </el-table-column>
-
-        <el-table-column align="center" label="结论说明码" width="150">
-          <template slot-scope="scope">
-            {{ scope.row.explainCde }}
+            {{ TrueOrFalse[scope.row.isInclude] }}
           </template>
         </el-table-column>
 
@@ -40,27 +34,27 @@
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="医院码描述" width="150">
+        <el-table-column align="center" label="医院名称" width="150">
           <template slot-scope="scope">
-            {{ scope.row.hospitalNoDesc }}
+            {{ scope.row.hospitalNme }}
           </template>
         </el-table-column>
 
         <el-table-column align="center" label="医院等级" width="150">
           <template slot-scope="scope">
-            {{ scope.row.hospitalLevel }}
+            {{ CHospitalLevel[scope.row.hospitalLevel] }}
           </template>
         </el-table-column>
 
         <el-table-column align="center" label="医院类型" width="150">
           <template slot-scope="scope">
-            {{ scope.row.hospitalTyp }}
+            {{ CHospitalTyp[scope.row.hospitalTyp] }}
           </template>
         </el-table-column>
 
         <el-table-column align="center" label="医院性质" width="150">
           <template slot-scope="scope">
-            {{ scope.row.hospTyp }}
+            {{ CHospitalNature[scope.row.hospTyp] }}
           </template>
         </el-table-column>
 
@@ -72,13 +66,18 @@
 
         <el-table-column align="center" label="是否使用医保卡" width="150">
           <template slot-scope="scope">
-            {{ scope.row.isuseMedCard }}
+            {{ TrueOrFalse[scope.row.isuseMedCard] }}
           </template>
         </el-table-column>
 
         <el-table-column align="center" label="统筹金额是否大于0" width="150">
           <template slot-scope="scope">
-            {{ scope.row.overallAmtFlag }}
+            {{ TrueOrFalse[scope.row.overallAmtFlag] }}
+          </template>
+        </el-table-column>
+        <el-table-column align="center" label="结论说明码" width="150">
+          <template slot-scope="scope">
+            {{ scope.row.explainCde }}
           </template>
         </el-table-column>
 
@@ -125,7 +124,12 @@ export default {
       total: 0,
       dialogVisible: false,
       form: null,
-      businessData: {}
+      businessData: {},
+      TrueOrFalse: {},
+      CHospitalLevel: {},
+      CHospitalNature: {},
+      CHospitalTyp: {},
+      QuotaVisitReason: {}
     }
   },
   created() {
@@ -153,7 +157,7 @@ export default {
     },
     fetchTypeData() {
       // 获取codeList
-      getCodeList({ parent: ['CiTreatmentTyp'] }).then(res => {
+      getCodeList({ parent: ['CiTreatmentTyp', 'TrueOrFalse', 'CHospitalLevel', 'CHospitalNature', 'CHospitalTyp', 'QuotaVisitReason'] }).then(res => {
         this.businessData = res.data
         // 组装table 的map
         for (const key in this.businessData) {
@@ -166,10 +170,7 @@ export default {
       })
     },
     handleSave() {
-      this.form = { id: null }
-      /* if (this.$route.query.pubCoverId) { // 上级页面传入参数
-            this.form.pubCoverId = this.$route.query.pubCoverId
-          }*/
+      this.form = { id: null, mediNetworkCde: this.listQuery.mediNetworkCde }
       this.dialogVisible = true
     },
     handleEdit(id) {

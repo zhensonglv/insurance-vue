@@ -24,37 +24,114 @@
         />
       </el-form-item>
       <el-form-item label="责任类型" prop="proDutyTyp" label-width="120px">
-        <el-input v-model="form.proDutyTyp" placeholder="请输入责任类型" />
+        <el-select v-model="form.proDutyTyp" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.CProDutyTyp"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
       <el-form-item label="就诊类型" prop="vistDoctor" label-width="120px">
-        <el-input v-model="form.vistDoctor" placeholder="请输入就诊类型" />
+        <el-select v-model="form.vistDoctor" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.CProDutyDesc"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
       <el-form-item label="是否意外" prop="isAcciddent" label-width="120px">
-        <el-input v-model="form.isAcciddent" placeholder="请输入是否意外" />
+        <el-select v-model="form.isAcciddent" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
       <el-form-item label="是否生育" prop="isBirth" label-width="120px">
-        <el-input v-model="form.isBirth" placeholder="请输入是否生育" />
+        <el-select v-model="form.isBirth" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
       <el-form-item label="是否齿科" prop="isDentidtry" label-width="120px">
-        <el-input v-model="form.isDentidtry" placeholder="请输入是否齿科" />
+        <el-select v-model="form.isDentidtry" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
       <el-form-item label="是否重疾" prop="isStricken" label-width="120px">
-        <el-input v-model="form.isStricken" placeholder="请输入是否重疾" />
+        <el-select v-model="form.isStricken" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
       <el-form-item label="是否急诊" prop="isEmergTreat" label-width="120px">
-        <el-input v-model="form.isEmergTreat" placeholder="请输入是否急诊" />
+        <el-select v-model="form.isEmergTreat" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
       <el-form-item label="是否缺材料" prop="isLackMaterial" label-width="120px">
-        <el-input v-model="form.isLackMaterial" placeholder="请输入是否缺材料" />
+        <el-select v-model="form.isLackMaterial" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
       <el-form-item label="是否既往病史" prop="isMedicalHistory" label-width="120px">
-        <el-input v-model="form.isMedicalHistory" placeholder="请输入是否既往病史" />
+        <el-select v-model="form.isMedicalHistory" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
       <el-form-item label="是否工伤" prop="isInjuryJob" label-width="120px">
-        <el-input v-model="form.isInjuryJob" placeholder="请输入是是否工伤" />
+        <el-select v-model="form.isInjuryJob" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
       <el-form-item label="门诊特殊" prop="specialOutPatient" label-width="120px">
-        <el-input v-model="form.specialOutPatient" placeholder="请输入门诊特殊" />
+        <el-select v-model="form.specialOutPatient" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
 
     </el-form>
@@ -76,7 +153,7 @@ export default {
   // 父组件向子组件传值，通过props获取。
   // 一旦父组件改变了`sonData`对应的值，子组件的`sonData`会立即改变，通过watch函数可以实时监听到值的变化
   // `props`不属于data，但是`props`中的参数可以像data中的参数一样直接使用
-  props: ['sonData'],
+  props: ['sonData', 'businessData'],
 
   data() {
     return {

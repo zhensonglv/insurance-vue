@@ -35,32 +35,32 @@
         </el-table-column>
         <el-table-column align="center" label="责任类型" width="150">
           <template slot-scope="scope">
-            {{ scope.row.proDutyTyp }}
+            {{ CProDutyTyp[scope.row.proDutyTyp] }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="就诊类型" width="150">
           <template slot-scope="scope">
-            {{ scope.row.vistDoctor }}
+            {{ CProDutyDesc[scope.row.vistDoctor] }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="是否意外" width="150">
           <template slot-scope="scope">
-            {{ scope.row.isAcciddent }}
+            {{ TrueOrFalse[scope.row.isAcciddent] }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="是否生育" width="150">
           <template slot-scope="scope">
-            {{ scope.row.isBirth }}
+            {{ TrueOrFalse[scope.row.isBirth] }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="是否齿科" width="150">
           <template slot-scope="scope">
-            {{ scope.row.isDentidtry }}
+            {{ TrueOrFalse[scope.row.isDentidtry] }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="是否重疾" width="150">
           <template slot-scope="scope">
-            {{ scope.row.isStricken }}
+            {{ TrueOrFalse[scope.row.isStricken] }}
           </template>
         </el-table-column>
 
@@ -73,7 +73,7 @@
         </el-table-column>
       </el-table>
 
-      <save :son-data="form" @sonStatus="status" />
+      <save :son-data="form" :business-data="businessData" @sonStatus="status" />
 
       <pagination
         v-show="total>0"
@@ -90,6 +90,7 @@
 import { getList, findById, del } from '@/api/base'
 import Pagination from '@/components/Pagination'
 import Save from './save'
+import { getCodeList } from '@/api/code'
 
 export default {
   components: { Pagination, Save },
@@ -108,11 +109,15 @@ export default {
       total: 0,
       dialogVisible: false,
       form: null,
-      paramRadio: false
+      paramRadio: false,
+      businessData: {},
+      CProDutyDesc: {},
+      CProDutyTyp: {},
+      TrueOrFalse: {}
     }
   },
   created() {
-    this.fetchData()
+    this.fetchTypeData()
   },
   methods: {
     _notify(message, type) {
@@ -133,6 +138,21 @@ export default {
         this.listLoading = false
       })
     },
+
+    fetchTypeData() {
+      getCodeList({ parent: ['TrueOrFalse', 'CProDutyDesc', 'CProDutyTyp'] }).then(res => {
+        this.businessData = res.data
+        // 组装table 的map
+        for (const key in this.businessData) {
+          this.businessData[key].forEach(item => {
+            !this[key] && (this[key] = {})
+            this[key][item.value] = item.label
+          })
+        }
+        this.fetchData()
+      })
+    },
+
     handleSave() {
       this.form = { id: null }
       this.dialogVisible = true

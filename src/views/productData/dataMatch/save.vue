@@ -13,15 +13,15 @@
         <el-input v-model="form.partyName" placeholder="请输入甲方名称" />
       </el-form-item>
 
-      <el-form-item label="金科代码" prop="jkCde" label-width="120px">
-        <el-input v-model="form.jkCde" placeholder="请选择金科代码">
+      <el-form-item label="系统代码" prop="jkCde" label-width="120px">
+        <el-input v-model="form.jkCde" placeholder="请选择系统代码">
           <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch" />
         </el-input>
       </el-form-item>
       <match v-model="matchVisable" @matchConfirm="matchConfirm" />
 
-      <el-form-item label="金科名称" prop="jkName" label-width="120px">
-        <el-input v-model="form.jkName" placeholder="请输入金科名称" />
+      <el-form-item label="系统名称" prop="jkName" label-width="120px">
+        <el-input v-model="form.jkName" placeholder="请输入系统名称" />
       </el-form-item>
 
       <el-form-item label="甲方公司名称" prop="partyCompanyName" label-width="120px">

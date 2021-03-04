@@ -5,12 +5,15 @@
         <el-input v-model="form.mediNetworkCde" placeholder="请输入医院网络码" />
       </el-form-item>
       <el-form-item label="是否包括" prop="isInclude" label-width="120px">
-        <el-input v-model="form.isInclude" placeholder="请输入是否包括" />
+        <el-select v-model="form.isInclude" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
-      <!--   <el-form-item label="代码类型" prop="cdeTyp" label-width="120px">
-        <el-input v-model="form.cdeTyp" placeholder="请输入代码类型" />
-      </el-form-item>
--->
       <el-form-item label="结论说明码" prop="explainCde" label-width="120px">
         <el-input v-model="form.explainCde" placeholder="请输入结论说明码" />
       </el-form-item>
@@ -19,20 +22,74 @@
         <el-input v-model="form.hospitalNo" placeholder="请输入医院号" />
       </el-form-item>
 
-      <el-form-item label="医院码描述" prop="hospitalNoDesc" label-width="120px">
-        <el-input v-model="form.hospitalNoDesc" placeholder="请输入医院码描述" />
+      <el-form-item label="医院名称" prop="hospitalNme" label-width="120px">
+        <el-input v-model="form.hospitalNme" placeholder="请输入医院名称" />
       </el-form-item>
 
       <el-form-item label="医院等级" prop="hospitalLevel" label-width="120px">
-        <el-input v-model="form.hospitalLevel" placeholder="请输入医院等级" />
+        <el-select v-model="form.hospitalLevel" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.CHospitalLevel"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
 
       <el-form-item label="医院性质" prop="hospTyp" label-width="120px">
-        <el-input v-model="form.hospTyp" placeholder="请输入医院性质" />
+        <el-select v-model="form.hospTyp" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.CHospitalNature"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
+      </el-form-item>
+
+      <el-form-item label="医院类型" prop="hospitalTyp" label-width="120px">
+        <el-select v-model="form.hospitalTyp" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.CHospitalTyp"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
 
       <el-form-item label="是否医保医院" prop="area" label-width="120px">
-        <el-input v-model="form.area" placeholder="请输入是否医保医院" />
+        <el-select v-model="form.area" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
+      </el-form-item>
+
+      <el-form-item label="就诊原因" prop="visitReson" label-width="120px">
+        <el-select v-model="form.visitReson" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.QuotaVisitReason"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
+      </el-form-item>
+
+      <el-form-item label="是否使用医保卡" prop="isuseMedCard" label-width="120px">
+        <el-select v-model="form.isuseMedCard" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
 
       <el-form-item label="社保地区" prop="sociInsuArea" label-width="120px">
@@ -40,27 +97,18 @@
       </el-form-item>
 
       <el-form-item label="统筹金额是否大于0" prop="overallAmtFlag" label-width="120px">
-        <el-input v-model="form.overallAmtFlag" placeholder="请输入统筹金额是否大于0" />
-      </el-form-item>
-
-      <el-form-item label="是否使用医保卡" prop="isuseMedCard" label-width="120px">
-        <el-input v-model="form.isuseMedCard" placeholder="请输入是否使用医保卡" />
+        <el-select v-model="form.overallAmtFlag" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
 
       <el-form-item label="说明" prop="medicalDesc" label-width="120px">
         <el-input v-model="form.medicalDesc" placeholder="请输入说明" />
-      </el-form-item>
-
-      <el-form-item label="医院类型" prop="hospitalTyp" label-width="120px">
-        <el-input v-model="form.hospitalTyp" placeholder="请输入医院类型" />
-      </el-form-item>
-
-      <el-form-item label="社保类型" prop="socialinsuTyp" label-width="120px">
-        <el-input v-model="form.socialinsuTyp" placeholder="请输入社保类型" />
-      </el-form-item>
-
-      <el-form-item label="就诊原因" prop="visitReson" label-width="120px">
-        <el-input v-model="form.visitReson" placeholder="请输入就诊原因" />
       </el-form-item>
 
       <el-row>
@@ -78,6 +126,9 @@
           </div>
         </el-form-item>
       </el-row>
+      <!-- <el-form-item label="医院网络码码描述" prop="hospitalNoDesc" label-width="120px">
+        <el-input v-model="form.hospitalNoDesc" placeholder="请输入医院网络码码描述" />
+      </el-form-item>-->
 
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -111,6 +162,7 @@ export default {
         cdeTyp: '',
         explainCde: '',
         hospitalNo: '',
+        hospitalNme: '',
         hospitalNoDesc: '',
         hospitalLevel: '',
         treatmentTyp: '',
@@ -173,6 +225,7 @@ export default {
       this.form.cdeTyp = null
       this.form.explainCde = null
       this.form.hospitalNo = null
+      this.form.hospitalNme = null
       this.form.hospitalNoDesc = null
       this.form.hospitalLevel = null
       this.form.treatmentTyp = null
@@ -258,6 +311,10 @@ export default {
     width: 178px;
     height: 178px;
     display: block;
+  }
+  .check {
+    display: flex;
+    justify-content: flex-start;
   }
 </style>
 
