@@ -2,7 +2,7 @@
   <el-dialog :title="dialogTitle" :before-close="handleClose" :visible.sync="dialogVisible" width="55%">
     <el-form ref="form" :inline="true" :rules="rules" :model="form" status-icon label-position="right" label-width="80px">
       <el-form-item label="限额码" prop="quotaCde" label-width="120px">
-        <el-input v-model="form.quotaCde" placeholder="请输入限额码" />
+        <el-input v-model="form.quotaCde" placeholder="请输入限额码" disabled="disabled" />
       </el-form-item>
       <el-form-item label="限额说明" prop="quotaDesc" label-width="120px">
         <el-input v-model="form.quotaDesc" placeholder="请输入限额说明" />

@@ -2,7 +2,7 @@
   <el-dialog :title="dialogTitle" :before-close="handleClose" :visible.sync="dialogVisible" width="55%">
     <el-form ref="form" :inline="true" :rules="rules" :model="form" status-icon label-position="right" label-width="80px">
       <el-form-item label="医院网络码" prop="accidentDiaCde" label-width="120px">
-        <el-input v-model="form.mediNetworkCde" placeholder="请输入医院网络码" />
+        <el-input v-model="form.mediNetworkCde" placeholder="请输入医院网络码" disabled="disabled" />
       </el-form-item>
       <el-form-item label="是否包括" prop="isInclude" label-width="120px">
         <el-select v-model="form.isInclude" placeholder="请选择">

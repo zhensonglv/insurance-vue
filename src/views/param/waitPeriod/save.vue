@@ -2,7 +2,7 @@
   <el-dialog :title="dialogTitle" :before-close="handleClose" :visible.sync="dialogVisible" width="55%">
     <el-form ref="form" :inline="true" :rules="rules" :model="form" status-icon label-position="right" label-width="80px">
       <el-form-item label="等待期码" prop="waitPeriodCde" label-width="120px">
-        <el-input v-model="form.waitPeriodCde" placeholder="请输入等待期码" />
+        <el-input v-model="form.waitPeriodCde" placeholder="请输入等待期码" disabled="disabled" />
       </el-form-item>
       <el-form-item label="等待期说明" prop="waitPeriodDesc" label-width="120px">
         <el-input v-model="form.waitPeriodDesc" placeholder="请输入等待期说明" />

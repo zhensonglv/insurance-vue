@@ -2,7 +2,7 @@
   <el-dialog :title="dialogTitle" :before-close="handleClose" :visible.sync="dialogVisible" width="55%">
     <el-form ref="form" :inline="true" :rules="rules" :model="form" status-icon label-position="right" label-width="80px">
       <el-form-item label="津贴码" prop="hospitalizationCde" label-width="120px">
-        <el-input v-model="form.hospitalizationCde" placeholder="请输入津贴码" />
+        <el-input v-model="form.hospitalizationCde" placeholder="请输入津贴码" disabled="disabled" />
       </el-form-item>
 
       <el-form-item label="住院津贴说明" prop="hospitalizationDesc" label-width="120px">
@@ -10,7 +10,7 @@
       </el-form-item>
 
       <el-form-item label="津贴类型" prop="hospitalizationTyp" label-width="120px">
-        <el-select v-model="form.hospitalizationTyp" placeholder="请选择">
+        <el-select v-model="form.hospitalizationTyp" placeholder="请选择" onchange="changeTyp">
           <el-option
             v-for="item in businessData.CHospitalizationTyp"
             :key="item.value"
@@ -28,7 +28,7 @@
         <el-input v-model="form.quotaDays" placeholder="请输入限额天数" />
       </el-form-item>
 
-      <el-form-item label="津贴" prop="hospitalizationAmount" label-width="120px">
+      <el-form-item label="津贴日额" prop="hospitalizationAmount" label-width="120px">
         <el-input v-model="form.hospitalizationAmount" placeholder="请输入津贴" />
       </el-form-item>
 
@@ -43,21 +43,34 @@
         <el-input v-model="form.hospitalDesc" placeholder="请输入医院描述" />
       </el-form-item>
 
-      <el-form-item label="诊疗码" prop="treatmentNo" label-width="120px">
-        <el-input v-model="form.treatmentNo" placeholder="请输入诊疗码" />
+      <el-form-item v-if="form.hospitalizationTyp=='1'" label="高层手术津贴代码" prop="treatmentNo" label-width="120px">
+        <el-input v-model="form.hignOperatinCode" placeholder="请输入高层手术津贴代码" />
       </el-form-item>
 
-      <el-form-item label="诊疗码描述" prop="treatmentCodeDesc" label-width="120px">
+      <!--  <el-form-item  v-if="form.hospitalizationTyp=='1'"  label="诊疗码描述" prop="treatmentCodeDesc" label-width="120px">
         <el-input v-model="form.treatmentCodeDesc" placeholder="请输入诊疗码描述" />
-      </el-form-item>
+      </el-form-item>-->
 
-      <el-form-item label="诊断码" prop="diaMatParameterCde" label-width="120px">
-        <el-input v-model="form.diaMatParameterCde" placeholder="请输入诊断码" />
-      </el-form-item>
+      <el-row>
+        <el-form-item label="诊断匹配码" prop="diaMatParameterCde" label-width="120px">
+          <el-input v-model="form.diaMatParameterCde" placeholder="请输入诊断匹配码" />
+        </el-form-item>
 
-      <el-form-item label="诊断码描述" prop="diagnoseCodeDesc" label-width="120px">
-        <el-input v-model="form.diagnoseCodeDesc" placeholder="请输入诊断码描述" />
-      </el-form-item>
+        <el-form-item label="诊断匹配描述" prop="diagnoseCodeDesc" label-width="120px">
+          <el-input v-model="form.diagnoseCodeDesc" placeholder="请输入诊断匹配描述" />
+        </el-form-item>
+
+        <el-form-item label="就诊原因" prop="visitReson" label-width="120px">
+          <el-select v-model="form.visitReson" placeholder="请选择">
+            <el-option
+              v-for="item in businessData.QuotaVisitReason"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            />
+          </el-select>
+        </el-form-item>
+      </el-row>
 
       <el-form-item label="解释码" prop="explainCde" label-width="120px">
         <el-input v-model="form.explainCde" placeholder="请输入解释码">
@@ -70,20 +83,9 @@
         <el-input v-model="form.explainCodeDesc" placeholder="请输入解释码描述" />
       </el-form-item>
 
-      <el-form-item label="就诊原因" prop="visitReson" label-width="120px">
-        <el-select v-model="form.visitReson" placeholder="请选择">
-          <el-option
-            v-for="item in businessData.QuotaVisitReason"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          />
-        </el-select>
-      </el-form-item>
-
-      <el-form-item label="住院天数调整" prop="inHospitalDays" label-width="120px">
+      <!--  <el-form-item label="住院天数调整" prop="inHospitalDays" label-width="120px">
         <el-input v-model="form.inHospitalDays" placeholder="请输入住院天数调整" />
-      </el-form-item>
+      </el-form-item>-->
       <el-row>
         <el-form-item label="治疗类型" prop="treatmentTyp" label-width="120px">
           <div class="check">
@@ -146,7 +148,8 @@ export default {
         visitReson: '',
         inHospitalDays: '',
         treatmentTyp: '',
-        diaMatParameterCde: ''
+        diaMatParameterCde: '',
+        hignOperatinCode: ''
       },
       treatmentTyp: [],
       treatmentTypArr: ['1', '2', '3', '4'],
@@ -205,6 +208,7 @@ export default {
       this.form.inHospitalDays = null
       this.form.treatmentTyp = null
       this.form.diaMatParameterCde = null
+      this.form.hignOperatinCode = null
       this.treatmentTyp = []
     },
     hanldeMatch(matchTyp) {
@@ -225,7 +229,11 @@ export default {
       this.clearForm()
       this.dialogVisible = false
     },
-
+    changeTyp() {
+      if (this.form.hospitalizationTyp && this.form.hospitalizationTyp !== '1') {
+        this.form.hignOperatinCode = null
+      }
+    },
     handleCheckAllChange(val) {
       this.treatmentTyp = val ? this.treatmentTypArr : []
       this.isIndeterminate = false

@@ -2,7 +2,7 @@
   <el-dialog :title="dialogTitle" :before-close="handleClose" :visible.sync="dialogVisible" width="55%">
     <el-form ref="form" :inline="true" :rules="rules" :model="form" status-icon label-position="right" label-width="80px">
       <el-form-item label="医保规则参数码" prop="medicareParamCde" label-width="120px">
-        <el-input v-model="form.medicareParamCde" placeholder="请输入医保规则参数码" />
+        <el-input v-model="form.medicareParamCde" placeholder="请输入医保规则参数码" disabled="disabled" />
       </el-form-item>
       <el-form-item label="社保地" prop="medicareAddress" label-width="120px">
         <el-input v-model="form.medicareAddress" placeholder="请输入社保地" />
