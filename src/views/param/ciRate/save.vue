@@ -2,7 +2,7 @@
   <el-dialog :title="dialogTitle" :before-close="handleClose" :visible.sync="dialogVisible" width="55%">
     <el-form ref="form" :inline="true" :rules="rules" :model="form" status-icon label-position="right" label-width="80px">
       <el-form-item label="赔付比例码" prop="ciRateCde" label-width="120px">
-        <el-input v-model="form.ciRateCde" placeholder="请输入赔付比例码" />
+        <el-input v-model="form.ciRateCde" placeholder="请输入赔付比例码" disabled="disabled" />
       </el-form-item>
 
       <el-form-item label="适用条件" prop="conditionCde" label-width="120px">

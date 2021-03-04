@@ -2,7 +2,7 @@
   <el-dialog :title="dialogTitle" :before-close="handleClose" :visible.sync="dialogVisible" width="55%">
     <el-form ref="form" :inline="true" :rules="rules" :model="form" status-icon label-position="right" label-width="80px">
       <el-form-item label="意外诊断码" prop="accidentDiaCde" label-width="120px">
-        <el-input v-model="form.accidentDiaCde" placeholder="请输入意外诊断码" />
+        <el-input v-model="form.accidentDiaCde" placeholder="请输入意外诊断码" disabled="disabled" />
       </el-form-item>
 
       <el-form-item label="代码类型" prop="codeTyp" label-width="120px">

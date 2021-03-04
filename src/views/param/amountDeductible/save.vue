@@ -2,7 +2,7 @@
   <el-dialog :title="dialogTitle" :before-close="handleClose" :visible.sync="dialogVisible" width="55%">
     <el-form ref="form" :inline="true" :rules="rules" :model="form" status-icon label-position="right" label-width="80px">
       <el-form-item label="合计免赔额码" prop="amountCode" label-width="120px">
-        <el-input v-model="form.amountCode" />
+        <el-input v-model="form.amountCode" disabled="disabled" />
       </el-form-item>
       <el-form-item label="合计免赔额额度" prop="amountDeductibleLimit" label-width="120px">
         <el-input v-model="form.amountDeductibleLimit" placeholder="请输入合计免赔额额度" />
