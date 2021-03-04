@@ -2,7 +2,7 @@
   <el-dialog :title="dialogTitle" :before-close="handleClose" :visible.sync="dialogVisible" width="55%">
     <el-form ref="form" :inline="true" :rules="rules" :model="form" status-icon label-position="right" label-width="80px">
       <el-form-item label="理赔审核规则码" prop="claimSpecialMatchNo" label-width="120px">
-        <el-input v-model="form.claimSpecialMatchNo" placeholder="请输入理赔审核规则码" />
+        <el-input v-model="form.claimSpecialMatchNo" placeholder="请输入理赔审核规则码" disabled="disabled" />
       </el-form-item>
       <el-form-item label="特殊审核要求码" prop="specialAuditsCde" label-width="120px">
         <el-input v-model="form.specialAuditsCde" placeholder="请输入特殊审核要求码" />

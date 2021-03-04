@@ -3,10 +3,8 @@
     <el-card>
       <div>
         <el-input v-model="listQuery.diaMatParameterCde" style="width: 200px;" placeholder="请输入诊断匹配参数码查询" />
-        <el-input v-model="listQuery.explCategort" style="width: 200px;" placeholder="请输入说明查询" />
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
-        <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleRoute">明细</el-button>
       </div>
       <br>
       <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row @selection-change="handleSelect">
@@ -20,15 +18,33 @@
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="诊断匹配参数码" width="450">
+        <el-table-column align="center" label="诊断匹配参数码" width="150">
           <template slot-scope="scope">
             {{ scope.row.diaMatParameterCde }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="说明" width="450">
+        <el-table-column align="center" label="起始码" width="150">
           <template slot-scope="scope">
-            {{ scope.row.explCategort }}
+            {{ scope.row.bgnCde }}
+          </template>
+        </el-table-column>
+
+        <el-table-column align="center" label="起始码描述" width="250">
+          <template slot-scope="scope">
+            {{ scope.row.bgnCdeDesc }}
+          </template>
+        </el-table-column>
+
+        <el-table-column align="center" label="终止码" width="150">
+          <template slot-scope="scope">
+            {{ scope.row.endCde }}
+          </template>
+        </el-table-column>
+
+        <el-table-column align="center" label="终止码描述" width="250">
+          <template slot-scope="scope">
+            {{ scope.row.endCdeDesc }}
           </template>
         </el-table-column>
 
@@ -64,7 +80,7 @@ export default {
     return {
       list: null,
       listLoading: true,
-      basePath: 'diagnosisMatching',
+      basePath: 'diagnosisMatchingDetail',
       listQuery: {
         pageNum: 1,
         pageSize: 10,
@@ -78,27 +94,14 @@ export default {
     }
   },
   created() {
-    /* if (this.$route.query.pubCoverId) { // 上级页面传入参数
-        this.listQuery.pubCoverId = this.$route.query.pubCoverId
-      }*/
+    if (this.$route.query.diaMatParameterCde) { // 上级页面传入参数
+      this.listQuery.diaMatParameterCde = this.$route.query.diaMatParameterCde
+    }
     this.fetchData()
-    // this.fetchTypeData()
   },
   mounted() {
   },
   methods: {
-    handleRoute() {
-      debugger
-      if (this.selected.length !== 1) {
-        this.$message({
-          showClose: true,
-          message: '只能选择一条查看',
-          type: 'warning'
-        })
-      } else {
-        this.$router.push({ path: '/param/diagnosisMatchingDetail', query: { diaMatParameterCde: this.selected[0].diaMatParameterCde }})
-      }
-    },
     handleSelect(data) {
       this.selected = data
     },
@@ -116,24 +119,9 @@ export default {
         this.listLoading = false
       })
     },
-    /*,
-    fetchTypeData() {
-      // 获取codeList
-      getCodeList({ parent: ['CExplCdeSubcategory'] }).then(res => {
-        this.businessData = res.data
-        // 组装table 的map
-        for (const key in this.businessData) {
-          this.businessData[key].forEach(item => {
-            this[key][item.value] = item.label
-          })
-        }
-      })
-    },*/
+
     handleSave() {
-      this.form = { id: null }
-      /* if (this.$route.query.pubCoverId) { // 上级页面传入参数
-          this.form.pubCoverId = this.$route.query.pubCoverId
-        }*/
+      this.form = { id: null, diaMatParameterCde: this.listQuery.diaMatParameterCde }
       this.dialogVisible = true
     },
     handleEdit(id) {

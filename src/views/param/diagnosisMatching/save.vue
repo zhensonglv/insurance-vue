@@ -3,7 +3,7 @@
     <el-form ref="form" :inline="true" :rules="rules" :model="form" status-icon label-position="right" label-width="80px">
 
       <el-form-item label="诊断匹配参数码" prop="diaMatParameterCde" label-width="120px">
-        <el-input v-model="form.diaMatParameterCde" placeholder="请输入诊断匹配参数码" />
+        <el-input v-model="form.diaMatParameterCde" placeholder="请输入诊断匹配参数码" disabled="disabled" />
       </el-form-item>
 
       <el-form-item label="说明" prop="explCategort" label-width="120px">
@@ -41,7 +41,6 @@ export default {
         explCategort: ''
       },
       rules: {
-        explCde: [{ required: true, trigger: 'blur', message: '请输入诊断匹配参数码' }]
       }
     }
   },

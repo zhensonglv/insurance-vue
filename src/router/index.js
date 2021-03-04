@@ -396,6 +396,13 @@ export const constantRoutes = [
         meta: { title: '诊断匹配管理', icon: 'guide', noCache: true }
       },
       {
+        path: 'diagnosisMatchingDetail',
+        component: () => import('@/views/param/diagnosisMatchingDetail/index'),
+        name: '诊断匹配明细管理',
+        meta: { title: '诊断匹配明细管理', icon: 'guide', noCache: true }
+      },
+
+      {
         path: 'amtConfig',
         component: () => import('@/views/param/amtConfig/index'),
         name: '集团公共保额',
