@@ -3,10 +3,8 @@
     <el-card>
 
       <div>
-        <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
+        <el-button style="margin: 0 0 10px 10px;" type="primary" icon="el-icon-edit" circle @click="handleSave" />
       </div>
-
-      <br>
       <el-table
         v-loading="listLoading"
         :data="list"
@@ -237,5 +235,10 @@ export default {
 <style lang='scss' scoped>
 .el-table >>> .el-table__body-wrapper td {
   padding: 0;
+}
+.el-table >>> .el-table__header-wrapper {
+  th {
+    background-color: #222!important
+  }
 }
 </style>

@@ -2,11 +2,10 @@
   <div class="app-container">
     <el-card>
 
-      <div>
-        <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
+      <div class="header">
+        <div class="tit">申请信息</div>
+        <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" circle @click="handleSave" />
       </div>
-
-      <br>
       <el-table
         v-loading="listLoading"
         class="table"
@@ -259,6 +258,14 @@ export default {
 </script>
 
 <style lang='scss' scoped>
+.header {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+  .tit {
+    line-height: 36px;
+  }
+}
 .app-container >>> .el-table__expanded-cell {
   padding: 10px 20px;
   .app-container {
@@ -266,7 +273,14 @@ export default {
   }
 }
 
-.el-table >>> .el-table__body-wrapper td {
-  padding: 0;
+.el-table >>> .el-table__body-wrapper {
+  td {
+    padding: 0;
+  }
+}
+.el-table >>> .el-table__header-wrapper {
+  th {
+    background-color: #111
+  }
 }
 </style>

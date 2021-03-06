@@ -147,4 +147,9 @@ export default {
 .el-table >>> .el-table__body-wrapper td {
   padding: 0;
 }
+.el-table >>> .el-table__header-wrapper {
+  th {
+    background-color: #666!important
+  }
+}
 </style>
