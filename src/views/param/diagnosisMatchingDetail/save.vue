@@ -67,9 +67,9 @@ export default {
       matchVisable: false,
       matchTyp: null,
       rules: {
-        diaMatParameterCde: [{ required: true, trigger: 'blur', message: '请输入诊断匹配参数码' }],
-        bgnCde: [{ required: true, trigger: 'blur', message: '请输入起始码' }],
-        endCde: [{ required: true, trigger: 'blur', message: '请输入终止码' }]
+        diaMatParameterCde: [{ required: true, trigger: 'blur', message: '请输入诊断匹配参数码' }]
+      /*  bgnCde: [{ required: true, trigger: 'blur', message: '请输入起始代码' }],
+        endCde: [{ required: true, trigger: 'blur', message: '请输入终止代码' }]*/
       }
     }
   },
