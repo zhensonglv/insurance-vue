@@ -466,8 +466,8 @@ export const constantRoutes = [
       {
         path: 'dutySevParamMatch',
         component: () => import('@/views/param/dutySevParamMatch/index'),
-        name: '责任服务类型参数匹配',
-        meta: { title: '责任服务类型参数匹配', icon: 'guide', noCache: true }
+        name: '责任服务类型匹配参数',
+        meta: { title: '责任服务类型匹配参数', icon: 'guide', noCache: true }
       },
       {
         path: 'quotaConfig',
