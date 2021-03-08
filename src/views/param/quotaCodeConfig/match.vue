@@ -1,6 +1,6 @@
 <template>
-  <el-dialog title="诊断码" :visible.sync="dialogTableVisible" append-to-body width="80%">
-    <diagnosisManage dialog @setMultipleSeleValues="setMultipleSeleValues" />
+  <el-dialog title="诊疗码" :visible.sync="dialogTableVisible" append-to-body width="80%">
+    <treatmentMesManage dialog @setMultipleSeleValues="setMultipleSeleValues" />
     <div slot="footer" class="dialog-footer">
       <el-button @click="handleClose">
         取消
@@ -12,10 +12,10 @@
   </el-dialog>
 </template>
 <script>
-import diagnosisManage from '../diagnosisManage'
+import treatmentMesManage from '../treatmentMesManage'
 export default {
   name: 'Match',
-  components: { diagnosisManage },
+  components: { treatmentMesManage },
   props: {
     value: {
       type: Boolean,
@@ -26,12 +26,12 @@ export default {
     return {
       list: null,
       listLoading: true,
-      basePath: 'diagnosisManage',
+      basePath: 'treatmentMesManage',
       listQuery: {
         pageNum: 1,
         pageSize: 10,
-        diaCde: '',
-        diaDesc: '',
+        treatNo: '',
+        treatDesc: '',
         sort: '+id'
       },
       total: 0,

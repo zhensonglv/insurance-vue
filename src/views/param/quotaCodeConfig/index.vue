@@ -26,7 +26,7 @@
 
         <el-table-column align="center" label="代码类型" width="350">
           <template slot-scope="scope">
-            {{ DiaMatchTyp[scope.row.codeTyp] }}
+            {{ CodeType[scope.row.codeTyp] }}
           </template>
         </el-table-column>
 
@@ -97,7 +97,7 @@ export default {
       dialogVisible: false,
       form: null,
       businessData: {},
-      DiaMatchTyp: {}
+      CodeType: {}
     }
   },
   created() {
@@ -126,8 +126,7 @@ export default {
     },
     fetchTypeData() {
       // 获取codeList
-      getCodeList({ parent: ['DiaMatchTyp'] }).then(res => {
-        debugger
+      getCodeList({ parent: ['CodeType'] }).then(res => {
         this.businessData = res.data
         // 组装table 的map
         for (const key in this.businessData) {

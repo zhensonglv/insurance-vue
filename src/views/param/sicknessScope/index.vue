@@ -23,7 +23,7 @@
         </el-table-column>
         <el-table-column align="center" label="代码类型" width="150">
           <template slot-scope="scope">
-            {{ scope.row.cdeType }}
+            {{ DiaMatchTyp[scope.row.cdeType] }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="起始代码" width="150">
@@ -31,19 +31,30 @@
             {{ scope.row.sickBgnCde }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="终止代码" width="150">
-          <template slot-scope="scope">
-            {{ scope.row.sickEndCde }}
-          </template>
-        </el-table-column>
         <el-table-column align="center" label="起始代码描述" width="150">
           <template slot-scope="scope">
             {{ scope.row.sickBgnDesc }}
           </template>
         </el-table-column>
+        <el-table-column align="center" label="终止代码" width="150">
+          <template slot-scope="scope">
+            {{ scope.row.sickEndCde }}
+          </template>
+        </el-table-column>
         <el-table-column align="center" label="终止代码描述" width="150">
           <template slot-scope="scope">
             {{ scope.row.sickEndDesc }}
+          </template>
+        </el-table-column>
+
+        <el-table-column align="center" label="诊断匹配码" width="150">
+          <template slot-scope="scope">
+            {{ scope.row.diaMatParameterCde }}
+          </template>
+        </el-table-column>
+        <el-table-column align="center" label="诊断匹配描述" width="150">
+          <template slot-scope="scope">
+            {{ scope.row.diaMatDesc }}
           </template>
         </el-table-column>
 
@@ -91,9 +102,7 @@ export default {
       dialogVisible: false,
       form: null,
       businessData: {},
-      QuotaTyp: {},
-      QuotaVisitReason: {},
-      CiRateCondition: {}
+      DiaMatchTyp: {}
     }
   },
   created() {
@@ -125,9 +134,7 @@ export default {
     },
     fetchTypeData() {
       // 获取codeList
-      var parantData = ['QuotaTyp', 'QuotaVisitReason', 'CiRateCondition', 'ClinicType',
-        'TrueOrFalse', 'QuotaAmountTyp', 'CiRateBillTyp', 'QuotaTimesTyp']
-      getCodeList({ parent: parantData }).then(res => {
+      getCodeList({ parent: ['DiaMatchTyp'] }).then(res => {
         this.businessData = res.data
         // 组装table 的map
         for (const key in this.businessData) {
@@ -140,7 +147,8 @@ export default {
       })
     },
     handleSave() {
-      this.form = { id: null, paramCde: this.listQuery.paramCde }
+      // this.form = { id: null, paramCde: this.listQuery.paramCde }
+      this.form = { id: null }
       this.dialogVisible = true
     },
     handleEdit(id) {

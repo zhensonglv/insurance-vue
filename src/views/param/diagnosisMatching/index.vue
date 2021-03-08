@@ -9,11 +9,16 @@
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleRoute">明细</el-button>
       </div>
       <br>
-      <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row @selection-change="handleSelect">
+      <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
         <el-table-column
-          type="selection"
+          type="center"
+          label="选择"
           width="55"
-        />
+        >
+          <template slot-scope="scope">
+            <el-radio v-model="paramRadio" :label="scope.$index" @change.native="handleSelect(scope.row)">&nbsp;</el-radio>
+          </template>
+        </el-table-column>
         <el-table-column align="center" label="序号" width="95">
           <template slot-scope="scope">
             {{ scope.$index +1 }}
@@ -74,7 +79,8 @@ export default {
       total: 0,
       dialogVisible: false,
       form: null,
-      businessData: {}
+      businessData: {},
+      paramRadio: false
     }
   },
   created() {
@@ -101,6 +107,7 @@ export default {
     },
     handleSelect(data) {
       this.selected = data
+      this.$emit('setMultipleSeleValues', data)
     },
     _notify(message, type) {
       this.$message({
