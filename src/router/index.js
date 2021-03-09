@@ -323,6 +323,12 @@ export const constantRoutes = [
         meta: { title: '疾病范围', icon: 'guide', noCache: true }
       },
       {
+        path: 'codeConfig',
+        component: () => import('@/views/param/codeConfig/index'),
+        name: '代码类型',
+        meta: { title: '代码类型', icon: 'guide', noCache: true }
+      },
+      {
         path: 'diagnosisManage',
         component: () => import('@/views/param/diagnosisManage/index'),
         name: '诊断管理',
@@ -343,7 +349,7 @@ export const constantRoutes = [
       },
       {
         path: 'quotaCodeConfig',
-        component: () => import('@/views/param/quotaCodeConfig/index'),
+        component: () => import('@/views/param/codeConfig/index'),
         name: '限额代码类型配置',
         meta: { title: '限额代码类型配置', icon: 'guide', noCache: true }
       },

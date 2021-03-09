@@ -2,8 +2,8 @@
   <div class="app-container">
     <el-card>
       <div>
-        <el-input v-model="listQuery.quotaCde" style="width: 200px;" placeholder="请输入限额码查询" />
-        <el-input v-model="listQuery.quotaDesc" style="width: 200px;" placeholder="请输入限额说明查询" />
+        <el-input v-model="listQuery.paramCde" style="width: 200px;" placeholder="请输入限额码查询" />
+        <el-input v-model="listQuery.codeDesc" style="width: 200px;" placeholder="请输入限额说明查询" />
         <el-input v-model="listQuery.starCodeDesc" style="width: 200px;" placeholder="请输入起始代码描述查询" />
         <el-input v-model="listQuery.endCodeDesc" style="width: 200px;" placeholder="请输入终止代码描述查询" />
 
@@ -18,9 +18,9 @@
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="限额码" width="200">
+        <el-table-column align="center" label="参数码" width="200">
           <template slot-scope="scope">
-            {{ scope.row.quotaCde }}
+            {{ scope.row.paramCde }}
           </template>
         </el-table-column>
 
@@ -87,10 +87,15 @@ export default {
     return {
       list: null,
       listLoading: true,
-      basePath: 'quotaCodeConfig',
+      basePath: 'codeConfig',
       listQuery: {
         pageNum: 1,
         pageSize: 10,
+        paramCde: '',
+        codeDesc: '',
+        linkId: null,
+        starCodeDesc: '',
+        endCodeDesc: '',
         sort: '+id'
       },
       total: 0,
@@ -101,10 +106,14 @@ export default {
     }
   },
   created() {
-    /* if (this.$route.query.pubCoverId) { // 上级页面传入参数
-          this.listQuery.pubCoverId = this.$route.query.pubCoverId
-        }*/
-    // this.fetchData()
+    if (this.$route.query.paramCde) { // 上级页面传入参数
+      this.listQuery.paramCde = this.$route.query.paramCde
+    }
+
+    if (this.$route.query.linkId) { // 上级页面传入参数
+      this.listQuery.linkId = this.$route.query.linkId
+    }
+
     this.fetchTypeData()
   },
   mounted() {
@@ -139,10 +148,7 @@ export default {
       })
     },
     handleSave() {
-      this.form = { id: null }
-      /* if (this.$route.query.pubCoverId) { // 上级页面传入参数
-            this.form.pubCoverId = this.$route.query.pubCoverId
-          }*/
+      this.form = { id: null, paramCde: this.listQuery.paramCde, linkId: this.listQuery.linkId }
       this.dialogVisible = true
     },
     handleEdit(id) {

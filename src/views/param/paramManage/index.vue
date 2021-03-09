@@ -2,7 +2,7 @@
   <div class="app-container">
     <el-card>
       <div>
-        <template v-if="paramType != &quot;param_0015&quot;">
+        <template v-if="paramType != 'param_0015'">
           <el-input v-model="listQuery.prodCde" style="width: 200px;" placeholder="请输入参数码查询" />
           <el-select v-model="listQuery.applyTyp" placeholder="请选择适用层级" @change="applyTypChange">
             <el-option

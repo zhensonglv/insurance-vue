@@ -154,7 +154,8 @@ export default {
         deductibleExcessTyp: [{ required: true, trigger: 'blur', message: '请输入免赔额类型' }],
         deductibleExcessDesc: [{ required: true, trigger: 'blur', message: '请输入免赔额说明' }],
         deductibleExcessAmt: [{ required: true, trigger: 'blur', message: '请输入免赔额' }],
-        isLadder: [{ required: true, trigger: 'blur', message: '请选择阶梯' }]
+        isLadder: [{ required: true, trigger: 'blur', message: '请选择阶梯' }],
+        docTyp: [{ required: true, trigger: 'blur', message: '请选择就诊类型' }]
       }
     }
   },

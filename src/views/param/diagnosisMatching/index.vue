@@ -94,15 +94,14 @@ export default {
   },
   methods: {
     handleRoute() {
-      debugger
-      if (this.selected.length !== 1) {
+      if (this.selected == null) {
         this.$message({
           showClose: true,
           message: '只能选择一条查看',
           type: 'warning'
         })
       } else {
-        this.$router.push({ path: '/param/diagnosisMatchingDetail', query: { diaMatParameterCde: this.selected[0].diaMatParameterCde }})
+        this.$router.push({ path: '/param/diagnosisMatchingDetail', query: { diaMatParameterCde: this.selected.diaMatParameterCde }})
       }
     },
     handleSelect(data) {

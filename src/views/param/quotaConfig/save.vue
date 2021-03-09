@@ -190,7 +190,8 @@ export default {
         visitReason: [{ required: true, trigger: 'blur', message: '请选择就诊原因' }],
         amountTyp: [{ required: true, trigger: 'blur', message: '请选择金额类型' }],
         quotaAmt: [{ required: true, trigger: 'blur', message: '请输入限额' }],
-        isLadder: [{ required: true, trigger: 'blur', message: '请选择阶梯' }]
+        isLadder: [{ required: true, trigger: 'blur', message: '请选择阶梯' }],
+        docTyp: [{ required: true, trigger: 'blur', message: '请选择就诊类型' }]
       }
     }
   },

@@ -2,13 +2,13 @@
   <el-dialog :title="dialogTitle" :before-close="handleClose" :visible.sync="dialogVisible" width="55%">
     <el-form ref="form" :inline="true" :rules="rules" :model="form" status-icon label-position="right" label-width="80px">
 
-      <el-form-item label="限额码" prop="quotaCde" label-width="120px">
-        <el-input v-model="form.quotaCde" placeholder="请输入限额码" />
+      <el-form-item label="参数码" prop="paramCde" label-width="120px">
+        <el-input v-model="form.paramCde" placeholder="请输入限额码" disabled="disabled" />
       </el-form-item>
 
-      <el-form-item label="限额说明" prop="quotaDesc" label-width="120px">
-        <el-input v-model="form.quotaDesc" placeholder="请输入限额说明" />
-      </el-form-item>
+      <!--  <el-form-item  label="关联主键id" prop="linkId" label-width="120px">
+        <el-input hidden="hidden" v-model="form.linkId" placeholder="请输入限额码" />
+      </el-form-item>-->
 
       <el-form-item label="代码类型" prop="codeTyp" label-width="120px">
         <el-select v-model="form.codeTyp" placeholder="请选择" onchange="changecodeTyp">
@@ -59,6 +59,10 @@
         <el-input v-model="form.endCodeDesc" placeholder="请输入终止代码描述" />
       </el-form-item>
 
+      <el-form-item label="说明" prop="codeDesc" label-width="120px">
+        <el-input v-model="form.codeDesc" placeholder="请输入说明" />
+      </el-form-item>
+
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="handleClose">
@@ -87,11 +91,12 @@ export default {
     return {
       dialogVisible: false,
       dialogTitle: '新增',
-      basePath: 'quotaCodeConfig',
+      basePath: 'codeConfig',
       form: {
         id: '',
-        quotaCde: '',
-        quotaDesc: '',
+        paramCde: '',
+        codeDesc: '',
+        linkId: '',
         codeTyp: '',
         starCde: '',
         starCodeDesc: '',
@@ -103,8 +108,8 @@ export default {
       rules: {
         /* effectiveTm: [{ required: true, trigger: 'blur', message: '请输入生效日' }],
         expiryTm: [{ required: true, trigger: 'blur', message: '请输入终止日' }],*/
-        quotaCde: [{ required: true, trigger: 'blur', message: '请输入限额码' }],
-        quotaDesc: [{ required: true, trigger: 'blur', message: '请输入限额说明' }],
+        paramCde: [{ required: true, trigger: 'blur', message: '请输入参数码' }],
+        codeDesc: [{ required: true, trigger: 'blur', message: '请输入说明' }],
         codeTyp: [{ required: true, trigger: 'blur', message: '请输入代码类型' }]
 
       }
@@ -130,8 +135,9 @@ export default {
     },
     clearForm() {
       this.form.id = null
-      this.form.quotaCde = null
-      this.form.quotaDesc = null
+      this.form.paramCde = null
+      this.form.codeDesc = null
+      this.form.linkId = null
       this.form.codeTyp = null
       this.form.starCde = null
       this.form.starCodeDesc = null
