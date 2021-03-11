@@ -5,6 +5,7 @@
       <div class="header">
         <div class="tit">申请信息</div>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" circle @click="handleSave" />
+        <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="calcClmData">理算</el-button>
       </div>
       <el-table
         v-loading="listLoading"
@@ -145,7 +146,7 @@
 </template>
 
 <script>
-import { /* getList,*/findById, del } from '@/api/claim/apply'
+import { calc, findById, del } from '@/api/claim/apply'
 import { getList } from '@/api/base'
 import { getCodeList } from '@/api/code'
 import Pagination from '@/components/Pagination'
@@ -226,6 +227,20 @@ export default {
       findById(id).then(response => {
         this.form = response.data
       })
+    },
+
+    calcClmData() {
+      if (this.selected.length === 0) {
+        this.$message({
+          showClose: true,
+          message: '请选择数据',
+          type: 'warning'
+        })
+      } else {
+        calc(this.selected).then(res => {
+          this.fetchData()
+        })
+      }
     },
     // 子组件的状态Flag，子组件通过`this.$emit('sonStatus', val)`给父组件传值
     // 父组件通过`@sonStatus`的方法`status`监听到子组件传递的值

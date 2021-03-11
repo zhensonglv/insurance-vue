@@ -38,3 +38,11 @@ export function edit(data) {
   })
 }
 
+export function calc(data) {
+  return request({
+    url: '/base/apply/calc',
+    method: 'post',
+    data
+  })
+}
+
