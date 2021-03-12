@@ -93,9 +93,21 @@
       <el-form-item label="累计限额" prop="aggregateLimitDesc" label-width="120px">
         <el-input v-model="form.aggregateLimitDesc" placeholder="请输入参数描述" />
       </el-form-item>
-      <el-form-item label="治疗类型" prop="treatmentDesc" label-width="120px">
-        <el-input v-model="form.treatmentDesc" placeholder="请输入参数描述" />
-      </el-form-item>
+      <el-row>
+        <el-form-item label="治疗类型" prop="treatmentTyp" label-width="120px">
+          <div class="check">
+            <el-checkbox v-model="checkAll" :indeterminate="isIndeterminate" @change="handleCheckAllChange">全选</el-checkbox>
+            <div style="margin-left: 20px" />
+            <el-checkbox-group v-model="treatmentTyp" @change="handleCheckedCitiesChange">
+              <el-checkbox
+                v-for="item in businessData.CiTreatmentTyp"
+                :key="item.value"
+                :label="item.value"
+              >{{ item.value+"-"+item.label }}</el-checkbox>
+            </el-checkbox-group>
+          </div>
+        </el-form-item>
+      </el-row>
       <el-form-item label="医院网络码" prop="medicalNetworkCde" label-width="120px">
         <el-input v-model="form.medicalNetworkCde" placeholder="请选择医院网络码">
           <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(1)" />
@@ -178,12 +190,16 @@ export default {
         sumTimes: '',
         docTyp: '',
         isMedical: '',
-        treatmentDesc: '',
+        treatmentTyp: '',
         isLadder: ''
 
       },
       matchVisable: false,
       matchTyp: null,
+      treatmentTyp: [],
+      treatmentTypArr: ['1', '2', '3', '4'],
+      checkAll: false,
+      isIndeterminate: true,
       rules: {
         quotaDesc: [{ required: true, trigger: 'blur', message: '请输入限额描述' }],
         quotaTyp: [{ required: true, trigger: 'blur', message: '请选择限额类型' }],
@@ -199,6 +215,9 @@ export default {
     'sonData': function(newVal, oldVal) {
       this.form = newVal
       this.dialogVisible = true
+      if (this.form.treatmentTyp) {
+        this.treatmentTyp = this.form.treatmentTyp
+      }
       if (newVal.id != null) {
         this.dialogTitle = 'Edit'
       } else {
@@ -232,8 +251,9 @@ export default {
       this.form.sumTimes = null
       this.form.docTyp = null
       this.form.isMedical = null
-      this.form.treatmentDesc = null
+      this.form.treatmentTyp = null
       this.form.isLadder = null
+      this.treatmentTyp = []
     },
 
     hanldeMatch(matchTyp) {
@@ -249,7 +269,15 @@ export default {
         this.form.explainDesc = data.explCdeDesc
       }
     },
-
+    handleCheckAllChange(val) {
+      this.treatmentTyp = val ? this.treatmentTypArr : []
+      this.isIndeterminate = false
+    },
+    handleCheckedCitiesChange(value) {
+      const checkedCount = value.length
+      this.checkAll = checkedCount === this.businessData.CiTreatmentTyp.length
+      this.isIndeterminate = checkedCount > 0 && checkedCount < this.businessData.CiTreatmentTyp.length
+    },
     handleClose() {
       this.clearForm()
       this.dialogVisible = false
@@ -257,6 +285,7 @@ export default {
     onSubmit(form) {
       this.$refs[form].validate((valid) => {
         if (valid) {
+          this.form.treatmentTyp = this.treatmentTyp
           if (this.form.id === null) {
             save(this.basePath, this.form).then(response => {
               if (response.code === 200) {
@@ -320,6 +349,10 @@ export default {
     width: 178px;
     height: 178px;
     display: block;
+  }
+  .check {
+    display: flex;
+    justify-content: flex-start;
   }
 </style>
 

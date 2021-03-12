@@ -2,9 +2,8 @@
   <div class="app-container">
     <el-card>
       <div>
-        <el-input v-model="listQuery.accidentDiaCde" style="width: 200px;" placeholder="请输入赔付比例码查询" />
-        <el-input v-model="listQuery.accidentDiaExp" style="width: 200px;" placeholder="请输入赔付比例说明查询" />
-        <el-input v-model="listQuery.accidentDiaExp" style="width: 200px;" placeholder="请输入赔付比例类型查询" />
+        <el-input v-model="listQuery.ciRateCde" style="width: 200px;" placeholder="请输入赔付比例码查询" />
+        <el-input v-model="listQuery.ciRateTyp" style="width: 200px;" placeholder="请输入赔付比例类型查询" />
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleRoute">明细</el-button>
@@ -182,10 +181,7 @@ export default {
       })
     },
     handleSave() {
-      this.form = { id: null }
-      /* if (this.$route.query.pubCoverId) { // 上级页面传入参数
-            this.form.pubCoverId = this.$route.query.pubCoverId
-          }*/
+      this.form = { id: null, ciRateCde: this.listQuery.ciRateCde }
       this.dialogVisible = true
     },
     handleEdit(id) {

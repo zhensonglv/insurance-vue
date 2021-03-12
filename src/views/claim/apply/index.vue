@@ -5,7 +5,7 @@
       <div class="header">
         <div class="tit">申请信息</div>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" circle @click="handleSave" />
-        <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="calcClmData">理算</el-button>
+        <el-button style="margin-left: 10px;" type="primary" circle @click="calcClmData">理算</el-button>
       </div>
       <el-table
         v-loading="listLoading"
@@ -38,17 +38,17 @@
           <!--  <{{ scope.row.pubCoverTyp }}-->
           </template>
         </el-table-column>
-        <el-table-column align="center" label="申请人姓名" width="150">
+        <el-table-column align="center" label="申请人姓名" width="120">
           <template slot-scope="scope">
             {{ scope.row.appNme }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="保单号" width="150">
+        <el-table-column align="center" label="保单号" width="120">
           <template slot-scope="scope">
             {{ scope.row.plyNo }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="被保人id" width="150">
+        <el-table-column align="center" label="被保人id" width="120">
           <template slot-scope="scope">
             {{ scope.row.insuresId }}
           </template>
@@ -58,7 +58,7 @@
             {{ scope.row.appCertCde }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="客户申请号" width="150">
+        <el-table-column align="center" label="客户申请号" width="120">
           <template slot-scope="scope">
             {{ scope.row.customAppNo }}
           </template>
@@ -66,16 +66,6 @@
         <el-table-column align="center" label="分单号" width="150">
           <template slot-scope="scope">
             {{ scope.row.plyPartNo }}
-          </template>
-        </el-table-column>
-        <el-table-column align="center" label="账户号" width="150">
-          <template slot-scope="scope">
-            {{ scope.row.acctNo }}
-          </template>
-        </el-table-column>
-        <el-table-column align="center" label="账户名" width="150">
-          <template slot-scope="scope">
-            {{ scope.row.acctNme }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="总金额" width="150">

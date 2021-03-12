@@ -81,7 +81,7 @@
             {{ scope.row.conclusionDesc }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="操作" width="150">
+        <el-table-column align="center" label="总金额" width="150">
           <template slot-scope="scope">
             {{ scope.row.invoiceSum }}
           </template>
