@@ -95,11 +95,11 @@ export default {
       matchTyp: null,
       rules: {
         paramCde: [{ required: true, trigger: 'blur', message: '请输入参数码' }],
-        cdeType: [{ required: true, trigger: 'blur', message: '请选择代码类型' }],
-        sickBgnCde: [{ required: true, trigger: 'blur', message: '请选择起始代码' }],
+        cdeType: [{ required: true, trigger: 'blur', message: '请选择代码类型' }]
+        /*    sickBgnCde: [{ required: true, trigger: 'blur', message: '请选择起始代码' }],
         sickEndCde: [{ required: true, trigger: 'blur', message: '请选择终止代码' }],
         sickBgnDesc: [{ required: true, trigger: 'blur', message: '请选择起始代码描述' }],
-        sickEndDesc: [{ required: true, trigger: 'blur', message: '请选择终止代码描述' }]
+        sickEndDesc: [{ required: true, trigger: 'blur', message: '请选择终止代码描述' }]*/
       }
     }
   },

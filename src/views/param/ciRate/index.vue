@@ -8,6 +8,8 @@
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleRoute">代码类型</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleLadder">阶梯比例</el-button>
+        <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSickness">疾病范围</el-button>
+
       </div>
       <br>
       <el-table
@@ -178,7 +180,17 @@ export default {
         }
       }
     },
-
+    handleSickness() {
+      if (this.selected == null) {
+        this.$message({
+          showClose: true,
+          message: '只能选择一条查看',
+          type: 'warning'
+        })
+      } else {
+        this.$router.push({ path: '/param/sicknessScope', query: { paramCde: this.selected.ciRateCde, linkId: this.selected.id }})
+      }
+    },
     fetchData() {
       this.listLoading = true
       getList(this.basePath, this.listQuery).then(response => {

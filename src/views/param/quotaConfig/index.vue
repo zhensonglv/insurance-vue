@@ -16,7 +16,9 @@
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="resetData">重置</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
-        <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleRoute">明细</el-button>
+        <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleRoute">代码类型</el-button>
+        <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSickness">疾病范围</el-button>
+
       </div>
       <br>
       <el-table
@@ -159,6 +161,17 @@ export default {
         })
       } else {
         this.$router.push({ path: '/param/codeConfig', query: { paramCde: this.selected.paramCde, linkId: this.selected.id }})
+      }
+    },
+    handleSickness() {
+      if (this.selected == null) {
+        this.$message({
+          showClose: true,
+          message: '只能选择一条查看',
+          type: 'warning'
+        })
+      } else {
+        this.$router.push({ path: '/param/sicknessScope', query: { paramCde: this.selected.paramCde, linkId: this.selected.id }})
       }
     },
     fetchData() {

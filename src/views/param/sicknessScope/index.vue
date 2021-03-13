@@ -96,6 +96,7 @@ export default {
         pageNum: 1,
         pageSize: 10,
         paramCde: '',
+        linkDeductibleId: '',
         sort: '+id'
       },
       total: 0,
@@ -109,7 +110,9 @@ export default {
     if (this.$route.query.paramCde) { // 上级页面传入参数
       this.listQuery.paramCde = this.$route.query.paramCde
     }
-    // this.fetchData()
+    if (this.$route.query.linkId) { // 上级页面传入参数
+      this.listQuery.linkDeductibleId = this.$route.query.linkId
+    }
     this.fetchTypeData()
   },
   mounted() {
@@ -148,7 +151,7 @@ export default {
     },
     handleSave() {
       // this.form = { id: null, paramCde: this.listQuery.paramCde }
-      this.form = { id: null }
+      this.form = { id: null, paramCde: this.listQuery.paramCde, linkDeductibleId: this.listQuery.linkDeductibleId }
       this.dialogVisible = true
     },
     handleEdit(id) {
