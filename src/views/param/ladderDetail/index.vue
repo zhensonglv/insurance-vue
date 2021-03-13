@@ -3,8 +3,8 @@
     <el-card>
       <div>
 
-        <el-input v-model="listQuery.quotaCde" style="width: 200px;" placeholder="请输入限额码查询" />
-        <el-input v-model="listQuery.quotaDesc" style="width: 200px;" placeholder="请输入限额说明查询" />
+        <el-input v-model="listQuery.paramCde" style="width: 200px;" placeholder="请输入参数码查询" />
+        <el-input v-model="listQuery.paramDesc" style="width: 200px;" placeholder="请输入说明查询" />
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="resetData">重置</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
@@ -16,14 +16,14 @@
             {{ scope.$index +1 }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="限额码" width="150">
+        <el-table-column align="center" label="参数码" width="150">
           <template slot-scope="scope">
-            {{ scope.row.quotaCde }}
+            {{ scope.row.paramCde }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="限额说明" width="150">
+        <el-table-column align="center" label="说明" width="150">
           <template slot-scope="scope">
-            {{ scope.row.quotaDesc }}
+            {{ scope.row.paramDesc }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="起始次数/天数" width="150">
@@ -36,9 +36,9 @@
             {{ scope.row.endNumbDaily }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="限额" width="150">
+        <el-table-column align="center" label="额度" width="150">
           <template slot-scope="scope">
-            {{ scope.row.quotaAmount }}
+            {{ scope.row.amount }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="解释码" width="150">
@@ -86,12 +86,13 @@ export default {
     return {
       list: null,
       listLoading: true,
-      basePath: 'quotaDetail',
+      basePath: 'ladderDetail',
       listQuery: {
         pageNum: 1,
         pageSize: 10,
-        quotaCde: '',
-        quotaDesc: '',
+        paramCde: '',
+        paramDesc: '',
+        linkId: '',
         sort: '+id'
       },
       total: 0,
@@ -101,10 +102,12 @@ export default {
     }
   },
   created() {
-    /* if (this.$route.query.amountCode) { // 上级页面传入参数
-      this.listQuery.amountCode = this.$route.query.amountCode
-    }*/
-    // this.fetchData()
+    if (this.$route.query.paramCde) { // 上级页面传入参数
+      this.listQuery.paramCde = this.$route.query.paramCde
+    }
+    if (this.$route.query.linkId) { // 上级页面传入参数
+      this.listQuery.linkId = this.$route.query.linkId
+    }
     this.fetchTypeData()
   },
   mounted() {
@@ -125,8 +128,8 @@ export default {
       })
     },
     resetData() {
-      this.listQuery.quotaCde = null
-      this.listQuery.quotaDesc = null
+      this.listQuery.paramCde = null
+      this.listQuery.paramDesc = null
     },
     fetchTypeData() {
       // 获取codeList
@@ -144,7 +147,7 @@ export default {
       })
     },
     handleSave() {
-      this.form = { id: null }
+      this.form = { id: null, paramCde: this.listQuery.paramCde, linkId: this.listQuery.linkId }
       this.dialogVisible = true
     },
     handleEdit(id) {

@@ -2,10 +2,10 @@
   <el-dialog :title="dialogTitle" :before-close="handleClose" :visible.sync="dialogVisible" width="55%">
     <el-form ref="form" :inline="true" :rules="rules" :model="form" status-icon label-position="right" label-width="80px">
       <el-form-item label="限额码" prop="quotaCde" label-width="120px">
-        <el-input v-model="form.quotaCde" placeholder="请输入限额码" disabled="disabled" />
+        <el-input v-model="form.paramCde" placeholder="请输入限额码" disabled="disabled" />
       </el-form-item>
       <el-form-item label="限额说明" prop="quotaDesc" label-width="120px">
-        <el-input v-model="form.quotaDesc" placeholder="请输入限额说明" />
+        <el-input v-model="form.paramDesc" placeholder="请输入限额说明" />
       </el-form-item>
 
       <el-form-item label="起始次数/天数" prop="starNumbDaily" label-width="120px">
@@ -16,8 +16,8 @@
         <el-input v-model="form.endNumbDaily" placeholder="请输入终止次数/天数" />
       </el-form-item>
 
-      <el-form-item label="限额" prop="quotaAmount" label-width="120px">
-        <el-input v-model="form.quotaAmount" placeholder="请输入限额" />
+      <el-form-item label="额度" prop="amount" label-width="120px">
+        <el-input v-model="form.amount" placeholder="请输入限额" />
       </el-form-item>
       <el-form-item label="解释码" prop="explainCde" label-width="120px">
         <el-input v-model="form.explainCde" placeholder="请选择解释码">
@@ -58,25 +58,26 @@ export default {
     return {
       dialogVisible: false,
       dialogTitle: '新增',
-      basePath: 'quotaDetail',
+      basePath: 'ladderDetail',
       form: {
         id: '',
-        quotaCde: '',
-        quotaDesc: '',
+        paramCde: '',
+        paramDesc: '',
+        linkId: '',
         starNumbDaily: '',
         endNumbDaily: '',
-        quotaAmount: '',
+        amount: '',
         explainCde: '',
         explainCdeDesc: ''
 
       },
       matchVisable: false,
       rules: {
-        quotaCde: [{ required: true, trigger: 'blur', message: '请输入限额码' }],
-        quotaDesc: [{ required: true, trigger: 'blur', message: '请输入限额说明' }],
+        paramCde: [{ required: true, trigger: 'blur', message: '请输入参数码' }],
+        paramDesc: [{ required: true, trigger: 'blur', message: '请输入说明' }],
         starNumbDaily: [{ required: true, trigger: 'blur', message: '请输入起始次数/天数' }],
         endNumbDaily: [{ required: true, trigger: 'blur', message: '请输入终止次数/天数' }],
-        quotaAmount: [{ required: true, trigger: 'blur', message: '请输入限额' }]
+        amount: [{ required: true, trigger: 'blur', message: '请输入额度' }]
       }
     }
   },
@@ -100,11 +101,11 @@ export default {
     },
     clearForm() {
       this.form.id = null
-      this.form.quotaCde = null
-      this.form.quotaDesc = null
+      this.form.paramCde = null
+      this.form.paramDesc = null
       this.form.starNumbDaily = null
       this.form.endNumbDaily = null
-      this.form.quotaAmount = null
+      this.form.amount = null
       this.form.explainCde = null
       this.form.explainCdeDesc = null
     },

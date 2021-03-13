@@ -512,10 +512,10 @@ export const constantRoutes = [
         meta: { title: '合计免赔额', icon: 'guide', noCache: true }
       },
       {
-        path: 'quotaDetail',
-        component: () => import('@/views/param/quotaDetail/index'),
-        name: '限额阶梯明细',
-        meta: { title: '限额阶梯明细', icon: 'guide', noCache: true }
+        path: 'ladderDetail',
+        component: () => import('@/views/param/ladderDetail/index'),
+        name: '阶梯明细',
+        meta: { title: '阶梯明细', icon: 'guide', noCache: true }
       },
       {
         path: 'serviceTreatmentMatching',
