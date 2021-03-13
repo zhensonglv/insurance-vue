@@ -546,8 +546,13 @@ export const constantRoutes = [
         component: () => import('@/views/param/entityNorm/index'),
         name: '实体限额',
         meta: { title: '实体限额', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'ciRateDetail',
+        component: () => import('@/views/param/ciRateDetail/index'),
+        name: '阶梯比例明细',
+        meta: { title: '阶梯比例明细', icon: 'guide', noCache: true }
       }
-
     ]
   },
   {
