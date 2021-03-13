@@ -63,9 +63,20 @@
       </el-form-item>-->
 
       <el-row>
+        <!--<el-form-item label="诊断匹配码" prop="diaMatParameterCde" label-width="120px">-->
+        <!--<el-input v-model="form.diaMatParameterCde" placeholder="请输入诊断匹配码" />-->
+        <!--</el-form-item>-->
+
+        <!--<el-form-item label="诊断匹配描述" prop="diagnoseCodeDesc" label-width="120px">-->
+        <!--<el-input v-model="form.diagnoseCodeDesc" placeholder="请输入诊断匹配描述" />-->
+        <!--</el-form-item>-->
+
         <el-form-item label="诊断匹配码" prop="diaMatParameterCde" label-width="120px">
-          <el-input v-model="form.diaMatParameterCde" placeholder="请输入诊断匹配码" />
+          <el-input v-model="form.diaMatParameterCde" placeholder="请选择诊断匹配码">
+            <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(3)" />
+          </el-input>
         </el-form-item>
+        <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
 
         <el-form-item label="诊断匹配描述" prop="diagnoseCodeDesc" label-width="120px">
           <el-input v-model="form.diagnoseCodeDesc" placeholder="请输入诊断匹配描述" />
@@ -126,7 +137,7 @@
 
 <script>
 import { save, edit } from '@/api/base'
-import Match from './match'
+import Match from '@/views/param/sicknessScope/match'
 
 export default {
   // 父组件向子组件传值，通过props获取。

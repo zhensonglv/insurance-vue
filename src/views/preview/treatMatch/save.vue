@@ -56,7 +56,7 @@ export default {
         partyCde: '',
         partyName: '',
         jkCde: '',
-        jkName: '',
+        高层手术津贴代码jkName: '',
         partyCompanyName: ''
       },
       rules: {

@@ -7,9 +7,12 @@
       <el-form-item label="社保地" prop="medicareAddress" label-width="120px">
         <el-input v-model="form.medicareAddress" placeholder="请输入社保地" />
       </el-form-item>
-      <el-form-item label="医院码" prop="hospitalCde" label-width="120px">
-        <el-input v-model="form.hospitalCde" placeholder="请输入医院码" />
+      <el-form-item label="医院网络码" prop="hospitalCde" label-width="120px">
+        <el-input v-model="form.hospitalCde" placeholder="请选择医院网络码">
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch" />
+        </el-input>
       </el-form-item>
+      <match v-model="matchVisable" @matchConfirm="matchConfirm" />
 
       <el-form-item label="是否使用医保卡" prop="isUseMedicare" label-width="120px">
         <el-select v-model="form.isUseMedicare" placeholder="请选择">
@@ -65,11 +68,16 @@
 
 <script>
 import { save, edit } from '@/api/base'
+import Match from './match'
 
 export default {
   // 父组件向子组件传值，通过props获取。
   // 一旦父组件改变了`sonData`对应的值，子组件的`sonData`会立即改变，通过watch函数可以实时监听到值的变化
   // `props`不属于data，但是`props`中的参数可以像data中的参数一样直接使用
+
+  components: {
+    Match
+  },
   props: ['sonData', 'businessData'],
   data() {
     return {
@@ -88,6 +96,7 @@ export default {
         userTyp: '',
         medicareRemark: ''
       },
+      matchVisable: false,
       rules: {
         medicareParamCde: [{ required: true, trigger: 'blur', message: '请输入医保规则参数码' }],
         medicareAddress: [{ required: true, trigger: 'blur', message: '请输入社保地' }],
@@ -124,6 +133,12 @@ export default {
       this.form.visitTyp = null
       this.form.userTyp = null
       this.form.medicareRemark = null
+    },
+    hanldeMatch() {
+      this.matchVisable = true
+    },
+    matchConfirm(data) {
+      this.form.hospitalCde = data.prodCde
     },
     handleClose() {
       this.clearForm()
