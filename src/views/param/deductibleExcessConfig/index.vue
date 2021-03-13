@@ -119,6 +119,7 @@ export default {
       QuotaVisitReason: {},
       CiRateCondition: {},
       CiRateBillTyp: {},
+      CiTreatmentTyp: {},
       selected: null,
       paramRadio: false
     }
@@ -170,7 +171,7 @@ export default {
     fetchTypeData() {
       // 获取codeList
       var parentData = ['CDeductibleExcessTyp', 'QuotaVisitReason', 'CiRateCondition',
-        'CiRateBillTyp', 'ClinicType', 'TrueOrFalse']
+        'CiRateBillTyp', 'ClinicType', 'TrueOrFalse', 'CiTreatmentTyp']
       getCodeList({ parent: parentData }).then(res => {
         this.businessData = res.data
         // 组装table 的map
