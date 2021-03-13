@@ -6,7 +6,8 @@
         <el-input v-model="listQuery.ciRateTyp" style="width: 200px;" placeholder="请输入赔付比例类型查询" />
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
-        <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleRoute">明细</el-button>
+        <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleRoute">代码类型</el-button>
+        <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleLadder">阶梯比例</el-button>
       </div>
       <br>
       <el-table
@@ -41,7 +42,7 @@
 
         <el-table-column align="center" label="阶梯" width="200">
           <template slot-scope="scope">
-            {{ TrueOrFalse[scope.row.ladder] }}
+            {{ TrueOrFalse[scope.row.ladderCde] }}
           </template>
         </el-table-column>
 
@@ -155,6 +156,26 @@ export default {
         })
       } else {
         this.$router.push({ path: '/param/codeConfig', query: { paramCde: this.selected.ciRateCde, linkId: this.selected.id }})
+      }
+    },
+
+    handleLadder() {
+      if (this.selected == null) {
+        this.$message({
+          showClose: true,
+          message: '只能选择一条查看',
+          type: 'warning'
+        })
+      } else {
+        if (this.selected.ladderCde === '0') {
+          this.$message({
+            showClose: true,
+            message: '非阶梯比例',
+            type: 'warning'
+          })
+        } else {
+          this.$router.push({ path: '/param/ciRateDetail', query: { paramCde: this.selected.ciRateCde, linkId: this.selected.id }})
+        }
       }
     },
 

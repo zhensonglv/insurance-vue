@@ -20,8 +20,8 @@
         <el-input v-model="form.ciRateExplain" placeholder="请输入赔付比例说明" />
       </el-form-item>
 
-      <el-form-item label="是否设置阶梯共保比例" prop="ladder" label-width="120px">
-        <el-select v-model="form.ladder" placeholder="请选择">
+      <el-form-item label="阶梯" prop="ladderCde" label-width="120px">
+        <el-select v-model="form.ladderCde" placeholder="请选择">
           <el-option
             v-for="item in businessData.TrueOrFalse"
             :key="item.value"
@@ -155,7 +155,7 @@ export default {
         conditionCde: '',
         ciRateCde: '',
         ciRateExplain: '',
-        ladder: '',
+        ladderCde: '',
         ciRate: '',
         ciRateTyp: '',
         medicalNetwork: '',
@@ -174,8 +174,10 @@ export default {
       checkAll: false,
       isIndeterminate: true,
       rules: {
-        ciRateCde: [{ required: true, trigger: 'blur', message: '请输入赔付比例码' }]
-
+        ciRateCde: [{ required: true, trigger: 'blur', message: '请输入赔付比例码' }],
+        ladderCde: [{ required: true, trigger: 'blur', message: '请选择是否阶梯' }],
+        visitTyp: [{ required: true, trigger: 'blur', message: '请选择就诊类型' }],
+        ciRate: [{ required: true, trigger: 'blur', message: '请输入赔付比例' }]
       }
     }
   },
@@ -205,7 +207,7 @@ export default {
       this.form.conditionCde = null
       this.form.ciRateCde = null
       this.form.ciRateExplain = null
-      this.form.ladder = null
+      this.form.ladderCde = null
       this.form.ciRate = null
       this.form.ciRateTyp = null
       this.form.medicalNetwork = null

@@ -40,10 +40,11 @@ export default {
       basePath: 'ciRateDetail',
       form: {
         id: '',
+        linkId: '',
         ciRateCde: '',
         ciRate: '',
-        startAmount: '',
-        endAmont: ''
+        startAmount: null,
+        endAmont: null
       },
       rules: {
         ciRateCde: [{ required: true, trigger: 'blur', message: '请输入赔付比例码' }],
@@ -77,6 +78,7 @@ export default {
       this.form.ciRate = null
       this.form.startAmount = null
       this.form.endAmont = null
+      this.form.linkId = null
     },
     handleClose() {
       this.clearForm()

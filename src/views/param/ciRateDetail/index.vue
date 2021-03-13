@@ -84,6 +84,7 @@ export default {
       listQuery: {
         pageNum: 1,
         pageSize: 10,
+        linkId: '',
         ciRateCde: '',
         sort: '+id'
       },
@@ -94,9 +95,13 @@ export default {
     }
   },
   created() {
-    /* if (this.$route.query.amountCode) { // 上级页面传入参数
-      this.listQuery.amountCode = this.$route.query.amountCode
-    }*/
+    if (this.$route.query.paramCde) { // 上级页面传入参数
+      this.listQuery.ciRateCde = this.$route.query.paramCde
+    }
+    if (this.$route.query.linkId) { // 上级页面传入参数
+      this.listQuery.linkId = this.$route.query.linkId
+    }
+
     // this.fetchData()
     this.fetchTypeData()
   },
@@ -136,7 +141,7 @@ export default {
       })
     },
     handleSave() {
-      this.form = { id: null, ciRateCde: this.listQuery.ciRateCde }
+      this.form = { id: null, ciRateCde: this.listQuery.ciRateCde, linkId: this.listQuery.linkId }
       this.dialogVisible = true
     },
     handleEdit(id) {
