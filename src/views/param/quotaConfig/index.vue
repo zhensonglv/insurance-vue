@@ -125,6 +125,7 @@ export default {
       QuotaTyp: {},
       QuotaVisitReason: {},
       CiRateCondition: {},
+      CiTreatmentTyp: {},
       selected: null,
       paramRadio: false
     }
@@ -175,7 +176,7 @@ export default {
     fetchTypeData() {
       // 获取codeList
       var parantData = ['QuotaTyp', 'QuotaVisitReason', 'CiRateCondition', 'ClinicType',
-        'TrueOrFalse', 'QuotaAmountTyp', 'CiRateBillTyp', 'QuotaTimesTyp']
+        'TrueOrFalse', 'QuotaAmountTyp', 'CiRateBillTyp', 'QuotaTimesTyp', 'CiTreatmentTyp']
       getCodeList({ parent: parantData }).then(res => {
         this.businessData = res.data
         // 组装table 的map
