@@ -85,13 +85,13 @@
             {{ scope.row.compensateAmt }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="赔付结论" width="150">
+        <el-table-column align="center" :show-overflow-tooltip="true" prop="content" label="赔付结论" width="150">
           <template slot-scope="scope">
             {{ AdjustmentType[scope.row.compensateResult] }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="结论描述" width="150">
+        <el-table-column align="center" :show-overflow-tooltip="true" label="结论描述" width="150">
           <template slot-scope="scope">
             {{ scope.row.conclusionDesc }}
           </template>
@@ -268,4 +268,8 @@ export default {
     background-color: #444!important
   }
 }
+</style>
+
+<style lang="scss">//该样式在scope中是不起作用的
+.el-tooltip__popper{font-size: 14px; max-width:50% }
 </style>

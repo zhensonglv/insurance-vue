@@ -188,7 +188,7 @@
 
       <el-form-item label="调整解释码" prop="adjustInterpCde" label-width="120px">
         <el-input v-model="form.adjustInterpCde" placeholder="请输入调整解释码">
-          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch()" />
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(1)" />
         </el-input>
       </el-form-item>
       <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
@@ -422,6 +422,7 @@ export default {
         conclusionDesc: '',
         auditInformation: ''
       },
+      matchTyp: null,
       matchVisable: false,
       rules: {
         batchNo: [{ required: true, trigger: 'blur', message: '请输入批次号' }],
@@ -514,8 +515,9 @@ export default {
       this.clearForm()
       this.dialogVisible = false
     },
-    hanldeMatch() {
+    hanldeMatch(matchTyp) {
       this.matchVisable = true
+      this.matchTyp = matchTyp
     },
     matchConfirm(data) {
       this.form.adjustInterpCde = data.explCde

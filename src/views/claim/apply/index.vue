@@ -4,8 +4,9 @@
 
       <div class="header">
         <div class="tit">申请信息</div>
-        <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" circle @click="handleSave" />
-        <el-button style="margin-left: 10px;" type="primary" circle @click="calcClmData">理算</el-button>
+        <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave" />
+        <el-button style="margin-left: 10px;" type="primary" @click="calcClmData">理算</el-button>
+        <el-button style="margin-left: 10px;" type="primary" @click="viewImage">影像</el-button>
       </div>
       <el-table
         v-loading="listLoading"
@@ -232,6 +233,17 @@ export default {
         })
       }
     },
+
+    viewImage() {
+
+      /* let routeUrl = this.$router.resolve({
+        path: "/claim/image",
+        query: {id:96}
+      });*/
+      // window.open("/claim/image/index.html");
+
+    },
+
     // 子组件的状态Flag，子组件通过`this.$emit('sonStatus', val)`给父组件传值
     // 父组件通过`@sonStatus`的方法`status`监听到子组件传递的值
     status(data) {

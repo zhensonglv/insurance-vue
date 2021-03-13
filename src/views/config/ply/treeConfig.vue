@@ -152,10 +152,10 @@ export default {
       publish(this.basePath, this.treeQuery).then(response => {
         if (response.code === 200) {
           this._notify(response.msg, 'success')
+          this.fetchTreeData()
         } else {
           this._notify(response.msg, 'error')
         }
-        this.fetchTreeData()
       }).catch(() => {
         this._notify('已取消发布', 'info')
       })
