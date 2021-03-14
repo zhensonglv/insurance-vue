@@ -38,6 +38,14 @@ export function edit(data) {
   })
 }
 
+export function init(data) {
+  return request({
+    url: '/base/apply/initResponse',
+    method: 'post',
+    data
+  })
+}
+
 export function calc(data) {
   return request({
     url: '/base/apply/calc',

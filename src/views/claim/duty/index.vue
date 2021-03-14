@@ -81,12 +81,6 @@
             {{ scope.row.conclusionDesc }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="总金额" width="150">
-          <template slot-scope="scope">
-            {{ scope.row.invoiceSum }}
-          </template>
-        </el-table-column>
-
         <el-table-column align="center" label="操作" width="120">
           <template slot-scope="scope">
             <el-tooltip class="item" effect="dark" content="编辑" placement="top-start">

@@ -151,7 +151,7 @@ export default {
     handlePublish() {
       publish(this.basePath, this.treeQuery).then(response => {
         if (response.code === 200) {
-          this._notify(response.msg, 'success')
+          this._notify('发布成功', 'success')
           this.fetchTreeData()
         } else {
           this._notify(response.msg, 'error')

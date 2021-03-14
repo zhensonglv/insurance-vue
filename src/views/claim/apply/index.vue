@@ -5,6 +5,7 @@
       <div class="header">
         <div class="tit">申请信息</div>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave" />
+        <el-button style="margin-left: 10px;" type="primary" @click="initResponse">初始化定责</el-button>
         <el-button style="margin-left: 10px;" type="primary" @click="calcClmData">理算</el-button>
         <el-button style="margin-left: 10px;" type="primary" @click="viewImage">影像</el-button>
       </div>
@@ -137,7 +138,7 @@
 </template>
 
 <script>
-import { calc, findById, del } from '@/api/claim/apply'
+import { init, calc, findById, del } from '@/api/claim/apply'
 import { getList } from '@/api/base'
 import { getCodeList } from '@/api/code'
 import Pagination from '@/components/Pagination'
@@ -220,6 +221,32 @@ export default {
       })
     },
 
+    initResponse() {
+      if (this.selected.length === 0) {
+        this.$message({
+          showClose: true,
+          message: '请选择数据',
+          type: 'warning'
+        })
+      } else {
+        this.$confirm('是否初始化理赔数据？, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          init(this.selected).then(res => {
+            if (res.code === 200) {
+              this._notify('初始化成功', 'success')
+            } else {
+              this._notify(res.msg, 'error')
+            }
+            this.fetchData()
+          })
+        }).catch(() => {
+          this._notify('已取消', 'info')
+        })
+      }
+    },
     calcClmData() {
       if (this.selected.length === 0) {
         this.$message({
@@ -229,6 +256,11 @@ export default {
         })
       } else {
         calc(this.selected).then(res => {
+          if (res.code === 200) {
+            this._notify('理算完成', 'success')
+          } else {
+            this._notify(res.msg, 'error')
+          }
           this.fetchData()
         })
       }
