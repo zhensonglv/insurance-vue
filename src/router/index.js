@@ -348,12 +348,6 @@ export const constantRoutes = [
         meta: { title: '社保地', icon: 'guide', noCache: true }
       },
       {
-        path: 'quotaCodeConfig',
-        component: () => import('@/views/param/codeConfig/index'),
-        name: '限额代码类型配置',
-        meta: { title: '限额代码类型配置', icon: 'guide', noCache: true }
-      },
-      {
         path: 'claimSpecialDefi',
         component: () => import('@/views/param/claimSpecialDefi/index'),
         name: '理赔审核规则定义',

@@ -5,6 +5,7 @@
         <el-input v-model="listQuery.hospitalizationCde" style="width: 200px;" placeholder="请输入津贴码查询" />
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
+        <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleRoute">代码类型</el-button>
       </div>
       <br>
       <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
@@ -93,6 +94,7 @@ export default {
       listQuery: {
         pageNum: 1,
         pageSize: 10,
+        hospitalizationCde: '',
         sort: '+id'
       },
       total: 0,
@@ -106,10 +108,9 @@ export default {
     }
   },
   created() {
-    /* if (this.$route.query.pubCoverId) { // 上级页面传入参数
-          this.listQuery.pubCoverId = this.$route.query.pubCoverId
-        }*/
-    // this.fetchData()
+    if (this.$route.query.paramCde) { // 上级页面传入参数
+      this.listQuery.hospitalizationCde = this.$route.query.paramCde
+    }
     this.fetchTypeData()
   },
   mounted() {
@@ -120,6 +121,17 @@ export default {
         message: message,
         type: type
       })
+    },
+    handleRoute() {
+      if (this.selected == null) {
+        this.$message({
+          showClose: true,
+          message: '只能选择一条查看',
+          type: 'warning'
+        })
+      } else {
+        this.$router.push({ path: '/param/codeConfig', query: { paramCde: this.selected.hospitalizationCde, linkId: this.selected.id }})
+      }
     },
     fetchData() {
       this.listLoading = true
@@ -144,10 +156,7 @@ export default {
       })
     },
     handleSave() {
-      this.form = { id: null }
-      /* if (this.$route.query.pubCoverId) { // 上级页面传入参数
-            this.form.pubCoverId = this.$route.query.pubCoverId
-          }*/
+      this.form = { id: null, hospitalizationCde: this.listQuery.hospitalizationCde }
       this.dialogVisible = true
     },
     handleEdit(id) {
