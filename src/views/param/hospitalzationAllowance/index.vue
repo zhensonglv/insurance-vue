@@ -143,7 +143,7 @@ export default {
     },
     fetchTypeData() {
       // 获取codeList
-      getCodeList({ parent: ['CHospitalizationTyp', 'CNDeductAmtTyp', 'QuotaVisitReason', 'CiTreatmentTyp'] }).then(res => {
+      getCodeList({ parent: ['CHospitalizationTyp', 'CNDeductAmtTyp', 'QuotaVisitReason', 'CiTreatmentTyp', 'CDeductionType'] }).then(res => {
         this.businessData = res.data
         // 组装table 的map
         for (const key in this.businessData) {

@@ -20,6 +20,17 @@
         </el-select>
       </el-form-item>
 
+      <el-form-item label="免赔类型" prop="deductTyp" label-width="120px">
+        <el-select v-model="form.deductTyp" placeholder="请选择" onchange="changeTyp">
+          <el-option
+            v-for="item in businessData.CDeductionType"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
+      </el-form-item>
+
       <el-form-item label="免赔天数" prop="deductionDays" label-width="120px">
         <el-input v-model="form.deductionDays" placeholder="请输入免赔天数" />
       </el-form-item>
@@ -137,6 +148,7 @@ export default {
         hospitalizationTyp: '',
         deductionDays: '',
         quotaDays: '',
+        deductTyp: '',
         hospitalizationAmount: '',
         medicalNetworkCde: '',
         hospitalDesc: '',
@@ -160,7 +172,8 @@ export default {
       rules: {
         hospitalizationCde: [{ required: true, trigger: 'blur', message: '请输入津贴码' }],
         hospitalizationDesc: [{ required: true, trigger: 'blur', message: '请输入津贴码说明' }],
-        hospitalizationTyp: [{ required: true, trigger: 'blur', message: '请输入津贴类型' }],
+        hospitalizationTyp: [{ required: true, trigger: 'blur', message: '请选择津贴类型' }],
+        deductTyp: [{ required: true, trigger: 'blur', message: '请选择免赔类型' }],
         deductionDays: [{ required: true, trigger: 'blur', message: '请输入免赔天数' }],
         quotaDays: [{ required: true, trigger: 'blur', message: '请输入限额天数' }],
         diaMatParameterCde: [{ required: true, trigger: 'blur', message: '请输入诊断码' }],
@@ -196,6 +209,7 @@ export default {
       this.form.hospitalizationTyp = null
       this.form.deductionDays = null
       this.form.quotaDays = null
+      this.form.deductTyp = null
       this.form.hospitalizationAmount = null
       this.form.medicalNetworkCde = null
       this.form.hospitalDesc = null
