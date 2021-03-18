@@ -2,9 +2,15 @@
   <el-dialog :title="dialogTitle" :before-close="handleClose" :visible.sync="dialogVisible" width="55%">
     <el-form ref="form" :inline="true" :rules="rules" :model="form" status-icon label-position="right" label-width="80px">
       <el-form-item label="数据类型" prop="noTyp" label-width="120px">
-        <el-input v-model="form.noTyp" placeholder="请输入数据类型" />
+        <el-select v-model="form.noTyp" placeholder="请选择" onchange="changeNoTyp">
+          <el-option
+            v-for="item in businessData.dutyMatchType"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
-
       <el-form-item label="甲方代码" prop="partyCde" label-width="120px">
         <el-input v-model="form.partyCde" placeholder="请输入甲方代码" />
       </el-form-item>
@@ -67,10 +73,11 @@ export default {
         partyCompanyName: ''
       },
       matchVisable: false,
+      matchTyp: null,
       rules: {
         noTyp: [{ required: true, trigger: 'blur', message: '请输入数据类型' }],
-        jkCde: [{ required: true, trigger: 'blur', message: '请输入金科代码' }],
-        jkName: [{ required: true, trigger: 'blur', message: '请输入金科名称' }]
+        jkCde: [{ required: true, trigger: 'blur', message: '请输入系统代码' }],
+        jkName: [{ required: true, trigger: 'blur', message: '请输入系统名称' }]
       }
     }
   },
@@ -105,16 +112,35 @@ export default {
       this.clearForm()
       this.dialogVisible = false
     },
+
+    changeNoTyp() {
+      debugger
+      if (this.form.noTyp === 'product') {
+        this.matchTyp = 1
+      } else if (this.form.noTyp === 'insurecde') {
+        this.matchTyp = 2
+      } else {
+        this.matchTyp = 3
+      }
+    },
     hanldeMatch() {
       this.matchVisable = true
     },
     matchConfirm(data) {
+      debugger
       if (data.prodNo) {
         this.form.jkCde = data.prodNo
         this.form.jkName = data.proFullName
+      } else if (data.proDuty) {
+        this.form.jkCde = data.proDuty
+        this.form.jkName = data.proDutyNme
+      } else if (data.insuTypeNo) {
+        this.form.jkCde = data.insuTypeNo
+        this.form.jkName = data.insuName
       }
     },
     onSubmit(form) {
+      debugger
       this.$refs[form].validate((valid) => {
         if (valid) {
           if (this.form.id === null) {

@@ -45,7 +45,7 @@
         </el-table-column>
         <el-table-column align="center" label="是否意外" width="150">
           <template slot-scope="scope">
-            {{ TrueOrFalse[scope.row.isAcciddent] }}
+            {{ CIsAcciddent[scope.row.isAcciddent] }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="是否生育" width="150">
@@ -68,7 +68,6 @@
           <template slot-scope="scope">
             <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)">编辑</el-button>
             <el-button type="danger" size="mini" icon="el-icon-delete" class="action-button" @click="handleDel(scope.row.id)">删除</el-button>
-            <!--<el-button type="primary" size="mini" icon="el-icon-view" class="action-button" @click="handleRoute(scope.row.id)">查看</el-button>-->
           </template>
         </el-table-column>
       </el-table>
@@ -113,7 +112,8 @@ export default {
       businessData: {},
       CProDutyDesc: {},
       CProDutyTyp: {},
-      TrueOrFalse: {}
+      TrueOrFalse: {},
+      CIsAcciddent: {}
     }
   },
   created() {
@@ -140,7 +140,7 @@ export default {
     },
 
     fetchTypeData() {
-      getCodeList({ parent: ['TrueOrFalse', 'CProDutyDesc', 'CProDutyTyp'] }).then(res => {
+      getCodeList({ parent: ['TrueOrFalse', 'CProDutyDesc', 'CProDutyTyp', 'CIsAcciddent'] }).then(res => {
         this.businessData = res.data
         // 组装table 的map
         for (const key in this.businessData) {
@@ -162,11 +162,6 @@ export default {
       findById(this.basePath, id).then(response => {
         this.form = response.data
       })
-    },
-
-    handleRoute(id) {
-      console.log(id, '--')
-      this.$router.push({ path: '/system/dict', query: { id: id }})
     },
 
     // 子组件的状态Flag，子组件通过`this.$emit('sonStatus', val)`给父组件传值

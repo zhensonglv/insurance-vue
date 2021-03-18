@@ -46,7 +46,7 @@
       <el-form-item label="是否意外" prop="isAcciddent" label-width="120px">
         <el-select v-model="form.isAcciddent" placeholder="请选择">
           <el-option
-            v-for="item in businessData.TrueOrFalse"
+            v-for="item in businessData.CIsAcciddent"
             :key="item.value"
             :label="item.label"
             :value="item.value"

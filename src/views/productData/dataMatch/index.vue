@@ -5,13 +5,22 @@
         <el-input v-model="listQuery.noTyp" style="width: 200px;" placeholder="请输入数据类型查询" />
         <el-input v-model="listQuery.partyCde" style="width: 200px;" placeholder="请输入甲方代码查询" />
         <el-input v-model="listQuery.partyName" style="width: 200px;" placeholder="请输入甲方名称查询" />
-        <el-input v-model="listQuery.jkCde" style="width: 200px;" placeholder="请输入金科代码查询" />
-        <el-input v-model="listQuery.jkName" style="width: 200px;" placeholder="请输入金科名称查询" />
+        <el-input v-model="listQuery.jkCde" style="width: 200px;" placeholder="请输入系统代码查询" />
+        <el-input v-model="listQuery.jkName" style="width: 200px;" placeholder="请输入系统名称查询" />
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
       </div>
       <br>
       <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
+        <el-table-column
+          type="center"
+          label="选择"
+          width="55"
+        >
+          <template slot-scope="scope">
+            <el-radio v-model="paramRadio" :label="scope.$index" @change.native="handleSelect(scope.row)">&nbsp;</el-radio>
+          </template>
+        </el-table-column>
         <el-table-column align="center" label="序号" width="95">
           <template slot-scope="scope">
             {{ scope.$index +1 }}
@@ -20,7 +29,7 @@
 
         <el-table-column align="center" label="数据类型" width="200">
           <template slot-scope="scope">
-            {{ scope.row.noTyp }}
+            {{ dutyMatchType[scope.row.noTyp] }}
           </template>
         </el-table-column>
 
@@ -96,8 +105,9 @@ export default {
       total: 0,
       dialogVisible: false,
       form: null,
+      paramRadio: false,
       businessData: {},
-      DiaMatchTyp: {}
+      dutyMatchType: {}
     }
   },
   created() {
@@ -126,7 +136,7 @@ export default {
     },
     fetchTypeData() {
       // 获取codeList
-      getCodeList({ parent: ['DiaMatchTyp'] }).then(res => {
+      getCodeList({ parent: ['dutyMatchType'] }).then(res => {
         this.businessData = res.data
         // 组装table 的map
         for (const key in this.businessData) {
@@ -137,6 +147,10 @@ export default {
         }
         this.fetchData()
       })
+    },
+    handleSelect(data) {
+      this.selected = data
+      this.$emit('setMultipleSeleValues', data)
     },
     handleSave() {
       this.form = { id: null }
