@@ -11,6 +11,7 @@
         <el-select
           v-model="form.type"
           placeholder="请选择类型"
+          disabled="disabled"
         >
           <el-option
             v-for="item in typeData.CProdApplyTyp"

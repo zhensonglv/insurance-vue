@@ -114,7 +114,6 @@ export default {
     },
 
     changeNoTyp() {
-      debugger
       if (this.form.noTyp === 'product') {
         this.matchTyp = 1
       } else if (this.form.noTyp === 'insurecde') {
@@ -127,7 +126,6 @@ export default {
       this.matchVisable = true
     },
     matchConfirm(data) {
-      debugger
       if (data.prodNo) {
         this.form.jkCde = data.prodNo
         this.form.jkName = data.proFullName
@@ -140,7 +138,6 @@ export default {
       }
     },
     onSubmit(form) {
-      debugger
       this.$refs[form].validate((valid) => {
         if (valid) {
           if (this.form.id === null) {

@@ -31,6 +31,7 @@ export default {
       listQuery: {
         pageNum: 1,
         pageSize: 10,
+        noTyp: '',
         sort: '+id'
       },
       total: 0,

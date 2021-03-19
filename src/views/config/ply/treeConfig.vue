@@ -27,7 +27,7 @@
                 <svg-icon :icon-class="data.icon || 'group'" />
                 {{ data.name }}
                 <span class="action">
-                  <el-button type="text" @click="add(data)">新增</el-button>
+                  <el-button v-if="data.level!==7" type="text" @click="add(data)">新增</el-button>
                   <el-button type="text" @click="update(data)">修改</el-button>
                   <el-button type="text" @click="remove(data, node)">删除</el-button>
                 </span>
@@ -102,7 +102,21 @@ export default {
       }, [])
     },
     add(data) {
-      this.form = { pid: data.id, id: null }
+      var levelType = null
+      if (data.level === 1) {
+        levelType = 'insurancedept'
+      } else if (data.level === 2) {
+        levelType = 'policy'
+      } else if (data.level === 3) {
+        levelType = 'inslv'
+      } else if (data.level === 4) {
+        levelType = 'product'
+      } else if (data.level === 5) {
+        levelType = 'insurecde'
+      } else if (data.level === 6) {
+        levelType = 'exdutycde'
+      }
+      this.form = { pid: data.id, level: data.level + 1, type: levelType, id: null }
       this.dialogVisible = true
     },
     update(data) {
