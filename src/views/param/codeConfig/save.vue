@@ -59,6 +59,17 @@
         <el-input v-model="form.endCodeDesc" placeholder="请输入终止代码描述" />
       </el-form-item>
 
+      <el-form-item v-if="form.codeTyp=='2'" label="承担类型" prop="underTyp" label-width="120px">
+        <el-select v-model="form.underTyp" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.underType"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
+      </el-form-item>
+
       <el-form-item label="说明" prop="codeDesc" label-width="120px">
         <el-input v-model="form.codeDesc" placeholder="请输入说明" />
       </el-form-item>
@@ -101,17 +112,15 @@ export default {
         starCde: '',
         starCodeDesc: '',
         endCde: '',
-        endCodeDesc: ''
+        endCodeDesc: '',
+        underTyp: ''
       },
       matchVisable: false,
       matchTyp: null,
       rules: {
-        /* effectiveTm: [{ required: true, trigger: 'blur', message: '请输入生效日' }],
-        expiryTm: [{ required: true, trigger: 'blur', message: '请输入终止日' }],*/
         paramCde: [{ required: true, trigger: 'blur', message: '请输入参数码' }],
         codeDesc: [{ required: true, trigger: 'blur', message: '请输入说明' }],
         codeTyp: [{ required: true, trigger: 'blur', message: '请输入代码类型' }]
-
       }
     }
   },
@@ -143,6 +152,7 @@ export default {
       this.form.starCodeDesc = null
       this.form.endCde = null
       this.form.endCodeDesc = null
+      this.form.underTyp = null
     },
     handleClose() {
       this.clearForm()
@@ -199,6 +209,7 @@ export default {
       this.form.starCodeDesc = null
       this.form.endCde = null
       this.form.endCodeDesc = null
+      this.form.underTyp = null
     }
   }
 }

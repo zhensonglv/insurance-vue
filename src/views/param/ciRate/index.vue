@@ -78,6 +78,12 @@
           </template>
         </el-table-column>
 
+        <el-table-column align="center" label="赔付比例说明" width="200">
+          <template slot-scope="scope">
+            {{ scope.row.ciRateExplain }}
+          </template>
+        </el-table-column>
+
         <el-table-column align="center" label="操作" fixed="right">
           <template slot-scope="scope">
             <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)">编辑</el-button>

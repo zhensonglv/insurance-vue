@@ -57,7 +57,16 @@
       </el-form-item>
       <el-form-item label="保单责任生效起期" prop="plyIssueTm">
         <el-date-picker
-          v-model="form.plyIssueTm"
+          v-model="form.plyDutyStartTm"
+          type="datetime"
+          value-format="yyyy-MM-dd"
+          placeholder="选择日期时间"
+        />
+      </el-form-item>
+
+      <el-form-item label="保单责任生效止期" prop="plyIssueTm">
+        <el-date-picker
+          v-model="form.plyDutyEndTm"
           type="datetime"
           value-format="yyyy-MM-dd"
           placeholder="选择日期时间"
@@ -102,7 +111,9 @@ export default {
         specialClause: '',
         product: '',
         insureCde: '',
-        sellOrganization: ''
+        sellOrganization: '',
+        plyDutyStartTm: '',
+        plyDutyEndTm: ''
       },
       rules: {
         deptNo: [{ required: true, trigger: 'blur', message: '请输入投保单位' }],
@@ -148,6 +159,8 @@ export default {
       this.form.product = null
       this.form.insureCde = null
       this.form.sellOrganization = null
+      this.form.plyDutyStartTm = null
+      this.form.plyDutyEndTm = null
     },
     handleClose() {
       this.clearForm()
