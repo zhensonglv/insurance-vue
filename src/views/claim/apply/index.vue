@@ -8,6 +8,8 @@
         <el-button style="margin-left: 10px;" type="primary" @click="initResponse">初始化定责</el-button>
         <el-button style="margin-left: 10px;" type="primary" @click="calcClmData">理算</el-button>
         <el-button style="margin-left: 10px;" type="primary" @click="viewImage">影像</el-button>
+        <el-button style="margin-left: 10px;" type="primary" @click="hangeRule">悬挂规则</el-button>
+
       </div>
       <el-table
         v-loading="listLoading"
@@ -34,10 +36,11 @@
             {{ scope.$index +1 }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="校验审核信息" width="150">
+        <el-table-column align="center" :show-overflow-tooltip="true" label="校验审核信息" width="150">
           <template slot-scope="scope">
-            {{ scope.row.auditInformation }}
-          <!--  <{{ scope.row.pubCoverTyp }}-->
+            <span :class="'font-class-red'">
+              {{ scope.row.auditInformation }}
+            </span>
           </template>
         </el-table-column>
         <el-table-column align="center" label="申请人姓名" width="120">
@@ -138,7 +141,7 @@
 </template>
 
 <script>
-import { init, calc, findById, del } from '@/api/claim/apply'
+import { hangeRule, init, calc, findById, del } from '@/api/claim/apply'
 import { getList } from '@/api/base'
 import { getCodeList } from '@/api/code'
 import Pagination from '@/components/Pagination'
@@ -266,6 +269,20 @@ export default {
       }
     },
 
+    hangeRule() {
+      var param = [{ clmAppId: '146', id: '241', ruleNoList: ['XGGZ000002', 'XGGZ000003', 'XGGZ000056'] },
+        { clmAppId: '146', id: '242', ruleNoList: ['XGGZ000004', 'XGGZ000005', 'XGGZ000006', 'XGGZ000063'] }]
+
+      hangeRule(param).then(res => {
+        if (res.code === 200) {
+          this._notify('悬挂规则', 'success')
+        } else {
+          this._notify(res.msg, 'error')
+        }
+        this.fetchData()
+      })
+    },
+
     viewImage() {
 
       /* let routeUrl = this.$router.resolve({
@@ -331,6 +348,9 @@ export default {
   th {
     background-color: #111
   }
+}
+.font-class-red {
+  color: red !important;
 }
 </style>
 

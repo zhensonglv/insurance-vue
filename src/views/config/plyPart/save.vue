@@ -28,6 +28,9 @@
           <el-radio label="1">是</el-radio>
         </el-radio-group>
       </el-form-item>
+      <el-form-item label="理赔悬挂原因" prop="claimSuspendReason">
+        <el-input v-model="form.claimSuspendReason" placeholder="请输入理赔悬挂原因" />
+      </el-form-item>
       <el-form-item label="分单生效日期" prop="plyPartNoBgnTm">
         <el-date-picker
           v-model="form.plyPartNoBgnTm"
@@ -113,7 +116,9 @@ export default {
         insureCde: '',
         sellOrganization: '',
         plyDutyStartTm: '',
-        plyDutyEndTm: ''
+        plyDutyEndTm: '',
+        claimSuspend: '',
+        claimSuspendReason: ''
       },
       rules: {
         deptNo: [{ required: true, trigger: 'blur', message: '请输入投保单位' }],
@@ -161,6 +166,8 @@ export default {
       this.form.sellOrganization = null
       this.form.plyDutyStartTm = null
       this.form.plyDutyEndTm = null
+      this.form.claimSuspend = null
+      this.form.claimSuspendReason = null
     },
     handleClose() {
       this.clearForm()

@@ -29,6 +29,15 @@
             {{ scope.$index +1 }}
           </template>
         </el-table-column>
+
+        <el-table-column align="center" :show-overflow-tooltip="true" label="校验审核信息" width="150">
+          <template slot-scope="scope">
+            <span :class="'font-class-red'">
+              {{ scope.row.auditInformation }}
+            </span>
+          </template>
+        </el-table-column>
+
         <el-table-column align="center" label="医院名称" width="150">
           <template slot-scope="scope">
             {{ scope.row.hospitalNme }}
@@ -259,6 +268,9 @@ export default {
   th {
     background-color: #333!important
   }
+}
+.font-class-red {
+  color: red !important;
 }
 </style>
 

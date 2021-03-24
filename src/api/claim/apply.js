@@ -54,3 +54,10 @@ export function calc(data) {
   })
 }
 
+export function hangeRule(data) {
+  return request({
+    url: '/drool/rule/param',
+    method: 'post',
+    data
+  })
+}

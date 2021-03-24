@@ -29,10 +29,11 @@
             {{ scope.$index +1 }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="校验审核信息" width="150">
+        <el-table-column align="center" :show-overflow-tooltip="true" label="校验审核信息" width="150">
           <template slot-scope="scope">
-            {{ scope.row.auditInformation }}
-            <!--  <{{ scope.row.pubCoverTyp }}-->
+            <span :class="'font-class-red'">
+              {{ scope.row.auditInformation }}
+            </span>
           </template>
         </el-table-column>
         <el-table-column align="center" label="客户申请号" width="150">
@@ -267,6 +268,9 @@ export default {
   th {
     background-color: #444!important
   }
+}
+.font-class-red {
+  color: red !important;
 }
 </style>
 

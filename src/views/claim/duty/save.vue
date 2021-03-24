@@ -92,6 +92,9 @@
       <el-form-item label="结论描述" prop="conclusionDesc" label-width="120px">
         <el-input v-model="form.conclusionDesc" placeholder="请输入结论描述" />
       </el-form-item>
+      <el-form-item label="校验审核信息" prop="auditInformation" label-width="120px">
+        <el-input v-model="form.auditInformation" placeholder="请输入校验审核信息" />
+      </el-form-item>
 
       <el-form-item label="申请层id" prop="clmAppId" label-width="120px">
         <el-input v-model="form.clmAppId" placeholder="请输入申请层id" />
@@ -143,7 +146,8 @@ export default {
         compensateAmt: '',
         finalCompensateAmt: '',
         compensateResult: '',
-        conclusionDesc: ''
+        conclusionDesc: '',
+        auditInformation: ''
       },
 
       rules: {
@@ -194,6 +198,7 @@ export default {
       this.form.finalCompensateAmt = null
       this.form.compensateResult = null
       this.form.conclusionDesc = null
+      this.form.auditInformation = null
     },
     handleClose() {
       this.clearForm()
