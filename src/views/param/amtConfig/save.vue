@@ -73,6 +73,10 @@
       </el-form-item>
       <match v-model="matchVisable" @matchConfirm="matchConfirm" />
 
+      <el-form-item v-if="form.amtTyp=='3'" label="关联责任" prop="correlation" label-width="120px">
+        <el-input v-model="form.correlation" placeholder="请输入关联责任" />
+      </el-form-item>
+
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="handleClose">
@@ -113,7 +117,8 @@ export default {
         quotaTyp: '',
         clineCtype: '',
         companyApply: '',
-        medicalnetworkdeta: ''
+        medicalnetworkdeta: '',
+        correlation: ''
       },
       matchVisable: false,
       rules: {
@@ -158,6 +163,7 @@ export default {
       this.form.clineCtype = null
       this.form.companyApply = null
       this.form.medicalnetworkdeta = null
+      this.form.correlation = null
     },
     hanldeMatch() {
       this.matchVisable = true
