@@ -270,7 +270,7 @@ export default {
     },
 
     hangeRule() {
-      var param = [{ clmAppId: '146', id: '241', ruleNoList: ['XGGZ000002', 'XGGZ000003', 'XGGZ000056'] },
+      var param = [{ clmAppId: '146', id: '241', ruleNoList: ['XGGZ000002', 'XGGZ000003', 'XGGZ000056', 'XGGZ000075'] },
         { clmAppId: '146', id: '242', ruleNoList: ['XGGZ000004', 'XGGZ000005', 'XGGZ000006', 'XGGZ000063'] }]
 
       hangeRule(param).then(res => {

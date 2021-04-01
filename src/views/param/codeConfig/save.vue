@@ -11,58 +11,9 @@
       </el-form-item>-->
 
       <el-form-item label="代码类型" prop="codeTyp" label-width="120px">
-        <el-select v-model="form.codeTyp" placeholder="请选择" onchange="changecodeTyp">
+        <el-select v-model="form.codeTyp" placeholder="请选择" @change="changecodeTyp">
           <el-option
             v-for="item in businessData.CodeType"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          />
-        </el-select>
-      </el-form-item>
-
-      <el-form-item v-if="form.codeTyp=='1'" label="起始代码" prop="starCde" label-width="120px">
-        <el-input v-model="form.starCde" placeholder="请选择起始代码">
-          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(1)" />
-        </el-input>
-      </el-form-item>
-      <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
-
-      <el-form-item v-if="form.codeTyp=='1'" label="起始代码描述" prop="starCodeDesc" label-width="120px">
-        <el-input v-model="form.starCodeDesc" placeholder="请输入起始代码描述" />
-      </el-form-item>
-
-      <el-form-item v-if="form.codeTyp=='2'" label="起始代码" prop="starCde" label-width="120px">
-        <el-input v-model="form.starCde" placeholder="请输入起始代码" />
-      </el-form-item>
-
-      <el-form-item v-if="form.codeTyp=='2'" label="起始代码描述" prop="starCodeDesc" label-width="120px">
-        <el-input v-model="form.starCodeDesc" placeholder="请输入起始代码描述" />
-      </el-form-item>
-
-      <el-form-item v-if="form.codeTyp=='1'" label="终止代码" prop="endCde" label-width="120px">
-        <el-input v-model="form.endCde" placeholder="请选择起始代码">
-          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(2)" />
-        </el-input>
-      </el-form-item>
-      <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
-
-      <el-form-item v-if="form.codeTyp=='1'" label="终止代码描述" prop="endCodeDesc" label-width="120px">
-        <el-input v-model="form.endCodeDesc" placeholder="请输入终止代码描述" />
-      </el-form-item>
-
-      <el-form-item v-if="form.codeTyp=='2'" label="终止代码" prop="endCde" label-width="120px">
-        <el-input v-model="form.endCde" placeholder="请输入终止代码" />
-      </el-form-item>
-
-      <el-form-item v-if="form.codeTyp=='2'" label="终止代码描述" prop="endCodeDesc" label-width="120px">
-        <el-input v-model="form.endCodeDesc" placeholder="请输入终止代码描述" />
-      </el-form-item>
-
-      <el-form-item v-if="form.codeTyp=='2'" label="承担类型" prop="underTyp" label-width="120px">
-        <el-select v-model="form.underTyp" placeholder="请选择">
-          <el-option
-            v-for="item in businessData.underType"
             :key="item.value"
             :label="item.label"
             :value="item.value"
@@ -74,6 +25,57 @@
         <el-input v-model="form.codeDesc" placeholder="请输入说明" />
       </el-form-item>
 
+      <el-row v-if="form.codeTyp=='1'">
+        <el-form-item label="起始代码" prop="starCde" label-width="120px">
+          <el-input v-model="form.starCde" placeholder="请选择起始代码">
+            <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(1)" />
+          </el-input>
+        </el-form-item>
+        <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
+
+        <el-form-item label="起始代码描述" prop="starCodeDesc" label-width="120px">
+          <el-input v-model="form.starCodeDesc" placeholder="请输入起始代码描述" />
+        </el-form-item>
+
+        <el-form-item label="终止代码" prop="endCde" label-width="120px">
+          <el-input v-model="form.endCde" placeholder="请选择起始代码">
+            <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(2)" />
+          </el-input>
+        </el-form-item>
+        <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
+
+        <el-form-item label="终止代码描述" prop="endCodeDesc" label-width="120px">
+          <el-input v-model="form.endCodeDesc" placeholder="请输入终止代码描述" />
+        </el-form-item>
+      </el-row>
+      <el-row v-else-if="form.codeTyp=='2'">
+        <el-form-item label="起始代码" prop="starCde" label-width="120px">
+          <el-input v-model="form.starCde" placeholder="请输入起始代码" @change="changeCode" />
+        </el-form-item>
+
+        <el-form-item label="起始代码描述" prop="starCodeDesc" label-width="120px">
+          <el-input v-model="form.starCodeDesc" placeholder="请输入起始代码描述" />
+        </el-form-item>
+
+        <el-form-item label="终止代码" prop="endCde" label-width="120px">
+          <el-input v-model="form.endCde" placeholder="请输入终止代码" @change="changeCode" />
+        </el-form-item>
+
+        <el-form-item label="终止代码描述" prop="endCodeDesc" label-width="120px">
+          <el-input v-model="form.endCodeDesc" placeholder="请输入终止代码描述" />
+        </el-form-item>
+
+        <el-form-item v-if="underFlag" label="承担类型" prop="underTyp" label-width="120px">
+          <el-select v-model="form.underTyp" placeholder="请选择">
+            <el-option
+              v-for="item in businessData.underType"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            />
+          </el-select>
+        </el-form-item>
+      </el-row>
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="handleClose">
@@ -117,6 +119,7 @@ export default {
       },
       matchVisable: false,
       matchTyp: null,
+      underFlag: false,
       rules: {
         paramCde: [{ required: true, trigger: 'blur', message: '请输入参数码' }],
         codeDesc: [{ required: true, trigger: 'blur', message: '请输入说明' }],
@@ -128,6 +131,7 @@ export default {
     'sonData': function(newVal, oldVal) {
       this.form = newVal
       this.dialogVisible = true
+      this.changeCode()
       if (newVal.id != null) {
         this.dialogTitle = 'Edit'
       } else {
@@ -172,6 +176,16 @@ export default {
         this.form.endCodeDesc = data.treatDesc
       }
     },
+    changeCode() {
+      if ((this.form.starCde && this.form.starCde.indexOf('B') !== -1) &&
+           (this.form.endCde && this.form.endCde.indexOf('B') !== -1)) {
+        this.underFlag = true
+      } else if (!(this.form.starCde && this.form.starCde.indexOf('B') !== -1) ||
+        !(this.form.endCde && this.form.endCde.indexOf('B') !== -1)) {
+        this.underFlag = false
+      }
+    },
+
     onSubmit(form) {
       this.$refs[form].validate((valid) => {
         if (valid) {
@@ -210,6 +224,7 @@ export default {
       this.form.endCde = null
       this.form.endCodeDesc = null
       this.form.underTyp = null
+      this.underTyp = false
     }
   }
 }
