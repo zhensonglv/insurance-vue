@@ -61,3 +61,11 @@ export function hangeRule(data) {
     data
   })
 }
+
+export function claimRule(data) {
+  return request({
+    url: '/base/claimRule/hangeRule',
+    method: 'post',
+    data
+  })
+}

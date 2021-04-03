@@ -78,7 +78,7 @@
       <el-form-item label="就诊类型" prop="visitTyp" label-width="120px">
         <el-select v-model="form.visitTyp" placeholder="请选择">
           <el-option
-            v-for="item in businessData.CDocTyp"
+            v-for="item in businessData.ClinicType"
             :key="item.value"
             :label="item.label"
             :value="item.value"

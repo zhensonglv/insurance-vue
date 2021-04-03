@@ -141,7 +141,7 @@
 </template>
 
 <script>
-import { hangeRule, init, calc, findById, del } from '@/api/claim/apply'
+import { claimRule, init, calc, findById, del } from '@/api/claim/apply'
 import { getList } from '@/api/base'
 import { getCodeList } from '@/api/code'
 import Pagination from '@/components/Pagination'
@@ -261,6 +261,7 @@ export default {
         calc(this.selected).then(res => {
           if (res.code === 200) {
             this._notify('理算完成', 'success')
+            this.hangeRule(this.selected)
           } else {
             this._notify(res.msg, 'error')
           }
@@ -269,17 +270,29 @@ export default {
       }
     },
 
-    hangeRule() {
-      var param = [{ clmAppId: '146', id: '241', ruleNoList: ['XGGZ000002', 'XGGZ000003', 'XGGZ000056', 'XGGZ000075'] },
-        { clmAppId: '146', id: '242', ruleNoList: ['XGGZ000004', 'XGGZ000005', 'XGGZ000006', 'XGGZ000063'] }]
-
-      hangeRule(param).then(res => {
+    hangeRule(applyList) {
+    /*  if (this.selected.length === 0) {
+        this.$message({
+          showClose: true,
+          message: '请选择数据',
+          type: 'warning'
+        })
+      } else {
+        claimRule(this.selected).then(res => {
+          if (res.code === 200) {
+            this._notify('悬挂规则完成', 'success')
+          } else {
+            this._notify(res.msg, 'error')
+          }
+          this.fetchData()
+        })
+      }*/
+      claimRule(applyList).then(res => {
         if (res.code === 200) {
-          this._notify('悬挂规则', 'success')
+          this._notify('悬挂规则完成', 'success')
         } else {
           this._notify(res.msg, 'error')
         }
-        this.fetchData()
       })
     },
 
