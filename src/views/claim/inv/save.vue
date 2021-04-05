@@ -186,10 +186,6 @@
         <el-input v-model="form.invNo" placeholder="请输入发票号" />
       </el-form-item>
 
-      <el-form-item label="客户发票号" prop="customInvNo" label-width="120px">
-        <el-input v-model="form.customInvNo" placeholder="请输入客户发票号" />
-      </el-form-item>
-
       <el-form-item label="发票类型" prop="invTyp" label-width="120px">
         <el-select v-model="form.invTyp" placeholder="请选择">
           <el-option
@@ -382,14 +378,6 @@
         <el-input v-model="form.selfAmt" placeholder="请输入自付金额" />
       </el-form-item>
 
-      <el-form-item label="自付金额1" prop="selfAmtOne" label-width="120px">
-        <el-input v-model="form.selfAmtOne" placeholder="请输入自付金额1" />
-      </el-form-item>
-
-      <el-form-item label="自付金额2" prop="selfAmtTwo" label-width="120px">
-        <el-input v-model="form.selfAmtTwo" placeholder="请输入自付金额2" />
-      </el-form-item>
-
       <el-form-item label="大额支付" prop="largePay" label-width="120px">
         <el-input v-model="form.largePay" placeholder="请输入大额支付" />
       </el-form-item>
@@ -404,21 +392,6 @@
 
       <el-form-item label="超大额封顶金额" prop="suplargeAmt" label-width="120px">
         <el-input v-model="form.suplargeAmt" placeholder="请输入超大额封顶金额" />
-      </el-form-item>
-
-      <el-form-item label="社保赔付" prop="socialCompen" label-width="120px">
-        <el-input v-model="form.socialCompen" placeholder="请输入社保赔付" />
-      </el-form-item>
-
-      <el-form-item label="发票明细" prop="invDtl" label-width="120px">
-        <el-select v-model="form.invDtl" placeholder="请选择">
-          <el-option
-            v-for="item in businessData.TrueOrFalse"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          />
-        </el-select>
       </el-form-item>
 
       <el-form-item label="忽略医保卡使用规则" prop="ingMedinsureance" label-width="120px">
@@ -443,10 +416,6 @@
         </el-select>
       </el-form-item>
 
-      <el-form-item label="公共保额给付金额" prop="commonPrestaAmt" label-width="120px">
-        <el-input v-model="form.commonPrestaAmt" placeholder="请输入公共保额给付金额" />
-      </el-form-item>
-
       <el-form-item label="调整金额" prop="adjustAmt" label-width="120px">
         <el-input v-model="form.adjustAmt" placeholder="请输入调整金额" />
       </el-form-item>
@@ -457,26 +426,6 @@
 
       <el-form-item label="解释码描述" prop="interpDesc" label-width="120px">
         <el-input v-model="form.interpDesc" placeholder="请输入解释码描述" />
-      </el-form-item>
-
-      <el-form-item label="产品号" prop="prodNo" label-width="120px">
-        <el-input v-model="form.prodNo" placeholder="请输入产品号" />
-      </el-form-item>
-
-      <el-form-item label="产品名称" prop="prodNme" label-width="120px">
-        <el-input v-model="form.prodNme" placeholder="请输入产品名称" />
-      </el-form-item>
-
-      <el-form-item label="责任号" prop="responseNo" label-width="120px">
-        <el-input v-model="form.responseNo" placeholder="请输入责任号" />
-      </el-form-item>
-
-      <el-form-item label="责任描述" prop="responseDesc" label-width="120px">
-        <el-input v-model="form.responseDesc" placeholder="请输入责任描述" />
-      </el-form-item>
-
-      <el-form-item label="产品类型" prop="prodtyp" label-width="120px">
-        <el-input v-model="form.prodtyp" placeholder="请输入产品类型" />
       </el-form-item>
 
       <el-form-item label="结案日" prop="endCasetm" label-width="120px">
@@ -557,7 +506,6 @@ export default {
         isHasMedical: '',
         isUseMedical: '',
         invNo: '',
-        customInvNo: '',
         invTyp: '',
         invArea: '',
         invBgnTm: '',
@@ -575,7 +523,6 @@ export default {
         imageIndexNo: '',
         orignImage: '',
         description: '',
-        // conclusionDesc: '',
         isOriginalInv: '',
         isVisInv: '',
         auditInformation: '',
@@ -591,25 +538,15 @@ export default {
         thirdCompenTwo: '',
         thirdCompenamtTwo: '',
         selfAmt: '',
-        selfAmtOne: '',
-        selfAmtTwo: '',
         largePay: '',
         supplePay: '',
         deductible: '',
         suplargeAmt: '',
-        socialCompen: '',
-        invDtl: '',
         ingMedinsureance: '',
         isMust: '',
-        commonPrestaAmt: '',
         adjustAmt: '',
         adjustInterpCde: '',
         interpDesc: '',
-        prodNo: '',
-        prodNme: '',
-        responseNo: '',
-        responseDesc: '',
-        prodtyp: '',
         endCasetm: '',
         conclusionDesc: '',
         compensateResult: ''
@@ -668,7 +605,6 @@ export default {
       this.form.isHasMedical = null
       this.form.isUseMedical = null
       this.form.invNo = null
-      this.form.customInvNo = null
       this.form.invTyp = null
       this.form.invArea = null
       this.form.invBgnTm = null
@@ -686,7 +622,6 @@ export default {
       this.form.imageIndexNo = null
       this.form.orignImage = null
       this.form.description = null
-      // this.form.conclusionDesc = null
       this.form.isOriginalInv = null
       this.form.isVisInv = null
       this.form.auditInformation = null
@@ -702,25 +637,15 @@ export default {
       this.form.thirdCompenTwo = null
       this.form.thirdCompenamtTwo = null
       this.form.selfAmt = null
-      this.form.selfAmtOne = null
-      this.form.selfAmtTwo = null
       this.form.largePay = null
       this.form.supplePay = null
       this.form.deductible = null
       this.form.suplargeAmt = null
-      this.form.socialCompen = null
-      this.form.invDtl = null
       this.form.ingMedinsureance = null
       this.form.isMust = null
-      this.form.commonPrestaAmt = null
       this.form.adjustAmt = null
       this.form.adjustInterpCde = null
       this.form.interpDesc = null
-      this.form.prodNo = null
-      this.form.prodNme = null
-      this.form.responseNo = null
-      this.form.responseDesc = null
-      this.form.prodtyp = null
       this.form.endCasetm = null
       this.form.conclusionDesc = null
       this.form.compensateResult = null

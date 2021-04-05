@@ -40,22 +40,6 @@
         <el-input v-model="form.diagCde" placeholder="请输入诊断码" />
       </el-form-item>
 
-      <el-form-item label="产品号" prop="prodNo" label-width="120px">
-        <el-input v-model="form.prodNo" placeholder="请输入产品号" />
-      </el-form-item>
-
-      <el-form-item label="产品名称" prop="prodNme" label-width="120px">
-        <el-input v-model="form.prodNme" placeholder="请输入产品名称" />
-      </el-form-item>
-
-      <el-form-item label="责任号" prop="responseNo" label-width="120px">
-        <el-input v-model="form.responseNo" placeholder="请输入责任号" />
-      </el-form-item>
-
-      <el-form-item label="责任描述" prop="responseDesc" label-width="120px">
-        <el-input v-model="form.responseDesc" placeholder="请输入责任描述" />
-      </el-form-item>
-
       <el-form-item label="诊疗描述" prop="treatDesc" label-width="120px">
         <el-input v-model="form.treatDesc" placeholder="请输入诊疗描述" />
       </el-form-item>
@@ -140,26 +124,6 @@
         <el-input v-model="form.deductAmt" placeholder="请输入扣除金额" />
       </el-form-item>
 
-      <el-form-item label="免赔金额" prop="deductleAmt" label-width="120px">
-        <el-input v-model="form.deductleAmt" placeholder="请输入免赔金额" />
-      </el-form-item>
-
-      <el-form-item label="超限金额" prop="exclimitAmt" label-width="120px">
-        <el-input v-model="form.exclimitAmt" placeholder="请输入超限金额" />
-      </el-form-item>
-
-      <el-form-item label="共保金额" prop="ciAmt" label-width="120px">
-        <el-input v-model="form.ciAmt" placeholder="请输入共保金额" />
-      </el-form-item>
-
-      <el-form-item label="超保额金额" prop="excAmt" label-width="120px">
-        <el-input v-model="form.excAmt" placeholder="请输入超保额金额" />
-      </el-form-item>
-
-      <el-form-item label="公共保额" prop="commonAmt" label-width="120px">
-        <el-input v-model="form.commonAmt" placeholder="请输入公共保额" />
-      </el-form-item>
-
       <el-form-item label="基金赔付金额" prop="fundCompenAmt" label-width="120px">
         <el-input v-model="form.fundCompenAmt" placeholder="请输入基金赔付金额" />
       </el-form-item>
@@ -204,10 +168,6 @@
 
       <el-form-item label="大型号" prop="maxtermNo" label-width="120px">
         <el-input v-model="form.maxtermNo" placeholder="请输入大型号" />
-      </el-form-item>
-
-      <el-form-item label="虚拟诊疗码" prop="virtualTreatCde" label-width="120px">
-        <el-input v-model="form.virtualTreatCde" placeholder="请输入虚拟诊疗码" />
       </el-form-item>
 
       <el-form-item label="赔付结论" prop="compensateResult" label-width="120px">
@@ -273,10 +233,6 @@ export default {
         treatBgnTm: '',
         treatEndTm: '',
         diagCde: '',
-        prodNo: '',
-        prodNme: '',
-        responseNo: '',
-        responseDesc: '',
         treatDesc: '',
         serviceTyp: '',
         sumAmt: '',
@@ -291,11 +247,6 @@ export default {
         otherSecuAmtTwo: '',
         reasonableAmt: '',
         deductAmt: '',
-        deductleAmt: '',
-        exclimitAmt: '',
-        ciAmt: '',
-        excAmt: '',
-        commonAmt: '',
         fundCompenAmt: '',
         finalPay: '',
         adjustInterpCde: '',
@@ -306,7 +257,6 @@ export default {
         num: '',
         treatCde: '',
         maxtermNo: '',
-        virtualTreatCde: '',
         compensateResult: '',
         company: '',
         conclusionDesc: '',
@@ -348,10 +298,6 @@ export default {
       this.form.treatBgnTm = null
       this.form.treatEndTm = null
       this.form.diagCde = null
-      this.form.prodNo = null
-      this.form.prodNme = null
-      this.form.responseNo = null
-      this.form.responseDesc = null
       this.form.treatDesc = null
       this.form.serviceTyp = null
       this.form.sumAmt = null
@@ -365,13 +311,7 @@ export default {
       this.form.otherSecuAmtTwo = null
       this.form.reasonableAmt = null
       this.form.deductAmt = null
-      this.form.deductleAmt = null
-      this.form.exclimitAmt = null
-      this.form.ciAmt = null
-      this.form.excAmt = null
-      this.form.commonAmt = null
       this.form.fundCompenAmt = null
-      this.form.compensateAmt = null
       this.form.finalPay = null
       this.form.adjustInterpCde = null
       this.form.interpDesc = null
@@ -381,7 +321,6 @@ export default {
       this.form.num = null
       this.form.treatCde = null
       this.form.maxtermNo = null
-      this.form.virtualTreatCde = null
       this.form.compensateResult = null
       this.form.company = null
       this.form.conclusionDesc = null

@@ -2,150 +2,149 @@
   <el-dialog :title="dialogTitle" :before-close="handleClose" :visible.sync="dialogVisible" width="55%">
     <el-form ref="form" :inline="true" :rules="rules" :model="form" status-icon label-position="right" label-width="80px">
 
-      <el-form-item label="意外" prop="isAccident" label-width="120px">
-        <el-select v-model="form.isAccident" placeholder="请选择">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          />-->
-        </el-select>
-      </el-form-item>
+      <div :class="true ? 'el-icon-arrow-up ': 'el-icon-arrow-down'">
+        <el-form-item label="意外" prop="isAccident" label-width="120px">
+          <el-select v-model="form.isAccident" placeholder="请选择">
+            <el-option
+              v-for="item in businessData.TrueOrFalse"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            />
+          </el-select>
+        </el-form-item>
+
+      </div>
 
       <el-form-item label="急诊" prop="isEmergTreat" label-width="120px">
         <el-select v-model="form.isEmergTreat" placeholder="请选择">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          />-->
+          />
         </el-select>
       </el-form-item>
 
       <el-form-item label="缺材料" prop="isLackMaterial" label-width="120px">
         <el-select v-model="form.isLackMaterial" placeholder="请选择">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          />-->
+          />
         </el-select>
       </el-form-item>
 
       <el-form-item label="既往病史" prop="isMedicalHistory" label-width="120px">
         <el-select v-model="form.isMedicalHistory" placeholder="请选择">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          />-->
+          />
         </el-select>
       </el-form-item>
 
       <el-form-item label="生育" prop="isBirth" label-width="120px">
         <el-select v-model="form.isBirth" placeholder="请选择">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          />-->
+          />
         </el-select>
       </el-form-item>
 
       <el-form-item label="工伤" prop="isInjuryJob" label-width="120px">
         <el-select v-model="form.isInjuryJob" placeholder="请选择">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          />-->
+          />
         </el-select>
       </el-form-item>
 
       <el-form-item label="重疾" prop="stricken" label-width="120px">
         <el-select v-model="form.stricken" placeholder="请选择">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          />-->
+          />
         </el-select>
       </el-form-item>
 
       <el-form-item label="是否特需" prop="isMust" label-width="120px">
         <el-select v-model="form.isMust" placeholder="请选择">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          />-->
+          />
         </el-select>
-      </el-form-item>
-
-      <el-form-item label="小项描述" prop="xresponseMme" label-width="120px">
-        <el-input v-model="form.xresponseMme" placeholder="请输入小项描述" />
       </el-form-item>
 
       <el-form-item label="指定医院" prop="isDesignHospital" label-width="120px">
         <el-select v-model="form.isDesignHospital" placeholder="请选择指定医院">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          />-->
+          />
         </el-select>
       </el-form-item>
 
       <el-form-item label="是否忽略等待期" prop="isignWait" label-width="120px">
         <el-select v-model="form.isignWait" placeholder="请选择">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          />-->
+          />
         </el-select>
       </el-form-item>
 
       <el-form-item label="是否医保投保" prop="isHasMedical" label-width="120px">
         <el-select v-model="form.isHasMedical" placeholder="请选择">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          />-->
+          />
         </el-select>
       </el-form-item>
 
       <el-form-item label="是否使用医保卡" prop="isUseMedical" label-width="120px">
         <el-select v-model="form.isUseMedical" placeholder="请选择">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          />-->
+          />
         </el-select>
       </el-form-item>
 
       <el-form-item label="齿科" prop="dentidtry" label-width="120px">
         <el-select v-model="form.dentidtry" placeholder="请选择">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          />-->
+          />
         </el-select>
       </el-form-item>
 
@@ -242,35 +241,8 @@
         />
       </el-form-item>
 
-      <el-form-item label="津贴类型" prop="hospTyp" label-width="120px">
-        <el-select v-model="form.hospTyp" placeholder="请选择">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          />-->
-        </el-select>
-      </el-form-item>
-
-      <el-form-item label="日津贴" prop="hospDayAmt" label-width="120px">
-        <el-input v-model="form.hospDayAmt" placeholder="请输入日津贴" />
-      </el-form-item>
-
-      <el-form-item label="住院天数" prop="inhospDays" label-width="120px">
-        <el-input v-model="form.inhospDays" placeholder="请输入住院天数" />
-      </el-form-item>
-
       <el-form-item label="务工天数" prop="workingDays" label-width="120px">
         <el-input v-model="form.workingDays" placeholder="请输入务工天数" />
-      </el-form-item>
-
-      <el-form-item label="免赔天数" prop="deductleDays" label-width="120px">
-        <el-input v-model="form.deductleDays" placeholder="请输入免赔天数" />
-      </el-form-item>
-
-      <el-form-item label="超限额天数" prop="exclimitQuotaDays" label-width="120px">
-        <el-input v-model="form.exclimitQuotaDays" placeholder="请输入超限额天数" />
       </el-form-item>
 
       <el-form-item label="就诊序号" prop="clmVisitId" label-width="120px">
@@ -319,14 +291,6 @@
         <el-input v-model="form.customClmNo" placeholder="请输入客户理赔号" />
       </el-form-item>
 
-      <el-form-item label="历史理赔号" prop="historyClmNo" label-width="120px">
-        <el-input v-model="form.historyClmNo" placeholder="请输入历史理赔号" />
-      </el-form-item>
-
-      <el-form-item label="历史赔付金额" prop="historyClmSum" label-width="120px">
-        <el-input v-model="form.historyClmSum" placeholder="请输入历史赔付金额" />
-      </el-form-item>
-
       <el-form-item label="发票张数" prop="invoiceNum" label-width="120px">
         <el-input v-model="form.invoiceNum" placeholder="请输入发票张数" />
       </el-form-item>
@@ -349,10 +313,6 @@
 
       <el-form-item label="不合理金额" prop="unreasonableAmt" label-width="120px">
         <el-input v-model="form.unreasonableAmt" placeholder="请输入不合理金额" />
-      </el-form-item>
-
-      <el-form-item label="公共保额给付金额" prop="commonPrestaAmt" label-width="120px">
-        <el-input v-model="form.commonPrestaAmt" placeholder="请输入公共保额给付金额" />
       </el-form-item>
 
       <el-form-item label="扣除金额" prop="deductAmt" label-width="120px">
@@ -471,7 +431,6 @@ export default {
         isInjuryJob: '',
         stricken: '',
         isMust: '',
-        xresponseMme: '',
         isDesignHospital: '',
         isignWait: '',
         isHasMedical: '',
@@ -495,20 +454,12 @@ export default {
         docTyp: '',
         docBgnTm: '',
         docEndTm: '',
-        hospTyp: '',
-        hospDayAmt: '',
-        inhospDays: '',
         workingDays: '',
-        deductleDays: '',
-        exclimitQuotaDays: '',
-        // clmVisitId: '',
         isOriginalVis: '',
         dangerOutTime: '',
         accidentTm: '',
         settleTm: '',
         customClmNo: '',
-        historyClmNo: '',
-        historyClmSum: '',
         invoiceNum: '',
         invoiceSum: '',
         overallAmt: '',
@@ -570,7 +521,6 @@ export default {
       this.form.isInjuryJob = null
       this.form.stricken = null
       this.form.isMust = null
-      this.form.xresponseMme = null
       this.form.isDesignHospital = null
       this.form.isignWait = null
       this.form.isHasMedical = null
@@ -594,13 +544,7 @@ export default {
       this.form.docTyp = null
       this.form.docBgnTm = null
       this.form.docEndTm = null
-      this.form.hospTyp = null
-      this.form.hospDayAmt = null
-      this.form.inhospDays = null
       this.form.workingDays = null
-      this.form.deductleDays = null
-      this.form.exclimitQuotaDays = null
-      // this.form.clmVisitId = null
       this.form.isOriginalVis = null
       this.form.dangerOutTime = null
       this.form.accidentTm = null

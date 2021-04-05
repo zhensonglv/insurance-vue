@@ -265,7 +265,6 @@ export default {
           } else {
             this._notify(res.msg, 'error')
           }
-          this.fetchData()
         })
       }
     },
@@ -290,6 +289,7 @@ export default {
       claimRule(applyList).then(res => {
         if (res.code === 200) {
           this._notify('悬挂规则完成', 'success')
+          this.fetchData()
         } else {
           this._notify(res.msg, 'error')
         }

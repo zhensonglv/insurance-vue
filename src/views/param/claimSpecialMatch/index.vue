@@ -112,10 +112,9 @@ export default {
     }
   },
   created() {
-    /* if (this.$route.query.pubCoverId) { // 上级页面传入参数
-          this.listQuery.pubCoverId = this.$route.query.pubCoverId
-        }*/
-    // this.fetchData()
+    if (this.$route.query.paramCde) { // 上级页面传入参数
+      this.listQuery.claimSpecialMatchNo = this.$route.query.paramCde
+    }
     this.fetchTypeData()
   },
   mounted() {
@@ -149,10 +148,7 @@ export default {
       })
     },
     handleSave() {
-      this.form = { id: null }
-      /* if (this.$route.query.pubCoverId) { // 上级页面传入参数
-            this.form.pubCoverId = this.$route.query.pubCoverId
-          }*/
+      this.form = { id: null, claimSpecialMatchNo: this.listQuery.claimSpecialMatchNo }
       this.dialogVisible = true
     },
     handleEdit(id) {

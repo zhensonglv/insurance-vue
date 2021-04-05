@@ -178,17 +178,6 @@ export default {
     expandChange(row, extend) {
       this.invId = row.id
     },
-    /* handleRoute() {
-      if (this.selected.length !== 1) {
-        this.$message({
-          showClose: true,
-          message: '只能选择一条查看',
-          type: 'warning'
-        })
-      } else {
-        this.$router.push({ path: '/client/plyPartPubCov', query: { pubCoverId: this.selected[0].id }})
-      }
-    },*/
 
     _notify(message, type) {
       this.$message({
