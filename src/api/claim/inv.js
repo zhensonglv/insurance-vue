@@ -38,3 +38,10 @@ export function edit(data) {
   })
 }
 
+export function initData(data) {
+  return request({
+    url: '/base/compensateResult/initInvInfo',
+    method: 'post',
+    data
+  })
+}

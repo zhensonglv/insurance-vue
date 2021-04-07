@@ -44,17 +44,6 @@
               </el-select>
             </el-form-item>
 
-            <el-form-item label="既往病史" prop="isMedicalHistory" label-width="100px">
-              <el-select v-model="form.isMedicalHistory" placeholder="请选择">
-                <el-option
-                  v-for="item in businessData.TrueOrFalse"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                />
-              </el-select>
-            </el-form-item>
-
             <el-form-item label="生育" prop="isBirth" label-width="100px">
               <el-select v-model="form.isBirth" placeholder="请选择">
                 <el-option
@@ -79,39 +68,6 @@
 
             <el-form-item label="重疾" prop="stricken" label-width="100px">
               <el-select v-model="form.stricken" placeholder="请选择">
-                <el-option
-                  v-for="item in businessData.TrueOrFalse"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                />
-              </el-select>
-            </el-form-item>
-
-            <el-form-item label="是否特需" prop="isMust" label-width="100px">
-              <el-select v-model="form.isMust" placeholder="请选择">
-                <el-option
-                  v-for="item in businessData.TrueOrFalse"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                />
-              </el-select>
-            </el-form-item>
-
-            <el-form-item label="指定医院" prop="isDesignHospital" label-width="100px">
-              <el-select v-model="form.isDesignHospital" placeholder="请选择指定医院">
-                <el-option
-                  v-for="item in businessData.TrueOrFalse"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                />
-              </el-select>
-            </el-form-item>
-
-            <el-form-item label="忽略等待期" prop="isignWait" label-width="100px">
-              <el-select v-model="form.isignWait" placeholder="请选择">
                 <el-option
                   v-for="item in businessData.TrueOrFalse"
                   :key="item.value"
@@ -152,6 +108,73 @@
                 />
               </el-select>
             </el-form-item>
+
+            <el-form-item label="是否特需" prop="isMust" label-width="100px">
+              <el-select v-model="form.isMust" placeholder="请选择">
+                <el-option
+                  v-for="item in businessData.TrueOrFalse"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                />
+              </el-select>
+            </el-form-item>
+
+            <el-form-item label="指定医院" prop="isDesignHospital" label-width="100px">
+              <el-select v-model="form.isDesignHospital" placeholder="请选择指定医院">
+                <el-option
+                  v-for="item in businessData.TrueOrFalse"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                />
+              </el-select>
+            </el-form-item>
+
+            <el-form-item label="既往病史" prop="isMedicalHistory" label-width="100px">
+              <el-select v-model="form.isMedicalHistory" placeholder="请选择">
+                <el-option
+                  v-for="item in businessData.TrueOrFalse"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                />
+              </el-select>
+            </el-form-item>
+
+            <el-form-item label="忽略等待期" prop="isignWait" label-width="100px">
+              <el-select v-model="form.isignWait" placeholder="请选择">
+                <el-option
+                  v-for="item in businessData.TrueOrFalse"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                />
+              </el-select>
+            </el-form-item>
+
+            <el-form-item label="忽略医保卡使用规则" prop="isignWait" label-width="100px">
+              <el-select v-model="form.isignUseCardRule" placeholder="请选择">
+                <el-option
+                  v-for="item in businessData.TrueOrFalse"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                />
+              </el-select>
+            </el-form-item>
+
+            <el-form-item label="忽略除外责任" prop="isignWait" label-width="100px">
+              <el-select v-model="form.isignExcelusion" placeholder="请选择">
+                <el-option
+                  v-for="item in businessData.TrueOrFalse"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                />
+              </el-select>
+            </el-form-item>
+
           </div>
         </el-collapse-transition>
       </div>
@@ -503,7 +526,9 @@ export default {
         description: '',
         compensateResult: '',
         conclusionDesc: '',
-        auditInformation: ''
+        auditInformation: '',
+        isignUseCardRule: '',
+        isignExcelusion: ''
       },
       show1: true,
       show2: true,
@@ -607,6 +632,8 @@ export default {
       this.form.compensateResult = null
       this.form.conclusionDesc = null
       this.form.auditInformation = null
+      this.form.isignUseCardRule = null
+      this.form.isignExcelusion = null
     },
     handleClose() {
       this.clearForm()

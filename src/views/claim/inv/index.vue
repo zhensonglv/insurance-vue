@@ -3,6 +3,7 @@
     <el-card>
 
       <div>
+        <div class="tit">账单信息</div>
         <el-button style="margin: 0 0 10px 10px;" type="primary" icon="el-icon-edit" circle @click="handleSave" />
       </div>
       <el-table
@@ -197,7 +198,7 @@ export default {
     },
     fetchTypeData() {
       // 获取codeList
-      getCodeList({ parent: ['TrueOrFalse', 'CiRateBillTyp', 'AdjustmentType', 'ClinicType', 'InInvoice', 'CInvoiceTyp'] }).then(res => {
+      getCodeList({ parent: ['TrueOrFalse', 'CiRateBillTyp', 'AdjustmentType', 'ClinicType', 'InInvoice', 'CInvoiceTyp', 'YesorNo'] }).then(res => {
         this.businessData = res.data
         // 组装table 的map
         for (const key in this.businessData) {
@@ -260,6 +261,14 @@ export default {
 }
 .font-class-red {
   color: red !important;
+}
+.header {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+  .tit {
+    line-height: 36px;
+  }
 }
 </style>
 

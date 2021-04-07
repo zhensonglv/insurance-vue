@@ -3,6 +3,7 @@
     <el-card>
 
       <div>
+        <div class="tit">责任信息</div>
         <el-button style="margin: 0 0 10px 10px;" type="primary" icon="el-icon-edit" circle @click="handleSave" />
       </div>
       <el-table
@@ -244,6 +245,14 @@ export default {
 }
 .font-class-red {
   color: red !important;
+}
+.header {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+  .tit {
+    line-height: 36px;
+  }
 }
 </style>
 <style lang="scss">//该样式在scope中是不起作用的
