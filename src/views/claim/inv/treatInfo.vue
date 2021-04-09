@@ -26,9 +26,17 @@
             {{ scope.$index +1 }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="费用名称" width="150">
+
+        <el-table-column align="center" label="诊疗码" width="150">
           <template slot-scope="scope">
-            <el-input v-model="scope.row.payName" />
+            <el-input v-model="scope.row.treatCde" />
+            <!--{{ scope.row.payName }}-->
+          </template>
+        </el-table-column>
+
+        <el-table-column align="center" label="诊疗描述" width="150">
+          <template slot-scope="scope">
+            <el-input v-model="scope.row.treatDesc" />
             <!--{{ scope.row.payName }}-->
           </template>
         </el-table-column>
@@ -68,7 +76,14 @@
 
         <el-table-column align="center" label="赔付结论" width="150">
           <template slot-scope="scope">
-            {{ AdjustmentType[scope.row.compensateResult] }}
+            <el-select v-model="scope.row.compensateResult" placeholder="请选择">
+              <el-option
+                v-for="item in businessData.AdjustmentType"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              />
+            </el-select>
           </template>
         </el-table-column>
 
