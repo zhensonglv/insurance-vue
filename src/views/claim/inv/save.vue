@@ -187,7 +187,7 @@
 
       <div>
         <ul class="tab-tilte">
-          <li>赔付信息</li>
+          <li>案件属性</li>
           <div class="right-part">
             <i @click="handlerThe2">折叠</i>
           </div>

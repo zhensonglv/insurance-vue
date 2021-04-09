@@ -99,8 +99,12 @@
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="操作" width="120">
+        <el-table-column align="center" label="操作" width="180">
           <template slot-scope="scope">
+
+            <el-tooltip class="item" effect="dark" content="编辑" placement="top-start">
+              <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleInvdtl(scope.row.id)" />
+            </el-tooltip>
             <el-tooltip class="item" effect="dark" content="编辑" placement="top-start">
               <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)" />
             </el-tooltip>
@@ -112,6 +116,7 @@
       </el-table>
 
       <save :son-data="form" :business-data="businessData" @sonStatus="status" />
+      <invdtl :son-inv-data="invdtlForm" :business-data="businessData" @sonStatus="status" />
 
       <pagination
         v-show="total>0"
@@ -130,9 +135,10 @@ import { getCodeList } from '@/api/code'
 import Pagination from '@/components/Pagination'
 import Save from './save'
 import treat from '../treat'
+import Invdtl from '@/views/claim/inv/invdtl'
 
 export default {
-  components: { Pagination, Save, treat },
+  components: { Pagination, Save, treat, Invdtl },
   props: {
     aggregate: {
       type: Boolean,
@@ -155,7 +161,9 @@ export default {
       },
       total: 0,
       dialogVisible: false,
+      dialogInvVisible: false,
       form: null,
+      invdtlForm: null,
       businessData: {},
       CTeamTyp: {},
       CPubCoverTyp: {},
@@ -208,6 +216,12 @@ export default {
           })
         }
         this.fetchData()
+      })
+    },
+    handleInvdtl(id) {
+      this.dialogInvVisible = true
+      findById(id).then(response => {
+        this.invdtlForm = response.data
       })
     },
     handleSave() {

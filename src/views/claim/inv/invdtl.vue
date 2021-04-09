@@ -1,0 +1,660 @@
+<template>
+  <el-dialog :title="dialogTitle" :before-close="handleClose" :visible.sync="dialogInvVisible" width="55%">
+    <el-form ref="invdtlForm" :inline="true" :rules="rules" :model="invdtlForm" status-icon label-position="right" label-width="80px">
+
+      <div>
+        <ul class="tab-tilte">
+          <li>发票信息</li>
+          <div class="right-part">
+            <i v-if="show1" @click="handlerThe1">折叠</i>
+            <i v-else-if="!show1" @click="handlerThe1">展开</i>
+          </div>
+        </ul>
+        <el-collapse-transition>
+          <div v-if="show1">
+            <el-form-item label="批次号" prop="batchNo" label-width="120px">
+              <el-input v-model="invdtlForm.batchNo" placeholder="请输入批次号" />
+            </el-form-item>
+
+            <el-form-item label="客户申请号" prop="customAppNo" label-width="120px">
+              <el-input v-model="invdtlForm.customAppNo" placeholder="请输入客户申请号" />
+            </el-form-item>
+
+            <el-form-item label="分单号" prop="plyPartNo" label-width="120px">
+              <el-input v-model="invdtlForm.plyPartNo" placeholder="请输入分单号" />
+            </el-form-item>
+
+            <el-form-item label="出险人号" prop="riskNo" label-width="120px">
+              <el-input v-model="invdtlForm.riskNo" placeholder="请输入出险人号" />
+            </el-form-item>
+
+            <el-form-item label="医院号" prop="hospitalNo" label-width="120px">
+              <el-input v-model="invdtlForm.hospitalNo" placeholder="请输入医院号" />
+            </el-form-item>
+
+            <el-form-item label="医院名称" prop="hospitalNme" label-width="120px">
+              <el-input v-model="invdtlForm.hospitalNme" placeholder="请输入医院名称" />
+            </el-form-item>
+
+            <el-form-item label="医院科室" prop="hospitalDepart" label-width="120px">
+              <el-input v-model="invdtlForm.hospitalDepart" placeholder="请输入医院科室" />
+            </el-form-item>
+
+            <el-form-item label="诊断码" prop="diagCde" label-width="120px">
+              <el-input v-model="invdtlForm.diagCde" placeholder="请输入诊断码" />
+            </el-form-item>
+
+            <el-form-item label="诊断描述" prop="diagDesc" label-width="120px">
+              <el-input v-model="invdtlForm.diagDesc" placeholder="请输入诊断描述" />
+            </el-form-item>
+
+            <el-form-item label="次诊断码1" prop="secdiagCdeOne" label-width="120px">
+              <el-input v-model="invdtlForm.secdiagCdeOne" placeholder="请输入次诊断码1" />
+            </el-form-item>
+
+            <el-form-item label="次诊断码2" prop="secdiagCdeTwo" label-width="120px">
+              <el-input v-model="invdtlForm.secdiagCdeTwo" placeholder="请输入次诊断码2" />
+            </el-form-item>
+
+            <el-form-item label="次诊断描述1" prop="secdiagDescOne" label-width="120px">
+              <el-input v-model="invdtlForm.secdiagDescOne" placeholder="请输入次诊断描述1" />
+            </el-form-item>
+
+            <el-form-item label="次诊断描述2" prop="secdiagDescTwo" label-width="120px">
+              <el-input v-model="invdtlForm.secdiagDescTwo" placeholder="请输入次诊断描述2" />
+            </el-form-item>
+
+            <el-form-item label="就诊类型" prop="docTyp" label-width="100px">
+              <el-select v-model="invdtlForm.docTyp" placeholder="请选择就诊类型">
+                <el-option
+                  v-for="item in businessData.ClinicType"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                />
+              </el-select>
+            </el-form-item>
+
+            <el-form-item label="发票号" prop="invNo" label-width="100px">
+              <el-input v-model="invdtlForm.invNo" placeholder="请输入发票号" />
+            </el-form-item>
+
+            <el-form-item label="就诊起始日" prop="docBgnTm" label-width="100px">
+              <el-date-picker
+                v-model="invdtlForm.visitBgnTm"
+                type="datetime"
+                value-format="yyyy-MM-dd"
+                placeholder="选择日期时间"
+              />
+            </el-form-item>
+
+            <el-form-item label="就诊终止日" prop="docEndTm" label-width="100px">
+              <el-date-picker
+                v-model="invdtlForm.visitEndTm"
+                type="datetime"
+                value-format="yyyy-MM-dd"
+                placeholder="选择日期时间"
+              />
+            </el-form-item>
+
+            <el-form-item label="发票类型" prop="invTyp" label-width="100px">
+              <el-select v-model="invdtlForm.invTyp" placeholder="请选择">
+                <el-option
+                  v-for="item in businessData.CInvoiceTyp"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                />
+              </el-select>
+            </el-form-item>
+
+            <el-form-item label="发票地区" prop="invArea" label-width="100px">
+              <el-select v-model="invdtlForm.invArea" placeholder="请选择">
+                <el-option
+                  v-for="item in businessData.InInvoice"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                />
+              </el-select>
+            </el-form-item>
+
+            <el-form-item label="发票起始日" prop="invBgnTm" label-width="100px">
+              <el-date-picker
+                v-model="invdtlForm.invBgnTm"
+                type="datetime"
+                value-format="yyyy-MM-dd"
+                placeholder="选择日期时间"
+              />
+            </el-form-item>
+
+            <el-form-item label="发票终止日" prop="invEndTm" label-width="100px">
+              <el-date-picker
+                v-model="invdtlForm.invEndTm"
+                type="datetime"
+                value-format="yyyy-MM-dd"
+                placeholder="选择日期时间"
+              />
+            </el-form-item>
+            <el-form-item label="是否原始发票" prop="isOriginalInv" label-width="100px">
+              <el-select v-model="invdtlForm.isOriginalInv" placeholder="请选择">
+                <el-option
+                  v-for="item in businessData.YesorNo"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                />
+              </el-select>
+            </el-form-item>
+
+            <el-form-item label="就诊对应发票" prop="isVisInv" label-width="100px">
+              <el-select v-model="invdtlForm.isVisInv" placeholder="请选择">
+                <el-option
+                  v-for="item in businessData.TrueOrFalse"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                />
+              </el-select>
+            </el-form-item>
+
+            <el-form-item label="事故日期" prop="accidentTm" label-width="100px">
+              <el-date-picker
+                v-model="invdtlForm.accidentTm"
+                type="datetime"
+                value-format="yyyy-MM-dd"
+                placeholder="选择日期时间"
+              />
+            </el-form-item>
+
+            <el-form-item label="现金" prop="cash" label-width="100px">
+              <el-input v-model="invdtlForm.cash" placeholder="请输入现金" />
+            </el-form-item>
+
+            <el-form-item label="账单类型" prop="billtyp" label-width="100px">
+              <el-select v-model="invdtlForm.billTyp" placeholder="请选择">
+                <el-option
+                  v-for="item in businessData.CiRateBillTyp"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                />
+              </el-select>
+            </el-form-item>
+
+          </div>
+        </el-collapse-transition>
+      </div>
+
+      <div>
+        <ul class="tab-tilte">
+          <li>赔付信息</li>
+          <div class="right-part">
+            <i v-if="show3" @click="handlerThe3">折叠</i>
+            <i v-else-if="!show3" @click="handlerThe3">展开</i>
+          </div>
+        </ul>
+        <el-collapse-transition>
+          <div v-if="show3">
+            <el-form-item label="发票总金额" prop="sumAmt" label-width="120px">
+              <el-input v-model="invdtlForm.sumAmt" placeholder="请输入发票总金额" />
+            </el-form-item>
+
+            <el-form-item label="统筹金额" prop="overallAmt" label-width="120px">
+              <el-input v-model="invdtlForm.overallAmt" placeholder="请输入统筹金额" />
+            </el-form-item>
+
+            <el-form-item label="分类自付" prop="categSelfPay" label-width="120px">
+              <el-input v-model="invdtlForm.categSelfPay" placeholder="请输入分类自付" />
+            </el-form-item>
+
+            <el-form-item label="自付" prop="selfPay" label-width="120px">
+              <el-input v-model="invdtlForm.selfPay" placeholder="请输入自付" />
+            </el-form-item>
+
+            <el-form-item label="自费" prop="selfExpense" label-width="120px">
+              <el-input v-model="invdtlForm.selfExpense" placeholder="请输入自费" />
+            </el-form-item>
+
+            <el-form-item label="可理算金额" prop="reasonableAmt" label-width="120px">
+              <el-input v-model="invdtlForm.reasonableAmt" placeholder="请输入可理算金额" />
+            </el-form-item>
+
+            <el-form-item label="扣除金额" prop="deductAmt" label-width="120px">
+              <el-input v-model="invdtlForm.deductAmt" placeholder="请输入扣除金额" />
+            </el-form-item>
+
+            <el-form-item label="赔付金额" prop="compensateAmt" label-width="120px">
+              <el-input v-model="invdtlForm.compensateAmt" placeholder="请输入赔付金额" />
+            </el-form-item>
+
+            <el-form-item label="当年账户余额" prop="currAcctAmt" label-width="120px">
+              <el-input v-model="invdtlForm.currAcctAmt" placeholder="请输入当年账户余额" />
+            </el-form-item>
+
+            <el-form-item label="历年账户余额" prop="hisAcctAmt" label-width="120px">
+              <el-input v-model="invdtlForm.hisAcctAmt" placeholder="请输入历年账户余额" />
+            </el-form-item>
+
+            <el-form-item label="影像序号" prop="imageIndexNo" label-width="120px">
+              <el-input v-model="invdtlForm.imageIndexNo" placeholder="请输入影像序号" />
+            </el-form-item>
+
+            <el-form-item label="原件影像" prop="orignImage" label-width="120px">
+              <el-input v-model="invdtlForm.orignImage" placeholder="请输入原件影像" />
+            </el-form-item>
+
+            <el-form-item label="备注" prop="description" label-width="120px">
+              <el-input v-model="invdtlForm.description" placeholder="请输入备注" />
+            </el-form-item>
+
+            <el-form-item label="校验审核信息" prop="auditInformation" label-width="120px">
+              <el-input v-model="invdtlForm.auditInformation" placeholder="请输入校验审核信息" />
+            </el-form-item>
+
+            <el-form-item label="其它社保类型1" prop="otherSecuTypOne" label-width="120px">
+              <el-input v-model="invdtlForm.otherSecuTypOne" placeholder="请输入其它社保类型1" />
+            </el-form-item>
+
+            <el-form-item label="其它社保金额1" prop="otherSecuAmtOne" label-width="120px">
+              <el-input v-model="invdtlForm.otherSecuAmtOne" placeholder="请输入其它社保金额1" />
+            </el-form-item>
+
+            <el-form-item label="其它社保类型2" prop="otherSecuTypTwo" label-width="120px">
+              <el-input v-model="invdtlForm.otherSecuTypTwo" placeholder="请输入其它社保类型2" />
+            </el-form-item>
+
+            <el-form-item label="其它社保金额2" prop="otherSecuAmtTwo" label-width="120px">
+              <el-input v-model="invdtlForm.otherSecuAmtTwo" placeholder="请输入其它社保金额2" />
+            </el-form-item>
+
+            <el-form-item label="第三方赔付1" prop="thirdCompenOne" label-width="120px">
+              <el-select v-model="invdtlForm.thirdCompenOne" placeholder="请选择">
+                <!--<el-option
+                  v-for="item in businessData.CPubCoverTyp"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                />-->
+              </el-select>
+            </el-form-item>
+
+            <el-form-item label="第三方赔付金额1" prop="thirdCompenamtOne" label-width="120px">
+              <el-input v-model="invdtlForm.thirdCompenamtOne" placeholder="请输入第三方赔付金额1" />
+            </el-form-item>
+
+            <el-form-item label="第三方赔付2" prop="thirdCompenTwo" label-width="120px">
+              <el-select v-model="invdtlForm.thirdCompenTwo" placeholder="请选择">
+                <!--<el-option
+                  v-for="item in businessData.CPubCoverTyp"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                />-->
+              </el-select>
+            </el-form-item>
+
+            <el-form-item label="第三方赔付金额2" prop="thirdCompenamtTwo" label-width="120px">
+              <el-input v-model="invdtlForm.thirdCompenamtTwo" placeholder="请输入第三方赔付金额2" />
+            </el-form-item>
+
+            <el-form-item label="自付金额" prop="selfAmt" label-width="120px">
+              <el-input v-model="invdtlForm.selfAmt" placeholder="请输入自付金额" />
+            </el-form-item>
+
+            <el-form-item label="大额支付" prop="largePay" label-width="120px">
+              <el-input v-model="invdtlForm.largePay" placeholder="请输入大额支付" />
+            </el-form-item>
+
+            <el-form-item label="补充支付" prop="supplePay" label-width="120px">
+              <el-input v-model="invdtlForm.supplePay" placeholder="请输入补充支付" />
+            </el-form-item>
+
+            <el-form-item label="起付线" prop="deductible" label-width="120px">
+              <el-input v-model="invdtlForm.deductible" placeholder="请输入起付线" />
+            </el-form-item>
+
+            <el-form-item label="超大额封顶金额" prop="suplargeAmt" label-width="120px">
+              <el-input v-model="invdtlForm.suplargeAmt" placeholder="请输入超大额封顶金额" />
+            </el-form-item>
+
+            <el-form-item label="调整金额" prop="adjustAmt" label-width="120px">
+              <el-input v-model="invdtlForm.adjustAmt" placeholder="请输入调整金额" />
+            </el-form-item>
+
+            <el-form-item label="解释码" prop="adjustInterpCde" label-width="120px">
+              <el-input v-model="invdtlForm.adjustInterpCde" placeholder="请输入解释码" />
+            </el-form-item>
+
+            <el-form-item label="解释码描述" prop="interpDesc" label-width="120px">
+              <el-input v-model="invdtlForm.interpDesc" placeholder="请输入解释码描述" />
+            </el-form-item>
+
+            <el-form-item label="结案日" prop="endCasetm" label-width="100px">
+              <el-date-picker
+                v-model="invdtlForm.endCasetm"
+                type="datetime"
+                value-format="yyyy-MM-dd"
+                placeholder="选择日期时间"
+              />
+            </el-form-item>
+
+            <el-form-item label="赔付结论" prop="compensateResult" label-width="100px">
+              <el-select v-model="invdtlForm.compensateResult" placeholder="请选择">
+                <el-option
+                  v-for="item in businessData.AdjustmentType"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                />
+              </el-select>
+            </el-form-item>
+
+            <el-row>
+              <el-form-item label="结论描述" prop="conclusionDesc" label-width="100px">
+                <el-input v-model="invdtlForm.conclusionDesc" type="textarea" style="width: 800px;" :autosize="{ minRows: 2, maxRows: 20}" placeholder="请输入结论描述" clearable />
+              </el-form-item>
+            </el-row>
+          </div>
+        </el-collapse-transition>
+      </div>
+    </el-form>
+    <div slot="footer" class="dialog-footer">
+      <el-button @click="handleClose">
+        Cancel
+      </el-button>
+      <el-button type="primary" @click="onSubmit('invdtlForm')">
+        Confirm
+      </el-button>
+    </div>
+    <treat :inv-id="invdtlForm.id" />
+  </el-dialog>
+</template>
+<script>
+import { edit } from '@/api/claim/inv'
+import Treat from '../treat'
+
+export default {
+  components: { Treat },
+  // 父组件向子组件传值，通过props获取。
+  // 一旦父组件改变了`sonData`对应的值，子组件的`sonData`会立即改变，通过watch函数可以实时监听到值的变化
+  // `props`不属于data，但是`props`中的参数可以像data中的参数一样直接使用
+  props: ['sonInvData', 'businessData'],
+  data() {
+    return {
+      dialogInvVisible: false,
+      dialogTitle: '账单明细信息',
+      invdtlForm: {
+        id: '',
+        visitId: '',
+        batchNo: '',
+        customAppNo: '',
+        plyPartNo: '',
+        riskNo: '',
+        hospitalNo: '',
+        hospitalNme: '',
+        hospitalDepart: '',
+        diagCde: '',
+        diagDesc: '',
+        secdiagCdeOne: '',
+        secdiagCdeTwo: '',
+        secdiagDescOne: '',
+        secdiagDescTwo: '',
+        docTyp: '',
+        docBgnTm: '',
+        docEndTm: '',
+        isAccident: '',
+        isEmergTreat: '',
+        isLackMaterial: '',
+        isMedicalHistory: '',
+        isBirth: '',
+        isInjuryJob: '',
+        isStricken: '',
+        isHasMedical: '',
+        isUseMedical: '',
+        invNo: '',
+        invTyp: '',
+        invArea: '',
+        invBgnTm: '',
+        invEndTm: '',
+        sumAmt: '',
+        overallAmt: '',
+        categSelfPay: '',
+        selfPay: '',
+        selfExpense: '',
+        reasonableAmt: '',
+        deductAmt: '',
+        compensateAmt: '',
+        currAcctAmt: '',
+        hisAcctAmt: '',
+        imageIndexNo: '',
+        orignImage: '',
+        description: '',
+        isOriginalInv: '',
+        isVisInv: '',
+        auditIninvdtlFormation: '',
+        accidentTm: '',
+        cash: '',
+        billTyp: '',
+        otherSecuTypOne: '',
+        otherSecuAmtOne: '',
+        otherSecuTypTwo: '',
+        otherSecuAmtTwo: '',
+        thirdCompenOne: '',
+        thirdCompenamtOne: '',
+        thirdCompenTwo: '',
+        thirdCompenamtTwo: '',
+        selfAmt: '',
+        largePay: '',
+        supplePay: '',
+        deductible: '',
+        suplargeAmt: '',
+        isMust: '',
+        adjustAmt: '',
+        adjustInterpCde: '',
+        interpDesc: '',
+        endCasetm: '',
+        conclusionDesc: '',
+        compensateResult: '',
+        isDentidtry: '',
+        isignUseCardRule: '',
+        isignExcelusion: '',
+        isignWait: '',
+        isRehabiliation: ''
+      },
+      show1: true,
+      show2: true,
+      show3: true,
+      rules: {
+        batchNo: [{ required: true, trigger: 'blur', message: '请输入批次号' }]
+      }
+    }
+  },
+  watch: {
+    'sonInvData': function(newVal, oldVal) {
+      this.invdtlForm = newVal
+      this.dialogInvVisible = true
+      if (newVal.id != null) {
+        this.dialogTitle = '账单明细信息'
+      }
+    }
+  },
+  methods: {
+    _notify(message, type) {
+      this.$message({
+        message: message,
+        type: type
+      })
+    },
+    handlerThe1() {
+      this.show1 = !this.show1
+    },
+    handlerThe2() {
+      this.show2 = !this.show2
+    },
+    handlerThe3() {
+      this.show3 = !this.show3
+    },
+    clearForm() {
+      this.invdtlForm.id = null
+      this.invdtlForm.visitId = null
+      this.invdtlForm.batchNo = null
+      this.invdtlForm.customAppNo = null
+      this.invdtlForm.plyPartNo = null
+      this.invdtlForm.riskNo = null
+      this.invdtlForm.hospitalNo = null
+      this.invdtlForm.hospitalNme = null
+      this.invdtlForm.hospitalDepart = null
+      this.invdtlForm.diagCde = null
+      this.invdtlForm.diagDesc = null
+      this.invdtlForm.secdiagCdeOne = null
+      this.invdtlForm.secdiagCdeTwo = null
+      this.invdtlForm.secdiagDescOne = null
+      this.invdtlForm.secdiagDescTwo = null
+      this.invdtlForm.docTyp = null
+      this.invdtlForm.docBgnTm = null
+      this.invdtlForm.docEndTm = null
+      this.invdtlForm.isAccident = null
+      this.invdtlForm.isEmergTreat = null
+      this.invdtlForm.isLackMaterial = null
+      this.invdtlForm.isMedicalHistory = null
+      this.invdtlForm.isBirth = null
+      this.invdtlForm.isInjuryJob = null
+      this.invdtlForm.isStricken = null
+      this.invdtlForm.isHasMedical = null
+      this.invdtlForm.isUseMedical = null
+      this.invdtlForm.invNo = null
+      this.invdtlForm.invTyp = null
+      this.invdtlForm.invArea = null
+      this.invdtlForm.invBgnTm = null
+      this.invdtlForm.invEndTm = null
+      this.invdtlForm.sumAmt = null
+      this.invdtlForm.overallAmt = null
+      this.invdtlForm.categSelfPay = null
+      this.invdtlForm.selfPay = null
+      this.invdtlForm.selfExpense = null
+      this.invdtlForm.reasonableAmt = null
+      this.invdtlForm.deductAmt = null
+      this.invdtlForm.compensateAmt = null
+      this.invdtlForm.currAcctAmt = null
+      this.invdtlForm.hisAcctAmt = null
+      this.invdtlForm.imageIndexNo = null
+      this.invdtlForm.orignImage = null
+      this.invdtlForm.description = null
+      this.invdtlForm.isOriginalInv = null
+      this.invdtlForm.isVisInv = null
+      this.invdtlForm.auditIninvdtlFormation = null
+      this.invdtlForm.accidentTm = null
+      this.invdtlForm.cash = null
+      this.invdtlForm.billTyp = null
+      this.invdtlForm.otherSecuTypOne = null
+      this.invdtlForm.otherSecuAmtOne = null
+      this.invdtlForm.otherSecuTypTwo = null
+      this.invdtlForm.otherSecuAmtTwo = null
+      this.invdtlForm.thirdCompenOne = null
+      this.invdtlForm.thirdCompenamtOne = null
+      this.invdtlForm.thirdCompenTwo = null
+      this.invdtlForm.thirdCompenamtTwo = null
+      this.invdtlForm.selfAmt = null
+      this.invdtlForm.largePay = null
+      this.invdtlForm.supplePay = null
+      this.invdtlForm.deductible = null
+      this.invdtlForm.suplargeAmt = null
+      this.invdtlForm.isMust = null
+      this.invdtlForm.adjustAmt = null
+      this.invdtlForm.adjustInterpCde = null
+      this.invdtlForm.interpDesc = null
+      this.invdtlForm.endCasetm = null
+      this.invdtlForm.conclusionDesc = null
+      this.invdtlForm.compensateResult = null
+      this.invdtlForm.isDentidtry = null
+      this.invdtlForm.isignExcelusion = null
+      this.invdtlForm.isignUseCardRule = null
+      this.invdtlForm.isignWait = null
+      this.invdtlForm.isRehabiliation = null
+    },
+    handleClose() {
+      this.clearForm()
+      this.clearFlag()
+    },
+    clearFlag() {
+      this.dialogInvVisible = false
+      this.show1 = true
+      this.show2 = true
+      this.show3 = true
+    },
+    onSubmit(invdtlForm) {
+      this.$refs[invdtlForm].validate((valid) => {
+        if (valid) {
+          if (this.invdtlForm.id !== null) {
+            edit(this.invdtlForm).then(response => {
+              if (response.code === 200) {
+                this._notify(response.msg, 'success')
+                this.clearForm()
+                this.$emit('sonStatus', true)
+                this.clearFlag()
+              } else {
+                this._notify(response.msg, 'error')
+              }
+            })
+          }
+        } else {
+          this.$message('error submit!!')
+          return false
+        }
+      })
+    }
+  }
+}
+</script>
+
+<style lang="css">
+  .line {
+    text-align: center;
+  }
+
+  .avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .avatar-uploader .el-upload:hover {
+    border-color: #409EFF;
+  }
+
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px;
+    text-align: center;
+  }
+
+  .avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
+  }
+
+  .tab-tilte {
+    background-color: #99a9bf;
+    color: #1f2d3d;
+    font-weight:bold;
+    display: flex;
+    height: 56px;
+    align-items: center;
+    padding-left: 24px;
+  }
+
+  .right-part {
+    flex: 1;
+    text-align: right;
+    padding-right: 20px;
+  }
+
+</style>
+
