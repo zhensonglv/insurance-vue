@@ -2,7 +2,7 @@
   <div class="app-container">
     <el-card>
 
-      <div>
+      <div class="header">
         <div class="tit">明细信息</div>
         <el-button style="margin: 0 0 10px 10px;" type="primary" icon="el-icon-edit" circle @click="handleSave" />
       </div>

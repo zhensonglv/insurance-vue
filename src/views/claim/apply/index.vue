@@ -43,12 +43,12 @@
             </span>
           </template>
         </el-table-column>
-        <el-table-column align="center" label="申请人姓名" width="120">
+        <el-table-column align="center" :show-overflow-tooltip="true" label="申请人姓名" width="120">
           <template slot-scope="scope">
             {{ scope.row.appNme }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="保单号" width="120">
+        <el-table-column align="center" :show-overflow-tooltip="true" label="保单号" width="120">
           <template slot-scope="scope">
             {{ scope.row.plyNo }}
           </template>
@@ -58,52 +58,52 @@
             {{ scope.row.insuresId }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="申请人证件号" width="150">
+        <el-table-column align="center" :show-overflow-tooltip="true" label="申请人证件号" width="150">
           <template slot-scope="scope">
             {{ scope.row.appCertCde }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="客户申请号" width="120">
+        <el-table-column align="center" :show-overflow-tooltip="true" label="客户申请号" width="120">
           <template slot-scope="scope">
             {{ scope.row.customAppNo }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="分单号" width="150">
+        <el-table-column align="center" :show-overflow-tooltip="true" label="分单号" width="150">
           <template slot-scope="scope">
             {{ scope.row.plyPartNo }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="总金额" width="150">
+        <el-table-column align="center" label="总金额" width="100">
           <template slot-scope="scope">
             {{ scope.row.invoiceSum }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="赔付金额" width="150">
+        <el-table-column align="center" label="赔付金额" width="100">
           <template slot-scope="scope">
             {{ scope.row.compensateAmt }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="最终赔付金额" width="150">
+        <el-table-column align="center" label="最终赔付金额" width="100">
           <template slot-scope="scope">
             {{ scope.row.finalCompensateAmt }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="案件状态" width="150">
+        <el-table-column align="center" label="案件状态" width="100">
           <template slot-scope="scope">
             {{ CCaseStatuses[scope.row.caseStatus] }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="调查件状态" width="150">
+        <el-table-column align="center" label="调查件状态" width="100">
           <template slot-scope="scope">
             {{ scope.row.questionStatus }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="问题件状态" width="150">
+        <el-table-column align="center" label="问题件状态" width="100">
           <template slot-scope="scope">
             {{ scope.row.questionZhStatus }}
           </template>

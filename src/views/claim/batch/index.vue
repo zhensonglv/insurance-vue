@@ -38,6 +38,7 @@
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="resetData">重置</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleDtl">数据明细</el-button>
+        <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleDtl">解锁</el-button>
       </div>
 
       <br>
@@ -51,22 +52,22 @@
             {{ scope.$index +1 }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="批次号" width="150">
+        <el-table-column align="center" :show-overflow-tooltip="true" label="批次号" width="180">
           <template slot-scope="scope">
             {{ scope.row.batchNo }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="客户批次号" width="150">
+        <el-table-column align="center" :show-overflow-tooltip="true" label="客户批次号" width="180">
           <template slot-scope="scope">
             {{ scope.row.customBatchNo }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="保单号" width="150">
+        <el-table-column align="center" :show-overflow-tooltip="true" label="保单号" width="180">
           <template slot-scope="scope">
             {{ scope.row.plyNo }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="团体名称" width="150">
+        <el-table-column align="center" :show-overflow-tooltip="true" label="团体名称" width="150">
           <template slot-scope="scope">
             {{ scope.row.groupNme }}
           </template>
@@ -103,12 +104,6 @@
         </el-table-column>
         <el-table-column align="center" label="操作" fixed="right" width="120">
           <template slot-scope="scope">
-            <el-tooltip class="item" effect="dark" content="数据明细" placement="top-start">
-              <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)" />
-            </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="解锁" placement="top-start">
-              <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)" />
-            </el-tooltip>
             <el-tooltip class="item" effect="dark" content="编辑" placement="top-start">
               <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)" />
             </el-tooltip>
@@ -267,4 +262,8 @@ export default {
 .el-table >>> .el-table__body-wrapper td {
   padding: 0;
 }
+</style>
+
+<style lang="scss">//该样式在scope中是不起作用的
+.el-tooltip__popper{font-size: 14px; max-width:50% }
 </style>
