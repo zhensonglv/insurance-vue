@@ -653,6 +653,7 @@ export default {
       show1: true,
       show2: true,
       show3: true,
+      checkOrignal: false,
       rules: {
         batchNo: [{ required: true, trigger: 'blur', message: '请输入批次号' }]
       },
@@ -774,6 +775,7 @@ export default {
       this.show1 = true
       this.show2 = true
       this.show3 = true
+      this.checkOrignal = false
     },
     exeOldForm(newVal) {
       this.oldForm.isAccident = newVal.isAccident// 是否意外
@@ -792,19 +794,23 @@ export default {
       this.oldForm.isignUseCardRule = newVal.isignUseCardRule// 忽略医保卡使用规则
       this.oldForm.isignExcelusion = newVal.isignExcelusion// 忽略除外责任
       this.oldForm.isRehabiliation = newVal.isRehabiliation// 是否康复
+
+      this.oldForm.overallAmt = newVal.overallAmt// 社保支付
+      this.oldForm.thirdCompenOne = newVal.thirdCompenOne// 原始第三方支付金额
     },
     checkOldForm() {
-      debugger
       var flag = false
-
       if (this.form.isAccident !== this.oldForm.isAccident) {
         flag = true
+        this.checkOrignal = true
       }
       if (this.form.isDentidtry !== this.oldForm.isDentidtry) {
         flag = true
+        this.checkOrignal = true
       }
       if (this.form.isBirth !== this.oldForm.isBirth) {
         flag = true
+        this.checkOrignal = true
       }
       if (this.form.isDesignHospital !== this.oldForm.isDesignHospital) {
         flag = true
@@ -821,7 +827,14 @@ export default {
       if (this.form.isignUseCardRule !== this.oldForm.isignUseCardRule) {
         flag = true
       }
-
+      if (this.form.overallAmt !== this.oldForm.overallAmt) {
+        flag = true
+        this.checkOrignal = true
+      }
+      if (this.form.thirdCompenOne !== this.oldForm.thirdCompenOne) {
+        flag = true
+        this.checkOrignal = true
+      }
       return flag
     },
     onSubmit(form) {
@@ -840,6 +853,10 @@ export default {
             })
           } else {
             if (this.checkOldForm()) {
+              if (this.checkOrignal && this.form.isOriginalInv !== 'Y') {
+                this._notify('非原始发票', 'error')
+                return
+              }
               this.$confirm('是否初始化理赔数据？, 是否继续?', '提示', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',

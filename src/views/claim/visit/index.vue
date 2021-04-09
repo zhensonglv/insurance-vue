@@ -42,12 +42,11 @@
         <el-table-column align="center" label="医院名称" width="150">
           <template slot-scope="scope">
             {{ scope.row.hospitalNme }}
-          <!--  <{{ scope.row.pubCoverTyp }}-->
           </template>
         </el-table-column>
         <el-table-column align="center" label="就诊类型" width="150">
           <template slot-scope="scope">
-            {{ scope.row.docTyp }}
+            {{ ClinicType[scope.row.docTyp] }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="就诊起始日" width="150">
@@ -159,7 +158,8 @@ export default {
       CTeamTyp: {},
       CPubCoverTyp: {},
       AdjustmentType: {},
-      selected: []
+      selected: [],
+      ClinicType: {}
     }
   },
   created() {
