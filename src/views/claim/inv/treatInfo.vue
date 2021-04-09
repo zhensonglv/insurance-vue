@@ -3,8 +3,10 @@
     <el-card>
 
       <div class="header">
-        <div class="tit">账单信息</div>
-        <el-button style="margin: 0 0 10px 10px;" type="primary" icon="el-icon-edit" circle @click="handleSave" />
+        <div class="tit">明细信息</div>
+        <el-button style="margin-left: 10px;" type="primary" @click="batchSave">批量保存</el-button>
+        <el-button style="margin-left: 10px;" type="primary" @click="batchDel">批量删除</el-button>
+
       </div>
       <el-table
         v-loading="listLoading"
@@ -13,14 +15,8 @@
         border
         fit
         highlight-current-row
-        @expand-change="expandChange"
         @selection-change="handleSelect"
       >
-        <el-table-column v-if="aggregate" type="expand">
-          <template>
-            <treat aggregate :inv-id="invId" />
-          </template>
-        </el-table-column>
         <el-table-column
           type="selection"
           width="55"
@@ -30,81 +26,54 @@
             {{ scope.$index +1 }}
           </template>
         </el-table-column>
-        <el-table-column align="center" :show-overflow-tooltip="true" label="校验审核信息" width="150">
+        <el-table-column align="center" label="费用名称" width="150">
           <template slot-scope="scope">
-            <span :class="'font-class-red'">
-              {{ scope.row.auditInformation }}
-            </span>
-          </template>
-        </el-table-column>
-        <el-table-column align="center" label="客户申请号" width="150">
-          <template slot-scope="scope">
-            {{ scope.row.customAppNo }}
-          <!--  <{{ scope.row.pubCoverTyp }}-->
-          </template>
-        </el-table-column>
-        <el-table-column align="center" label="就诊类型" width="150">
-          <template slot-scope="scope">
-            {{ ClinicType[scope.row.docTyp] }}
-          </template>
-        </el-table-column>
-        <el-table-column align="center" label="账单类型" width="150">
-          <template slot-scope="scope">
-            {{ CiRateBillTyp[scope.row.billtyp] }}
-          </template>
-        </el-table-column>
-        <el-table-column align="center" label="发票地区" width="150">
-          <template slot-scope="scope">
-            {{ InInvoice[scope.row.invArea] }}
-          </template>
-        </el-table-column>
-        <el-table-column align="center" label="发票号" width="150">
-          <template slot-scope="scope">
-            {{ scope.row.invNo }}
+            <el-input v-model="scope.row.payName" />
+            <!--{{ scope.row.payName }}-->
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="发票总金额" width="150">
+        <el-table-column align="center" label="社保类型" width="150">
           <template slot-scope="scope">
-            {{ scope.row.sumAmt }}
+            <el-select v-model="scope.row.secuTyp" placeholder="请选择">
+              <el-option
+                v-for="item in businessData.CSocialinsuTyp"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              />
+            </el-select>
+          <!--  {{ CSocialinsuTyp[scope.row.secuTyp] }}-->
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="扣除金额" width="150">
+        <el-table-column align="center" label="总金额" width="150">
           <template slot-scope="scope">
-            {{ scope.row.deductAmt }}
+            <el-input v-model="scope.row.sumAmt" />
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="可理算金额" width="150">
+        <el-table-column align="center" label="分类自付比例" width="150">
           <template slot-scope="scope">
-            {{ scope.row.reasonableAmt }}
+            <el-input v-model="scope.row.categSelfpayRate" />
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="赔付金额" width="150">
+        <el-table-column align="center" label="自负金额" width="150">
           <template slot-scope="scope">
-            {{ scope.row.compensateAmt }}
+            <el-input v-model="scope.row.categSelfpayRate" />
+            <!-- {{ scope.row.finalPay }}-->
           </template>
         </el-table-column>
-        <el-table-column align="center" :show-overflow-tooltip="true" prop="content" label="赔付结论" width="150">
+
+        <el-table-column align="center" label="赔付结论" width="150">
           <template slot-scope="scope">
             {{ AdjustmentType[scope.row.compensateResult] }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" :show-overflow-tooltip="true" label="结论描述" width="150">
+        <el-table-column align="center" label="操作" width="120">
           <template slot-scope="scope">
-            {{ scope.row.conclusionDesc }}
-          </template>
-        </el-table-column>
-
-        <el-table-column align="center" label="操作" width="180">
-          <template slot-scope="scope">
-
-            <el-tooltip class="item" effect="dark" content="编辑" placement="top-start">
-              <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleInvdtl(scope.row.id)" />
-            </el-tooltip>
             <el-tooltip class="item" effect="dark" content="编辑" placement="top-start">
               <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)" />
             </el-tooltip>
@@ -116,7 +85,6 @@
       </el-table>
 
       <save :son-data="form" :business-data="businessData" @sonStatus="status" />
-      <invdtl :son-inv-data="invdtlForm" :business-data="businessData" @sonStatus="status" />
 
       <pagination
         v-show="total>0"
@@ -130,21 +98,15 @@
 </template>
 
 <script>
-import { getList, findById, del } from '@/api/claim/inv'
+import { getList, findById, del } from '@/api/claim/treat'
 import { getCodeList } from '@/api/code'
 import Pagination from '@/components/Pagination'
 import Save from './save'
-import treat from '../treat'
-import Invdtl from '@/views/claim/inv/invdtl'
 
 export default {
-  components: { Pagination, Save, treat, Invdtl },
+  components: { Pagination, Save },
   props: {
-    aggregate: {
-      type: Boolean,
-      default: false
-    },
-    visitId: {
+    invId: {
       type: Number,
       defalut: 0
     }
@@ -152,7 +114,7 @@ export default {
   data() {
     return {
       list: null,
-      invId: null,
+      treatId: null,
       listLoading: true,
       listQuery: {
         pageNum: 1,
@@ -161,33 +123,24 @@ export default {
       },
       total: 0,
       dialogVisible: false,
-      dialogInvVisible: false,
       form: null,
-      invdtlForm: null,
       businessData: {},
-      CTeamTyp: {},
-      CPubCoverTyp: {},
+      CSocialinsuTyp: {},
       AdjustmentType: {},
       selected: []
     }
   },
   created() {
-    if (this.$route.path.indexOf('claim/apply') >= 0) {
-      if (this.visitId) {
-        this.fetchTypeData()
-      }
-    } else {
+    if (this.invId) {
       this.fetchTypeData()
     }
   },
   mounted() {
   },
   methods: {
+
     handleSelect(data) {
       this.selected = data
-    },
-    expandChange(row, extend) {
-      this.invId = row.id
     },
 
     _notify(message, type) {
@@ -198,17 +151,21 @@ export default {
     },
     fetchData(id) {
       this.listLoading = true
-      getList(this.listQuery, this.visitId).then(response => {
+      getList(this.listQuery, this.invId).then(response => {
         this.list = response.data.data
         this.total = response.data.total
         this.listLoading = false
       })
     },
-    resetData() {
+    batchSave() {
+
+    },
+    batchDel() {
+
     },
     fetchTypeData() {
       // 获取codeList
-      getCodeList({ parent: ['TrueOrFalse', 'CiRateBillTyp', 'AdjustmentType', 'ClinicType', 'InInvoice', 'CInvoiceTyp', 'YesorNo'] }).then(res => {
+      getCodeList({ parent: ['TrueOrFalse', 'CSocialinsuTyp', 'OtherCSocialinsuTyp', 'AdjustmentType'] }).then(res => {
         this.businessData = res.data
         // 组装table 的map
         for (const key in this.businessData) {
@@ -220,14 +177,8 @@ export default {
         this.fetchData()
       })
     },
-    handleInvdtl(id) {
-      this.dialogInvVisible = true
-      findById(id).then(response => {
-        this.invdtlForm = response.data
-      })
-    },
     handleSave() {
-      this.form = { id: null, visitId: this.visitId }
+      this.form = { id: null, invId: this.invId }
       this.dialogVisible = true
     },
     handleEdit(id) {
@@ -272,7 +223,7 @@ export default {
 }
 .el-table >>> .el-table__header-wrapper {
   th {
-    background-color: #444!important
+    background-color: #555!important
   }
 }
 .font-class-red {

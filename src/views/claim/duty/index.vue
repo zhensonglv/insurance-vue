@@ -161,7 +161,9 @@ export default {
     }
   },
   methods: {
-    handleSelect() {},
+    handleSelect(data) {
+      this.selected = data
+    },
     expandChange(row, extend) {
       this.dutyId = row.id
     },

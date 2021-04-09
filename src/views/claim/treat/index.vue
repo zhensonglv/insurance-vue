@@ -39,6 +39,7 @@
         </el-table-column>
         <el-table-column align="center" label="发票号" width="150">
           <template slot-scope="scope">
+            <!-- <el-input v-model="scope.row.invNo"></el-input>-->
             {{ scope.row.invNo }}
             <!--  <{{ scope.row.pubCoverTyp }}-->
           </template>

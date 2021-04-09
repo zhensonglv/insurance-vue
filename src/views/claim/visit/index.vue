@@ -174,7 +174,9 @@ export default {
   mounted() {
   },
   methods: {
-    handleSelect() {},
+    handleSelect(data) {
+      this.selected = data
+    },
     expandChange(row, extend) {
       this.visitId = row.id
     },
