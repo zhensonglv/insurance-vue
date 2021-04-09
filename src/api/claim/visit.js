@@ -38,3 +38,11 @@ export function edit(data) {
   })
 }
 
+export function initVistData(data) {
+  return request({
+    url: '/base/compensateResult/initVisitInfo',
+    method: 'post',
+    data
+  })
+}
+

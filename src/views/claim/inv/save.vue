@@ -205,8 +205,8 @@
               </el-select>
             </el-form-item>
 
-            <el-form-item label="急诊" prop="isEmergTreat" label-width="100px">
-              <el-select v-model="form.isEmergTreat" placeholder="请选择" clearable>
+            <el-form-item label="生育" prop="isBirth" label-width="100px">
+              <el-select v-model="form.isBirth" placeholder="请选择" clearable>
                 <el-option
                   v-for="item in businessData.TrueOrFalse"
                   :key="item.value"
@@ -216,18 +216,8 @@
               </el-select>
             </el-form-item>
 
-            <el-form-item label="缺材料" prop="isLackMaterial" label-width="100px">
-              <el-select v-model="form.isLackMaterial" placeholder="请选择" clearable>
-                <el-option
-                  v-for="item in businessData.TrueOrFalse"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                />
-              </el-select>
-            </el-form-item>
-            <el-form-item label="生育" prop="isBirth" label-width="100px">
-              <el-select v-model="form.isBirth" placeholder="请选择" clearable>
+            <el-form-item label="齿科" prop="isDentidtry" label-width="100px">
+              <el-select v-model="form.isDentidtry" placeholder="请选择" clearable>
                 <el-option
                   v-for="item in businessData.TrueOrFalse"
                   :key="item.value"
@@ -248,8 +238,8 @@
               </el-select>
             </el-form-item>
 
-            <el-form-item label="重疾" prop="stricken" label-width="100px">
-              <el-select v-model="form.stricken" placeholder="请选择" clearable>
+            <el-form-item label="重疾" prop="isStricken" label-width="100px">
+              <el-select v-model="form.isStricken" placeholder="请选择" clearable>
                 <el-option
                   v-for="item in businessData.TrueOrFalse"
                   :key="item.value"
@@ -281,8 +271,19 @@
               </el-select>
             </el-form-item>
 
-            <el-form-item label="齿科" prop="dentidtry" label-width="100px">
-              <el-select v-model="form.dentidtry" placeholder="请选择" clearable>
+            <el-form-item label="是否特需" prop="isMust" label-width="100px">
+              <el-select v-model="form.isMust" placeholder="请选择" clearable>
+                <el-option
+                  v-for="item in businessData.YesorNo"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                />
+              </el-select>
+            </el-form-item>
+
+            <el-form-item label="急诊" prop="isEmergTreat" label-width="100px">
+              <el-select v-model="form.isEmergTreat" placeholder="请选择" clearable>
                 <el-option
                   v-for="item in businessData.TrueOrFalse"
                   :key="item.value"
@@ -292,10 +293,21 @@
               </el-select>
             </el-form-item>
 
-            <el-form-item label="是否特需" prop="isMust" label-width="100px">
-              <el-select v-model="form.isMust" placeholder="请选择" clearable>
+            <el-form-item label="康复" prop="isRehabiliation" label-width="100px">
+              <el-select v-model="form.isRehabiliation" placeholder="请选择" clearable>
                 <el-option
                   v-for="item in businessData.YesorNo"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                />
+              </el-select>
+            </el-form-item>
+
+            <el-form-item label="缺材料" prop="isLackMaterial" label-width="100px">
+              <el-select v-model="form.isLackMaterial" placeholder="请选择" clearable>
+                <el-option
+                  v-for="item in businessData.TrueOrFalse"
                   :key="item.value"
                   :label="item.label"
                   :value="item.value"
@@ -335,6 +347,16 @@
                 />
               </el-select>
             </el-form-item>
+            <el-form-item label="忽略除外责任" prop="isignWait" label-width="100px">
+              <el-select v-model="form.isignExcelusion" placeholder="请选择" clearable>
+                <el-option
+                  v-for="item in businessData.TrueOrFalse"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                />
+              </el-select>
+            </el-form-item>
 
             <el-form-item label="忽略医保卡使用规则" prop="isignWait" label-width="100px">
               <el-select v-model="form.isignUseCardRule" placeholder="请选择" clearable>
@@ -347,16 +369,6 @@
               </el-select>
             </el-form-item>
 
-            <el-form-item label="忽略除外责任" prop="isignWait" label-width="100px">
-              <el-select v-model="form.isignExcelusion" placeholder="请选择" clearable>
-                <el-option
-                  v-for="item in businessData.TrueOrFalse"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                />
-              </el-select>
-            </el-form-item>
           </div>
         </el-collapse-transition>
       </div>
@@ -524,9 +536,9 @@
               </el-select>
             </el-form-item>
 
-            <el-form-item label="就诊层id" prop="visitId" label-width="100px">
+            <!--        <el-form-item label="就诊层id" prop="visitId" label-width="100px">
               <el-input v-model="form.visitId" placeholder="请输入就诊层id" />
-            </el-form-item>
+            </el-form-item>-->
 
             <el-row>
               <el-form-item label="结论描述" prop="conclusionDesc" label-width="100px">
@@ -585,7 +597,7 @@ export default {
         isMedicalHistory: '',
         isBirth: '',
         isInjuryJob: '',
-        stricken: '',
+        isStricken: '',
         isHasMedical: '',
         isUseMedical: '',
         invNo: '',
@@ -632,10 +644,11 @@ export default {
         endCasetm: '',
         conclusionDesc: '',
         compensateResult: '',
-        dentidtry: '',
+        isDentidtry: '',
         isignUseCardRule: '',
         isignExcelusion: '',
-        isignWait: ''
+        isignWait: '',
+        isRehabiliation: ''
       },
       show1: true,
       show2: true,
@@ -648,7 +661,6 @@ export default {
   },
   watch: {
     'sonData': function(newVal, oldVal) {
-      debugger
       this.form = newVal
       this.exeOldForm(newVal)
       this.dialogVisible = true
@@ -700,7 +712,7 @@ export default {
       this.form.isMedicalHistory = null
       this.form.isBirth = null
       this.form.isInjuryJob = null
-      this.form.stricken = null
+      this.form.isStricken = null
       this.form.isHasMedical = null
       this.form.isUseMedical = null
       this.form.invNo = null
@@ -747,10 +759,11 @@ export default {
       this.form.endCasetm = null
       this.form.conclusionDesc = null
       this.form.compensateResult = null
-      this.form.dentidtry = null
+      this.form.isDentidtry = null
       this.form.isignExcelusion = null
       this.form.isignUseCardRule = null
       this.form.isignWait = null
+      this.form.isRehabiliation = null
     },
     handleClose() {
       this.clearForm()
@@ -768,20 +781,31 @@ export default {
       this.oldForm.isLackMaterial = newVal.isLackMaterial// 缺材料
       this.oldForm.isBirth = newVal.isBirth// 生育
       this.oldForm.isInjuryJob = newVal.isInjuryJob// 工伤
-      this.oldForm.stricken = newVal.stricken// 重疾
+      this.oldForm.isStricken = newVal.isStricken// 重疾
       this.oldForm.isHasMedical = newVal.isHasMedical// 医保投保
       this.oldForm.isUseMedical = newVal.isUseMedical// 是否使用医保卡
-      this.oldForm.dentidtry = newVal.dentidtry// 齿科
+      this.oldForm.isDentidtry = newVal.isDentidtry// 齿科
       this.oldForm.isMust = newVal.isMust// 是否特需
       this.oldForm.isDesignHospital = newVal.isDesignHospital// 指定医院
       this.oldForm.isMedicalHistory = newVal.isMedicalHistory// 既往病史
       this.oldForm.isignWait = newVal.isignWait// 忽略等待期
       this.oldForm.isignUseCardRule = newVal.isignUseCardRule// 忽略医保卡使用规则
       this.oldForm.isignExcelusion = newVal.isignExcelusion// 忽略除外责任
+      this.oldForm.isRehabiliation = newVal.isRehabiliation// 是否康复
     },
     checkOldForm() {
       debugger
       var flag = false
+
+      if (this.form.isAccident !== this.oldForm.isAccident) {
+        flag = true
+      }
+      if (this.form.isDentidtry !== this.oldForm.isDentidtry) {
+        flag = true
+      }
+      if (this.form.isBirth !== this.oldForm.isBirth) {
+        flag = true
+      }
       if (this.form.isDesignHospital !== this.oldForm.isDesignHospital) {
         flag = true
       }
@@ -842,6 +866,17 @@ export default {
                     this._notify(response.msg, 'error')
                   }
                 })
+              })
+            } else {
+              edit(this.form).then(response => {
+                if (response.code === 200) {
+                  this._notify(response.msg, 'success')
+                  this.clearForm()
+                  this.$emit('sonStatus', true)
+                  this.clearFlag()
+                } else {
+                  this._notify(response.msg, 'error')
+                }
               })
             }
           }

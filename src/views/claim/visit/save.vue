@@ -22,30 +22,19 @@
               </el-select>
             </el-form-item>
 
-            <el-form-item label="急诊" prop="isEmergTreat" label-width="100px">
-              <el-select v-model="form.isEmergTreat" placeholder="请选择">
-                <el-option
-                  v-for="item in businessData.TrueOrFalse"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                />
-              </el-select>
-            </el-form-item>
-
-            <el-form-item label="缺材料" prop="isLackMaterial" label-width="100px">
-              <el-select v-model="form.isLackMaterial" placeholder="请选择">
-                <el-option
-                  v-for="item in businessData.TrueOrFalse"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                />
-              </el-select>
-            </el-form-item>
-
             <el-form-item label="生育" prop="isBirth" label-width="100px">
               <el-select v-model="form.isBirth" placeholder="请选择">
+                <el-option
+                  v-for="item in businessData.TrueOrFalse"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                />
+              </el-select>
+            </el-form-item>
+
+            <el-form-item label="齿科" prop="isDentidtry" label-width="100px">
+              <el-select v-model="form.isDentidtry" placeholder="请选择">
                 <el-option
                   v-for="item in businessData.TrueOrFalse"
                   :key="item.value"
@@ -66,8 +55,8 @@
               </el-select>
             </el-form-item>
 
-            <el-form-item label="重疾" prop="stricken" label-width="100px">
-              <el-select v-model="form.stricken" placeholder="请选择">
+            <el-form-item label="重疾" prop="isStricken" label-width="100px">
+              <el-select v-model="form.isStricken" placeholder="请选择">
                 <el-option
                   v-for="item in businessData.TrueOrFalse"
                   :key="item.value"
@@ -98,8 +87,20 @@
                 />
               </el-select>
             </el-form-item>
-            <el-form-item label="齿科" prop="dentidtry" label-width="100px">
-              <el-select v-model="form.dentidtry" placeholder="请选择">
+
+            <el-form-item label="是否特需" prop="isMust" label-width="100px">
+              <el-select v-model="form.isMust" placeholder="请选择">
+                <el-option
+                  v-for="item in businessData.YesOrNo"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                />
+              </el-select>
+            </el-form-item>
+
+            <el-form-item label="急诊" prop="isEmergTreat" label-width="100px">
+              <el-select v-model="form.isEmergTreat" placeholder="请选择">
                 <el-option
                   v-for="item in businessData.TrueOrFalse"
                   :key="item.value"
@@ -109,8 +110,19 @@
               </el-select>
             </el-form-item>
 
-            <el-form-item label="是否特需" prop="isMust" label-width="100px">
-              <el-select v-model="form.isMust" placeholder="请选择">
+            <el-form-item label="康复" prop="isRehabiliation" label-width="100px">
+              <el-select v-model="form.isRehabiliation" placeholder="请选择">
+                <el-option
+                  v-for="item in businessData.YesOrNo"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                />
+              </el-select>
+            </el-form-item>
+
+            <el-form-item label="缺材料" prop="isLackMaterial" label-width="100px">
+              <el-select v-model="form.isLackMaterial" placeholder="请选择">
                 <el-option
                   v-for="item in businessData.TrueOrFalse"
                   :key="item.value"
@@ -153,8 +165,8 @@
               </el-select>
             </el-form-item>
 
-            <el-form-item label="忽略医保卡使用规则" prop="isignWait" label-width="100px">
-              <el-select v-model="form.isignUseCardRule" placeholder="请选择">
+            <el-form-item label="忽略除外责任" prop="isignWait" label-width="100px">
+              <el-select v-model="form.isignExcelusion" placeholder="请选择">
                 <el-option
                   v-for="item in businessData.TrueOrFalse"
                   :key="item.value"
@@ -164,8 +176,8 @@
               </el-select>
             </el-form-item>
 
-            <el-form-item label="忽略除外责任" prop="isignWait" label-width="100px">
-              <el-select v-model="form.isignExcelusion" placeholder="请选择">
+            <el-form-item label="忽略医保卡使用规则" prop="isignWait" label-width="100px">
+              <el-select v-model="form.isignUseCardRule" placeholder="请选择">
                 <el-option
                   v-for="item in businessData.TrueOrFalse"
                   :key="item.value"
@@ -425,17 +437,19 @@
               </el-select>
             </el-form-item>
 
-            <el-form-item label="结论描述" prop="conclusionDesc" label-width="120px">
-              <el-input v-model="form.conclusionDesc" placeholder="请输入结论描述" />
-            </el-form-item>
-
             <el-form-item label="校验审核信息" prop="auditInformation" label-width="120px">
               <el-input v-model="form.auditInformation" placeholder="请输入校验审核信息" />
             </el-form-item>
 
-            <el-form-item label="责任层id" hidden="hidden" prop="dutyId" label-width="120px">
+            <!--   <el-form-item label="责任层id" hidden="hidden" prop="dutyId" label-width="120px">
               <el-input v-model="form.dutyId" placeholder="请输入责任层id" />
-            </el-form-item>
+            </el-form-item>-->
+
+            <el-row>
+              <el-form-item label="结论描述" prop="conclusionDesc" label-width="100px">
+                <el-input v-model="form.conclusionDesc" type="textarea" style="width: 800px;" :autosize="{ minRows: 2, maxRows: 20}" placeholder="请输入结论描述" clearable />
+              </el-form-item>
+            </el-row>
           </div>
         </el-collapse-transition>
       </div>
@@ -452,7 +466,7 @@
 </template>
 
 <script>
-import { save, edit } from '@/api/claim/visit'
+import { initVistData, save, edit } from '@/api/claim/visit'
 
 export default {
   // 父组件向子组件传值，通过props获取。
@@ -472,13 +486,13 @@ export default {
         isMedicalHistory: '',
         isBirth: '',
         isInjuryJob: '',
-        stricken: '',
+        isStricken: '',
         isMust: '',
         isDesignHospital: '',
         isignWait: '',
         isHasMedical: '',
         isUseMedical: '',
-        dentidtry: '',
+        isDentidtry: '',
         batchNo: '',
         plyPartNo: '',
         customAppNo: '',
@@ -528,19 +542,22 @@ export default {
         conclusionDesc: '',
         auditInformation: '',
         isignUseCardRule: '',
-        isignExcelusion: ''
+        isignExcelusion: '',
+        isRehabiliation: ''
       },
       show1: true,
       show2: true,
       show3: true,
       rules: {
         batchNo: [{ required: true, trigger: 'blur', message: '请输入批次号' }]
-      }
+      },
+      oldForm: {}
     }
   },
   watch: {
     'sonData': function(newVal, oldVal) {
       this.form = newVal
+      this.exeOldForm(newVal)
       this.dialogVisible = true
       if (newVal.id != null) {
         this.dialogTitle = 'Edit'
@@ -566,6 +583,53 @@ export default {
     handlerThe3() {
       this.show3 = !this.show3
     },
+    exeOldForm(newVal) {
+      this.oldForm.isAccident = newVal.isAccident// 是否意外
+      this.oldForm.isEmergTreat = newVal.isEmergTreat// 是否急诊
+      this.oldForm.isLackMaterial = newVal.isLackMaterial// 缺材料
+      this.oldForm.isBirth = newVal.isBirth// 生育
+      this.oldForm.isInjuryJob = newVal.isInjuryJob// 工伤
+      this.oldForm.isStricken = newVal.isStricken// 重疾
+      this.oldForm.isHasMedical = newVal.isHasMedical// 医保投保
+      this.oldForm.isUseMedical = newVal.isUseMedical// 是否使用医保卡
+      this.oldForm.isDentidtry = newVal.isDentidtry// 齿科
+      this.oldForm.isMust = newVal.isMust// 是否特需
+      this.oldForm.isDesignHospital = newVal.isDesignHospital// 指定医院
+      this.oldForm.isMedicalHistory = newVal.isMedicalHistory// 既往病史
+      this.oldForm.isignWait = newVal.isignWait// 忽略等待期
+      this.oldForm.isignUseCardRule = newVal.isignUseCardRule// 忽略医保卡使用规则
+      this.oldForm.isignExcelusion = newVal.isignExcelusion// 忽略除外责任
+      this.oldForm.isRehabiliation = newVal.isRehabiliation// 是否康复
+    },
+    checkOldForm() {
+      var flag = false
+      if (this.form.isAccident !== this.oldForm.isAccident) {
+        flag = true
+      }
+      if (this.form.isDentidtry !== this.oldForm.isDentidtry) {
+        flag = true
+      }
+      if (this.form.isBirth !== this.oldForm.isBirth) {
+        flag = true
+      }
+      if (this.form.isDesignHospital !== this.oldForm.isDesignHospital) {
+        flag = true
+      }
+      if (this.form.isignExcelusion !== this.oldForm.isignExcelusion) {
+        flag = true
+      }
+      if (this.form.isignWait !== this.oldForm.isignWait) {
+        flag = true
+      }
+      if (this.form.isMedicalHistory !== this.oldForm.isMedicalHistory) {
+        flag = true
+      }
+      if (this.form.isignUseCardRule !== this.oldForm.isignUseCardRule) {
+        flag = true
+      }
+
+      return flag
+    },
     clearForm() {
       this.form.id = null
       this.form.dutyId = null
@@ -575,13 +639,13 @@ export default {
       this.form.isMedicalHistory = null
       this.form.isBirth = null
       this.form.isInjuryJob = null
-      this.form.stricken = null
+      this.form.isStricken = null
       this.form.isMust = null
       this.form.isDesignHospital = null
       this.form.isignWait = null
       this.form.isHasMedical = null
       this.form.isUseMedical = null
-      this.form.dentidtry = null
+      this.form.isDentidtry = null
       this.form.batchNo = null
       this.form.plyPartNo = null
       this.form.customAppNo = null
@@ -634,6 +698,7 @@ export default {
       this.form.auditInformation = null
       this.form.isignUseCardRule = null
       this.form.isignExcelusion = null
+      this.form.isRehabiliation = null
     },
     handleClose() {
       this.clearForm()
@@ -660,16 +725,46 @@ export default {
               }
             })
           } else {
-            edit(this.form).then(response => {
-              if (response.code === 200) {
-                this._notify(response.msg, 'success')
-                this.clearForm()
-                this.$emit('sonStatus', true)
-                this.clearFlag()
-              } else {
-                this._notify(response.msg, 'error')
-              }
-            })
+            if (this.checkOldForm()) {
+              this.$confirm('是否初始化理赔数据？, 是否继续?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+              }).then(() => {
+                initVistData(this.form).then(response => {
+                  if (response.code === 200) {
+                    this._notify(response.msg, 'success')
+                    this.clearForm()
+                    this.$emit('sonStatus', true)
+                    this.clearFlag()
+                  } else {
+                    this._notify(response.msg, 'error')
+                  }
+                })
+              }).catch(() => {
+                edit(this.form).then(response => {
+                  if (response.code === 200) {
+                    this._notify(response.msg, 'success')
+                    this.clearForm()
+                    this.$emit('sonStatus', true)
+                    this.clearFlag()
+                  } else {
+                    this._notify(response.msg, 'error')
+                  }
+                })
+              })
+            } else {
+              edit(this.form).then(response => {
+                if (response.code === 200) {
+                  this._notify(response.msg, 'success')
+                  this.clearForm()
+                  this.$emit('sonStatus', true)
+                  this.clearFlag()
+                } else {
+                  this._notify(response.msg, 'error')
+                }
+              })
+            }
           }
         } else {
           this.$message('error submit!!')

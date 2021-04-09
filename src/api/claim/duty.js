@@ -38,3 +38,10 @@ export function edit(data) {
   })
 }
 
+export function initDutyData(data) {
+  return request({
+    url: '/base/compensateResult/initDutyInfo',
+    method: 'post',
+    data
+  })
+}

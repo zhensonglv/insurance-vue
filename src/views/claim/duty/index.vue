@@ -70,7 +70,7 @@
         </el-table-column>
         <el-table-column align="center" label="赔付金额" width="150">
           <template slot-scope="scope">
-            {{ scope.row.compensate_amt }}
+            {{ scope.row.compensateAmt }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="最终赔付金额" width="150">
@@ -182,7 +182,7 @@ export default {
     resetData() {
     },
     fetchTypeData() {
-      getCodeList({ parent: ['TrueOrFalse', 'CiRateBillTyp', 'AdjustmentType', 'ClinicType', 'InInvoice', 'CInvoiceTyp'] }).then(res => {
+      getCodeList({ parent: ['TrueOrFalse', 'CiRateBillTyp', 'AdjustmentType', 'ClinicType', 'InInvoice', 'CInvoiceTyp', 'YesorNo'] }).then(res => {
         this.businessData = res.data
         // 组装table 的map
         for (const key in this.businessData) {
