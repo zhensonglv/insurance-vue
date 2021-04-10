@@ -30,6 +30,22 @@ export function del(id) {
   })
 }
 
+export function batchDel(data) {
+  return request({
+    url: '/base/treat/batchDel',
+    method: 'put',
+    data
+  })
+}
+
+export function batchSave(data) {
+  return request({
+    url: '/base/treat/batchSave',
+    method: 'put',
+    data
+  })
+}
+
 export function edit(data) {
   return request({
     url: '/base/treat/edit',
@@ -38,3 +54,10 @@ export function edit(data) {
   })
 }
 
+export function update(data) {
+  return request({
+    url: '/base/treat/edit',
+    method: 'put',
+    data
+  })
+}
