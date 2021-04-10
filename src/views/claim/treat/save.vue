@@ -82,8 +82,8 @@
         <el-input v-model="form.categSelfpayAmt" placeholder="请输入分类自付金额" />
       </el-form-item>
 
-      <el-form-item label="分类自付金额" prop="selfAmt" label-width="120px">
-        <el-input v-model="form.selfAmt" placeholder="请输入分类自付金额" />
+      <el-form-item label="自费金额" prop="selfAmt" label-width="120px">
+        <el-input v-model="form.selfAmt" placeholder="请输入自费金额" />
       </el-form-item>
 
       <el-form-item label="赔付金额" prop="compensateAmt" label-width="120px">

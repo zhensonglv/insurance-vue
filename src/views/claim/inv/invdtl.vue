@@ -288,16 +288,36 @@
           </div>
         </el-collapse-transition>
       </div>
-
     </el-form>
-    <div slot="footer" class="dialog-footer">
-      <el-button @click="handleClose">
-        Cancel
-      </el-button>
-      <el-button type="primary" @click="onSubmit('invdtlForm')">
-        Confirm
-      </el-button>
+    <div align="center">
+      <el-button style="margin-left: 10px;" type="primary" @click="batchSave">保存</el-button>
     </div>
+
+    <el-form ref="invdtlForm" :inline="true" :model="calcForm" status-icon label-position="right" label-width="80px">
+      <el-form-item label="总金额" prop="dtlSumAmt" label-width="120px">
+        <el-input v-model="calcForm.dtlSumAmt" placeholder="请输入总金额" />
+      </el-form-item>
+
+      <el-form-item label="分类自付合计" prop="dtlCategSelfpayAmt" label-width="120px">
+        <el-input v-model="calcForm.dtlCategSelfpayAmt" placeholder="请输入分类自付合计" />
+      </el-form-item>
+
+      <el-form-item label="自费合计" prop="dtlSelfAmt" label-width="120px">
+        <el-input v-model="calcForm.dtlSelfAmt" placeholder="请输入自费合计" />
+      </el-form-item>
+
+      <el-form-item label="总金额差值" prop="dtlSumAmtDeduct" label-width="120px">
+        <el-input v-model="calcForm.dtlSumAmtDeduct" placeholder="请输入总金额差值" />
+      </el-form-item>
+
+      <el-form-item label="分类自付差值" prop="dtlCategDeduct" label-width="120px">
+        <el-input v-model="calcForm.dtlCategDeduct" placeholder="请输入分类自付差值" />
+      </el-form-item>
+
+      <el-form-item label="自费差值" prop="dtlSelfDeduct" label-width="120px">
+        <el-input v-model="calcForm.dtlSelfDeduct" placeholder="请输入自费差值" />
+      </el-form-item>
+    </el-form>
 
     <div align="center">
       <el-button style="margin-left: 10px;" type="primary" @click="batchSave">批量保存</el-button>
@@ -353,7 +373,7 @@
 
       <el-table-column align="center" label="总金额" width="150">
         <template slot-scope="scope">
-          <el-input v-model="scope.row.sumAmt" />
+          <el-input v-model="scope.row.sumAmt" @change="changSumAmt" />
         </template>
       </el-table-column>
 
@@ -365,13 +385,13 @@
 
       <el-table-column align="center" label="分类自付金额" width="150">
         <template slot-scope="scope">
-          <el-input v-model="scope.row.categSelfpayAmt" :disabled="scope.row.secuTyp!='B'" />
+          <el-input v-model="scope.row.categSelfpayAmt" type="number" :disabled="scope.row.secuTyp!='B'" @change="changeCategSelfpayAmt" />
         </template>
       </el-table-column>
 
       <el-table-column align="center" label="自费金额" width="150">
         <template slot-scope="scope">
-          <el-input v-model="scope.row.selfAmt" :disabled="scope.row.secuTyp!='C'" />
+          <el-input v-model="scope.row.selfAmt" :disabled="scope.row.secuTyp!='C'" @change="changSelfAmt" />
         </template>
       </el-table-column>
 
@@ -407,6 +427,14 @@
       @pagination="fetchData"
     />
 
+    <div slot="footer" class="dialog-footer">
+      <el-button @click="handleClose">
+        Cancel
+      </el-button>
+      <el-button type="primary" @click="onSubmit('invdtlForm')">
+        Confirm
+      </el-button>
+    </div>
   </el-dialog>
 </template>
 <script>
@@ -503,6 +531,14 @@ export default {
         isignWait: '',
         isRehabiliation: ''
       },
+      calcForm: {
+        dtlSumAmt: null,
+        dtlCategSelfpayAmt: null,
+        dtlCategDeduct: null,
+        dtlSelfAmt: null,
+        dtlSelfDeduct: null,
+        dtlSumAmtDeduct: null
+      },
       show1: true,
       show2: true,
       show3: true,
@@ -557,6 +593,14 @@ export default {
     },
     handlerThe3() {
       this.show3 = !this.show3
+    },
+    clearCalcForm() {
+      this.calcForm.dtlSumAmt = null
+      this.calcForm.dtlCategSelfpayAmt = null
+      this.calcForm.dtlCategDeduct = null
+      this.calcForm.dtlSelfAmt = null
+      this.calcForm.dtlSelfDeduct = null
+      this.calcForm.dtlSumAmtDeduct = null
     },
     clearForm() {
       this.invdtlForm.id = null
@@ -635,6 +679,7 @@ export default {
       this.invdtlForm.isignUseCardRule = null
       this.invdtlForm.isignWait = null
       this.invdtlForm.isRehabiliation = null
+      this.clearCalcForm()
     },
     handleClose() {
       this.clearForm()
@@ -667,7 +712,35 @@ export default {
         }
       })
     },
-
+    // ------------------------合计信息js function-------------------------------------------
+    changSumAmt() {
+      var sum = 0.0
+      for (var i = 0; i < this.list.length; i++) {
+        sum = sum + parseFloat(this.list[i].sumAmt)
+      }
+      var deduct = parseFloat(this.invdtlForm.sumAmt) - sum
+      this.calcForm.dtlSumAmt = sum.toFixed(2)
+      this.calcForm.dtlSumAmtDeduct = deduct.toFixed(2)
+    },
+    changeCategSelfpayAmt() {
+      debugger
+      var sum = 0.0
+      for (var i = 0; i < this.list.length; i++) {
+        sum = sum + parseFloat(this.list[i].categSelfpayAmt)
+      }
+      var deduct = parseFloat(this.invdtlForm.categSelfPay) - sum
+      this.calcForm.dtlCategSelfpayAmt = sum.toFixed(2)
+      this.calcForm.dtlCategDeduct = deduct.toFixed(2)
+    },
+    changSelfAmt() {
+      var sum = 0.0
+      for (var i = 0; i < this.list.length; i++) {
+        sum = sum + parseFloat(this.list[i].selfAmt)
+      }
+      var deduct = parseFloat(this.invdtlForm.selfExpense) - sum
+      this.calcForm.dtlSelfAmt = sum.toFixed(2)
+      this.calcForm.dtlSelfDeduct = deduct.toFixed(2)
+    },
     // -----------------------明细js function----------------------------------------------
     handleSelect(data) {
       this.selected = data
@@ -712,6 +785,9 @@ export default {
       getList(this.listQuery, this.invdtlForm.id).then(response => {
         this.list = response.data.data
         this.total = response.data.total
+        this.changSumAmt()
+        this.changeCategSelfpayAmt()
+        this.changSelfAmt()
         this.listLoading = false
       })
     },
@@ -862,7 +938,6 @@ export default {
     text-align: right;
     padding-right: 20px;
   }
-
 </style>
 
 <style lang="scss">//该样式在scope中是不起作用的
