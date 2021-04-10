@@ -82,6 +82,10 @@
         <el-input v-model="form.categSelfpayAmt" placeholder="请输入分类自付金额" />
       </el-form-item>
 
+      <el-form-item label="分类自付金额" prop="selfAmt" label-width="120px">
+        <el-input v-model="form.selfAmt" placeholder="请输入分类自付金额" />
+      </el-form-item>
+
       <el-form-item label="赔付金额" prop="compensateAmt" label-width="120px">
         <el-input v-model="form.compensateAmt" placeholder="请输入赔付金额" />
       </el-form-item>
@@ -260,7 +264,8 @@ export default {
         compensateResult: '',
         company: '',
         conclusionDesc: '',
-        auditInformation: ''
+        auditInformation: '',
+        selfAmt: ''
       },
       matchVisable: false,
       matchTyp: null,
@@ -325,6 +330,7 @@ export default {
       this.form.company = null
       this.form.conclusionDesc = null
       this.form.auditInformation = null
+      this.form.selfAmt = null
     },
     handleClose() {
       this.clearForm()

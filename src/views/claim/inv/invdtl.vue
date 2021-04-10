@@ -1,7 +1,6 @@
 <template>
-  <el-dialog :title="dialogTitle" :before-close="handleClose" :visible.sync="dialogInvVisible" width="55%">
+  <el-dialog :title="dialogTitle" :before-close="handleClose" :visible.sync="dialogInvVisible" width="80%">
     <el-form ref="invdtlForm" :inline="true" :rules="rules" :model="invdtlForm" status-icon label-position="right" label-width="80px">
-
       <div>
         <ul class="tab-tilte">
           <li>发票信息</li>
@@ -12,21 +11,6 @@
         </ul>
         <el-collapse-transition>
           <div v-if="show1">
-            <el-form-item label="批次号" prop="batchNo" label-width="120px">
-              <el-input v-model="invdtlForm.batchNo" placeholder="请输入批次号" />
-            </el-form-item>
-
-            <el-form-item label="客户申请号" prop="customAppNo" label-width="120px">
-              <el-input v-model="invdtlForm.customAppNo" placeholder="请输入客户申请号" />
-            </el-form-item>
-
-            <el-form-item label="分单号" prop="plyPartNo" label-width="120px">
-              <el-input v-model="invdtlForm.plyPartNo" placeholder="请输入分单号" />
-            </el-form-item>
-
-            <el-form-item label="出险人号" prop="riskNo" label-width="120px">
-              <el-input v-model="invdtlForm.riskNo" placeholder="请输入出险人号" />
-            </el-form-item>
 
             <el-form-item label="医院号" prop="hospitalNo" label-width="120px">
               <el-input v-model="invdtlForm.hospitalNo" placeholder="请输入医院号" />
@@ -119,23 +103,6 @@
               </el-select>
             </el-form-item>
 
-            <el-form-item label="发票起始日" prop="invBgnTm" label-width="100px">
-              <el-date-picker
-                v-model="invdtlForm.invBgnTm"
-                type="datetime"
-                value-format="yyyy-MM-dd"
-                placeholder="选择日期时间"
-              />
-            </el-form-item>
-
-            <el-form-item label="发票终止日" prop="invEndTm" label-width="100px">
-              <el-date-picker
-                v-model="invdtlForm.invEndTm"
-                type="datetime"
-                value-format="yyyy-MM-dd"
-                placeholder="选择日期时间"
-              />
-            </el-form-item>
             <el-form-item label="是否原始发票" prop="isOriginalInv" label-width="100px">
               <el-select v-model="invdtlForm.isOriginalInv" placeholder="请选择">
                 <el-option
@@ -167,10 +134,6 @@
               />
             </el-form-item>
 
-            <el-form-item label="现金" prop="cash" label-width="100px">
-              <el-input v-model="invdtlForm.cash" placeholder="请输入现金" />
-            </el-form-item>
-
             <el-form-item label="账单类型" prop="billtyp" label-width="100px">
               <el-select v-model="invdtlForm.billTyp" placeholder="请选择">
                 <el-option
@@ -182,20 +145,6 @@
               </el-select>
             </el-form-item>
 
-          </div>
-        </el-collapse-transition>
-      </div>
-
-      <div>
-        <ul class="tab-tilte">
-          <li>赔付信息</li>
-          <div class="right-part">
-            <i v-if="show3" @click="handlerThe3">折叠</i>
-            <i v-else-if="!show3" @click="handlerThe3">展开</i>
-          </div>
-        </ul>
-        <el-collapse-transition>
-          <div v-if="show3">
             <el-form-item label="发票总金额" prop="sumAmt" label-width="120px">
               <el-input v-model="invdtlForm.sumAmt" placeholder="请输入发票总金额" />
             </el-form-item>
@@ -321,24 +270,6 @@
             <el-form-item label="调整金额" prop="adjustAmt" label-width="120px">
               <el-input v-model="invdtlForm.adjustAmt" placeholder="请输入调整金额" />
             </el-form-item>
-
-            <el-form-item label="解释码" prop="adjustInterpCde" label-width="120px">
-              <el-input v-model="invdtlForm.adjustInterpCde" placeholder="请输入解释码" />
-            </el-form-item>
-
-            <el-form-item label="解释码描述" prop="interpDesc" label-width="120px">
-              <el-input v-model="invdtlForm.interpDesc" placeholder="请输入解释码描述" />
-            </el-form-item>
-
-            <el-form-item label="结案日" prop="endCasetm" label-width="100px">
-              <el-date-picker
-                v-model="invdtlForm.endCasetm"
-                type="datetime"
-                value-format="yyyy-MM-dd"
-                placeholder="选择日期时间"
-              />
-            </el-form-item>
-
             <el-form-item label="赔付结论" prop="compensateResult" label-width="100px">
               <el-select v-model="invdtlForm.compensateResult" placeholder="请选择">
                 <el-option
@@ -349,7 +280,6 @@
                 />
               </el-select>
             </el-form-item>
-
             <el-row>
               <el-form-item label="结论描述" prop="conclusionDesc" label-width="100px">
                 <el-input v-model="invdtlForm.conclusionDesc" type="textarea" style="width: 800px;" :autosize="{ minRows: 2, maxRows: 20}" placeholder="请输入结论描述" clearable />
@@ -358,6 +288,7 @@
           </div>
         </el-collapse-transition>
       </div>
+
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="handleClose">
@@ -367,15 +298,125 @@
         Confirm
       </el-button>
     </div>
-    <treatInfo :inv-id="invdtlForm.id" />
+
+    <div align="center">
+      <el-button style="margin-left: 10px;" type="primary" @click="batchSave">批量保存</el-button>
+      <el-button style="margin-left: 10px;" type="primary" @click="batchDel">批量删除</el-button>
+    </div>
+    <el-table
+      v-loading="listLoading"
+      :data="list"
+      element-loading-text="Loading"
+      border
+      fit
+      highlight-current-row
+      @selection-change="handleSelect"
+    >
+      <el-table-column
+        type="selection"
+        width="55"
+      />
+      <el-table-column align="center" label="序号" width="70">
+        <template slot-scope="scope">
+          {{ scope.$index +1 }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" label="诊疗码" width="180">
+        <template slot-scope="scope">
+          <el-input v-model="scope.row.treatCde">
+            <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(scope.$index)" />
+          </el-input>
+          <match v-model="matchVisable" :index="index" @matchConfirm="matchConfirm" />
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :show-overflow-tooltip="true" label="诊疗描述" width="150">
+        <template slot-scope="scope">
+          <el-input v-model="scope.row.treatDesc" />
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" label="社保类型" width="140">
+        <template slot-scope="scope">
+          <el-select v-model="scope.row.secuTyp" placeholder="请选择" @change="changeSecuTyp(scope.row)">
+            <el-option
+              v-for="item in dtlBusinessdata.CSocialinsuTyp"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            />
+          </el-select>
+          <!--  {{ CSocialinsuTyp[scope.row.secuTyp] }}-->
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" label="总金额" width="150">
+        <template slot-scope="scope">
+          <el-input v-model="scope.row.sumAmt" />
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" label="分类自付比例" width="150">
+        <template slot-scope="scope">
+          <el-input v-model="scope.row.categSelfpayRate" :disabled="scope.row.secuTyp!='B'" type="number" @change="changeRate(scope.row)" />
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" label="分类自付金额" width="150">
+        <template slot-scope="scope">
+          <el-input v-model="scope.row.categSelfpayAmt" :disabled="scope.row.secuTyp!='B'" />
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" label="自费金额" width="150">
+        <template slot-scope="scope">
+          <el-input v-model="scope.row.selfAmt" :disabled="scope.row.secuTyp!='C'" />
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" label="赔付结论" width="135">
+        <template slot-scope="scope">
+          <el-select v-model="scope.row.compensateResult" placeholder="请选择">
+            <el-option
+              v-for="item in businessData.AdjustmentType"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            />
+          </el-select>
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" label="操作" width="120">
+        <template slot-scope="scope">
+          <el-tooltip class="item" effect="dark" content="编辑" placement="top-start">
+            <el-button type="primary" size="mini" icon="el-icon-edit" @click="update(scope.row)" />
+          </el-tooltip>
+          <el-tooltip class="item" effect="dark" content="删除" placement="top-start">
+            <el-button type="danger" size="mini" icon="el-icon-delete" class="action-button" @click="handleDel(scope.row.id)" />
+          </el-tooltip>
+        </template>
+      </el-table-column>
+    </el-table>
+    <pagination
+      v-show="total>0"
+      :total="total"
+      :page.sync="listQuery.pageNum"
+      :limit.sync="listQuery.pageSize"
+      @pagination="fetchData"
+    />
+
   </el-dialog>
 </template>
 <script>
 import { edit } from '@/api/claim/inv'
-import TreatInfo from '@/views/claim/inv/treatInfo'
-
+import { getList, update, del, batchDel, batchSave } from '@/api/claim/treat'
+import { getCodeList } from '@/api/code'
+import Pagination from '@/components/Pagination'
+import Match from './match'
 export default {
-  components: { TreatInfo },
+  components: { Pagination, Match },
   // 父组件向子组件传值，通过props获取。
   // 一旦父组件改变了`sonData`对应的值，子组件的`sonData`会立即改变，通过watch函数可以实时监听到值的变化
   // `props`不属于data，但是`props`中的参数可以像data中的参数一样直接使用
@@ -467,17 +508,39 @@ export default {
       show3: true,
       rules: {
         batchNo: [{ required: true, trigger: 'blur', message: '请输入批次号' }]
-      }
+      },
+
+      list: null,
+      listLoading: true,
+      listQuery: {
+        pageNum: 1,
+        pageSize: 10,
+        invId: '',
+        sort: '+id'
+      },
+      total: 0,
+      CSocialinsuTyp: {},
+      AdjustmentType: {},
+      selected: [],
+      dtlBusinessdata: null,
+      matchVisable: false,
+      index: null
     }
   },
+
   watch: {
     'sonInvData': function(newVal, oldVal) {
       this.invdtlForm = newVal
       this.dialogInvVisible = true
       if (newVal.id != null) {
         this.dialogTitle = '账单明细信息'
+        this.fetchTypeData()
       }
     }
+  },
+
+  created() {
+
   },
   methods: {
     _notify(message, type) {
@@ -603,7 +666,151 @@ export default {
           return false
         }
       })
+    },
+
+    // -----------------------明细js function----------------------------------------------
+    handleSelect(data) {
+      this.selected = data
+    },
+    hanldeMatch(index) {
+      this.matchVisable = true
+      this.index = index
+    },
+
+    matchConfirm(data) {
+      this.list[data.index].treatCde = data.value.treatNo
+      this.list[data.index].treatDesc = data.value.treatDesc
+    },
+
+    changeRate(row) {
+      if (!(parseFloat(row.categSelfpayRate) > 0.0 && parseFloat(row.categSelfpayRate) < 1.0)) {
+        this._notify('请修改分类自付比例区间(0 , 1)', 'warning')
+      }
+      row.selfAmt = 0.0
+      row.categSelfpayAmt = parseFloat(row.sumAmt) * parseFloat(row.categSelfpayRate).toFixed(2)
+    },
+    changeSecuTyp(row) {
+      if (row.secuTyp === 'B') {
+        if (!(parseFloat(row.categSelfpayRate) > 0.0 && parseFloat(row.categSelfpayRate) < 1.0)) {
+          this._notify('请修改分类自付比例区间(0 , 1)', 'warning')
+        }
+        row.selfAmt = 0.0
+        row.categSelfpayAmt = parseFloat(row.sumAmt) * parseFloat(row.categSelfpayRate).toFixed(2)
+      } else if (row.secuTyp === 'C') {
+        row.categSelfpayRate = 1.0
+        row.categSelfpayAmt = 0.0
+        row.selfAmt = parseFloat(row.sumAmt) * parseFloat(row.categSelfpayRate).toFixed(2)
+      } else {
+        row.categSelfpayRate = 0.0
+        row.selfAmt = 0.0
+        row.categSelfpayAmt = 0.0
+      }
+    },
+
+    fetchData(id) {
+      this.listLoading = true
+      getList(this.listQuery, this.invdtlForm.id).then(response => {
+        this.list = response.data.data
+        this.total = response.data.total
+        this.listLoading = false
+      })
+    },
+
+    update(row) {
+      update(row).then(response => {
+        if (response.code === 200) {
+          this._notify(response.msg, 'success')
+        } else {
+          this._notify(response.msg, 'error')
+        }
+      })
+    },
+    batchSave() {
+      if (this.selected.length === 0) {
+        this.$message({
+          showClose: true,
+          message: '请选择数据',
+          type: 'warning'
+        })
+      } else {
+        this.$confirm('是否批量保存数据？, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          batchSave(this.selected).then(res => {
+            if (res.code === 200) {
+              this._notify('保存成功', 'success')
+            } else {
+              this._notify(res.msg, 'error')
+            }
+            this.fetchData()
+          })
+        }).catch(() => {
+          this._notify('已取消', 'info')
+        })
+      }
+    },
+    batchDel() {
+      if (this.selected.length === 0) {
+        this.$message({
+          showClose: true,
+          message: '请选择数据',
+          type: 'warning'
+        })
+      } else {
+        this.$confirm('是否删除数据？, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          batchDel(this.selected).then(res => {
+            if (res.code === 200) {
+              this._notify('删除成功', 'success')
+            } else {
+              this._notify(res.msg, 'error')
+            }
+            this.fetchData()
+          })
+        }).catch(() => {
+          this._notify('已取消', 'info')
+        })
+      }
+    },
+    fetchTypeData() {
+      // 获取codeList
+      getCodeList({ parent: ['CSocialinsuTyp', 'AdjustmentType'] }).then(res => {
+        // 组装table 的map
+        this.dtlBusinessdata = res.data
+        for (const key in res.data) {
+          this.dtlBusinessdata[key].forEach(item => {
+            !this[key] && (this[key] = {})
+            this[key][item.value] = item.label
+          })
+        }
+        this.fetchData()
+      })
+    },
+
+    handleDel(id) {
+      this.$confirm('你确定永久删除此数据？, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        del(id).then(response => {
+          if (response.code === 200) {
+            this._notify(response.msg, 'success')
+          } else {
+            this._notify(response.msg, 'error')
+          }
+          this.fetchData()
+        })
+      }).catch(() => {
+        this._notify('已取消删除', 'info')
+      })
     }
+
   }
 }
 </script>
@@ -658,3 +865,6 @@ export default {
 
 </style>
 
+<style lang="scss">//该样式在scope中是不起作用的
+.el-tooltip__popper{font-size: 14px; max-width:50% }
+</style>

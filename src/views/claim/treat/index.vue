@@ -39,15 +39,12 @@
         </el-table-column>
         <el-table-column align="center" label="发票号" width="150">
           <template slot-scope="scope">
-            <!-- <el-input v-model="scope.row.invNo"></el-input>-->
             {{ scope.row.invNo }}
-            <!--  <{{ scope.row.pubCoverTyp }}-->
           </template>
         </el-table-column>
         <el-table-column align="center" label="大项号" width="150">
           <template slot-scope="scope">
             {{ scope.row.maxtermNo }}
-          <!--  <{{ scope.row.pubCoverTyp }}-->
           </template>
         </el-table-column>
         <el-table-column align="center" label="服务类型" width="150">
@@ -60,7 +57,7 @@
             {{ CSocialinsuTyp[scope.row.secuTyp] }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="费用名称" width="150">
+        <el-table-column align="center" :show-overflow-tooltip="true" label="费用名称" width="150">
           <template slot-scope="scope">
             {{ scope.row.payName }}
           </template>
