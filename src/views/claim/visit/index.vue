@@ -23,15 +23,14 @@
         </el-table-column>
         <el-table-column
           type="selection"
-          width="55"
         />
-        <el-table-column align="center" label="序号" width="95">
+        <el-table-column align="center" label="序号">
           <template slot-scope="scope">
             {{ scope.$index +1 }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" :show-overflow-tooltip="true" label="校验审核信息" width="150">
+        <el-table-column align="center" :show-overflow-tooltip="true" label="校验审核信息">
           <template slot-scope="scope">
             <span :class="'font-class-red'">
               {{ scope.row.auditInformation }}
@@ -39,65 +38,65 @@
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="医院名称" width="150">
+        <el-table-column align="center" label="医院名称">
           <template slot-scope="scope">
             {{ scope.row.hospitalNme }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="就诊类型" width="150">
+        <el-table-column align="center" label="就诊类型">
           <template slot-scope="scope">
             {{ ClinicType[scope.row.docTyp] }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="就诊起始日" width="150">
+        <el-table-column align="center" label="就诊起始日">
           <template slot-scope="scope">
             {{ scope.row.docBgnTm }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="就诊终止日" width="150">
+        <el-table-column align="center" label="就诊终止日">
           <template slot-scope="scope">
             {{ scope.row.docEndTm }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="诊断描述" width="150">
+        <el-table-column align="center" label="诊断描述">
           <template slot-scope="scope">
             {{ scope.row.diagDesc }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="总金额" width="150">
+        <el-table-column align="center" label="总金额">
           <template slot-scope="scope">
             {{ scope.row.invoiceSum }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="扣除金额" width="150">
+        <el-table-column align="center" label="扣除金额">
           <template slot-scope="scope">
             {{ scope.row.deductAmt }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="可理算金额" width="150">
+        <el-table-column align="center" label="可理算金额">
           <template slot-scope="scope">
             {{ scope.row.clacAmt }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="赔付金额" width="150">
+        <el-table-column align="center" label="赔付金额">
           <template slot-scope="scope">
             {{ scope.row.compensateAmt }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="赔付结论" width="150">
+        <el-table-column align="center" label="赔付结论">
           <template slot-scope="scope">
             {{ AdjustmentType[scope.row.compensateResult] }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" :show-overflow-tooltip="true" label="结论描述" width="150">
+        <el-table-column align="center" :show-overflow-tooltip="true" label="结论描述">
           <template slot-scope="scope">
             {{ scope.row.conclusionDesc }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="操作" width="120">
+        <el-table-column align="center" label="操作">
           <template slot-scope="scope">
             <el-tooltip class="item" effect="dark" content="编辑" placement="top-start">
               <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)" />
@@ -237,6 +236,7 @@ export default {
     // 父组件通过`@sonStatus`的方法`status`监听到子组件传递的值
     status(data) {
       if (data) {
+        this.$store.dispatch('tagsView/toggleTab', data)
         this.fetchData()
       }
     },

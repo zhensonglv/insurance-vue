@@ -29,93 +29,92 @@
         </el-table-column>
         <el-table-column
           type="selection"
-          width="55"
         />
-        <el-table-column align="center" label="序号" width="95">
+        <el-table-column align="center" label="序号">
           <template slot-scope="scope">
             {{ scope.$index +1 }}
           </template>
         </el-table-column>
-        <el-table-column align="center" :show-overflow-tooltip="true" label="校验审核信息" width="150">
+        <el-table-column align="center" :show-overflow-tooltip="true" label="校验审核信息">
           <template slot-scope="scope">
             <span :class="'font-class-red'">
               {{ scope.row.auditInformation }}
             </span>
           </template>
         </el-table-column>
-        <el-table-column align="center" :show-overflow-tooltip="true" label="申请人姓名" width="120">
+        <el-table-column align="center" :show-overflow-tooltip="true" label="申请人姓名">
           <template slot-scope="scope">
             {{ scope.row.appNme }}
           </template>
         </el-table-column>
-        <el-table-column align="center" :show-overflow-tooltip="true" label="保单号" width="120">
+        <el-table-column align="center" :show-overflow-tooltip="true" label="保单号">
           <template slot-scope="scope">
             {{ scope.row.plyNo }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="被保人id" width="120">
+        <el-table-column align="center" label="被保人id">
           <template slot-scope="scope">
             {{ scope.row.insuresId }}
           </template>
         </el-table-column>
-        <el-table-column align="center" :show-overflow-tooltip="true" label="申请人证件号" width="150">
+        <el-table-column align="center" :show-overflow-tooltip="true" label="申请人证件号">
           <template slot-scope="scope">
             {{ scope.row.appCertCde }}
           </template>
         </el-table-column>
-        <el-table-column align="center" :show-overflow-tooltip="true" label="客户申请号" width="120">
+        <el-table-column align="center" :show-overflow-tooltip="true" label="客户申请号">
           <template slot-scope="scope">
             {{ scope.row.customAppNo }}
           </template>
         </el-table-column>
-        <el-table-column align="center" :show-overflow-tooltip="true" label="分单号" width="150">
+        <el-table-column align="center" :show-overflow-tooltip="true" label="分单号">
           <template slot-scope="scope">
             {{ scope.row.plyPartNo }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="总金额" width="100">
+        <el-table-column align="center" label="总金额">
           <template slot-scope="scope">
             {{ scope.row.invoiceSum }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="赔付金额" width="100">
+        <el-table-column align="center" label="赔付金额">
           <template slot-scope="scope">
             {{ scope.row.compensateAmt }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="最终赔付金额" width="100">
+        <el-table-column align="center" label="最终赔付金额">
           <template slot-scope="scope">
             {{ scope.row.finalCompensateAmt }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="案件状态" width="100">
+        <el-table-column align="center" label="案件状态">
           <template slot-scope="scope">
             {{ CCaseStatuses[scope.row.caseStatus] }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="调查件状态" width="100">
+        <el-table-column align="center" label="调查件状态">
           <template slot-scope="scope">
             {{ scope.row.questionStatus }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="问题件状态" width="100">
+        <el-table-column align="center" label="问题件状态">
           <template slot-scope="scope">
             {{ scope.row.questionZhStatus }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" :show-overflow-tooltip="true" label="结论描述" width="150">
+        <el-table-column align="center" :show-overflow-tooltip="true" label="结论描述">
           <template slot-scope="scope">
             {{ scope.row.conclusionDesc }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="操作" width="120">
+        <el-table-column align="center" label="操作">
           <template slot-scope="scope">
             <el-tooltip class="item" effect="dark" content="编辑" placement="top-start">
               <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)" />
@@ -147,6 +146,7 @@ import { getCodeList } from '@/api/code'
 import Pagination from '@/components/Pagination'
 import Save from './save'
 import duty from '../duty'
+import { mapState } from 'vuex'
 
 export default {
   components: { Pagination, Save, duty },
@@ -168,6 +168,17 @@ export default {
       businessData: {},
       CCaseStatuses: {},
       selected: []
+    }
+  },
+  computed: mapState({
+    packUpTab: state => state.tagsView.packUpTab
+  }),
+  watch: {
+    packUpTab: {
+      handler: function(v) {
+        if (v) this.fetchTypeData()
+      },
+      immediate: true
     }
   },
   mounted() {
@@ -192,6 +203,7 @@ export default {
     fetchData() {
       this.listLoading = true
       getList(this.basePath, this.listQuery).then(response => {
+        this.$store.dispatch('tagsView/toggleTab', false)
         this.list = response.data.data
         this.total = response.data.total
         this.listLoading = false

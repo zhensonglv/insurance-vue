@@ -23,91 +23,90 @@
         </el-table-column>
         <el-table-column
           type="selection"
-          width="55"
         />
-        <el-table-column align="center" label="序号" width="95">
+        <el-table-column align="center" label="序号">
           <template slot-scope="scope">
             {{ scope.$index +1 }}
           </template>
         </el-table-column>
-        <el-table-column align="center" :show-overflow-tooltip="true" label="校验审核信息" width="150">
+        <el-table-column align="center" :show-overflow-tooltip="true" label="校验审核信息">
           <template slot-scope="scope">
             <span :class="'font-class-red'">
               {{ scope.row.auditInformation }}
             </span>
           </template>
         </el-table-column>
-        <el-table-column align="center" label="发票号" width="150">
+        <el-table-column align="center" label="发票号">
           <template slot-scope="scope">
             <!-- <el-input v-model="scope.row.invNo"></el-input>-->
             {{ scope.row.invNo }}
             <!--  <{{ scope.row.pubCoverTyp }}-->
           </template>
         </el-table-column>
-        <el-table-column align="center" label="大项号" width="150">
+        <el-table-column align="center" label="大项号">
           <template slot-scope="scope">
             {{ scope.row.maxtermNo }}
           <!--  <{{ scope.row.pubCoverTyp }}-->
           </template>
         </el-table-column>
-        <el-table-column align="center" label="服务类型" width="150">
+        <el-table-column align="center" label="服务类型">
           <template slot-scope="scope">
             {{ scope.row.serviceTyp }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="社保类型" width="150">
+        <el-table-column align="center" label="社保类型">
           <template slot-scope="scope">
             {{ CSocialinsuTyp[scope.row.secuTyp] }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="费用名称" width="150">
+        <el-table-column align="center" label="费用名称">
           <template slot-scope="scope">
             {{ scope.row.payName }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="总金额" width="150">
+        <el-table-column align="center" label="总金额">
           <template slot-scope="scope">
             {{ scope.row.sumAmt }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="扣除金额" width="150">
+        <el-table-column align="center" label="扣除金额">
           <template slot-scope="scope">
             {{ scope.row.deductAmt }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="可理算金额" width="150">
+        <el-table-column align="center" label="可理算金额">
           <template slot-scope="scope">
             {{ scope.row.reasonableAmt }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="赔付金额" width="150">
+        <el-table-column align="center" label="赔付金额">
           <template slot-scope="scope">
             {{ scope.row.compensateAmt }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="最终赔付金额" width="150">
+        <el-table-column align="center" label="最终赔付金额">
           <template slot-scope="scope">
             {{ scope.row.finalPay }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="赔付结论" width="150">
+        <el-table-column align="center" label="赔付结论">
           <template slot-scope="scope">
             {{ AdjustmentType[scope.row.compensateResult] }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" :show-overflow-tooltip="true" label="结论描述" width="150">
+        <el-table-column align="center" :show-overflow-tooltip="true" label="结论描述">
           <template slot-scope="scope">
             {{ scope.row.conclusionDesc }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="操作" width="120">
+        <el-table-column align="center" label="操作">
           <template slot-scope="scope">
             <el-tooltip class="item" effect="dark" content="编辑" placement="top-start">
               <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)" />
@@ -230,6 +229,7 @@ export default {
     // 父组件通过`@sonStatus`的方法`status`监听到子组件传递的值
     status(data) {
       if (data) {
+        this.$store.dispatch('tagsView/toggleTab', data)
         this.fetchData()
       }
     },

@@ -1,9 +1,13 @@
 const state = {
   visitedViews: [],
-  cachedViews: []
+  cachedViews: [],
+  packUpTab: false
 }
 
 const mutations = {
+  TOGG_TAB: (state, bool) => {
+    state.packUpTab = bool
+  },
   ADD_VISITED_VIEW: (state, view) => {
     if (state.visitedViews.some(v => v.path === view.path)) return
     state.visitedViews.push(
@@ -67,6 +71,9 @@ const mutations = {
 }
 
 const actions = {
+  toggleTab({ commit }, bool) {
+    commit('TOGG_TAB', bool)
+  },
   addView({ dispatch }, view) {
     dispatch('addVisitedView', view)
     dispatch('addCachedView', view)
