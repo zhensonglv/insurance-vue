@@ -187,6 +187,12 @@ export const constantRoutes = [
         meta: { title: '投保集团管理', icon: 'guide', noCache: true }
       },
       {
+        path: 'keyAccount',
+        component: () => import('@/views/client/keyAccount/index'),
+        name: '重点客户管理',
+        meta: { title: '重点客户管理', icon: 'guide', noCache: true }
+      },
+      {
         path: 'company',
         component: () => import('@/views/client/company/index'),
         name: '直保公司管理',
