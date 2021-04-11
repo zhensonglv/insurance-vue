@@ -5,6 +5,8 @@
       <div class="header">
         <div class="tit">账单信息</div>
         <el-button style="margin: 0 0 10px 10px;" type="primary" icon="el-icon-edit" circle @click="handleSave" />
+        <el-button style="margin-left: 10px;" type="primary" @click="copyInv">复制</el-button>
+        <el-button style="margin-left: 10px;" type="primary" @click="splitInv">拆分</el-button>
       </div>
       <el-table
         v-loading="listLoading"
@@ -36,12 +38,6 @@
             </span>
           </template>
         </el-table-column>
-        <el-table-column align="center" label="客户申请号">
-          <template slot-scope="scope">
-            {{ scope.row.customAppNo }}
-          <!--  <{{ scope.row.pubCoverTyp }}-->
-          </template>
-        </el-table-column>
         <el-table-column align="center" label="就诊类型">
           <template slot-scope="scope">
             {{ ClinicType[scope.row.docTyp] }}
@@ -49,7 +45,7 @@
         </el-table-column>
         <el-table-column align="center" label="账单类型">
           <template slot-scope="scope">
-            {{ CiRateBillTyp[scope.row.billtyp] }}
+            {{ CiRateBillTyp[scope.row.billTyp] }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="发票地区">
@@ -99,13 +95,13 @@
         </el-table-column>
 
         <el-table-column align="center" label="操作">
-          <template slot-scope="scope">
 
-            <el-tooltip class="item" effect="dark" content="编辑" placement="top-start">
-              <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleInvdtl(scope.row.id)" />
-            </el-tooltip>
+          <template slot-scope="scope">
             <el-tooltip class="item" effect="dark" content="编辑" placement="top-start">
               <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)" />
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="账单明细" placement="top-start">
+              <el-button type="primary" size="mini" icon="el-icon-search" class="action-button" @click="handleInvdtl(scope.row.id)" />
             </el-tooltip>
             <el-tooltip class="item" effect="dark" content="删除" placement="top-start">
               <el-button type="danger" size="mini" icon="el-icon-delete" class="action-button" @click="handleDel(scope.row.id)" />
@@ -116,6 +112,7 @@
 
       <save :son-data="form" :business-data="businessData" @sonStatus="status" />
       <invdtl :son-inv-data="invdtlForm" :business-data="businessData" @sonStatus="status" />
+      <copy :son-copy-data="copyVal" @sonStatus="status" />
 
       <pagination
         v-show="total>0"
@@ -129,15 +126,16 @@
 </template>
 
 <script>
-import { getList, findById, del } from '@/api/claim/inv'
+import { getList, findById, del, splitInv } from '@/api/claim/inv'
 import { getCodeList } from '@/api/code'
 import Pagination from '@/components/Pagination'
 import Save from './save'
 import treat from '../treat'
 import Invdtl from '@/views/claim/inv/invdtl'
+import Copy from '@/views/claim/inv/copy'
 
 export default {
-  components: { Pagination, Save, treat, Invdtl },
+  components: { Pagination, Save, treat, Invdtl, Copy },
   props: {
     aggregate: {
       type: Boolean,
@@ -161,13 +159,16 @@ export default {
       total: 0,
       dialogVisible: false,
       dialogInvVisible: false,
+      dialogCopyVisible: false,
       form: null,
       invdtlForm: null,
       businessData: {},
       CTeamTyp: {},
       CPubCoverTyp: {},
       AdjustmentType: {},
-      selected: []
+      selected: [],
+      CiRateBillTyp: {},
+      copyVal: []
     }
   },
   created() {
@@ -219,6 +220,54 @@ export default {
         this.fetchData()
       })
     },
+    copyInv() {
+      if (this.selected.length === 0) {
+        this.$message({
+          showClose: true,
+          message: '请选择数据',
+          type: 'warning'
+        })
+      } else {
+        this.handleCopy()
+      }
+    },
+    handleCopy() {
+      this.copyVal = this.selected
+      this.dialogCopyVisible = true
+    },
+    splitInv() {
+      if (this.selected.length === 0) {
+        this.$message({
+          showClose: true,
+          message: '请选择数据',
+          type: 'warning'
+        })
+      } else if (this.selected.length === this.list.length) {
+        this.$message({
+          showClose: true,
+          message: '不可选择全部发票',
+          type: 'warning'
+        })
+      } else {
+        this.$confirm('是否拆分发票数据？, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          splitInv(this.selected).then(res => {
+            if (res.code === 200) {
+              this._notify('拆分成功', 'success')
+              this.$store.dispatch('tagsView/toggleTab', true)
+            } else {
+              this._notify(res.msg, 'error')
+            }
+          })
+        }).catch(() => {
+          this._notify('已取消', 'info')
+        })
+      }
+    },
+
     handleInvdtl(id) {
       this.dialogInvVisible = true
       findById(id).then(response => {

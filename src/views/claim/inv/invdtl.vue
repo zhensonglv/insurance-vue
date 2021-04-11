@@ -146,7 +146,7 @@
             </el-form-item>
 
             <el-form-item label="发票总金额" prop="sumAmt" label-width="120px">
-              <el-input v-model="invdtlForm.sumAmt" placeholder="请输入发票总金额" />
+              <el-input v-model="invdtlForm.sumAmt" placeholder="请输入发票总金额" @change="changSumAmt" />
             </el-form-item>
 
             <el-form-item label="统筹金额" prop="overallAmt" label-width="120px">
@@ -154,7 +154,7 @@
             </el-form-item>
 
             <el-form-item label="分类自付" prop="categSelfPay" label-width="120px">
-              <el-input v-model="invdtlForm.categSelfPay" placeholder="请输入分类自付" />
+              <el-input v-model="invdtlForm.categSelfPay" placeholder="请输入分类自付" @change="changeCategSelfpayAmt" />
             </el-form-item>
 
             <el-form-item label="自付" prop="selfPay" label-width="120px">
@@ -162,7 +162,7 @@
             </el-form-item>
 
             <el-form-item label="自费" prop="selfExpense" label-width="120px">
-              <el-input v-model="invdtlForm.selfExpense" placeholder="请输入自费" />
+              <el-input v-model="invdtlForm.selfExpense" placeholder="请输入自费" @change="changSelfAmt" />
             </el-form-item>
 
             <el-form-item label="可理算金额" prop="reasonableAmt" label-width="120px">
@@ -290,7 +290,7 @@
       </div>
     </el-form>
     <div align="center">
-      <el-button style="margin-left: 10px;" type="primary" @click="batchSave">保存</el-button>
+      <el-button style="margin-left: 10px;" type="primary" @click="save('invdtlForm')">保存</el-button>
     </div>
 
     <el-form ref="invdtlForm" :inline="true" :model="calcForm" status-icon label-position="right" label-width="80px">
@@ -431,9 +431,9 @@
       <el-button @click="handleClose">
         Cancel
       </el-button>
-      <el-button type="primary" @click="onSubmit('invdtlForm')">
+      <!--      <el-button type="primary" @click="onSubmit('invdtlForm')">
         Confirm
-      </el-button>
+      </el-button>-->
     </div>
   </el-dialog>
 </template>
@@ -550,7 +550,7 @@ export default {
       listLoading: true,
       listQuery: {
         pageNum: 1,
-        pageSize: 10,
+        pageSize: 100,
         invId: '',
         sort: '+id'
       },
@@ -684,6 +684,7 @@ export default {
     handleClose() {
       this.clearForm()
       this.clearFlag()
+      this.$emit('sonStatus', true)
     },
     clearFlag() {
       this.dialogInvVisible = false
@@ -691,7 +692,24 @@ export default {
       this.show2 = true
       this.show3 = true
     },
-    onSubmit(invdtlForm) {
+    save(invdtlForm) {
+      this.$refs[invdtlForm].validate((valid) => {
+        if (valid) {
+          if (this.invdtlForm.id !== null) {
+            edit(this.invdtlForm).then(response => {
+              if (response.code === 200) {
+                this._notify(response.msg, 'success')
+              } else {
+                this._notify(response.msg, 'error')
+              }
+            })
+          }
+        } else {
+          this.$message('error submit!!')
+        }
+      })
+    },
+    /*   onSubmit(invdtlForm) {
       this.$refs[invdtlForm].validate((valid) => {
         if (valid) {
           if (this.invdtlForm.id !== null) {
@@ -711,14 +729,14 @@ export default {
           return false
         }
       })
-    },
+    },*/
     // ------------------------合计信息js function-------------------------------------------
     changSumAmt() {
       var sum = 0.0
       for (var i = 0; i < this.list.length; i++) {
         sum = sum + parseFloat(this.list[i].sumAmt)
       }
-      var deduct = parseFloat(this.invdtlForm.sumAmt) - sum
+      var deduct = sum - parseFloat(this.invdtlForm.sumAmt)
       this.calcForm.dtlSumAmt = sum.toFixed(2)
       this.calcForm.dtlSumAmtDeduct = deduct.toFixed(2)
     },
@@ -728,7 +746,7 @@ export default {
       for (var i = 0; i < this.list.length; i++) {
         sum = sum + parseFloat(this.list[i].categSelfpayAmt)
       }
-      var deduct = parseFloat(this.invdtlForm.categSelfPay) - sum
+      var deduct = sum - parseFloat(this.invdtlForm.categSelfPay)
       this.calcForm.dtlCategSelfpayAmt = sum.toFixed(2)
       this.calcForm.dtlCategDeduct = deduct.toFixed(2)
     },
@@ -737,7 +755,7 @@ export default {
       for (var i = 0; i < this.list.length; i++) {
         sum = sum + parseFloat(this.list[i].selfAmt)
       }
-      var deduct = parseFloat(this.invdtlForm.selfExpense) - sum
+      var deduct = sum - parseFloat(this.invdtlForm.selfExpense)
       this.calcForm.dtlSelfAmt = sum.toFixed(2)
       this.calcForm.dtlSelfDeduct = deduct.toFixed(2)
     },

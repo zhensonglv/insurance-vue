@@ -5,6 +5,8 @@
       <div class="header">
         <div class="tit">就诊信息</div>
         <el-button style="margin: 0 0 10px 10px;" type="primary" icon="el-icon-edit" circle @click="handleSave" />
+        <el-button style="margin-left: 10px;" type="primary" @click="combineVisit">合并就诊</el-button>
+
       </div>
       <el-table
         v-loading="listLoading"
@@ -38,7 +40,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="医院名称">
+        <el-table-column align="center" :show-overflow-tooltip="true" label="医院名称">
           <template slot-scope="scope">
             {{ scope.row.hospitalNme }}
           </template>
@@ -58,7 +60,7 @@
             {{ scope.row.docEndTm }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="诊断描述">
+        <el-table-column align="center" :show-overflow-tooltip="true" label="诊断描述">
           <template slot-scope="scope">
             {{ scope.row.diagDesc }}
           </template>
@@ -122,7 +124,7 @@
 </template>
 
 <script>
-import { getList, findById, del } from '@/api/claim/visit'
+import { getList, findById, del, combineVisit } from '@/api/claim/visit'
 import { getCodeList } from '@/api/code'
 import Pagination from '@/components/Pagination'
 import Save from './save'
@@ -179,18 +181,6 @@ export default {
     expandChange(row, extend) {
       this.visitId = row.id
     },
-    /* handleRoute() {
-      if (this.selected.length !== 1) {
-        this.$message({
-          showClose: true,
-          message: '只能选择一条查看',
-          type: 'warning'
-        })
-      } else {
-        this.$router.push({ path: '/client/plyPartPubCov', query: { pubCoverId: this.selected[0].id }})
-      }
-    },*/
-
     _notify(message, type) {
       this.$message({
         message: message,
@@ -207,6 +197,32 @@ export default {
       })
     },
     resetData() {
+    },
+    combineVisit() {
+      if (this.selected.length <= 1) {
+        this.$message({
+          showClose: true,
+          message: '请选择多条数据',
+          type: 'warning'
+        })
+      } else {
+        this.$confirm('是否合并就诊数据？, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          combineVisit(this.selected).then(res => {
+            if (res.code === 200) {
+              this._notify('合并成功', 'success')
+              this.$store.dispatch('tagsView/toggleTab', true)
+            } else {
+              this._notify(res.msg, 'error')
+            }
+          })
+        }).catch(() => {
+          this._notify('已取消', 'info')
+        })
+      }
     },
     fetchTypeData() {
       // 获取codeList

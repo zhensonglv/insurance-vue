@@ -45,3 +45,19 @@ export function initData(data) {
     data
   })
 }
+
+export function copyInv(data) {
+  return request({
+    url: '/base/inv/copyInv',
+    method: 'post',
+    data
+  })
+}
+
+export function splitInv(data) {
+  return request({
+    url: '/base/inv/splitInv',
+    method: 'post',
+    data
+  })
+}

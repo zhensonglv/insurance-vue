@@ -46,3 +46,11 @@ export function initVistData(data) {
   })
 }
 
+export function combineVisit(data) {
+  return request({
+    url: '/base/visit/combineVisit',
+    method: 'post',
+    data
+  })
+}
+
