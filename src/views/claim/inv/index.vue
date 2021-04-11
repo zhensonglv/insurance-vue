@@ -126,7 +126,7 @@
 </template>
 
 <script>
-import { getList, findById, del, splitInv } from '@/api/claim/inv'
+import { getList, findById, deleteInv, splitInv } from '@/api/claim/inv'
 import { getCodeList } from '@/api/code'
 import Pagination from '@/components/Pagination'
 import Save from './save'
@@ -300,9 +300,9 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        del(id).then(response => {
+        deleteInv(id).then(response => {
           if (response.code === 200) {
-            this._notify(response.msg, 'success')
+            this._notify('删除成功', 'success')
           } else {
             this._notify(response.msg, 'error')
           }

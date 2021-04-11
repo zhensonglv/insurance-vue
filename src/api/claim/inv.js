@@ -30,6 +30,13 @@ export function del(id) {
   })
 }
 
+export function deleteInv(id) {
+  return request({
+    url: '/base/inv/delete/' + id,
+    method: 'delete'
+  })
+}
+
 export function edit(data) {
   return request({
     url: '/base/inv/edit',
