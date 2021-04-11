@@ -1,7 +1,7 @@
 <template>
   <el-dialog :title="title" :visible.sync="dialogTableVisible" append-to-body width="80%">
 
-    <dataMatch dialog @setMultipleSeleValues="setMultipleSeleValues" />
+    <dataMatch dialog :no-typ="matchNoTyp" @setMultipleSeleValues="setMultipleSeleValues" />
     <div slot="footer" class="dialog-footer">
       <el-button @click="handleClose">
         取消
@@ -21,6 +21,10 @@ export default {
     value: {
       type: Boolean,
       default: false
+    },
+    matchNoTyp: {
+      type: String,
+      default: ''
     }
   },
   data() {
@@ -31,7 +35,6 @@ export default {
       listQuery: {
         pageNum: 1,
         pageSize: 10,
-        noTyp: '',
         sort: '+id'
       },
       total: 0,
@@ -44,7 +47,11 @@ export default {
     value(val) {
       this.dialogTableVisible = val
     },
+    matchNoTyp(val) {
+      console.log(val)
+    },
     dialogTableVisible(val) {
+      debugger
       this.$emit('input', val)
     }
   },

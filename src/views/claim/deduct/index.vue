@@ -136,8 +136,9 @@ export default {
     // 父组件通过`@sonStatus`的方法`status`监听到子组件传递的值
     status(data) {
       if (data) {
-        this.$store.dispatch('tagsView/toggleTab', data)
         this.fetchData()
+      } else {
+        this.$store.dispatch('tagsView/toggleTab', !data)
       }
     }
   }

@@ -523,7 +523,7 @@ export default {
                   if (response.code === 200) {
                     this._notify(response.msg, 'success')
                     this.clearForm()
-                    this.$emit('sonStatus', true)
+                    this.$emit('sonStatus', false)
                     this.clearFlag()
                   } else {
                     this._notify(response.msg, 'error')

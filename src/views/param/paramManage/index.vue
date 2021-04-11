@@ -185,9 +185,9 @@ export default {
       })
     },
     fetchData() {
-      if (this.paramType === 'param_0015') {
+      /* if (this.paramType === 'param_0015') {
         this.listQuery.paramterTyp = this.paramType
-      }
+      }*/
       this.listLoading = true
       getList(this.basePath, this.listQuery).then(response => {
         this.list = response.data.data

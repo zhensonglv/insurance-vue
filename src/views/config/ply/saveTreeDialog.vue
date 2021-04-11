@@ -23,10 +23,10 @@
       </el-form-item>
       <el-form-item label="系统代码" prop="dataNo" label-width="120px">
         <el-input v-model="form.dataNo" placeholder="请输入系统代码">
-          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch" />
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(form.type)" />
         </el-input>
       </el-form-item>
-      <match v-model="matchVisable" @matchConfirm="matchConfirm" />
+      <match-data v-model="matchVisable" @matchConfirm="matchConfirm" />
       <el-form-item label="系统名称" prop="dataNme" label-width="120px">
         <el-input v-model="form.dataNme" placeholder="请输入系统名称" />
       </el-form-item>
@@ -45,11 +45,11 @@
 <script>
 import { save, edit } from '@/api/base'
 import { getCodeList } from '@/api/code'
-import Match from './match'
+import MatchData from './matchData'
 
 export default {
   components: {
-    Match
+    MatchData
   },
   props: {
     'sonData': Object,
@@ -72,7 +72,7 @@ export default {
         type: null
       },
       matchVisable: false,
-      matchTyp: null,
+      matchNoTyp: '',
       typeData: {},
       rules: {
       }
@@ -125,8 +125,10 @@ export default {
       this.clearForm()
       this.loadVisible = false
     },
-    hanldeMatch() {
+    hanldeMatch(type) {
+      debugger
       this.matchVisable = true
+      this.matchNoTyp = type
     },
     matchConfirm(data) {
       if (data.partyCde && data.partyName && data.jkCde && data.jkName) {

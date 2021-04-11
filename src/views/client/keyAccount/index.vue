@@ -18,31 +18,31 @@
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="团体号" width="350">
+        <el-table-column align="center" label="团体号" width="150">
           <template slot-scope="scope">
             {{ scope.row.teamNo }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="分单号" width="350">
+        <el-table-column align="center" label="分单号" width="250">
           <template slot-scope="scope">
             {{ scope.row.plyPartNo }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="被保人ID" width="350">
+        <el-table-column align="center" label="被保人ID" width="150">
           <template slot-scope="scope">
             {{ scope.row.insuredId }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="保单号" width="350">
+        <el-table-column align="center" label="保单号" width="150">
           <template slot-scope="scope">
             {{ scope.row.plyNo }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="团体名称" width="350">
+        <el-table-column align="center" label="团体名称" width="300">
           <template slot-scope="scope">
             {{ scope.row.teamNme }}
           </template>
@@ -71,7 +71,6 @@
 
 <script>
 import { getList, findById, del } from '@/api/base'
-import { getCodeList } from '@/api/code'
 import Pagination from '@/components/Pagination'
 import Save from './save'
 

@@ -2,7 +2,14 @@
   <div class="app-container">
     <el-card>
       <div>
-        <el-input v-model="listQuery.noTyp" style="width: 200px;" placeholder="请输入数据类型查询" />
+        <el-select v-model="listQuery.noTyp" placeholder="请选择数据类型">
+          <el-option
+            v-for="item in businessData.dutyMatchType"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
         <el-input v-model="listQuery.partyCde" style="width: 200px;" placeholder="请输入甲方代码查询" />
         <el-input v-model="listQuery.partyName" style="width: 200px;" placeholder="请输入甲方名称查询" />
         <el-input v-model="listQuery.jkCde" style="width: 200px;" placeholder="请输入系统代码查询" />
@@ -92,6 +99,12 @@ import Save from './save'
 
 export default {
   components: { Pagination, Save },
+  props: {
+    noTyp: {
+      type: String,
+      default: ''
+    }
+  },
   data() {
     return {
       list: null,
@@ -100,6 +113,11 @@ export default {
       listQuery: {
         pageNum: 1,
         pageSize: 10,
+        noTyp: '',
+        partyCde: '',
+        partyName: '',
+        jkCde: '',
+        jkName: '',
         sort: '+id'
       },
       total: 0,
@@ -110,11 +128,17 @@ export default {
       dutyMatchType: {}
     }
   },
+
+  watch: {
+    noTyp(val) {
+      debugger
+      if (val) {
+        this.listQuery.noTyp = val
+      }
+    }
+  },
+
   created() {
-    /* if (this.$route.query.pubCoverId) { // 上级页面传入参数
-          this.listQuery.pubCoverId = this.$route.query.pubCoverId
-        }*/
-    // this.fetchData()
     this.fetchTypeData()
   },
   mounted() {

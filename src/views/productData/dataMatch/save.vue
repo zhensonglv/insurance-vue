@@ -74,6 +74,7 @@ export default {
       },
       matchVisable: false,
       matchTyp: null,
+      level: null,
       rules: {
         noTyp: [{ required: true, trigger: 'blur', message: '请输入数据类型' }],
         jkCde: [{ required: true, trigger: 'blur', message: '请输入系统代码' }],
@@ -85,6 +86,7 @@ export default {
     'sonData': function(newVal, oldVal) {
       this.form = newVal
       this.dialogVisible = true
+      this.changeNoTyp()
       if (newVal.id != null) {
         this.dialogTitle = 'Edit'
       } else {
@@ -107,6 +109,7 @@ export default {
       this.form.jkCde = null
       this.form.jkName = null
       this.form.partyCompanyName = null
+      this.level = null
     },
     handleClose() {
       this.clearForm()
@@ -115,15 +118,17 @@ export default {
 
     changeNoTyp() {
       if (this.form.noTyp === 'product') {
-        this.matchTyp = 1
+        this.level = 1
       } else if (this.form.noTyp === 'insurecde') {
-        this.matchTyp = 2
+        this.level = 2
       } else {
-        this.matchTyp = 3
+        this.level = 3
       }
     },
     hanldeMatch() {
+      debugger
       this.matchVisable = true
+      this.matchTyp = this.level
     },
     matchConfirm(data) {
       if (data.prodNo) {
