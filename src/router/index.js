@@ -552,6 +552,12 @@ export const constantRoutes = [
         component: () => import('@/views/param/ciRateDetail/index'),
         name: '阶梯比例明细',
         meta: { title: '阶梯比例明细', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'quotaNumConfig',
+        component: () => import('@/views/param/quotaNumConfig/index'),
+        name: '限额次数',
+        meta: { title: '限额次数', icon: 'guide', noCache: true }
       }
     ]
   },
