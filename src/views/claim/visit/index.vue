@@ -214,7 +214,7 @@ export default {
           combineVisit(this.selected).then(res => {
             if (res.code === 200) {
               this._notify('合并成功', 'success')
-              this.$store.dispatch('tagsView/toggleTab', true)
+              this.fetchData()
             } else {
               this._notify(res.msg, 'error')
             }

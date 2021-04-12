@@ -10,6 +10,8 @@
         <el-button style="margin-left: 10px;" type="primary" @click="viewImage">影像</el-button>
         <el-button style="margin-left: 10px;" type="primary" @click="viewImage">被保人既往症设置</el-button>
         <el-button style="margin-left: 10px;" type="primary" @click="viewImage">操作轨迹</el-button>
+        <el-button style="margin-left: 10px;" type="primary" @click="viewImage">历史理赔</el-button>
+        <el-button style="margin-left: 10px;" type="primary" @click="viewImage">问题件</el-button>
         <el-button style="margin-left: 10px;" type="primary" @click="hangeRule">悬挂规则</el-button>
 
       </div>
