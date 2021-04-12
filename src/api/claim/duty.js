@@ -30,6 +30,13 @@ export function del(id) {
   })
 }
 
+export function deleteDuty(id) {
+  return request({
+    url: '/base/duty/delete/' + id,
+    method: 'delete'
+  })
+}
+
 export function edit(data) {
   return request({
     url: '/base/duty/edit',
@@ -41,6 +48,22 @@ export function edit(data) {
 export function initDutyData(data) {
   return request({
     url: '/base/compensateResult/initDutyInfo',
+    method: 'post',
+    data
+  })
+}
+
+export function getPlyTree(data) {
+  return request({
+    url: '/base/compensateResult/getPlyTree',
+    method: 'post',
+    data
+  })
+}
+
+export function copyDuty(data) {
+  return request({
+    url: '/base/duty/copyDuty',
     method: 'post',
     data
   })

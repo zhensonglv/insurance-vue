@@ -124,7 +124,7 @@
 </template>
 
 <script>
-import { getList, findById, del, combineVisit } from '@/api/claim/visit'
+import { getList, findById, deleteVisit, combineVisit } from '@/api/claim/visit'
 import { getCodeList } from '@/api/code'
 import Pagination from '@/components/Pagination'
 import Save from './save'
@@ -264,7 +264,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        del(id).then(response => {
+        deleteVisit(id).then(response => {
           if (response.code === 200) {
             this._notify(response.msg, 'success')
           } else {

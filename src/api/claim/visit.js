@@ -23,6 +23,13 @@ export function save(data, id) {
   })
 }
 
+export function deleteVisit(id) {
+  return request({
+    url: '/base/visit/delete/' + id,
+    method: 'delete'
+  })
+}
+
 export function del(id) {
   return request({
     url: '/base/visit/' + id,

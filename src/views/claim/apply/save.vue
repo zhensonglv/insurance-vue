@@ -328,6 +328,17 @@
         <el-input v-model="form.investigateRemark" placeholder="请输入线下调查备注" />
       </el-form-item>
 
+      <el-form-item label="理算层级" prop="calcLevel" label-width="120px">
+        <el-select v-model="form.calcLevel" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.calcLevel"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
+      </el-form-item>
+
       <el-form-item label="结论描述" prop="conclusionDesc" label-width="120px">
         <el-input v-model="form.conclusionDesc" placeholder="请输入结论描述" />
       </el-form-item>
@@ -420,7 +431,8 @@ export default {
         investigate: '',
         investigateRemark: '',
         conclusionDesc: '',
-        auditInformation: ''
+        auditInformation: '',
+        calcLevel: ''
       },
       matchTyp: null,
       matchVisable: false,
@@ -510,6 +522,7 @@ export default {
       this.form.investigateRemark = null
       this.form.conclusionDesc = null
       this.form.auditInformation = null
+      this.form.calcLevel = null
     },
     handleClose() {
       this.clearForm()

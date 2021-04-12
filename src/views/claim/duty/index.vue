@@ -5,6 +5,8 @@
       <div class="header">
         <div class="tit">责任信息</div>
         <el-button style="margin: 0 0 10px 10px;" type="primary" icon="el-icon-edit" circle @click="handleSave" />
+        <el-button style="margin-left: 10px;" type="primary" @click="copyDuty">复制</el-button>
+
       </div>
       <el-table
         v-loading="listLoading"
@@ -115,7 +117,7 @@
 </template>
 
 <script>
-import { getList, findById, del } from '@/api/claim/duty'
+import { getList, findById, deleteDuty, copyDuty } from '@/api/claim/duty'
 import { getCodeList } from '@/api/code'
 import Pagination from '@/components/Pagination'
 import Save from './save'
@@ -196,6 +198,33 @@ export default {
         this.fetchData()
       })
     },
+    copyDuty() {
+      if (this.selected.length === 0) {
+        this.$message({
+          showClose: true,
+          message: '请选择数据',
+          type: 'warning'
+        })
+      } else {
+        this.$confirm('是否复制发票数据？, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          copyDuty(this.selected).then(res => {
+            if (res.code === 200) {
+              this._notify('复制成功!请修改复制的责任号！！！', 'success')
+              this.$store.dispatch('tagsView/toggleTab', true)
+            } else {
+              this._notify(res.msg, 'error')
+            }
+          })
+        }).catch(() => {
+          this._notify('已取消', 'info')
+        })
+      }
+    },
+
     handleSave() {
       this.form = { id: null, clmAppId: this.applyId }
       this.dialogVisible = true
@@ -222,7 +251,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        del(id).then(response => {
+        deleteDuty(id).then(response => {
           if (response.code === 200) {
             this._notify(response.msg, 'success')
           } else {

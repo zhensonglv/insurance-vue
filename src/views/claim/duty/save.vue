@@ -228,8 +228,11 @@
             </el-form-item>
 
             <el-form-item label="责任号" prop="plyPartNo" label-width="120px">
-              <el-input v-model="form.responseNo" placeholder="请输入责任号" />
+              <el-input v-model="form.responseNo" placeholder="请输入责任号">
+                <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch" />
+              </el-input>
             </el-form-item>
+            <match v-model="matchVisable" :ply-info="plyInfo" @matchConfirm="matchConfirm" />
 
             <el-form-item label="甲方产品号" prop="plyPartNo" label-width="120px">
               <el-input v-model="form.partaProdNo" placeholder="请输入甲方产品号" />
@@ -315,11 +318,12 @@
 
 <script>
 import { initDutyData, save, edit } from '@/api/claim/duty'
-
+import Match from '@/views/claim/duty/match'
 export default {
   // 父组件向子组件传值，通过props获取。
   // 一旦父组件改变了`sonData`对应的值，子组件的`sonData`会立即改变，通过watch函数可以实时监听到值的变化
   // `props`不属于data，但是`props`中的参数可以像data中的参数一样直接使用
+  components: { Match },
   props: ['sonData', 'businessData'],
   data() {
     return {
@@ -342,6 +346,14 @@ export default {
         partaCvrgName: '',
         partaResponseNo: '',
         partaResponseName: '',
+        dutyId: '',
+        cvrgId: '',
+        prodId: '',
+        policyId: '',
+        teamId: '',
+        groupId: '',
+        isAccidentDuty: '',
+        vistDoctor: '',
         invoiceSum: '',
         deductAmt: '',
         clacAmt: '',
@@ -370,6 +382,8 @@ export default {
       show1: true,
       show2: true,
       oldForm: {},
+      matchVisable: false,
+      plyInfo: {},
       rules: {
         batchNo: [{ required: true, trigger: 'blur', message: '请输入批次号' }]
       }
@@ -442,6 +456,36 @@ export default {
       this.form.isignExcelusion = null
       this.form.isRehabiliation = null
     },
+
+    hanldeMatch() {
+      this.matchVisable = true
+      this.plyInfo.plyNo = this.form.plyNo
+      this.plyInfo.plyPartNo = this.form.plyPartNo
+    },
+    matchConfirm(data) {
+      this.form.prodNo = data.prodNo
+      this.form.prodName = data.prodName
+      this.form.partaProdNo = data.partaProdNo
+      this.form.partaProdName = data.partaProdName
+      this.form.cvrgNo = data.cvrgNo
+      this.form.cvrgName = data.cvrgName
+      this.form.partaCvrgNo = data.partaCvrgNo
+      this.form.partaCvrgName = data.partaCvrgName
+      this.form.responseNo = data.responseNo
+      this.form.responseName = data.responseName
+      this.form.partaResponseNo = data.partaResponseNo
+      this.form.partaResponseName = data.partaResponseName
+      this.form.dutyId = data.dutyId
+      this.form.cvrgId = data.cvrgId
+      this.form.prodId = data.prodId
+      this.form.policyId = data.policyId
+      this.form.teamId = data.teamId
+      this.form.groupId = data.groupId
+      this.form.isAccidentDuty = data.isAccidentDuty
+      this.form.vistDoctor = data.vistDoctor
+      this.plyInfo = null
+    },
+
     handleClose() {
       this.clearForm()
       this.clearFlag()

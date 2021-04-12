@@ -8,6 +8,8 @@
         <el-button style="margin-left: 10px;" type="primary" @click="initResponse">初始化定责</el-button>
         <el-button style="margin-left: 10px;" type="primary" @click="calcClmData">理算</el-button>
         <el-button style="margin-left: 10px;" type="primary" @click="viewImage">影像</el-button>
+        <el-button style="margin-left: 10px;" type="primary" @click="viewImage">被保人既往症设置</el-button>
+        <el-button style="margin-left: 10px;" type="primary" @click="viewImage">操作轨迹</el-button>
         <el-button style="margin-left: 10px;" type="primary" @click="hangeRule">悬挂规则</el-button>
 
       </div>
@@ -52,6 +54,11 @@
             {{ scope.row.plyNo }}
           </template>
         </el-table-column>
+        <el-table-column align="center" :show-overflow-tooltip="true" label="分单号">
+          <template slot-scope="scope">
+            {{ scope.row.plyPartNo }}
+          </template>
+        </el-table-column>
         <el-table-column align="center" label="被保人id">
           <template slot-scope="scope">
             {{ scope.row.insuresId }}
@@ -65,11 +72,6 @@
         <el-table-column align="center" :show-overflow-tooltip="true" label="客户申请号">
           <template slot-scope="scope">
             {{ scope.row.customAppNo }}
-          </template>
-        </el-table-column>
-        <el-table-column align="center" :show-overflow-tooltip="true" label="分单号">
-          <template slot-scope="scope">
-            {{ scope.row.plyPartNo }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="总金额">
@@ -213,7 +215,7 @@ export default {
     },
     fetchTypeData() {
       // 获取codeList
-      getCodeList({ parent: ['TrueOrFalse', 'AccidentTypes', 'CBankTyp', 'MedicalRMethod', 'CBatchStatus', 'CCaseStatuses'] }).then(res => {
+      getCodeList({ parent: ['TrueOrFalse', 'AccidentTypes', 'CBankTyp', 'MedicalRMethod', 'CBatchStatus', 'CCaseStatuses', 'calcLevel'] }).then(res => {
         this.businessData = res.data
         // 组装table 的map
         for (const key in this.businessData) {
