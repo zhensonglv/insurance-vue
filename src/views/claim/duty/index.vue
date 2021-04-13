@@ -6,7 +6,7 @@
         <div class="tit">责任信息</div>
         <el-button style="margin: 0 0 10px 10px;" type="primary" icon="el-icon-edit" circle @click="handleSave" />
         <el-button style="margin-left: 10px;" type="primary" @click="copyDuty">复制</el-button>
-
+        <el-button style="margin-left: 10px;" type="primary" @click="adjustDuty">调整</el-button>
       </div>
       <el-table
         v-loading="listLoading"
@@ -104,7 +104,7 @@
       </el-table>
 
       <save :son-data="form" :business-data="businessData" @sonStatus="status" />
-
+      <adjust :adjust-data="adjustForm" :business-data="businessData" @sonStatus="status" />
       <pagination
         v-show="total>0"
         :total="total"
@@ -122,9 +122,10 @@ import { getCodeList } from '@/api/code'
 import Pagination from '@/components/Pagination'
 import Save from './save'
 import visit from '../visit'
+import Adjust from './adjust'
 
 export default {
-  components: { Pagination, Save, visit },
+  components: { Pagination, Save, visit, Adjust },
   props: {
     aggregate: {
       type: Boolean,
@@ -147,7 +148,9 @@ export default {
       },
       total: 0,
       dialogVisible: false,
+      dialogAdjustVisible: false,
       form: null,
+      adjustForm: null,
       businessData: {},
       CTeamTyp: {},
       CPubCoverTyp: {},
@@ -206,7 +209,7 @@ export default {
           type: 'warning'
         })
       } else {
-        this.$confirm('是否复制发票数据？, 是否继续?', '提示', {
+        this.$confirm('是否复制责任数据？, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
@@ -223,6 +226,29 @@ export default {
           this._notify('已取消', 'info')
         })
       }
+    },
+    adjustDuty() {
+      if (this.selected.length !== 1) {
+        this.$message({
+          showClose: true,
+          message: '只能选择1条数据',
+          type: 'warning'
+        })
+      } else {
+        this.$confirm('是否调整责任数据？, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.handleAdjust()
+        }).catch(() => {
+          this._notify('已取消', 'info')
+        })
+      }
+    },
+    handleAdjust() {
+      this.adjustForm = { id: this.selected[0].id }
+      this.dialogAdjustVisible = true
     },
 
     handleSave() {

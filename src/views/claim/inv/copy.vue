@@ -28,18 +28,19 @@
 <script>
 import { copyInv } from '@/api/claim/inv'
 export default {
-  props: ['sonCopyData'],
+  props: {
+    sonCopyData: Array
+  },
 
   data() {
     return {
-      list: null,
       copyVal: null,
       dialogCopyVisible: false
     }
   },
 
   watch: {
-    'sonCopyData': function(newVal, oldVal) {
+    sonCopyData: function(newVal) {
       debugger
       this.copyVal = newVal
       this.dialogCopyVisible = true
@@ -60,7 +61,7 @@ export default {
     },
 
     handleClose() {
-      this.list = null
+      this.$emit('sonStatus', true)
       this.copyVal = null
       this.dialogCopyVisible = false
     },
