@@ -5,7 +5,7 @@
         <el-input v-model="form.mediNetworkCde" placeholder="请输入医院网络码" disabled="disabled" />
       </el-form-item>
       <el-form-item label="是否包括" prop="isInclude" label-width="120px">
-        <el-select v-model="form.isInclude" placeholder="请选择">
+        <el-select v-model="form.isInclude" clearable placeholder="请选择">
           <el-option
             v-for="item in businessData.TrueOrFalse"
             :key="item.value"
@@ -27,7 +27,7 @@
       </el-form-item>
 
       <el-form-item label="医院等级" prop="hospitalLevel" label-width="120px">
-        <el-select v-model="form.hospitalLevel" placeholder="请选择">
+        <el-select v-model="form.hospitalLevel" clearable placeholder="请选择">
           <el-option
             v-for="item in businessData.CHospitalLevel"
             :key="item.value"
@@ -38,7 +38,7 @@
       </el-form-item>
 
       <el-form-item label="医院性质" prop="hospTyp" label-width="120px">
-        <el-select v-model="form.hospTyp" placeholder="请选择">
+        <el-select v-model="form.hospTyp" clearable placeholder="请选择">
           <el-option
             v-for="item in businessData.CHospitalNature"
             :key="item.value"
@@ -49,7 +49,7 @@
       </el-form-item>
 
       <el-form-item label="医院类型" prop="hospitalTyp" label-width="120px">
-        <el-select v-model="form.hospitalTyp" placeholder="请选择">
+        <el-select v-model="form.hospitalTyp" clearable placeholder="请选择">
           <el-option
             v-for="item in businessData.CHospitalTyp"
             :key="item.value"
@@ -60,7 +60,7 @@
       </el-form-item>
 
       <el-form-item label="是否医保医院" prop="area" label-width="120px">
-        <el-select v-model="form.area" placeholder="请选择">
+        <el-select v-model="form.area" clearable placeholder="请选择">
           <el-option
             v-for="item in businessData.TrueOrFalse"
             :key="item.value"
@@ -71,7 +71,7 @@
       </el-form-item>
 
       <el-form-item label="就诊原因" prop="visitReson" label-width="120px">
-        <el-select v-model="form.visitReson" placeholder="请选择">
+        <el-select v-model="form.visitReson" clearable placeholder="请选择">
           <el-option
             v-for="item in businessData.QuotaVisitReason"
             :key="item.value"
@@ -82,7 +82,7 @@
       </el-form-item>
 
       <el-form-item label="是否使用医保卡" prop="isuseMedCard" label-width="120px">
-        <el-select v-model="form.isuseMedCard" placeholder="请选择">
+        <el-select v-model="form.isuseMedCard" clearable placeholder="请选择">
           <el-option
             v-for="item in businessData.TrueOrFalse"
             :key="item.value"
@@ -93,11 +93,11 @@
       </el-form-item>
 
       <el-form-item label="社保地区" prop="sociInsuArea" label-width="120px">
-        <el-input v-model="form.sociInsuArea" placeholder="请输入社保地区" />
+        <el-input v-model="form.sociInsuArea" clearable placeholder="请输入社保地区" />
       </el-form-item>
 
       <el-form-item label="统筹金额是否大于0" prop="overallAmtFlag" label-width="120px">
-        <el-select v-model="form.overallAmtFlag" placeholder="请选择">
+        <el-select v-model="form.overallAmtFlag" clearable placeholder="请选择">
           <el-option
             v-for="item in businessData.TrueOrFalse"
             :key="item.value"
