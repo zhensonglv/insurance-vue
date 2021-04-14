@@ -288,6 +288,15 @@
                 />
               </el-select>
             </el-form-item>
+
+            <el-form-item label="调整金额" prop="adjustAmt" label-width="120px">
+              <el-input v-model="form.adjustAmt" placeholder="请输入调整金额" />
+            </el-form-item>
+
+            <el-form-item label="调整备注" prop="adjustDesc" label-width="120px">
+              <el-input v-model="form.adjustDesc" placeholder="请输入调整备注" />
+            </el-form-item>
+
             <el-form-item label="校验审核信息" prop="auditInformation" label-width="120px">
               <el-input v-model="form.auditInformation" placeholder="请输入校验审核信息" />
             </el-form-item>
@@ -377,7 +386,9 @@ export default {
         isDentidtry: '',
         isignUseCardRule: '',
         isignExcelusion: '',
-        isRehabiliation: ''
+        isRehabiliation: '',
+        adjustAmt: '',
+        adjustDesc: ''
       },
       show1: true,
       show2: true,
@@ -455,6 +466,8 @@ export default {
       this.form.isignUseCardRule = null
       this.form.isignExcelusion = null
       this.form.isRehabiliation = null
+      this.form.adjustAmt = null
+      this.form.adjustDesc = null
     },
 
     hanldeMatch() {

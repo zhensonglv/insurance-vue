@@ -3,7 +3,7 @@
 
     <el-form ref="adjustForm" :inline="true" :rules="rules" :model="adjustForm" status-icon label-position="right" label-width="80px">
       <el-form-item label="调整类型" prop="compensateResult" label-width="120px">
-        <el-select v-model="adjustForm.compensateResult" placeholder="请选择">
+        <el-select v-model="adjustForm.compensateResult" placeholder="请选择" @change="changeResult">
           <el-option
             v-for="item in businessData.AdjustmentType"
             :key="item.value"
@@ -14,27 +14,27 @@
       </el-form-item>
 
       <el-form-item label="调整解释码" prop="adjustInterpCde" label-width="120px">
-        <el-input v-model="adjustForm.adjustInterpCde" placeholder="请输入客户申请号" />
+        <el-input v-model="adjustForm.adjustInterpCde" :disabled="this.flag" placeholder="请输入调整解释码" />
       </el-form-item>
 
       <el-form-item label="解释码描述" prop="interpDesc" label-width="120px">
-        <el-input v-model="adjustForm.interpDesc" placeholder="请输入客户申请号" />
+        <el-input v-model="adjustForm.interpDesc" :disabled="this.flag" placeholder="请输入解释码描述" />
       </el-form-item>
 
       <el-form-item label="赔付金额" prop="compensateAmt" label-width="120px">
-        <el-input v-model="adjustForm.compensateAmt" placeholder="请输入客户申请号" />
+        <el-input v-model="adjustForm.compensateAmt" :disabled="true" placeholder="请输入赔付金额" />
       </el-form-item>
 
       <el-form-item label="调整金额" prop="adjustAmt" label-width="120px">
-        <el-input v-model="adjustForm.adjustAmt" placeholder="请输入客户申请号" />
+        <el-input v-model="adjustForm.adjustAmt" :disabled="this.adjustFlag" placeholder="请输入调整金额" @change="changeAdjust" />
       </el-form-item>
 
-      <el-form-item label="调整后赔付金额" prop="finalPay" label-width="120px">
-        <el-input v-model="adjustForm.finalPay" placeholder="请输入客户申请号" />
+      <el-form-item label="调整后赔付金额" prop="finalCompensateAmt" label-width="120px">
+        <el-input v-model="adjustForm.finalCompensateAmt" :disabled="true" placeholder="请输入调整后赔付金额" />
       </el-form-item>
 
-      <el-form-item label="备注" prop="description" label-width="120px">
-        <el-input v-model="adjustForm.description" placeholder="请输入客户申请号" />
+      <el-form-item label="备注" prop="adjustDesc" label-width="120px">
+        <el-input v-model="adjustForm.adjustDesc" type="textarea" style="width: 800px;" :autosize="{ minRows: 2, maxRows: 20}" placeholder="请输入备注" clearable />
       </el-form-item>
 
     </el-form>
@@ -52,6 +52,7 @@
 
 </template>
 <script>
+import { adjustDuty } from '@/api/claim/duty'
 export default {
   props: {
     businessData: Object,
@@ -61,8 +62,8 @@ export default {
   data() {
     return {
       adjustForm: {
-        description: '',
-        finalPay: '',
+        adjustDesc: '',
+        finalCompensateAmt: '',
         adjustAmt: '',
         adjustInterpCde: '',
         interpDesc: '',
@@ -70,14 +71,19 @@ export default {
         compensateAmt: ''
       },
       dialogAdjustVisible: false,
-      rules: {}
+      flag: true,
+      adjustFlag: true,
+      rules: {
+        compensateResult: [{ required: true, trigger: 'blur', message: '请选择调整类型' }]
+      }
     }
   },
 
   watch: {
     adjustData: function(newVal, oldVal) {
-      debugger
       this.adjustForm.id = newVal.id
+      this.adjustForm.compensateAmt = newVal.compensateAmt
+      // this.adjustForm.finalPay = newVal.finalPay
       this.dialogAdjustVisible = true
     }
   },
@@ -100,31 +106,49 @@ export default {
       this.clearForm()
     },
 
+    changeResult() {
+      if (this.adjustForm.compensateResult === '1') { // 正常赔付
+        this.flag = true
+        this.adjustFlag = true
+      } else if (this.adjustForm.compensateResult === '3' || this.adjustForm.compensateResult === '4' ||
+             this.adjustForm.compensateResult === '5') { // 通融  协议 调整赔付
+        this.flag = false
+        this.adjustFlag = false
+      } else if (this.adjustForm.compensateResult === '2') { // 拒绝赔付
+        this.flag = false
+        this.adjustFlag = true
+      }
+    },
+    changeAdjust() {
+      this.adjustForm.finalCompensateAmt = parseFloat(this.adjustForm.compensateAmt) + parseFloat(this.adjustForm.adjustAmt)
+    },
     clearForm() {
-      this.adjustForm.description = null
-      this.adjustForm.finalPay = null
+      this.adjustForm.adjustDesc = null
+      this.adjustForm.finalCompensateAmt = null
       this.adjustForm.adjustAmt = null
       this.adjustForm.adjustInterpCde = null
       this.adjustForm.interpDesc = null
       this.adjustForm.compensateAmt = null
       this.adjustForm.compensateResult = null
+      this.flag = null
+      this.adjustFlag = null
     },
     onSubmit() {
-      this.$confirm('是否复制发票数据？, 是否继续?', '提示', {
+      this.$confirm('是否调整责任数据？, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        /* copyInv(this.copyVal).then(res => {
-          if (res.code === 200) {
-            this._notify('复制成功', 'success')
+        adjustDuty(this.adjustForm).then(response => {
+          if (response.code === 200) {
+            this._notify(response.msg, 'success')
             this.$emit('sonStatus', true)
-            this.copyVal = null
+            this.clearForm()
             this.dialogAdjustVisible = false
           } else {
-            this._notify(res.msg, 'error')
+            this._notify(response.msg, 'error')
           }
-        })*/
+        })
       }).catch(() => {
         this._notify('已取消', 'info')
       })

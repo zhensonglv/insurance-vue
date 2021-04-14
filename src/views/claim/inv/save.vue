@@ -508,6 +508,10 @@
               <el-input v-model="form.adjustAmt" placeholder="请输入调整金额" />
             </el-form-item>
 
+            <el-form-item label="金额调整原因" prop="adjustDesc" label-width="120px">
+              <el-input v-model="form.adjustDesc" placeholder="请输入金额调整原因" />
+            </el-form-item>
+
             <el-form-item label="解释码" prop="adjustInterpCde" label-width="120px">
               <el-input v-model="form.adjustInterpCde" placeholder="请输入解释码" />
             </el-form-item>
@@ -639,6 +643,7 @@ export default {
         suplargeAmt: '',
         isMust: '',
         adjustAmt: '',
+        adjustDesc: '',
         adjustInterpCde: '',
         interpDesc: '',
         endCasetm: '',
@@ -755,6 +760,7 @@ export default {
       this.form.suplargeAmt = null
       this.form.isMust = null
       this.form.adjustAmt = null
+      this.form.adjustDesc = null
       this.form.adjustInterpCde = null
       this.form.interpDesc = null
       this.form.endCasetm = null

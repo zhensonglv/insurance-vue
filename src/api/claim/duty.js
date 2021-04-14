@@ -68,3 +68,11 @@ export function copyDuty(data) {
     data
   })
 }
+
+export function adjustDuty(data) {
+  return request({
+    url: '/base/duty/adjustDuty',
+    method: 'post',
+    data
+  })
+}

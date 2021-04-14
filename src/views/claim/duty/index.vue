@@ -235,19 +235,15 @@ export default {
           type: 'warning'
         })
       } else {
-        this.$confirm('是否调整责任数据？, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          this.handleAdjust()
-        }).catch(() => {
-          this._notify('已取消', 'info')
-        })
+        this.handleAdjust()
       }
     },
     handleAdjust() {
-      this.adjustForm = { id: this.selected[0].id }
+      this.adjustForm = {
+        id: this.selected[0].id,
+        compensateAmt: this.selected[0].compensateAmt,
+        finalPay: this.selected[0].finalCompensateAmt
+      }
       this.dialogAdjustVisible = true
     },
 

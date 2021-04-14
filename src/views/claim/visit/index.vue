@@ -86,6 +86,12 @@
           </template>
         </el-table-column>
 
+        <el-table-column align="center" label="最终赔付金额">
+          <template slot-scope="scope">
+            {{ scope.row.finalPay }}
+          </template>
+        </el-table-column>
+
         <el-table-column align="center" label="赔付结论">
           <template slot-scope="scope">
             {{ AdjustmentType[scope.row.compensateResult] }}
