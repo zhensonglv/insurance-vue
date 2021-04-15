@@ -83,7 +83,6 @@ export default {
     adjustData: function(newVal, oldVal) {
       this.adjustForm.id = newVal.id
       this.adjustForm.compensateAmt = newVal.compensateAmt
-      // this.adjustForm.finalPay = newVal.finalPay
       this.dialogAdjustVisible = true
     }
   },

@@ -798,7 +798,7 @@ export default {
       }
     },
 
-    fetchData(id) {
+    fetchData() {
       this.listLoading = true
       getList(this.listQuery, this.invdtlForm.id).then(response => {
         this.list = response.data.data

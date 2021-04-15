@@ -41,7 +41,6 @@ export default {
 
   watch: {
     sonCopyData: function(newVal) {
-      debugger
       this.copyVal = newVal
       this.dialogCopyVisible = true
     }

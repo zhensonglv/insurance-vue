@@ -9,7 +9,7 @@
         <el-button style="margin-left: 10px;" type="primary" @click="calcClmData">理算</el-button>
         <el-button style="margin-left: 10px;" type="primary" @click="viewImage">影像</el-button>
         <el-button style="margin-left: 10px;" type="primary" @click="viewImage">被保人既往症设置</el-button>
-        <el-button style="margin-left: 10px;" type="primary" @click="viewImage">操作轨迹</el-button>
+        <el-button style="margin-left: 10px;" type="primary" @click="handleTrackMatch">操作轨迹</el-button>
         <el-button style="margin-left: 10px;" type="primary" @click="viewImage">历史理赔</el-button>
         <el-button style="margin-left: 10px;" type="primary" @click="viewImage">问题件</el-button>
         <el-button style="margin-left: 10px;" type="primary" @click="hangeRule">悬挂规则</el-button>
@@ -131,7 +131,7 @@
       </el-table>
 
       <save :son-data="form" :business-data="businessData" @sonStatus="status" />
-
+      <trackMatch :son-data="selectData" :business-data="businessData" @sonStatus="status" />
       <pagination
         v-show="total>0"
         :total="total"
@@ -150,10 +150,11 @@ import { getCodeList } from '@/api/code'
 import Pagination from '@/components/Pagination'
 import Save from './save'
 import duty from '../duty'
+import trackMatch from '@/views/claim/apply/trackMatch'
 import { mapState } from 'vuex'
 
 export default {
-  components: { Pagination, Save, duty },
+  components: { Pagination, Save, duty, trackMatch },
   data() {
     return {
       list: null,
@@ -168,10 +169,12 @@ export default {
       },
       total: 0,
       dialogVisible: false,
+      trackVisible: false,
       form: null,
       businessData: {},
       CCaseStatuses: {},
-      selected: []
+      selected: [],
+      selectData: null
     }
   },
   computed: mapState({
@@ -239,7 +242,17 @@ export default {
         this.form = response.data
       })
     },
-
+    handleTrackMatch() {
+      if (this.selected.length !== 1) {
+        this.$message({
+          showClose: true,
+          message: '请选择1条数据',
+          type: 'warning'
+        })
+      } else {
+        this.selectData = { batchNo: this.selected[0].batchNo, plyPartNo: this.selected[0].plyPartNo, customAppNo: this.selected[0].customAppNo }
+      }
+    },
     initResponse() {
       if (this.selected.length === 0) {
         this.$message({

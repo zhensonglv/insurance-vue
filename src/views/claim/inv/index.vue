@@ -276,7 +276,6 @@ export default {
     },
 
     handleInvdtl(id) {
-      this.dialogInvVisible = true
       findById(id).then(response => {
         this.invdtlForm = response.data
       })
