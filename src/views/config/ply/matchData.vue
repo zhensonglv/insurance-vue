@@ -13,10 +13,10 @@
   </el-dialog>
 </template>
 <script>
-import dataMatch from '../../productData/dataMatch'
+import DataMatch from '../../productData/dataMatch'
 export default {
   name: 'Match',
-  components: { dataMatch },
+  components: { DataMatch },
   props: {
     value: {
       type: Boolean,
@@ -35,7 +35,6 @@ export default {
       listQuery: {
         pageNum: 1,
         pageSize: 10,
-        noTyp: '',
         sort: '+id'
       },
       total: 0,
@@ -61,7 +60,6 @@ export default {
 
     handleClose() {
       this.dialogTableVisible = false
-      this.listQuery.noTyp = null
     },
     setMultipleSeleValues(value) {
       this.multipleSeleValues = value

@@ -151,7 +151,6 @@ export default {
 
     handleSelect(data) {
       this.selected = data
-      this.$emit('setMultipleSeleValues', data)
     },
     handleLadder() {
       if (this.selected == null) {

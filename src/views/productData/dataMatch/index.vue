@@ -128,6 +128,15 @@ export default {
       dutyMatchType: {}
     }
   },
+  watch: {
+    noTyp(newVal, oldVal) {
+      debugger
+      if (newVal) {
+        this.listQuery.noTyp = newVal
+        this.fetchData()
+      }
+    }
+  },
   created() {
     this.fetchTypeData()
   },
@@ -141,9 +150,6 @@ export default {
       })
     },
     fetchData() {
-      if (this.noTyp) {
-        this.listQuery.noTyp = this.noTyp
-      }
       this.listLoading = true
       getList(this.basePath, this.listQuery).then(response => {
         this.list = response.data.data

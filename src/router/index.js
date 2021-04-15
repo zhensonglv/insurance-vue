@@ -652,36 +652,42 @@ export const constantRoutes = [
         path: 'apply',
         component: () => import('@/views/claim/apply/index'),
         name: '申请理赔信息',
+        hidden: true,
         meta: { title: '申请理赔信息', icon: 'guide', noCache: true }
       },
       {
         path: 'duty',
         component: () => import('@/views/claim/duty/index'),
         name: '理赔责任信息',
+        hidden: true,
         meta: { title: '理赔责任信息', icon: 'guide', noCache: true }
       },
       {
         path: 'visit',
         component: () => import('@/views/claim/visit/index'),
         name: '理赔就诊信息',
+        hidden: true,
         meta: { title: '理赔就诊信息', icon: 'guide', noCache: true }
       },
       {
         path: 'inv',
         component: () => import('@/views/claim/inv/index'),
         name: '理赔发票信息',
+        hidden: true,
         meta: { title: '理赔发票信息', icon: 'guide', noCache: true }
       },
       {
         path: 'treat',
         component: () => import('@/views/claim/treat/index'),
         name: '诊疗明细信息',
+        hidden: true,
         meta: { title: '诊疗明细信息', icon: 'guide', noCache: true }
       },
       {
         path: 'deduct',
         component: () => import('@/views/claim/deduct/index'),
         name: '理赔扣减信息',
+        hidden: true,
         meta: { title: '理赔扣减信息', icon: 'guide', noCache: true }
       }
     ]
