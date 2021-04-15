@@ -53,24 +53,10 @@
       <el-form-item label="医院描述" prop="hospitalDesc" label-width="120px">
         <el-input v-model="form.hospitalDesc" placeholder="请输入医院描述" />
       </el-form-item>
-
-      <el-form-item v-if="form.hospitalizationTyp=='1'" label="高层手术津贴代码" prop="treatmentNo" label-width="120px">
-        <el-input v-model="form.hignOperatinCode" placeholder="请输入高层手术津贴代码" />
-      </el-form-item>
-
-      <!--  <el-form-item  v-if="form.hospitalizationTyp=='1'"  label="诊疗码描述" prop="treatmentCodeDesc" label-width="120px">
-        <el-input v-model="form.treatmentCodeDesc" placeholder="请输入诊疗码描述" />
-      </el-form-item>-->
-
       <el-row>
-        <!--<el-form-item label="诊断匹配码" prop="diaMatParameterCde" label-width="120px">-->
-        <!--<el-input v-model="form.diaMatParameterCde" placeholder="请输入诊断匹配码" />-->
-        <!--</el-form-item>-->
-
-        <!--<el-form-item label="诊断匹配描述" prop="diagnoseCodeDesc" label-width="120px">-->
-        <!--<el-input v-model="form.diagnoseCodeDesc" placeholder="请输入诊断匹配描述" />-->
-        <!--</el-form-item>-->
-
+        <el-form-item v-if="form.hospitalizationTyp=='1'" label="高层手术津贴代码" prop="treatmentNo" label-width="120px">
+          <el-input v-model="form.hignOperatinCode" placeholder="请输入高层手术津贴代码" />
+        </el-form-item>
         <el-form-item label="诊断匹配码" prop="diaMatParameterCde" label-width="120px">
           <el-input v-model="form.diaMatParameterCde" placeholder="请选择诊断匹配码">
             <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(3)" />
@@ -104,10 +90,6 @@
       <el-form-item label="解释码描述" prop="explainCodeDesc" label-width="120px">
         <el-input v-model="form.explainCodeDesc" placeholder="请输入解释码描述" />
       </el-form-item>
-
-      <!--  <el-form-item label="住院天数调整" prop="inHospitalDays" label-width="120px">
-        <el-input v-model="form.inHospitalDays" placeholder="请输入住院天数调整" />
-      </el-form-item>-->
       <el-row>
         <el-form-item label="治疗类型" prop="treatmentTyp" label-width="120px">
           <div class="check">
@@ -188,7 +170,8 @@ export default {
         deductionDays: [{ required: true, trigger: 'blur', message: '请输入免赔天数' }],
         quotaDays: [{ required: true, trigger: 'blur', message: '请输入限额天数' }],
         diaMatParameterCde: [{ required: true, trigger: 'blur', message: '请输入诊断码' }],
-        diagnoseCodeDesc: [{ required: true, trigger: 'blur', message: '请输入诊断码描述' }]
+        diagnoseCodeDesc: [{ required: true, trigger: 'blur', message: '请输入诊断码描述' }],
+        hospitalizationAmount: [{ required: true, trigger: 'blur', message: '请输入津贴日额' }]
       }
     }
   },

@@ -2,10 +2,10 @@
   <el-dialog :title="title" :visible.sync="dialogTableVisible" append-to-body width="80%">
 
     <div v-if="matchTyp == 1">
-      <diagnosisManage dialog :param-type="paramType" @setMultipleSeleValues="setMultipleSeleValues" />
+      <diagnosisManage dialog @setMultipleSeleValues="setMultipleSeleValues" />
     </div>
     <div v-else-if="matchTyp == 2">
-      <diagnosisManage dialog :param-type="paramType" @setMultipleSeleValues="setMultipleSeleValues" />
+      <diagnosisManage dialog @setMultipleSeleValues="setMultipleSeleValues" />
     </div>
     <div v-else>
       <diagnosisMatching dialog @setMultipleSeleValues="setMultipleSeleValues" />

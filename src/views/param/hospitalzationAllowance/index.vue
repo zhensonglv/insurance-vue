@@ -9,6 +9,16 @@
       </div>
       <br>
       <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
+        <el-table-column
+          type="center"
+          label="选择"
+          width="55"
+        >
+          <template slot-scope="scope">
+            <el-radio v-model="paramRadio" :label="scope.$index" @change.native="handleSelect(scope.row)">&nbsp;</el-radio>
+          </template>
+        </el-table-column>
+
         <el-table-column align="center" label="序号" width="95">
           <template slot-scope="scope">
             {{ scope.$index +1 }}
@@ -104,7 +114,9 @@ export default {
       CHospitalizationTyp: {},
       CNDeductAmtTyp: {},
       QuotaVisitReason: {},
-      CiTreatmentTyp: {}
+      CiTreatmentTyp: {},
+      selected: null,
+      paramRadio: false
     }
   },
   created() {
@@ -121,6 +133,9 @@ export default {
         message: message,
         type: type
       })
+    },
+    handleSelect(data) {
+      this.selected = data
     },
     handleRoute() {
       if (this.selected == null) {
