@@ -2,7 +2,7 @@
   <el-dialog :title="dialogTitle" :before-close="handleClose" :visible.sync="dialogVisible" width="55%">
     <el-form ref="form" :inline="true" :rules="rules" :model="form" status-icon label-position="right" label-width="80px">
       <el-form-item label="数据类型" prop="noTyp" label-width="120px">
-        <el-select v-model="form.noTyp" placeholder="请选择" onchange="changeNoTyp">
+        <el-select v-model="form.noTyp" placeholder="请选择" @change="changeNoTyp">
           <el-option
             v-for="item in businessData.dutyMatchType"
             :key="item.value"
@@ -24,7 +24,7 @@
           <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch" />
         </el-input>
       </el-form-item>
-      <match v-model="matchVisable" @matchConfirm="matchConfirm" />
+      <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
 
       <el-form-item label="系统名称" prop="jkName" label-width="120px">
         <el-input v-model="form.jkName" placeholder="请输入系统名称" />
@@ -117,18 +117,18 @@ export default {
     },
 
     changeNoTyp() {
+      debugger
       if (this.form.noTyp === 'product') {
-        this.level = 1
+        this.matchTyp = 1
       } else if (this.form.noTyp === 'insurecde') {
-        this.level = 2
+        this.matchTyp = 2
       } else {
-        this.level = 3
+        this.matchTyp = 3
       }
     },
     hanldeMatch() {
       debugger
       this.matchVisable = true
-      this.matchTyp = this.level
     },
     matchConfirm(data) {
       if (data.prodNo) {

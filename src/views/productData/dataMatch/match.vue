@@ -58,6 +58,7 @@ export default {
       this.dialogTableVisible = val
     },
     matchTyp(val) {
+      debugger
       if (val === 1) {
         this.basePath = 'product'
         this.title = '产品'

@@ -23,10 +23,10 @@
       </el-form-item>
       <el-form-item label="系统代码" prop="dataNo" label-width="120px">
         <el-input v-model="form.dataNo" placeholder="请输入系统代码">
-          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(form.type)" />
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatchData" />
         </el-input>
       </el-form-item>
-      <match-data v-model="matchVisable" @matchConfirm="matchConfirm" />
+      <match-data v-model="matchVisable" :match-no-typ="matchNoTyp" @matchConfirm="matchConfirm" />
       <el-form-item label="系统名称" prop="dataNme" label-width="120px">
         <el-input v-model="form.dataNme" placeholder="请输入系统名称" />
       </el-form-item>
@@ -72,7 +72,7 @@ export default {
         type: null
       },
       matchVisable: false,
-      matchNoTyp: '',
+      matchNoTyp: null,
       typeData: {},
       rules: {
       }
@@ -83,6 +83,7 @@ export default {
       this.form = newVal
       this.imgURL = this.form.avatar
       this.loadVisible = true
+      this.matchNoTyp = this.form.type
       if (newVal.id != null) {
         this.dialogTitle = '编辑tree节点'
       } else {
@@ -108,6 +109,7 @@ export default {
       this.form.dataNo = null
       this.form.dataNme = null
       this.form.type = null
+      this.matchNoTyp = null
     },
     fetchTypeData() {
       // 获取codeList
@@ -125,10 +127,8 @@ export default {
       this.clearForm()
       this.loadVisible = false
     },
-    hanldeMatch(type) {
-      debugger
+    hanldeMatchData() {
       this.matchVisable = true
-      this.matchNoTyp = type
     },
     matchConfirm(data) {
       if (data.partyCde && data.partyName && data.jkCde && data.jkName) {

@@ -128,16 +128,6 @@ export default {
       dutyMatchType: {}
     }
   },
-
-  watch: {
-    noTyp(val) {
-      debugger
-      if (val) {
-        this.listQuery.noTyp = val
-      }
-    }
-  },
-
   created() {
     this.fetchTypeData()
   },
@@ -151,6 +141,9 @@ export default {
       })
     },
     fetchData() {
+      if (this.noTyp) {
+        this.listQuery.noTyp = this.noTyp
+      }
       this.listLoading = true
       getList(this.basePath, this.listQuery).then(response => {
         this.list = response.data.data
@@ -178,9 +171,6 @@ export default {
     },
     handleSave() {
       this.form = { id: null }
-      /* if (this.$route.query.pubCoverId) { // 上级页面传入参数
-            this.form.pubCoverId = this.$route.query.pubCoverId
-          }*/
       this.dialogVisible = true
     },
     handleEdit(id) {
