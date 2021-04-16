@@ -329,6 +329,12 @@ export const constantRoutes = [
         meta: { title: '疾病范围', icon: 'guide', noCache: true }
       },
       {
+        path: 'clientAnamnesis',
+        component: () => import('@/views/client/clientAnamnesis/index'),
+        name: '被保人既往症',
+        meta: { title: '被保人既往症', icon: 'guide', noCache: true }
+      },
+      {
         path: 'codeConfig',
         component: () => import('@/views/param/codeConfig/index'),
         name: '代码类型',
