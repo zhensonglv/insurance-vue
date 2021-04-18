@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :title="dialogTitle" :before-close="handleClose" :visible.sync="dialogVisible" width="55%">
+  <el-dialog :modal="false" :title="dialogTitle" :before-close="handleClose" :visible.sync="dialogVisible" width="55%">
     <el-form ref="form" :inline="true" :rules="rules" :model="form" status-icon label-position="right" label-width="80px">
       <el-form-item label="悬挂规则码/特殊审核要求码" prop="specialAuditsCde" label-width="120px">
         <el-input v-model="form.specialAuditsCde" placeholder="请输入悬挂规则码/特殊审核要求码" disabled="disabled" />

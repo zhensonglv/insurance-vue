@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :title="dialogTitle" :before-close="handleClose" :visible.sync="dialogVisible" width="55%">
+  <el-dialog :modal="false" :title="dialogTitle" :before-close="handleClose" :visible.sync="dialogVisible" width="55%">
     <el-form ref="form" :inline="true" :rules="rules" :model="form" status-icon label-position="right" label-width="80px">
       <el-form-item label="限额次数类型" prop="quotaNumType" label-width="120px">
         <el-select v-model="form.quotaNumType" placeholder="请选择">

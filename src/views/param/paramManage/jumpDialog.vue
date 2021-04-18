@@ -1,10 +1,11 @@
 <template>
   <el-dialog
+    :modal="false"
     title="设置"
     :before-close="handleClose"
     :visible.sync="loadVisible"
     width="70%"
-    :modal="false"
+    append-to-body
     :fullscreen="true"
   >
     <component :is="pathRoute" />

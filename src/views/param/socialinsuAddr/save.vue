@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :title="dialogTitle" :before-close="handleClose" :visible.sync="dialogVisible" width="55%">
+  <el-dialog :modal="false" :title="dialogTitle" :before-close="handleClose" :visible.sync="dialogVisible" width="55%">
     <el-form ref="form" :inline="true" :rules="rules" :model="form" status-icon label-position="right" label-width="80px">
       <el-form-item label="社保地区号" prop="sociInsuAreaNo" label-width="120px">
         <el-input v-model="form.sociInsuAreaNo" placeholder="请输入社保地区号" />

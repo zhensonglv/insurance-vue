@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="诊断码" :visible.sync="dialogTableVisible" append-to-body width="80%">
+  <el-dialog :modal="false" title="诊断码" :visible.sync="dialogTableVisible" append-to-body width="80%">
     <diagnosisManage dialog @setMultipleSeleValues="setMultipleSeleValues" />
     <div slot="footer" class="dialog-footer">
       <el-button @click="handleClose">

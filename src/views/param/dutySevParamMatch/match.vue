@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="责任服务类型匹配" :visible.sync="dialogTableVisible" append-to-body>
+  <el-dialog :modal="false" title="责任服务类型匹配" :visible.sync="dialogTableVisible" append-to-body>
     <dutySertypMatching dialog @setMultipleSeleValues="setMultipleSeleValues" />
     <div slot="footer" class="dialog-footer">
       <el-button @click="handleClose">

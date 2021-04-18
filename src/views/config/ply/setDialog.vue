@@ -1,5 +1,10 @@
 <template>
-  <el-dialog title="设置" :before-close="handleClose" :visible.sync="loadVisible" width="70%">
+  <el-dialog
+    title="设置"
+    :before-close="handleClose"
+    :visible.sync="loadVisible"
+    width="70%"
+  >
     <paramManage v-if="loadVisible" :set-param-data="setParamData" @setMultipleSeleValues="setMultipleSeleValues" />
 
     <div slot="footer" class="dialog-footer">
