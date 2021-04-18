@@ -1,7 +1,7 @@
 <template>
   <el-dialog :title="title" :visible.sync="dialogTableVisible" append-to-body width="80%">
 
-    <dataMatch dialog :no-typ="matchNoTyp" @setMultipleSeleValues="setMultipleSeleValues" />
+    <dataMatch dialog :query-data="queryData" @setMultipleSeleValues="setMultipleSeleValues" />
     <div slot="footer" class="dialog-footer">
       <el-button @click="handleClose">
         取消
@@ -40,7 +40,8 @@ export default {
       total: 0,
       multipleSeleValues: [],
       dialogTableVisible: false,
-      title: null
+      title: null,
+      queryData: null
     }
   },
   watch: {
@@ -48,7 +49,7 @@ export default {
       this.dialogTableVisible = val
     },
     matchNoTyp(val) {
-      console.log(val)
+      this.queryData = { noTyp: val }
     },
     dialogTableVisible(val) {
       this.$emit('input', val)

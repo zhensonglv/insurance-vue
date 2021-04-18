@@ -100,10 +100,7 @@ import Save from './save'
 export default {
   components: { Pagination, Save },
   props: {
-    noTyp: {
-      type: String,
-      default: ''
-    }
+    queryData: Object
   },
   data() {
     return {
@@ -129,10 +126,9 @@ export default {
     }
   },
   watch: {
-    noTyp(newVal, oldVal) {
-      debugger
-      if (newVal) {
-        this.listQuery.noTyp = newVal
+    queryData(newVal, oldVal) {
+      if (newVal.noTyp) {
+        this.listQuery.noTyp = newVal.noTyp
         this.fetchData()
       }
     }
