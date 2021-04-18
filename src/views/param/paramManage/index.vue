@@ -87,6 +87,8 @@
 
       <save :son-data="form" :business-data="businessData" @sonStatus="status" />
 
+      <jumpDialog :visible="visible" :path-route="typPath" @sonVisible="sonVisible" />
+
       <pagination
         v-show="total>0"
         :total="total"
@@ -103,9 +105,10 @@ import { getList, findById, del, getPath } from '@/api/base'
 import { getCodeList } from '@/api/code'
 import Pagination from '@/components/Pagination'
 import Save from './save'
+import jumpDialog from './jumpDialog'
 
 export default {
-  components: { Pagination, Save },
+  components: { Pagination, Save, jumpDialog },
   props: {
     setParamData: {
       type: Object,
@@ -118,6 +121,8 @@ export default {
   },
   data() {
     return {
+      typPath: '',
+      visible: false,
       list: null,
       listLoading: true,
       paramLoading: false,
@@ -161,6 +166,7 @@ export default {
   },
   methods: {
     handleRoute() {
+      const self = this
       if (this.selected == null) {
         this.$message({
           showClose: true,
@@ -169,8 +175,9 @@ export default {
         })
       } else {
         getPath({ paramterTyp: this.selected.paramterTyp }).then(res => {
-          var typPath = res.data.typPath || ''
-          this.$router.push({ path: '/param/' + typPath, query: { paramCde: this.selected.prodCde }})
+          self.typPath = res.data.typPath || ''
+          self.visible = true
+          // this.$router.push({ path: '/param/' + typPath, query: { paramCde: this.selected.prodCde }})
         })
       }
     },
@@ -255,7 +262,9 @@ export default {
         this.fetchData()
       }
     },
-
+    sonVisible(v) {
+      this.visible = v
+    },
     handleDel(id) {
       this.$confirm('你确定永久删除此数据？, 是否继续?', '提示', {
         confirmButtonText: '确定',
