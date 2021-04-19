@@ -6,7 +6,6 @@
     :visible.sync="loadVisible"
     width="70%"
     append-to-body
-    :fullscreen="true"
   >
     <component :is="pathRoute" :code="cs" />
     <div slot="footer" class="dialog-footer">
@@ -25,7 +24,8 @@ export default {
       type: Boolean,
       default: false
     },
-    pathRoute: String
+    pathRoute: String,
+    paramCode: String
   },
   data() {
     return {

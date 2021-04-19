@@ -106,6 +106,7 @@ export default {
       listQuery: {
         pageNum: 1,
         pageSize: 10,
+        medicareParamCde: '',
         sort: '+id'
       },
       total: 0,
@@ -118,10 +119,9 @@ export default {
     }
   },
   created() {
-    /* if (this.$route.query.pubCoverId) { // 上级页面传入参数
-          this.listQuery.pubCoverId = this.$route.query.pubCoverId
-        }*/
-    // this.fetchData()
+    if (window.localStorage.getItem('paramCde')) {
+      this.listQuery.medicareParamCde = window.localStorage.getItem('paramCde')
+    }
     debugger
     this.fetchTypeData()
   },

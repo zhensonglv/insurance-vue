@@ -12,7 +12,7 @@
         <el-collapse-transition>
           <div v-if="show1">
             <el-form-item label="意外" prop="isAccident" label-width="100px">
-              <el-select v-model="form.isAccident" placeholder="请选择">
+              <el-select v-model="form.isAccident" clearable placeholder="请选择">
                 <el-option
                   v-for="item in businessData.TrueOrFalse"
                   :key="item.value"
@@ -23,7 +23,7 @@
             </el-form-item>
 
             <el-form-item label="生育" prop="isBirth" label-width="100px">
-              <el-select v-model="form.isBirth" placeholder="请选择">
+              <el-select v-model="form.isBirth" clearable placeholder="请选择">
                 <el-option
                   v-for="item in businessData.TrueOrFalse"
                   :key="item.value"
@@ -34,7 +34,7 @@
             </el-form-item>
 
             <el-form-item label="齿科" prop="isDentidtry" label-width="100px">
-              <el-select v-model="form.isDentidtry" placeholder="请选择">
+              <el-select v-model="form.isDentidtry" clearable placeholder="请选择">
                 <el-option
                   v-for="item in businessData.TrueOrFalse"
                   :key="item.value"
@@ -45,7 +45,7 @@
             </el-form-item>
 
             <el-form-item label="工伤" prop="isInjuryJob" label-width="100px">
-              <el-select v-model="form.isInjuryJob" placeholder="请选择">
+              <el-select v-model="form.isInjuryJob" clearable placeholder="请选择">
                 <el-option
                   v-for="item in businessData.TrueOrFalse"
                   :key="item.value"
@@ -56,7 +56,7 @@
             </el-form-item>
 
             <el-form-item label="重疾" prop="isStricken" label-width="100px">
-              <el-select v-model="form.isStricken" placeholder="请选择">
+              <el-select v-model="form.isStricken" clearable placeholder="请选择">
                 <el-option
                   v-for="item in businessData.TrueOrFalse"
                   :key="item.value"
@@ -67,7 +67,7 @@
             </el-form-item>
 
             <el-form-item label="医保投保" prop="isHasMedical" label-width="100px">
-              <el-select v-model="form.isHasMedical" placeholder="请选择">
+              <el-select v-model="form.isHasMedical" clearable placeholder="请选择">
                 <el-option
                   v-for="item in businessData.TrueOrFalse"
                   :key="item.value"
@@ -78,7 +78,7 @@
             </el-form-item>
 
             <el-form-item label="使用医保卡" prop="isUseMedical" label-width="100px">
-              <el-select v-model="form.isUseMedical" placeholder="请选择">
+              <el-select v-model="form.isUseMedical" clearable placeholder="请选择">
                 <el-option
                   v-for="item in businessData.TrueOrFalse"
                   :key="item.value"
@@ -89,7 +89,7 @@
             </el-form-item>
 
             <el-form-item label="是否特需" prop="isMust" label-width="100px">
-              <el-select v-model="form.isMust" placeholder="请选择">
+              <el-select v-model="form.isMust" clearable placeholder="请选择">
                 <el-option
                   v-for="item in businessData.YesOrNo"
                   :key="item.value"
@@ -100,7 +100,7 @@
             </el-form-item>
 
             <el-form-item label="急诊" prop="isEmergTreat" label-width="100px">
-              <el-select v-model="form.isEmergTreat" placeholder="请选择">
+              <el-select v-model="form.isEmergTreat" clearable placeholder="请选择">
                 <el-option
                   v-for="item in businessData.TrueOrFalse"
                   :key="item.value"
@@ -111,7 +111,7 @@
             </el-form-item>
 
             <el-form-item label="康复" prop="isRehabiliation" label-width="100px">
-              <el-select v-model="form.isRehabiliation" placeholder="请选择">
+              <el-select v-model="form.isRehabiliation" clearable placeholder="请选择">
                 <el-option
                   v-for="item in businessData.YesOrNo"
                   :key="item.value"
@@ -122,7 +122,7 @@
             </el-form-item>
 
             <el-form-item label="缺材料" prop="isLackMaterial" label-width="100px">
-              <el-select v-model="form.isLackMaterial" placeholder="请选择">
+              <el-select v-model="form.isLackMaterial" clearable placeholder="请选择">
                 <el-option
                   v-for="item in businessData.TrueOrFalse"
                   :key="item.value"
@@ -133,7 +133,7 @@
             </el-form-item>
 
             <el-form-item label="指定医院" prop="isDesignHospital" label-width="100px">
-              <el-select v-model="form.isDesignHospital" placeholder="请选择指定医院">
+              <el-select v-model="form.isDesignHospital" clearable placeholder="请选择指定医院">
                 <el-option
                   v-for="item in businessData.TrueOrFalse"
                   :key="item.value"
@@ -144,7 +144,7 @@
             </el-form-item>
 
             <el-form-item label="既往病史" prop="isMedicalHistory" label-width="100px">
-              <el-select v-model="form.isMedicalHistory" placeholder="请选择">
+              <el-select v-model="form.isMedicalHistory" clearable placeholder="请选择">
                 <el-option
                   v-for="item in businessData.TrueOrFalse"
                   :key="item.value"
@@ -155,7 +155,7 @@
             </el-form-item>
 
             <el-form-item label="忽略等待期" prop="isignWait" label-width="100px">
-              <el-select v-model="form.isignWait" placeholder="请选择">
+              <el-select v-model="form.isignWait" clearable placeholder="请选择">
                 <el-option
                   v-for="item in businessData.TrueOrFalse"
                   :key="item.value"
@@ -166,7 +166,7 @@
             </el-form-item>
 
             <el-form-item label="忽略除外责任" prop="isignWait" label-width="100px">
-              <el-select v-model="form.isignExcelusion" placeholder="请选择">
+              <el-select v-model="form.isignExcelusion" clearable placeholder="请选择">
                 <el-option
                   v-for="item in businessData.TrueOrFalse"
                   :key="item.value"
@@ -177,7 +177,7 @@
             </el-form-item>
 
             <el-form-item label="忽略医保卡使用规则" prop="isignWait" label-width="100px">
-              <el-select v-model="form.isignUseCardRule" placeholder="请选择">
+              <el-select v-model="form.isignUseCardRule" clearable placeholder="请选择">
                 <el-option
                   v-for="item in businessData.TrueOrFalse"
                   :key="item.value"
@@ -262,7 +262,7 @@
             </el-form-item>
 
             <el-form-item label="就诊类型" prop="docTyp" label-width="100px">
-              <el-select v-model="form.docTyp" placeholder="请选择">
+              <el-select v-model="form.docTyp" clearable placeholder="请选择">
                 <el-option
                   v-for="item in businessData.ClinicType"
                   :key="item.value"
@@ -294,7 +294,7 @@
             </el-form-item>
 
             <el-form-item label="是否原始就诊" prop="isOriginalVis" label-width="100px">
-              <el-select v-model="form.isOriginalVis" placeholder="请选择">
+              <el-select v-model="form.isOriginalVis" clearable placeholder="请选择">
                 <el-option
                   v-for="item in businessData.TrueOrFalse"
                   :key="item.value"
@@ -427,7 +427,7 @@
             </el-form-item>
 
             <el-form-item label="赔付结论" prop="compensateResult" label-width="120px">
-              <el-select v-model="form.compensateResult" placeholder="请选择">
+              <el-select v-model="form.compensateResult" clearable placeholder="请选择">
                 <el-option
                   v-for="item in businessData.AdjustmentType"
                   :key="item.value"

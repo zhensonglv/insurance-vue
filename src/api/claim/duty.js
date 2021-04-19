@@ -60,6 +60,12 @@ export function getPlyTree(data) {
     data
   })
 }
+export function getBaseOrderDuty(id) {
+  return request({
+    url: '/base/compensateResult/getBaseOrderDuty/' + id,
+    method: 'post'
+  })
+}
 
 export function copyDuty(data) {
   return request({

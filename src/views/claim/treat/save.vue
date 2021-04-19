@@ -53,7 +53,7 @@
       </el-form-item>
 
       <el-form-item label="既往病史" prop="isMedicalHistory" label-width="120px">
-        <el-select v-model="form.isMedicalHistory" placeholder="请选择">
+        <el-select v-model="form.isMedicalHistory" clearable placeholder="请选择">
           <el-option
             v-for="item in businessData.TrueOrFalse"
             :key="item.value"
@@ -64,7 +64,7 @@
       </el-form-item>
 
       <el-form-item label="社保类型" prop="secuTyp" label-width="120px">
-        <el-select v-model="form.secuTyp" placeholder="请选择">
+        <el-select v-model="form.secuTyp" clearable placeholder="请选择">
           <el-option
             v-for="item in businessData.CSocialinsuTyp"
             :key="item.value"
@@ -91,7 +91,7 @@
       </el-form-item>
 
       <el-form-item label="其它社保类型1" prop="otherSecuTypOne" label-width="120px">
-        <el-select v-model="form.otherSecuTypOne" placeholder="请选择">
+        <el-select v-model="form.otherSecuTypOne" clearable placeholder="请选择">
           <el-option
             v-for="item in businessData.OtherCSocialinsuTyp"
             :key="item.value"
@@ -106,7 +106,7 @@
       </el-form-item>
 
       <el-form-item label="其它社保类型2" prop="otherSecuTypTwo" label-width="120px">
-        <el-select v-model="form.otherSecuTypTwo" placeholder="请选择">
+        <el-select v-model="form.otherSecuTypTwo" clearable placeholder="请选择">
           <el-option
             v-for="item in businessData.OtherCSocialinsuTyp"
             :key="item.value"
@@ -175,7 +175,7 @@
       </el-form-item>
 
       <el-form-item label="赔付结论" prop="compensateResult" label-width="120px">
-        <el-select v-model="form.compensateResult" placeholder="请选择">
+        <el-select v-model="form.compensateResult" clearable placeholder="请选择">
           <el-option
             v-for="item in businessData.AdjustmentType"
             :key="item.value"

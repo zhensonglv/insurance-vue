@@ -17,7 +17,7 @@
       </el-form-item>
 
       <el-form-item label="提交对象" prop="subjObj" label-width="120px">
-        <el-select v-model="form.subjObj" placeholder="请选择提交对象">
+        <el-select v-model="form.subjObj" clearable placeholder="请选择提交对象">
           <!--<el-option
             v-for="item in businessData.CPubCoverTyp"
             :key="item.value"
@@ -40,7 +40,7 @@
       </el-form-item>
 
       <el-form-item label="批次来源" prop="batchOrigin" label-width="120px">
-        <el-select v-model="form.batchOrigin" placeholder="请选择">
+        <el-select v-model="form.batchOrigin" clearable placeholder="请选择">
           <!--<el-option
             v-for="item in businessData.CPubCoverTyp"
             :key="item.value"
@@ -51,7 +51,7 @@
       </el-form-item>
 
       <el-form-item label="赔付对象" prop="compensateObj" label-width="120px">
-        <el-select v-model="form.compensateObj" placeholder="请选择">
+        <el-select v-model="form.compensateObj" clearable placeholder="请选择">
           <!--<el-option
             v-for="item in businessData.CPubCoverTyp"
             :key="item.value"
@@ -180,7 +180,7 @@
       </el-form-item>
 
       <el-form-item label="银行类型" prop="bankTyp" label-width="120px">
-        <el-select v-model="form.bankTyp" placeholder="请选择">
+        <el-select v-model="form.bankTyp" clearable placeholder="请选择">
           <!--<el-option
             v-for="item in businessData.CPubCoverTyp"
             :key="item.value"
@@ -199,7 +199,7 @@
       </el-form-item>
 
       <el-form-item label="特殊理算提示" prop="specCalcHint" label-width="120px">
-        <el-select v-model="form.specCalcHint" placeholder="请选择">
+        <el-select v-model="form.specCalcHint" clearable placeholder="请选择">
           <!--<el-option
             v-for="item in businessData.CPubCoverTyp"
             :key="item.value"
@@ -210,7 +210,7 @@
       </el-form-item>
 
       <el-form-item label="是否绿色通道" prop="isGreenChannel" label-width="120px">
-        <el-select v-model="form.isGreenChannel" placeholder="请选择">
+        <el-select v-model="form.isGreenChannel" clearable placeholder="请选择">
           <!--<el-option
             v-for="item in businessData.CPubCoverTyp"
             :key="item.value"
@@ -254,7 +254,7 @@
       </el-form-item>
 
       <el-form-item label="是否异步处理中" prop="isAsyncProc" label-width="120px">
-        <el-select v-model="form.isAsyncProc" placeholder="请选择">
+        <el-select v-model="form.isAsyncProc" clearable placeholder="请选择">
           <!--<el-option
             v-for="item in businessData.CPubCoverTyp"
             :key="item.value"
@@ -265,7 +265,7 @@
       </el-form-item>
 
       <el-form-item label="批次类型" prop="batchTyp" label-width="120px">
-        <el-select v-model="form.batchTyp" placeholder="请选择">
+        <el-select v-model="form.batchTyp" clearable placeholder="请选择">
           <!--<el-option
             v-for="item in businessData.CPubCoverTyp"
             :key="item.value"
@@ -276,7 +276,7 @@
       </el-form-item>
 
       <el-form-item label="批次状态" prop="batchStatus" label-width="120px">
-        <el-select v-model="form.batchStatus" placeholder="请选择">
+        <el-select v-model="form.batchStatus" clearable placeholder="请选择">
           <!--<el-option
             v-for="item in businessData.CPubCoverTyp"
             :key="item.value"
@@ -291,7 +291,7 @@
       </el-form-item>
 
       <el-form-item label="批次案件状态" prop="caseStatus" label-width="120px">
-        <el-select v-model="form.caseStatus" placeholder="请选择">
+        <el-select v-model="form.caseStatus" clearable placeholder="请选择">
           <!--<el-option
             v-for="item in businessData.CPubCoverTyp"
             :key="item.value"

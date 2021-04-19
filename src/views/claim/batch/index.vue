@@ -6,7 +6,7 @@
         <el-input v-model="listQuery.groupNme" style="width: 200px;" placeholder="请输入团体名称查询" />
         <el-input v-model="listQuery.plyNo" style="width: 200px;" placeholder="请输入保单号称查询" />
 
-        <el-select v-model="listQuery.batchStatus" placeholder="请选择批次状态">
+        <el-select v-model="listQuery.batchStatus" clearable placeholder="请选择批次状态">
           <!--<el-option
             v-for="item in businessData.CTeamTyp"
             :key="item.value"
@@ -14,7 +14,7 @@
             :value="item.value"
           />-->
         </el-select>
-        <el-select v-model="listQuery.batchOrigin" placeholder="请选择批次来源">
+        <el-select v-model="listQuery.batchOrigin" clearable placeholder="请选择批次来源">
           <!--<el-option
             v-for="item in businessData.CPubCoverTyp"
             :key="item.value"
@@ -22,7 +22,7 @@
             :value="item.value"
           />-->
         </el-select>
-        <el-select v-model="listQuery.batchTyp" placeholder="请选择批次类型">
+        <el-select v-model="listQuery.batchTyp" clearable placeholder="请选择批次类型">
           <!--<el-option
             v-for="item in businessData.CPubCoverTyp"
             :key="item.value"

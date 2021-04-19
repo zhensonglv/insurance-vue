@@ -96,10 +96,9 @@ export default {
     }
   },
   created() {
-    /* if (this.$route.query.amountCode) { // 上级页面传入参数
-      this.listQuery.amountCode = this.$route.query.amountCode
-    }*/
-    // this.fetchData()
+    if (window.localStorage.getItem('paramCde')) {
+      this.listQuery.normCde = window.localStorage.getItem('paramCde')
+    }
     this.fetchTypeData()
   },
   mounted() {

@@ -16,8 +16,8 @@
           placeholder="选择日期时间"
         />
       </el-form-item>-->
-      <el-form-item label="疾病范围选择" prop="HertTyp" label-width="120px">
-        <el-select v-model="form.HertTyp" placeholder="请选择" onchange="changecodeTyp">
+      <el-form-item label="疾病范围选择" prop="hertTyp" label-width="120px">
+        <el-select v-model="form.hertTyp" placeholder="请选择" onchange="changecodeTyp">
           <el-option
             v-for="item in businessData.DiaMatchTyp"
             :key="item.value"
@@ -26,8 +26,8 @@
           />
         </el-select>
       </el-form-item>
-      <el-form-item label="ByPass" prop="ByPass" label-width="120px">
-        <el-select v-model="form.ByPass" placeholder="请选择">
+      <el-form-item label="byPass" prop="ByPass" label-width="120px">
+        <el-select v-model="form.byPass" placeholder="请选择">
           <el-option
             v-for="item in businessData.TrueOrFalse"
             :key="item.value"
@@ -36,50 +36,50 @@
           />
         </el-select>
       </el-form-item>
-      <el-form-item v-if="form.HertTyp=='1'" label="起始代码" prop="sickBgnCde" label-width="120px">
+      <el-form-item v-if="form.hertTyp=='1'" label="起始代码" prop="sickBgnCde" label-width="120px">
         <el-input v-model="form.sickBgnCde" placeholder="请选择起始代码">
           <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(1)" />
         </el-input>
       </el-form-item>
       <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
 
-      <el-form-item v-if="form.HertTyp=='1'" label="起始代码描述" prop="SickBgnCde" label-width="120px">
-        <el-input v-model="form.SickBgnDesc" placeholder="请输入起始代码描述" />
+      <el-form-item v-if="form.hertTyp=='1'" label="起始代码描述" prop="sickBgnCde" label-width="120px">
+        <el-input v-model="form.sickBgnDesc" placeholder="请输入起始代码描述" />
       </el-form-item>
 
-      <el-form-item v-if="form.HertTyp=='1'" label="终止代码" prop="SickEndCde" label-width="120px">
-        <el-input v-model="form.sickEndCde" placeholder="请选择终止代码">
+      <el-form-item v-if="form.hertTyp=='1'" label="终止代码" prop="SickendCde" label-width="120px">
+        <el-input v-model="form.sickendCde" placeholder="请选择终止代码">
           <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(2)" />
         </el-input>
       </el-form-item>
       <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
 
-      <el-form-item v-if="form.HertTyp=='1'" label="终止代码描述" prop="SickEndDesc" label-width="120px">
-        <el-input v-model="form.SickEndDesc" placeholder="请输入终止代码描述" />
+      <el-form-item v-if="form.hertTyp=='1'" label="终止代码描述" prop="sickEndDesc" label-width="120px">
+        <el-input v-model="form.sickEndDesc" placeholder="请输入终止代码描述" />
       </el-form-item>
 
-      <el-form-item v-if="form.HertTyp=='2'" label="诊断转换码" prop="DiaMatParameterCde" label-width="120px">
-        <el-input v-model="form.DiaMatParameterCde" placeholder="请选择诊断转换码">
+      <el-form-item v-if="form.hertTyp=='2'" label="诊断转换码" prop="diaMatParameterCde" label-width="120px">
+        <el-input v-model="form.diaMatParameterCde" placeholder="请选择诊断转换码">
           <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(3)" />
         </el-input>
       </el-form-item>
       <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
 
-      <el-form-item v-if="form.HertTyp=='2'" label="诊断转换码描述" prop="DiaMatDesc" label-width="120px">
-        <el-input v-model="form.DiaMatDesc" placeholder="请输入诊断转换码描述" />
+      <el-form-item v-if="form.hertTyp=='2'" label="诊断转换码描述" prop="diaMatDesc" label-width="120px">
+        <el-input v-model="form.diaMatDesc" placeholder="请输入诊断转换码描述" />
       </el-form-item>
-      <el-form-item label="起始日" prop="StartTm">
+      <el-form-item label="起始日" prop="startTm">
         <el-date-picker
-          v-model="form.StartTm"
+          v-model="form.startTm"
           type="datetime"
           value-format="yyyy-MM-dd"
           placeholder="选择日期时间"
         />
       </el-form-item>
 
-      <el-form-item label="终止日" prop="EndTm">
+      <el-form-item label="终止日" prop="endTm">
         <el-date-picker
-          v-model="form.EndTm"
+          v-model="form.endTm"
           type="datetime"
           value-format="yyyy-MM-dd"
           placeholder="选择日期时间"
@@ -96,8 +96,8 @@
         <el-input v-model="form.explainCdeDesc" placeholder="请输入解释码描述" />
       </el-form-item>
 
-      <el-form-item label="责任转换" prop="DutyConvert" label-width="120px">
-        <el-select v-model="form.DutyConvert" placeholder="请选择">
+      <el-form-item label="责任转换" prop="dutyConvert" label-width="120px">
+        <el-select v-model="form.dutyConvert" placeholder="请选择">
           <el-option
             v-for="item in businessData.TrueOrFalse"
             :key="item.value"
@@ -107,26 +107,26 @@
         </el-select>
       </el-form-item>
 
-      <el-form-item label="起始诊疗码" prop="StartCde" label-width="120px">
-        <el-input v-model="form.StartCde" placeholder="请选择起始代码">
+      <el-form-item label="起始诊疗码" prop="startCde" label-width="120px">
+        <el-input v-model="form.startCde" placeholder="请选择起始代码">
           <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(5)" />
         </el-input>
       </el-form-item>
       <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
 
-      <el-form-item label="起始诊疗码描述" prop="StartCodeDesc" label-width="120px">
-        <el-input v-model="form.StartCodeDesc" placeholder="请输入起始代码描述" />
+      <el-form-item label="起始诊疗码描述" prop="startCodeDesc" label-width="120px">
+        <el-input v-model="form.startCodeDesc" placeholder="请输入起始代码描述" />
       </el-form-item>
 
-      <el-form-item label="终止诊疗码" prop="EndCde" label-width="120px">
-        <el-input v-model="form.EndCde" placeholder="请选择终止代码">
+      <el-form-item label="终止诊疗码" prop="endCde" label-width="120px">
+        <el-input v-model="form.endCde" placeholder="请选择终止代码">
           <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(6)" />
         </el-input>
       </el-form-item>
       <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
 
-      <el-form-item label="终止诊疗码描述" prop="EndCodeDesc" label-width="120px">
-        <el-input v-model="form.EndCodeDesc" placeholder="请输入终止代码描述" />
+      <el-form-item label="终止诊疗码描述" prop="endCodeDesc" label-width="120px">
+        <el-input v-model="form.endCodeDesc" placeholder="请输入终止代码描述" />
       </el-form-item>
 
     </el-form>
@@ -160,31 +160,31 @@ export default {
       basePath: 'sicknessScope',
       form: {
         id: '',
-        AnamnesisNo: '',
-        PrincipalInsuredClientN: '',
-        InsuredNo: '',
-        AnamnesisTyp: '',
-        PayoutAfterDay: '',
-        ByPass: '',
-        StartTm: '',
-        EndTm: '',
-        ExplanationCde: '',
-        CodeTyp: '',
-        DutyConvert: '',
-        StartCde: '',
-        StartCodeDesc: '',
-        EndCde: '',
-        EndCodeDesc: '',
-        Desc: '',
-        HertParamCde: '',
-        ExplainCdeDesc: '',
-        SickBgnCde: '',
-        SickBgnDesc: '',
-        SickEndCde: '',
-        SickEndDesc: '',
-        DiaMatParameterCde: '',
-        DiaMatDesc: '',
-        HertTyp: '',
+        anamnesisNo: '',
+        principalInsuredClientN: '',
+        insuredNo: '',
+        anamnesisTyp: '',
+        payoutAfterDay: '',
+        byPass: '',
+        startTm: '',
+        endTm: '',
+        explanationCde: '',
+        codeTyp: '',
+        dutyConvert: '',
+        startCde: '',
+        startCodeDesc: '',
+        endCde: '',
+        endCodeDesc: '',
+        desc: '',
+        hertParamCde: '',
+        explainCdeDesc: '',
+        sickBgnCde: '',
+        sickBgnDesc: '',
+        SickendCde: '',
+        sickEndDesc: '',
+        diaMatParameterCde: '',
+        diaMatDesc: '',
+        hertTyp: '',
         plyPart: ''
 
       },
@@ -194,7 +194,7 @@ export default {
         paramCde: [{ required: true, trigger: 'blur', message: '请输入参数码' }],
         cdeType: [{ required: true, trigger: 'blur', message: '请选择代码类型' }]
         /*    sickBgnCde: [{ required: true, trigger: 'blur', message: '请选择起始代码' }],
-        sickEndCde: [{ required: true, trigger: 'blur', message: '请选择终止代码' }],
+        sickendCde: [{ required: true, trigger: 'blur', message: '请选择终止代码' }],
         sickBgnDesc: [{ required: true, trigger: 'blur', message: '请选择起始代码描述' }],
         sickEndDesc: [{ required: true, trigger: 'blur', message: '请选择终止代码描述' }]*/
       }
@@ -226,7 +226,7 @@ export default {
       this.form.diaMatDesc = null
       this.form.cdeType = null
       this.form.sickBgnCde = null
-      this.form.sickEndCde = null
+      this.form.sickendCde = null
       this.form.sickBgnDesc = null
       this.form.sickEndDesc = null
     },
@@ -242,34 +242,34 @@ export default {
     matchConfirm(data) {
       debugger
       if (this.matchTyp === 1) {
-        this.form.SickBgnCde = data.diaCde
-        this.form.SickBgnDesc = data.diaDesc
+        this.form.sickBgnCde = data.diaCde
+        this.form.sickBgnDesc = data.diaDesc
       }
       if (this.matchTyp === 2) {
-        this.form.SickEndCde = data.diaCde
-        this.form.SickEndDesc = data.diaDesc
+        this.form.SickendCde = data.diaCde
+        this.form.sickEndDesc = data.diaDesc
       }
       if (this.matchTyp === 3) {
-        this.form.DiaMatParameterCde = data.diaMatParameterCde
-        this.form.DiaMatDesc = data.explCategort
+        this.form.diaMatParameterCde = data.diaMatParameterCde
+        this.form.diaMatDesc = data.explCategort
       }
       if (this.matchTyp === 4) {
         this.form.explainCde = data.explCde
         this.form.explainCdeDesc = data.explCdeDesc
       }
       if (this.matchTyp === 5) {
-        this.form.StartCde = data.treatNo
-        this.form.StartCodeDesc = data.treatDesc
+        this.form.startCde = data.treatNo
+        this.form.startCodeDesc = data.treatDesc
       }
       if (this.matchTyp === 6) {
-        this.form.EndCde = data.treatNo
-        this.form.EndCodeDesc = data.treatDesc
+        this.form.endCde = data.treatNo
+        this.form.endCodeDesc = data.treatDesc
       }
     },
     changecodeTyp() {
       this.form.sickBgnCde = null
       this.form.sickBgnDesc = null
-      this.form.sickEndCde = null
+      this.form.sickendCde = null
       this.form.sickEndDesc = null
       this.form.diaMatParameterCde = null
       this.form.diaMatDesc = null

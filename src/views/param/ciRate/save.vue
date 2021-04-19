@@ -6,7 +6,7 @@
       </el-form-item>
 
       <el-form-item label="适用条件" prop="conditionCde" label-width="120px">
-        <el-select v-model="form.conditionCde" placeholder="请选择">
+        <el-select v-model="form.conditionCde" clearable placeholder="请选择">
           <el-option
             v-for="item in businessData.CiRateCondition"
             :key="item.value"
@@ -21,7 +21,7 @@
       </el-form-item>
 
       <el-form-item label="阶梯" prop="ladderCde" label-width="120px">
-        <el-select v-model="form.ladderCde" placeholder="请选择">
+        <el-select v-model="form.ladderCde" clearable placeholder="请选择">
           <el-option
             v-for="item in businessData.TrueOrFalse"
             :key="item.value"
@@ -36,7 +36,7 @@
       </el-form-item>
 
       <el-form-item label="赔付比例类型" prop="ciRateTyp" label-width="120px">
-        <el-select v-model="form.ciRateTyp" placeholder="请选择">
+        <el-select v-model="form.ciRateTyp" clearable placeholder="请选择">
           <el-option
             v-for="item in businessData.CiRateTyp"
             :key="item.value"
@@ -54,7 +54,7 @@
       <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
 
       <el-form-item label="就诊原因" prop="visitReson" label-width="120px">
-        <el-select v-model="form.visitReson" placeholder="请选择">
+        <el-select v-model="form.visitReson" clearable placeholder="请选择">
           <el-option
             v-for="item in businessData.QuotaVisitReason"
             :key="item.value"
@@ -65,7 +65,7 @@
       </el-form-item>
 
       <el-form-item label="账单类型" prop="billTyp" label-width="120px">
-        <el-select v-model="form.billTyp" placeholder="请选择">
+        <el-select v-model="form.billTyp" clearable placeholder="请选择">
           <el-option
             v-for="item in businessData.CiRateBillTyp"
             :key="item.value"
