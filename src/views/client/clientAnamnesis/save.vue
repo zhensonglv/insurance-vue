@@ -185,7 +185,7 @@ export default {
         diaMatParameterCde: '',
         diaMatDesc: '',
         hertTyp: '',
-        plyPart: ''
+        plyPartNo: ''
 
       },
       matchVisable: false,

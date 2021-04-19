@@ -137,9 +137,6 @@
           </template>
         </el-table-column>
       </el-table>
-
-      <save :son-data="form" :business-data="businessData" @sonStatus="status" />
-
       <pagination
         v-show="total>0"
         :total="total"
@@ -153,13 +150,12 @@
 </template>
 
 <script>
-import { getList, findById, del } from '@/api/base'
+import { getList, del } from '@/api/base'
 import { getCodeList } from '@/api/code'
 import Pagination from '@/components/Pagination'
-import Save from './save'
 
 export default {
-  components: { Pagination, Save },
+  components: { Pagination },
   data() {
     return {
       list: null,
@@ -168,7 +164,10 @@ export default {
       listQuery: {
         pageNum: 1,
         pageSize: 10,
-        amountCode: '',
+        insuredNme: '',
+        certCde: '',
+        insuredNo: '',
+        plyNo: '',
         sort: '+id'
       },
       total: 0,
@@ -184,10 +183,6 @@ export default {
     }
   },
   created() {
-    /* if (this.$route.query.amountCode) { // 上级页面传入参数
-      this.listQuery.amountCode = this.$route.query.amountCode
-    }*/
-    // this.fetchData()
     this.fetchTypeData()
   },
   mounted() {
@@ -221,7 +216,7 @@ export default {
           type: 'warning'
         })
       } else {
-        this.$router.push({ path: '/client/clientAnamnesis', query: { paramCde: this.selected.paramCde, linkId: this.selected.id }})
+        this.$router.push({ path: '/client/clientAnamnesis', query: { plyNo: this.selected.plyNo, plyPartNo: this.selected.plyPartNo, insuredNo: this.selected.insuredNo }})
       }
     },
     fetchTypeData() {
@@ -239,25 +234,6 @@ export default {
         this.fetchData()
       })
     },
-
-    handleSave() {
-      this.form = { id: null, amountCode: this.listQuery.amountCode }
-      this.dialogVisible = true
-    },
-    handleEdit(id) {
-      // 跳转到新的页面
-      findById(this.basePath, id).then(response => {
-        this.form = response.data
-      })
-    },
-    // 子组件的状态Flag，子组件通过`this.$emit('sonStatus', val)`给父组件传值
-    // 父组件通过`@sonStatus`的方法`status`监听到子组件传递的值
-    status(data) {
-      if (data) {
-        this.fetchData()
-      }
-    },
-
     handleDel(id) {
       this.$confirm('你确定永久删除此数据？, 是否继续?', '提示', {
         confirmButtonText: '确定',

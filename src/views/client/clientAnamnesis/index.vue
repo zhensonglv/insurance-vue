@@ -96,8 +96,9 @@ export default {
       listQuery: {
         pageNum: 1,
         pageSize: 10,
-        paramCde: '',
-        linkDeductibleId: '',
+        plyNo: '',
+        plyPartNo: '',
+        insuredNo: '',
         sort: '+id'
       },
       total: 0,
@@ -108,11 +109,14 @@ export default {
     }
   },
   created() {
-    if (this.$route.query.paramCde) { // 上级页面传入参数
-      this.listQuery.paramCde = this.$route.query.paramCde
+    if (this.$route.query.plyNo) { // 上级页面传入参数
+      this.listQuery.plyNo = this.$route.query.plyNo
     }
-    if (this.$route.query.linkId) { // 上级页面传入参数
-      this.listQuery.linkDeductibleId = this.$route.query.linkId
+    if (this.$route.query.plyPartNo) { // 上级页面传入参数
+      this.listQuery.plyPartNo = this.$route.query.plyPartNo
+    }
+    if (this.$route.query.insuredNo) { // 上级页面传入参数
+      this.listQuery.insuredNo = this.$route.query.insuredNo
     }
     this.fetchTypeData()
   },
@@ -151,7 +155,6 @@ export default {
       })
     },
     handleSave() {
-      // this.form = { id: null, paramCde: this.listQuery.paramCde }
       this.form = { id: null, paramCde: this.listQuery.paramCde, linkDeductibleId: this.listQuery.linkDeductibleId }
       this.dialogVisible = true
     },

@@ -224,6 +224,12 @@ export const constantRoutes = [
         meta: { title: '被保人查询', icon: 'guide', noCache: true }
       },
       {
+        path: 'clientAnamnesis',
+        component: () => import('@/views/client/clientAnamnesis/index'),
+        name: '被保人既往症',
+        meta: { title: '被保人既往症', icon: 'guide', noCache: true }
+      },
+      {
         path: 'clientLifeStyle',
         component: () => import('@/views/client/clientLifeStyle/index'),
         name: '生活方式管理',
@@ -327,12 +333,6 @@ export const constantRoutes = [
         component: () => import('@/views/param/sicknessScope/index'),
         name: '疾病范围',
         meta: { title: '疾病范围', icon: 'guide', noCache: true }
-      },
-      {
-        path: 'clientAnamnesis',
-        component: () => import('@/views/client/clientAnamnesis/index'),
-        name: '被保人既往症',
-        meta: { title: '被保人既往症', icon: 'guide', noCache: true }
       },
       {
         path: 'codeConfig',
