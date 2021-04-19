@@ -119,8 +119,10 @@
 </style>
 
 <script>
-import { getList, deleteByCascade, save, findById } from '@/api/base'
-/* import { getCodeList } from '@/api/code'*/
+import { getList, deleteByCascade, save, findById } from '@/api/preview/base'
+/*
+import { getCodeList } from '@/api/code'
+*/
 import Pagination from '@/components/Pagination'
 import DialogSet from './dialogSet'
 

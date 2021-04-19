@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :title="title" :visible.sync="dialogTableVisible" append-to-body width="80%">
+  <el-dialog :modal="false" :title="title" :visible.sync="dialogTableVisible" append-to-body width="80%">
 
     <div v-if="matchTyp == 1">
       <diagnosisManage dialog @setMultipleSeleValues="setMultipleSeleValues" />

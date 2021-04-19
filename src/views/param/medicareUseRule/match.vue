@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="医院网络码" :visible.sync="dialogTableVisible" append-to-body width="80%">
+  <el-dialog :modal="false" title="医院网络码" :visible.sync="dialogTableVisible" append-to-body width="80%">
     <paramManage dialog :param-type="paramType" @setMultipleSeleValues="setMultipleSeleValues" />
     <div slot="footer" class="dialog-footer">
       <el-button @click="handleClose">

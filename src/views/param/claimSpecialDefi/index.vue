@@ -111,11 +111,7 @@ export default {
     }
   },
   created() {
-    /* if (this.$route.query.pubCoverId) { // 上级页面传入参数
-          this.listQuery.pubCoverId = this.$route.query.pubCoverId
-        }*/
     this.fetchData()
-    // this.fetchTypeData()
   },
   mounted() {
   },

@@ -106,10 +106,9 @@ export default {
     }
   },
   created() {
-    /* if (this.$route.query.pubCoverId) { // 上级页面传入参数
-          this.listQuery.pubCoverId = this.$route.query.pubCoverId
-        }*/
-    // this.fetchData()
+    if (window.localStorage.getItem('paramCde')) { // 上级页面传入参数
+      this.listQuery.waitPeriodCde = window.localStorage.getItem('paramCde')
+    }
     this.fetchTypeData()
   },
   mounted() {

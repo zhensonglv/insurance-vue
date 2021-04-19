@@ -98,6 +98,13 @@ export default {
       })
     },
     set(data) {
+      // 防止本地存储数据过大或者重复，每次存储前先清空
+      window.localStorage.removeItem('treeData')
+      // 将想要存储的数据 存在本地localStorage里，treeData为存储的key
+      window.localStorage.setItem('treeData', data.plyTreeId)
+      // -------以下是使用-----
+      // 用以下方式在任何页面都可拿到
+      // let myData = window.localStorage.getItem('treeData')
       this.paramData = data
       this.paramData.treeType = this.treeType
       this.setDialogVisible = true
