@@ -6,7 +6,6 @@
     :visible.sync="loadVisible"
     width="70%"
     append-to-body
-    :fullscreen="true"
   >
     <component :is="pathRoute" />
     <div slot="footer" class="dialog-footer">

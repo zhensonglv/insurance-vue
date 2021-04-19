@@ -21,8 +21,11 @@
         />
       </el-form-item>
       <el-form-item label="理算优先级" prop="adjustOrder" label-width="120px">
-        <el-input v-model="form.adjustOrder" placeholder="请输入理算优先级" />
+        <el-input v-model="form.adjustOrder" placeholder="请输入理算优先级">
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch" />
+        </el-input>
       </el-form-item>
+      <match :tree-data="treeData" @matchConfirm="matchConfirm" />
 
       <el-form-item label="仅责任" prop="onlyDuty" label-width="120px">
         <el-input v-model="form.onlyDuty" placeholder="请输入" />
@@ -40,6 +43,10 @@
       <el-form-item label="备注" prop="adjustRemark" label-width="120px">
         <el-input v-model="form.adjustRemark" placeholder="请输入备注" />
       </el-form-item>
+
+      <el-form-item label="treeId" prop="plyTreeId" label-width="120px">
+        <el-input v-model="form.plyTreeId" placeholder="请输入plyTreeId" />
+      </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="handleClose">
@@ -54,13 +61,14 @@
 
 <script>
 import { save, edit } from '@/api/base'
+import Match from './match'
 
 export default {
   // 父组件向子组件传值，通过props获取。
   // 一旦父组件改变了`sonData`对应的值，子组件的`sonData`会立即改变，通过watch函数可以实时监听到值的变化
   // `props`不属于data，但是`props`中的参数可以像data中的参数一样直接使用
   components: {
-
+    Match
   },
   props: ['sonData', 'businessData'],
   data() {
@@ -78,10 +86,11 @@ export default {
         accptPlace: '',
         adjustRemark: '',
         onlyDuty: '',
-        fullPremium: ''
+        fullPremium: '',
+        plyTreeId: ''
       },
       matchVisable: false,
-      matchTyp: null,
+      treeData: null,
       rules: {
         adjustOrder: [{ required: true, trigger: 'blur', message: '请输入理算优先级' }]
       }
@@ -89,6 +98,7 @@ export default {
   },
   watch: {
     'sonData': function(newVal, oldVal) {
+      debugger
       this.form = newVal
       this.dialogVisible = true
       if (newVal.id != null) {
@@ -105,6 +115,15 @@ export default {
         type: type
       })
     },
+
+    hanldeMatch() {
+      debugger
+      this.treeData = { plyTreeId: this.form.plyTreeId }
+    },
+    matchConfirm(data) {
+
+    },
+
     clearForm() {
       this.form.id = null
       this.form.paramCde = null
@@ -116,6 +135,8 @@ export default {
       this.form.adjustRemark = null
       this.form.onlyDuty = null
       this.form.fullPremium = null
+      this.form.plyTreeId = null
+      this.treeData = null
     },
     handleClose() {
       this.clearForm()

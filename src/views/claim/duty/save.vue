@@ -232,7 +232,7 @@
                 <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch" />
               </el-input>
             </el-form-item>
-            <match v-model="matchVisable" :ply-info="plyInfo" @matchConfirm="matchConfirm" />
+            <match :ply-info="plyInfo" @matchConfirm="matchConfirm" />
 
             <el-form-item label="甲方产品号" prop="plyPartNo" label-width="120px">
               <el-input v-model="form.partaProdNo" placeholder="请输入甲方产品号" />
@@ -393,7 +393,6 @@ export default {
       show1: true,
       show2: true,
       oldForm: {},
-      matchVisable: false,
       plyInfo: {},
       rules: {
         batchNo: [{ required: true, trigger: 'blur', message: '请输入批次号' }]
@@ -468,12 +467,11 @@ export default {
       this.form.isRehabiliation = null
       this.form.adjustAmt = null
       this.form.adjustDesc = null
+      this.plyInfo = null
     },
 
     hanldeMatch() {
-      this.matchVisable = true
-      this.plyInfo.plyNo = this.form.plyNo
-      this.plyInfo.plyPartNo = this.form.plyPartNo
+      this.plyInfo = { plyNo: this.form.plyNo, plyPartNo: this.form.plyPartNo }
     },
     matchConfirm(data) {
       this.form.prodNo = data.prodNo
@@ -496,7 +494,6 @@ export default {
       this.form.groupId = data.groupId
       this.form.isAccidentDuty = data.isAccidentDuty
       this.form.vistDoctor = data.vistDoctor
-      this.plyInfo = null
     },
 
     handleClose() {

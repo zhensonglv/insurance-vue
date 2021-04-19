@@ -15,11 +15,10 @@
           type="center"
           label="选择"
           width="55"
-        >
-          <template slot-scope="scope">
-            <el-radio v-model="paramRadio" :label="scope.$index" @change.native="handleSelect(scope.row)">&nbsp;</el-radio>
-          </template>
-        </el-table-column>
+        />
+        <el-table-column
+          type="selection"
+        />
         <el-table-column align="center" label="序号" width="95">
           <template slot-scope="scope">
             {{ scope.$index +1 }}
@@ -55,12 +54,12 @@
 </template>
 <script>
 
-import { getPlyTree } from '@/api/claim/duty'
+import { getBaseOrderDuty } from '@/api/claim/duty'
 
 export default {
   name: 'Match',
   props: {
-    plyInfo: Object
+    treeData: Object
   },
   data() {
     return {
@@ -69,21 +68,19 @@ export default {
       listQuery: {
         pageNum: 1,
         pageSize: 10,
-        plyNo: '',
-        plyPartNo: '',
+        plyTreeId: '',
         sort: '+id'
       },
       multipleSeleValues: [],
-      dialogTableVisible: false,
-      paramRadio: false
+      dialogTableVisible: false
     }
   },
   watch: {
-    plyInfo: function(newVal, oldVal) {
-      if (newVal && newVal.plyNo && newVal.plyPartNo) {
+    treeData: function(newVal, oldVal) {
+      debugger
+      if (newVal && newVal.plyTreeId) {
         this.dialogTableVisible = true
-        this.listQuery.plyNo = newVal.plyNo
-        this.listQuery.plyPartNo = newVal.plyPartNo
+        this.listQuery.plyTreeId = newVal.plyTreeId
         this.queryData()
       }
     },
@@ -91,6 +88,7 @@ export default {
       this.$emit('input', val)
     }
   },
+
   created() {
 
   },
@@ -105,7 +103,7 @@ export default {
 
     queryData() {
       this.listLoading = true
-      getPlyTree(this.listQuery).then(response => {
+      getBaseOrderDuty(this.listQuery.plyTreeId).then(response => {
         this.dutyList = response.data
         this.listLoading = false
       })
