@@ -76,6 +76,9 @@ import Save from './save'
 
 export default {
   components: { Pagination, Save },
+  props: {
+    paramCode: String
+  },
   data() {
     return {
       list: null,
@@ -95,11 +98,18 @@ export default {
       HisMedicTyp: {}
     }
   },
-  created() {
-    if (window.localStorage.getItem('paramCde')) {
-      this.listQuery.normCde = window.localStorage.getItem('paramCde')
+  watch: {
+    paramCode: {
+      handler(v) {
+        if (v) {
+          this.listQuery.normCde = v
+          this.fetchTypeData()
+        }
+      },
+      immediate: true
     }
-    this.fetchTypeData()
+  },
+  created() {
   },
   mounted() {
   },

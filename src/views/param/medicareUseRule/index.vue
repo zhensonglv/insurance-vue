@@ -98,6 +98,9 @@ import Save from './save'
 
 export default {
   components: { Pagination, Save },
+  props: {
+    paramCode: String
+  },
   data() {
     return {
       list: null,
@@ -118,12 +121,18 @@ export default {
       AccidentType: {}
     }
   },
-  created() {
-    if (window.localStorage.getItem('paramCde')) {
-      this.listQuery.medicareParamCde = window.localStorage.getItem('paramCde')
+  watch: {
+    paramCode: {
+      handler(v) {
+        if (v) {
+          this.listQuery.medicareParamCde = v
+          this.fetchTypeData()
+        }
+      },
+      immediate: true
     }
-    debugger
-    this.fetchTypeData()
+  },
+  created() {
   },
   mounted() {
   },

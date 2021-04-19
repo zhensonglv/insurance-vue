@@ -93,6 +93,9 @@ import Save from './save'
 
 export default {
   components: { Pagination, Save },
+  props: {
+    paramCode: String
+  },
   data() {
     return {
       list: null,
@@ -101,6 +104,7 @@ export default {
       listQuery: {
         pageNum: 1,
         pageSize: 10,
+        claimSpecialMatchNo: '',
         sort: '+id'
       },
       total: 0,
@@ -111,11 +115,18 @@ export default {
       CSpecialTyp: {}
     }
   },
-  created() {
-    if (window.localStorage.getItem('paramCde')) {
-      this.listQuery.claimSpecialMatchNo = window.localStorage.getItem('paramCde')
+  watch: {
+    paramCode: {
+      handler(v) {
+        if (v) {
+          this.listQuery.claimSpecialMatchNo = v
+          this.fetchTypeData()
+        }
+      },
+      immediate: true
     }
-    this.fetchTypeData()
+  },
+  created() {
   },
   mounted() {
   },

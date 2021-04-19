@@ -77,6 +77,9 @@ import Save from './save'
 
 export default {
   components: { Pagination, Save },
+  props: {
+    paramCode: String
+  },
   data() {
     return {
       list: null,
@@ -97,14 +100,21 @@ export default {
       plyTreeId: null
     }
   },
-  created() {
-    if (window.localStorage.getItem('paramCde')) {
-      this.listQuery.paramCde = window.localStorage.getItem('paramCde')
+  watch: {
+    paramCode: {
+      handler(v) {
+        if (v) {
+          this.listQuery.paramCde = v
+          this.fetchData()
+        }
+      },
+      immediate: true
     }
+  },
+  created() {
     if (window.localStorage.getItem('treeData')) {
       this.plyTreeId = window.localStorage.getItem('treeData')
     }
-    this.fetchData()
   },
   mounted() {
   },

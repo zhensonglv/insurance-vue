@@ -87,6 +87,9 @@ import Save from './save'
 
 export default {
   components: { Pagination, Save },
+  props: {
+    paramCode: String
+  },
   data() {
     return {
       list: null,
@@ -105,11 +108,18 @@ export default {
       CNWaitDaysStart: {}
     }
   },
-  created() {
-    if (window.localStorage.getItem('paramCde')) { // 上级页面传入参数
-      this.listQuery.waitPeriodCde = window.localStorage.getItem('paramCde')
+  watch: {
+    paramCode: {
+      handler(v) {
+        if (v) {
+          this.listQuery.waitPeriodCde = v
+          this.fetchTypeData()
+        }
+      },
+      immediate: true
     }
-    this.fetchTypeData()
+  },
+  created() {
   },
   mounted() {
   },

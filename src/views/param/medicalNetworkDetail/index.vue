@@ -104,13 +104,15 @@
 
 <script>
 import { getList, findById, del } from '@/api/base'
-// import { getCodeList } from '@/api/code'
 import Pagination from '@/components/Pagination'
 import Save from './save'
 import { getCodeList } from '@/api/code'
 
 export default {
   components: { Pagination, Save },
+  props: {
+    paramCode: String
+  },
   data() {
     return {
       list: null,
@@ -132,11 +134,18 @@ export default {
       QuotaVisitReason: {}
     }
   },
-  created() {
-    if (window.localStorage.getItem('paramCde')) {
-      this.listQuery.mediNetworkCde = window.localStorage.getItem('paramCde')
+  watch: {
+    paramCode: {
+      handler(v) {
+        if (v) {
+          this.listQuery.mediNetworkCde = v
+          this.fetchTypeData()
+        }
+      },
+      immediate: true
     }
-    this.fetchTypeData()
+  },
+  created() {
   },
   mounted() {
   },

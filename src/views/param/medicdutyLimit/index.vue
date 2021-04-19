@@ -79,6 +79,9 @@ import Save from './save'
 
 export default {
   components: { Pagination, Save },
+  props: {
+    paramCode: String
+  },
   data() {
     return {
       list: null,
@@ -98,11 +101,18 @@ export default {
       businessData: {}
     }
   },
-  created() {
-    if (window.localStorage.getItem('paramCde')) { // 上级页面传入参数
-      this.listQuery.paramCde = window.localStorage.getItem('paramCde')
+  watch: {
+    paramCode: {
+      handler(v) {
+        if (v) {
+          this.listQuery.paramCde = v
+          this.fetchTypeData()
+        }
+      },
+      immediate: true
     }
-    this.fetchTypeData()
+  },
+  created() {
   },
   mounted() {
   },

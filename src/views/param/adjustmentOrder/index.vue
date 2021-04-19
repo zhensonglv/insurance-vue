@@ -74,6 +74,9 @@ import Save from './save'
 
 export default {
   components: { Pagination, Save },
+  props: {
+    paramCode: String
+  },
   data() {
     return {
       list: null,
@@ -92,11 +95,18 @@ export default {
       businessData: {}
     }
   },
-  created() {
-    if (window.localStorage.getItem('paramCde')) {
-      this.listQuery.adjustmentOrderNo = window.localStorage.getItem('paramCde')
+  watch: {
+    paramCode: {
+      handler(v) {
+        if (v) {
+          this.listQuery.adjustmentOrderNo = v
+          this.fetchData()
+        }
+      },
+      immediate: true
     }
-    this.fetchData()
+  },
+  created() {
   },
   mounted() {
   },

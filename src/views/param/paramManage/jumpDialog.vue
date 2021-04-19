@@ -7,7 +7,7 @@
     width="70%"
     append-to-body
   >
-    <component :is="pathRoute" :code="cs" />
+    <component :is="pathRoute" :param-code="paramCode" />
     <div slot="footer" class="dialog-footer">
       <el-button type="info" plain @click="handleClose">
         取消
@@ -29,7 +29,6 @@ export default {
   },
   data() {
     return {
-      cs: '测试呢',
       loadVisible: false
     }
   },

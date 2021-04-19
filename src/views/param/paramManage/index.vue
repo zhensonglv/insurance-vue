@@ -87,7 +87,7 @@
 
       <save :son-data="form" :business-data="businessData" @sonStatus="status" />
 
-      <jumpDialog :visible="visible" :path-route="typPath" @sonVisible="sonVisible" />
+      <jumpDialog :visible="visible" :param-code="paramCde" :path-route="typPath" @sonVisible="sonVisible" />
 
       <pagination
         v-show="total>0"
@@ -142,8 +142,6 @@ export default {
       form: null,
       businessData: {},
       paramData: {},
-      /*    CProdApplyTyp: {},
-      CParamTyps: {},*/
       prodParamterTyp: {},
       selected: null,
       paramRadio: false
@@ -179,8 +177,7 @@ export default {
           debugger
           self.typPath = res.data.typPath || ''
           self.visible = true
-          window.localStorage.removeItem('paramCde')
-          window.localStorage.setItem('paramCde', this.selected.prodCde)
+          self.paramCde = this.selected.prodCde
           // this.$router.push({ path: '/param/' + typPath, query: { paramCde: this.selected.prodCde }})
         })
       }

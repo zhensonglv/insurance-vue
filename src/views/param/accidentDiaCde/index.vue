@@ -64,7 +64,7 @@ import Save from './save'
 export default {
   components: { Pagination, Save },
   props: {
-    code: String
+    paramCode: String
   },
   data() {
     return {
@@ -86,18 +86,17 @@ export default {
     }
   },
   watch: {
-    code: {
+    paramCode: {
       handler(v) {
-        console.log(v, 'cs1234')
+        if (v) {
+          this.listQuery.accidentDiaCde = v
+          this.fetchTypeData()
+        }
       },
       immediate: true
     }
   },
   created() {
-    if (window.localStorage.getItem('paramCde')) {
-      this.listQuery.accidentDiaCde = window.localStorage.getItem('paramCde')
-    }
-    this.fetchTypeData()
   },
   mounted() {
   },
