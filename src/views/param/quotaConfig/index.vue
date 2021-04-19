@@ -135,7 +135,7 @@ export default {
   },
   created() {
     if (window.localStorage.getItem('paramCde')) {
-      this.plyTreeId = window.localStorage.getItem('paramCde')
+      this.listQuery.paramCde = window.localStorage.getItem('paramCde')
     }
     this.fetchTypeData()
   },

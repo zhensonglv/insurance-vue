@@ -98,8 +98,8 @@ export default {
     }
   },
   created() {
-    if (this.$route.query.paramCde) { // 上级页面传入参数
-      this.listQuery.paramCde = this.$route.query.paramCde
+    if (window.localStorage.getItem('paramCde')) {
+      this.listQuery.paramCde = window.localStorage.getItem('paramCde')
     }
     if (window.localStorage.getItem('treeData')) {
       this.plyTreeId = window.localStorage.getItem('treeData')
@@ -131,7 +131,7 @@ export default {
 
     },
     handleSave() {
-      this.form = { id: null, paramCde: this.listQuery.paramCde, plyTreeId: this.plyTreeId }
+      this.form = { id: null, paramCde: this.listQuery.paramCde, plyTreeId: this.plyTreeId, adjustOrder: null, onlyDuty: null }
       this.dialogVisible = true
     },
     handleEdit(id) {

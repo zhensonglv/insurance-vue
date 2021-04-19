@@ -176,6 +176,7 @@ export default {
         })
       } else {
         getPath({ paramterTyp: this.selected.paramterTyp }).then(res => {
+          debugger
           self.typPath = res.data.typPath || ''
           self.visible = true
           window.localStorage.removeItem('paramCde')

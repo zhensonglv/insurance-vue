@@ -35,7 +35,6 @@ export default {
   watch: {
     visible: {
       handler(v) {
-        debugger
         this.loadVisible = v
       },
       immediate: true

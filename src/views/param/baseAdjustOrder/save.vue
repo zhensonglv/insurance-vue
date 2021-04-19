@@ -120,7 +120,6 @@ export default {
       this.treeData = { plyTreeId: this.form.plyTreeId }
     },
     matchConfirm(data) {
-      debugger
       var str = null
       data.forEach((val, i) => {
         if (!str) {
