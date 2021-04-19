@@ -8,7 +8,7 @@
     append-to-body
     :fullscreen="true"
   >
-    <component :is="pathRoute" />
+    <component :is="pathRoute" :code="cs" />
     <div slot="footer" class="dialog-footer">
       <el-button type="info" plain @click="handleClose">
         取消
@@ -29,6 +29,7 @@ export default {
   },
   data() {
     return {
+      cs: '测试呢',
       loadVisible: false
     }
   },
