@@ -77,7 +77,6 @@ export default {
   },
   watch: {
     treeData: function(newVal, oldVal) {
-      debugger
       if (newVal && newVal.plyTreeId) {
         this.dialogTableVisible = true
         this.listQuery.plyTreeId = newVal.plyTreeId

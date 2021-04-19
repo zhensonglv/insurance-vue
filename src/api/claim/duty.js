@@ -62,7 +62,7 @@ export function getPlyTree(data) {
 }
 export function getBaseOrderDuty(id) {
   return request({
-    url: '/base/compensateResult/' + id,
+    url: '/base/compensateResult/getBaseOrderDuty/' + id,
     method: 'post'
   })
 }

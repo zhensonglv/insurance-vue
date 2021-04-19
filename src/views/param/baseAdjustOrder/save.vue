@@ -117,11 +117,19 @@ export default {
     },
 
     hanldeMatch() {
-      debugger
       this.treeData = { plyTreeId: this.form.plyTreeId }
     },
     matchConfirm(data) {
-
+      debugger
+      var str = null
+      data.forEach((val, i) => {
+        if (!str) {
+          str = val.responseNo
+        } else {
+          str = str + ',' + val.responseNo
+        }
+      })
+      this.form.adjustOrder = str
     },
 
     clearForm() {

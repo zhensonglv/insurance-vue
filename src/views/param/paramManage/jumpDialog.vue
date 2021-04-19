@@ -24,7 +24,8 @@ export default {
       type: Boolean,
       default: false
     },
-    pathRoute: String
+    pathRoute: String,
+    paramCode: String
   },
   data() {
     return {
@@ -34,6 +35,7 @@ export default {
   watch: {
     visible: {
       handler(v) {
+        debugger
         this.loadVisible = v
       },
       immediate: true

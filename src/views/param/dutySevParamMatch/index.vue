@@ -92,8 +92,8 @@ export default {
     }
   },
   created() {
-    if (this.$route.query.paramCde) { // 上级页面传入参数
-      this.listQuery.paramCde = this.$route.query.paramCde
+    if (window.localStorage.getItem('paramCde')) {
+      this.listQuery.paramCde = window.localStorage.getItem('paramCde')
     }
     this.fetchData()
   },

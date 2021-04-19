@@ -102,11 +102,9 @@ export default {
       this.listQuery.paramCde = this.$route.query.paramCde
     }
     if (window.localStorage.getItem('treeData')) {
-      debugger
       this.plyTreeId = window.localStorage.getItem('treeData')
     }
     this.fetchData()
-    // this.fetchTypeData()
   },
   mounted() {
   },

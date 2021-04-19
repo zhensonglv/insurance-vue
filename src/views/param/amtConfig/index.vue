@@ -82,6 +82,7 @@ export default {
       listQuery: {
         pageNum: 1,
         pageSize: 10,
+        amtCde: '',
         sort: '+id'
       },
       total: 0,
@@ -94,10 +95,9 @@ export default {
     }
   },
   created() {
-    /* if (this.$route.query.pubCoverId) { // 上级页面传入参数
-          this.listQuery.pubCoverId = this.$route.query.pubCoverId
-        }*/
-    //
+    if (window.localStorage.getItem('paramCde')) {
+      this.listQuery.amtCde = window.localStorage.getItem('paramCde')
+    }
     this.fetchTypeData()
   },
   mounted() {

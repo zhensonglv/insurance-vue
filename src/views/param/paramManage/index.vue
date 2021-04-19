@@ -123,6 +123,7 @@ export default {
     return {
       typPath: '',
       visible: false,
+      paramCde: null,
       list: null,
       listLoading: true,
       paramLoading: false,
@@ -177,6 +178,8 @@ export default {
         getPath({ paramterTyp: this.selected.paramterTyp }).then(res => {
           self.typPath = res.data.typPath || ''
           self.visible = true
+          window.localStorage.removeItem('paramCde')
+          window.localStorage.setItem('paramCde', this.selected.prodCde)
           // this.$router.push({ path: '/param/' + typPath, query: { paramCde: this.selected.prodCde }})
         })
       }
