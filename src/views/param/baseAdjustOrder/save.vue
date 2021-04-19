@@ -92,7 +92,7 @@ export default {
       matchVisable: false,
       treeData: null,
       rules: {
-        adjustOrder: [{ required: true, trigger: 'blur', message: '请输入理算优先级' }]
+
       }
     }
   },

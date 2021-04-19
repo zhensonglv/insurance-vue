@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="责任信息" :visible.sync="dialogTableVisible" append-to-body width="60%">
+  <el-dialog title="责任信息" :visible.sync="dialogTableVisible" append-to-body width="45%">
 
     <el-card>
       <el-table
@@ -12,21 +12,12 @@
         @selection-change="handleSelect"
       >
         <el-table-column
-          type="center"
-          label="选择"
-          width="55"
-        />
-        <el-table-column
           type="selection"
+          label="选择"
         />
         <el-table-column align="center" label="序号" width="95">
           <template slot-scope="scope">
             {{ scope.$index +1 }}
-          </template>
-        </el-table-column>
-        <el-table-column align="center" label="产品名称" width="300">
-          <template slot-scope="scope">
-            {{ scope.row.prodName }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="险种名称" width="300">
