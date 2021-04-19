@@ -18,44 +18,44 @@
         </el-table-column>
         <el-table-column align="center" label="承诺后N天赔付" width="150">
           <template slot-scope="scope">
-            {{ scope.row.PayoutAfterDay }}
+            {{ scope.row.payoutAfterDay }}
           </template>
         </el-table-column>
 
         <el-table-column align="center" label="是否忽略" width="150">
           <template slot-scope="scope">
-            {{ scope.row.ByPass }}
+            {{ scope.row.byPass }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="生效日" width="150">
           <template slot-scope="scope">
-            {{ scope.row.StartTm }}
+            {{ scope.row.startTm }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="终止日" width="150">
           <template slot-scope="scope">
-            {{ scope.row.EndTm }}
+            {{ scope.row.endTm }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="起始代码" width="150">
           <template slot-scope="scope">
-            {{ scope.row.SickBgnCde }}
+            {{ scope.row.sickBgnCde }}
           </template>
         </el-table-column>
 
         <el-table-column align="center" label="起始代码描述" width="150">
           <template slot-scope="scope">
-            {{ scope.row.SickEndDesc }}
+            {{ scope.row.sickEndDesc }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="终止代码" width="150">
           <template slot-scope="scope">
-            {{ scope.row.SickEndDesc }}
+            {{ scope.row.sickEndDesc }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="终止代码描述" width="150">
           <template slot-scope="scope">
-            {{ scope.row.SickEndDesc }}
+            {{ scope.row.sickEndDesc }}
           </template>
         </el-table-column>
 
