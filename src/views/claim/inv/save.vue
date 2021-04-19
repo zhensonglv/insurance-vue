@@ -64,7 +64,7 @@
             </el-form-item>
 
             <el-form-item label="就诊类型" prop="docTyp" label-width="100px">
-              <el-select v-model="form.docTyp" placeholder="请选择就诊类型">
+              <el-select v-model="form.docTyp" clearable placeholder="请选择就诊类型">
                 <el-option
                   v-for="item in businessData.ClinicType"
                   :key="item.value"
@@ -97,7 +97,7 @@
             </el-form-item>
 
             <el-form-item label="发票类型" prop="invTyp" label-width="100px">
-              <el-select v-model="form.invTyp" placeholder="请选择">
+              <el-select v-model="form.invTyp" clearable placeholder="请选择">
                 <el-option
                   v-for="item in businessData.CInvoiceTyp"
                   :key="item.value"
@@ -108,7 +108,7 @@
             </el-form-item>
 
             <el-form-item label="发票地区" prop="invArea" label-width="100px">
-              <el-select v-model="form.invArea" placeholder="请选择">
+              <el-select v-model="form.invArea" clearable placeholder="请选择">
                 <el-option
                   v-for="item in businessData.InInvoice"
                   :key="item.value"
@@ -136,7 +136,7 @@
               />
             </el-form-item>
             <el-form-item label="是否原始发票" prop="isOriginalInv" label-width="100px">
-              <el-select v-model="form.isOriginalInv" placeholder="请选择">
+              <el-select v-model="form.isOriginalInv" clearable placeholder="请选择">
                 <el-option
                   v-for="item in businessData.YesorNo"
                   :key="item.value"
@@ -147,7 +147,7 @@
             </el-form-item>
 
             <el-form-item label="就诊对应发票" prop="isVisInv" label-width="100px">
-              <el-select v-model="form.isVisInv" placeholder="请选择">
+              <el-select v-model="form.isVisInv" clearable placeholder="请选择">
                 <el-option
                   v-for="item in businessData.TrueOrFalse"
                   :key="item.value"
@@ -171,7 +171,7 @@
             </el-form-item>
 
             <el-form-item label="账单类型" prop="billtyp" label-width="100px">
-              <el-select v-model="form.billTyp" placeholder="请选择">
+              <el-select v-model="form.billTyp" clearable placeholder="请选择">
                 <el-option
                   v-for="item in businessData.CiRateBillTyp"
                   :key="item.value"
@@ -455,7 +455,7 @@
             </el-form-item>
 
             <el-form-item label="第三方赔付1" prop="thirdCompenOne" label-width="120px">
-              <el-select v-model="form.thirdCompenOne" placeholder="请选择">
+              <el-select v-model="form.thirdCompenOne" clearable placeholder="请选择">
                 <!--<el-option
                   v-for="item in businessData.CPubCoverTyp"
                   :key="item.value"
@@ -470,7 +470,7 @@
             </el-form-item>
 
             <el-form-item label="第三方赔付2" prop="thirdCompenTwo" label-width="120px">
-              <el-select v-model="form.thirdCompenTwo" placeholder="请选择">
+              <el-select v-model="form.thirdCompenTwo" clearable placeholder="请选择">
                 <!--<el-option
                   v-for="item in businessData.CPubCoverTyp"
                   :key="item.value"
@@ -530,7 +530,7 @@
             </el-form-item>
 
             <el-form-item label="赔付结论" prop="compensateResult" label-width="100px">
-              <el-select v-model="form.compensateResult" placeholder="请选择">
+              <el-select v-model="form.compensateResult" clearable placeholder="请选择">
                 <el-option
                   v-for="item in businessData.AdjustmentType"
                   :key="item.value"

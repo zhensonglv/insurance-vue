@@ -23,7 +23,7 @@
       </el-form-item>
 
       <el-form-item label="是否意外" prop="isAccident" label-width="120px">
-        <el-select v-model="form.isAccident" placeholder="请选择">
+        <el-select v-model="form.isAccident" clearable placeholder="请选择">
           <el-option
             v-for="item in businessData.TrueOrFalse"
             :key="item.value"
@@ -47,7 +47,7 @@
       </el-form-item>
 
       <el-form-item label="意外类型" prop="accidentTyp" label-width="120px">
-        <el-select v-model="form.accidentTyp" placeholder="请选择">
+        <el-select v-model="form.accidentTyp" clearable placeholder="请选择">
           <el-option
             v-for="item in businessData.AccidentTypes"
             :key="item.value"
@@ -58,7 +58,7 @@
       </el-form-item>
 
       <el-form-item label="是否生育" prop="isBirth" label-width="120px">
-        <el-select v-model="form.isBirth" placeholder="请选择">
+        <el-select v-model="form.isBirth" clearable placeholder="请选择">
           <el-option
             v-for="item in businessData.TrueOrFalse"
             :key="item.value"
@@ -86,7 +86,7 @@
       </el-form-item>
 
       <el-form-item label="银行类型" prop="bankTyp" label-width="120px">
-        <el-select v-model="form.bankTyp" placeholder="请选择">
+        <el-select v-model="form.bankTyp" clearable placeholder="请选择">
           <el-option
             v-for="item in businessData.CBankTyp"
             :key="item.value"
@@ -113,7 +113,7 @@
       </el-form-item>
 
       <el-form-item label="公共保额" prop="isCommonAmt" label-width="120px">
-        <el-select v-model="form.isCommonAmt" placeholder="请选择">
+        <el-select v-model="form.isCommonAmt" clearable placeholder="请选择">
           <el-option
             v-for="item in businessData.TrueOrFalse"
             :key="item.value"
@@ -124,7 +124,7 @@
       </el-form-item>
 
       <el-form-item label="死亡证明" prop="isDeathProve" label-width="120px">
-        <el-select v-model="form.isDeathProve" placeholder="请选择">
+        <el-select v-model="form.isDeathProve" clearable placeholder="请选择">
           <el-option
             v-for="item in businessData.TrueOrFalse"
             :key="item.value"
@@ -135,7 +135,7 @@
       </el-form-item>
 
       <el-form-item label="残疾证明" prop="isDisableProve" label-width="120px">
-        <el-select v-model="form.isDisableProve" placeholder="请选择">
+        <el-select v-model="form.isDisableProve" clearable placeholder="请选择">
           <el-option
             v-for="item in businessData.TrueOrFalse"
             :key="item.value"
@@ -146,7 +146,7 @@
       </el-form-item>
 
       <el-form-item label="工伤证明" prop="isInjuryJobProve" label-width="120px">
-        <el-select v-model="form.isInjuryJobProve" placeholder="请选择">
+        <el-select v-model="form.isInjuryJobProve" clearable placeholder="请选择">
           <el-option
             v-for="item in businessData.TrueOrFalse"
             :key="item.value"
@@ -165,7 +165,7 @@
       </el-form-item>
 
       <el-form-item label="退件" prop="isBack" label-width="120px">
-        <el-select v-model="form.isBack" placeholder="请选择">
+        <el-select v-model="form.isBack" clearable placeholder="请选择">
           <el-option
             v-for="item in businessData.TrueOrFalse"
             :key="item.value"
@@ -176,7 +176,7 @@
       </el-form-item>
 
       <el-form-item label="医疗赔付方式" prop="medicalCompensateTyp" label-width="120px">
-        <el-select v-model="form.medicalCompensateTyp" placeholder="请选择">
+        <el-select v-model="form.medicalCompensateTyp" clearable placeholder="请选择">
           <el-option
             v-for="item in businessData.MedicalRMethod"
             :key="item.value"
@@ -280,7 +280,7 @@
       </el-form-item>
 
       <el-form-item label="状态" prop="status" label-width="120px">
-        <el-select v-model="form.status" placeholder="请选择">
+        <el-select v-model="form.status" clearable placeholder="请选择">
           <el-option
             v-for="item in businessData.CBatchStatus"
             :key="item.value"
@@ -303,7 +303,7 @@
       </el-form-item>
 
       <el-form-item label="案件状态" prop="caseStatus" label-width="120px">
-        <el-select v-model="form.caseStatus" placeholder="请选择">
+        <el-select v-model="form.caseStatus" clearable placeholder="请选择">
           <el-option
             v-for="item in businessData.CCaseStatuses"
             :key="item.value"
@@ -314,7 +314,7 @@
       </el-form-item>
 
       <el-form-item label="线下调查" prop="investigate" label-width="120px">
-        <el-select v-model="form.investigate" placeholder="请选择">
+        <el-select v-model="form.investigate" clearable placeholder="请选择">
           <el-option
             v-for="item in businessData.TrueOrFalse"
             :key="item.value"
@@ -329,7 +329,7 @@
       </el-form-item>
 
       <el-form-item label="理算层级" prop="calcLevel" label-width="120px">
-        <el-select v-model="form.calcLevel" placeholder="请选择">
+        <el-select v-model="form.calcLevel" clearable placeholder="请选择">
           <el-option
             v-for="item in businessData.calcLevel"
             :key="item.value"
