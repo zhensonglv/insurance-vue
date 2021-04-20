@@ -43,15 +43,15 @@
           />
         </el-select>
       </el-form-item>
-      <el-form-item v-if="form.herttyp=='1'" label="起始代码" prop="sickBgnCde" label-width="120px">
-        <el-input v-model="form.sickBgnCde" placeholder="请选择起始代码">
+      <el-form-item v-if="form.herttyp=='1'" label="起始代码" prop="sickbgnCde" label-width="120px">
+        <el-input v-model="form.sickbgnCde" placeholder="请选择起始代码">
           <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(1)" />
         </el-input>
       </el-form-item>
       <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
 
-      <el-form-item v-if="form.herttyp=='1'" label="起始代码描述" prop="sickBgnCde" label-width="120px">
-        <el-input v-model="form.sickBgnDesc" placeholder="请输入起始代码描述" />
+      <el-form-item v-if="form.herttyp=='1'" label="起始代码描述" prop="sickbgnDesc" label-width="120px">
+        <el-input v-model="form.sickbgnDesc" placeholder="请输入起始代码描述" />
       </el-form-item>
 
       <el-form-item v-if="form.herttyp=='1'" label="终止代码" prop="sickendCde" label-width="120px">
@@ -61,8 +61,8 @@
       </el-form-item>
       <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
 
-      <el-form-item v-if="form.herttyp=='1'" label="终止代码描述" prop="sickEndDesc" label-width="120px">
-        <el-input v-model="form.sickEndDesc" placeholder="请输入终止代码描述" />
+      <el-form-item v-if="form.herttyp=='1'" label="终止代码描述" prop="sickendDesc" label-width="120px">
+        <el-input v-model="form.sickendDesc" placeholder="请输入终止代码描述" />
       </el-form-item>
 
       <el-form-item v-if="form.herttyp=='2'" label="诊断转换码" prop="diamatparameterCde" label-width="120px">
@@ -186,10 +186,10 @@ export default {
         hertParamCde: '',
         explainCde: '',
         explainCdeDesc: '',
-        sickBgnCde: '',
-        sickBgnDesc: '',
-        SickendCde: '',
-        sickEndDesc: '',
+        sickbgnCde: '',
+        sickbgnDesc: '',
+        sickendCde: '',
+        sickendDesc: '',
         diamatparameterCde: '',
         diamatdesc: '',
         herttyp: '',
@@ -231,10 +231,10 @@ export default {
       this.form.diaMatParameterCde = null
       this.form.diaMatDesc = null
       this.form.cdeType = null
-      this.form.sickBgnCde = null
+      this.form.sickegnCde = null
       this.form.sickendCde = null
-      this.form.sickBgnDesc = null
-      this.form.sickEndDesc = null
+      this.form.sickbgnDesc = null
+      this.form.sickendDesc = null
     },
     handleClose() {
       this.clearForm()
@@ -248,12 +248,12 @@ export default {
     matchConfirm(data) {
       debugger
       if (this.matchTyp === 1) {
-        this.form.sickBgnCde = data.diaCde
-        this.form.sickBgnDesc = data.diaDesc
+        this.form.sickbgnCde = data.diaCde
+        this.form.sickbgnDesc = data.diaDesc
       }
       if (this.matchTyp === 2) {
-        this.form.SickendCde = data.diaCde
-        this.form.sickEndDesc = data.diaDesc
+        this.form.sickendCde = data.diaCde
+        this.form.sickendDesc = data.diaDesc
       }
       if (this.matchTyp === 3) {
         this.form.diamatparameterCde = data.diaMatParameterCde

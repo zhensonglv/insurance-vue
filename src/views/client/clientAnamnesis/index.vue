@@ -39,23 +39,23 @@
         </el-table-column>
         <el-table-column align="center" label="起始代码" width="150">
           <template slot-scope="scope">
-            {{ scope.row.sickBgnCde }}
+            {{ scope.row.sickbgnCde }}
           </template>
         </el-table-column>
 
         <el-table-column align="center" label="起始代码描述" width="150">
           <template slot-scope="scope">
-            {{ scope.row.sickEndDesc }}
+            {{ scope.row.sickbgnDesc }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="终止代码" width="150">
           <template slot-scope="scope">
-            {{ scope.row.sickEndDesc }}
+            {{ scope.row.sickendCde }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="终止代码描述" width="150">
           <template slot-scope="scope">
-            {{ scope.row.sickEndDesc }}
+            {{ scope.row.sickendDesc }}
           </template>
         </el-table-column>
 
@@ -109,6 +109,7 @@ export default {
     }
   },
   created() {
+    debugger
     if (this.$route.query.plyNo) { // 上级页面传入参数
       this.listQuery.plyNo = this.$route.query.plyNo
     }
@@ -130,6 +131,7 @@ export default {
       })
     },
     fetchData() {
+      debugger
       this.listLoading = true
       getList(this.basePath, this.listQuery).then(response => {
         this.list = response.data.data
