@@ -339,6 +339,28 @@
         </el-select>
       </el-form-item>
 
+      <el-form-item label="案件流转类型" prop="caseTyp" label-width="120px">
+        <el-select v-model="form.caseTyp" clearable placeholder="请选择">
+          <el-option
+            v-for="item in businessData.calcLevel"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
+      </el-form-item>
+
+      <el-form-item label="案件性质" prop="caseNature" label-width="120px">
+        <el-select v-model="form.caseNature" clearable placeholder="请选择">
+          <el-option
+            v-for="item in businessData.calcLevel"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
+      </el-form-item>
+
       <el-form-item label="结论描述" prop="conclusionDesc" label-width="120px">
         <el-input v-model="form.conclusionDesc" placeholder="请输入结论描述" />
       </el-form-item>
@@ -432,7 +454,9 @@ export default {
         investigateRemark: '',
         conclusionDesc: '',
         auditInformation: '',
-        calcLevel: ''
+        calcLevel: '',
+        caseTyp: '',
+        caseNature: ''
       },
       matchTyp: null,
       matchVisable: false,
@@ -523,6 +547,8 @@ export default {
       this.form.conclusionDesc = null
       this.form.auditInformation = null
       this.form.calcLevel = null
+      this.form.caseTyp = null
+      this.form.caseNature = null
     },
     handleClose() {
       this.clearForm()

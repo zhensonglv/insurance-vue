@@ -309,6 +309,28 @@
         <el-input v-model="form.imageNo" placeholder="请输入影像号" />
       </el-form-item>
 
+      <el-form-item label="案件流转类型" prop="caseTyp" label-width="120px">
+        <el-select v-model="form.caseTyp" clearable placeholder="请选择">
+          <!--          <el-option
+            v-for="item in businessData.calcLevel"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />-->
+        </el-select>
+      </el-form-item>
+
+      <el-form-item label="案件性质" prop="caseNature" label-width="120px">
+        <el-select v-model="form.caseNature" clearable placeholder="请选择">
+          <!--          <el-option
+            v-for="item in businessData.calcLevel"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />-->
+        </el-select>
+      </el-form-item>
+
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="handleClose">
@@ -380,24 +402,19 @@ export default {
         caseNumber: '',
         caseStatus: '',
         batchDesc: '',
-        imageNo: ''
+        imageNo: '',
+        caseTyp: '',
+        caseNature: ''
       },
-      /* regionData: level,
-      regionMap: {
-        label: 'name',
-        value: 'code'
-      },*/
       rules: {
         batchNo: [{ required: true, trigger: 'blur', message: '请输入批次号' }],
         customBatchNo: [{ required: true, trigger: 'blur', message: '请输入客户批次号' }],
         plyNo: [{ required: true, trigger: 'blur', message: '请输入保单号' }],
         cusConsignTm: [{ required: true, trigger: 'blur', message: '请输入客户收件日' }],
         caseNumber: [{ required: true, trigger: 'blur', message: '请输入案件数量' }],
-        // caseStatus: [{ required: true, trigger: 'blur', message: '请输入批次案件状态' }],
         company: [{ required: true, trigger: 'blur', message: '请输入公司' }],
         croupNo: [{ required: true, trigger: 'blur', message: '请输入团体号' }],
         groupNme: [{ required: true, trigger: 'blur', message: '请输入团体名称' }]
-        // batchOrigin: [{ required: true, trigger: 'blur', message: '请输入批次来源' }],
       }
     }
   },
@@ -419,9 +436,6 @@ export default {
         type: type
       })
     },
-    /* handleRegionChange(value) {
-      console.log(value, 'value----')
-    },*/
     clearForm() {
       this.form.id = null
       this.form.customBatchNo = null
@@ -469,6 +483,8 @@ export default {
       this.form.caseStatus = null
       this.form.batchDesc = null
       this.form.imageNo = null
+      this.form.caseTyp = null
+      this.form.caseNature = null
     },
     handleClose() {
       this.clearForm()
