@@ -44,9 +44,9 @@
         <el-input v-model="form.adjustRemark" placeholder="请输入备注" />
       </el-form-item>
 
-      <el-form-item label="treeId" prop="plyTreeId" label-width="120px">
+      <!--      <el-form-item label="treeId" prop="plyTreeId" label-width="120px">
         <el-input v-model="form.plyTreeId" placeholder="请输入plyTreeId" />
-      </el-form-item>
+      </el-form-item>-->
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="handleClose">
