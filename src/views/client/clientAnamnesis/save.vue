@@ -1,8 +1,15 @@
 <template>
   <el-dialog :title="dialogTitle" :before-close="handleClose" :visible.sync="dialogVisible" width="55%">
     <el-form ref="form" :inline="true" :rules="rules" :model="form" status-icon label-position="right" label-width="80px">
-      <el-form-item label="承诺N天赔付" prop="PayoutAfterDay" label-width="120px">
-        <el-input v-model="form.PayoutAfterDay" placeholder="请输入承诺N天赔付" />
+
+      <el-form-item label="分单号" prop="plyPartNo" label-width="120px">
+        <el-input v-model="form.plyPartNo" placeholder="请输入分单号" />
+      </el-form-item>
+      <el-form-item label="被保人ID" prop="insuredNo" label-width="120px">
+        <el-input v-model="form.insuredNo" placeholder="请输入被保人ID" />
+      </el-form-item>
+      <el-form-item label="承诺N天赔付" prop="payoutAfterDay" label-width="120px">
+        <el-input v-model="form.payoutAfterDay" placeholder="请输入承诺N天赔付" />
       </el-form-item>
 
       <!-- <el-form-item label="合计限额额度" prop="amountQuotaLimit" label-width="120px">
@@ -16,8 +23,8 @@
           placeholder="选择日期时间"
         />
       </el-form-item>-->
-      <el-form-item label="疾病范围选择" prop="hertTyp" label-width="120px">
-        <el-select v-model="form.hertTyp" placeholder="请选择" onchange="changecodeTyp">
+      <el-form-item label="疾病范围选择" prop="herttyp" label-width="120px">
+        <el-select v-model="form.herttyp" placeholder="请选择" onchange="changecodeTyp">
           <el-option
             v-for="item in businessData.DiaMatchTyp"
             :key="item.value"
@@ -36,37 +43,37 @@
           />
         </el-select>
       </el-form-item>
-      <el-form-item v-if="form.hertTyp=='1'" label="起始代码" prop="sickBgnCde" label-width="120px">
+      <el-form-item v-if="form.herttyp=='1'" label="起始代码" prop="sickBgnCde" label-width="120px">
         <el-input v-model="form.sickBgnCde" placeholder="请选择起始代码">
           <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(1)" />
         </el-input>
       </el-form-item>
       <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
 
-      <el-form-item v-if="form.hertTyp=='1'" label="起始代码描述" prop="sickBgnCde" label-width="120px">
+      <el-form-item v-if="form.herttyp=='1'" label="起始代码描述" prop="sickBgnCde" label-width="120px">
         <el-input v-model="form.sickBgnDesc" placeholder="请输入起始代码描述" />
       </el-form-item>
 
-      <el-form-item v-if="form.hertTyp=='1'" label="终止代码" prop="SickendCde" label-width="120px">
+      <el-form-item v-if="form.herttyp=='1'" label="终止代码" prop="sickendCde" label-width="120px">
         <el-input v-model="form.sickendCde" placeholder="请选择终止代码">
           <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(2)" />
         </el-input>
       </el-form-item>
       <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
 
-      <el-form-item v-if="form.hertTyp=='1'" label="终止代码描述" prop="sickEndDesc" label-width="120px">
+      <el-form-item v-if="form.herttyp=='1'" label="终止代码描述" prop="sickEndDesc" label-width="120px">
         <el-input v-model="form.sickEndDesc" placeholder="请输入终止代码描述" />
       </el-form-item>
 
-      <el-form-item v-if="form.hertTyp=='2'" label="诊断转换码" prop="diaMatParameterCde" label-width="120px">
-        <el-input v-model="form.diaMatParameterCde" placeholder="请选择诊断转换码">
+      <el-form-item v-if="form.herttyp=='2'" label="诊断转换码" prop="diamatparameterCde" label-width="120px">
+        <el-input v-model="form.diamatparameterCde" placeholder="请选择诊断转换码">
           <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(3)" />
         </el-input>
       </el-form-item>
       <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
 
-      <el-form-item v-if="form.hertTyp=='2'" label="诊断转换码描述" prop="diaMatDesc" label-width="120px">
-        <el-input v-model="form.diaMatDesc" placeholder="请输入诊断转换码描述" />
+      <el-form-item v-if="form.herttyp=='2'" label="诊断转换码描述" prop="diamatdesc" label-width="120px">
+        <el-input v-model="form.diamatdesc" placeholder="请输入诊断转换码描述" />
       </el-form-item>
       <el-form-item label="起始日" prop="startTm">
         <el-date-picker
@@ -157,7 +164,7 @@ export default {
     return {
       dialogVisible: false,
       dialogTitle: '新增',
-      basePath: 'sicknessScope',
+      basePath: 'clientAnamnesis',
       form: {
         id: '',
         anamnesisNo: '',
@@ -177,14 +184,16 @@ export default {
         endCodeDesc: '',
         desc: '',
         hertParamCde: '',
+        explainCde: '',
         explainCdeDesc: '',
         sickBgnCde: '',
         sickBgnDesc: '',
         SickendCde: '',
         sickEndDesc: '',
-        diaMatParameterCde: '',
-        diaMatDesc: '',
-        hertTyp: '',
+        diamatparameterCde: '',
+        diamatdesc: '',
+        herttyp: '',
+        plyNo: '',
         plyPartNo: ''
 
       },
@@ -219,9 +228,6 @@ export default {
       })
     },
     clearForm() {
-      this.form.id = null
-      this.form.paramCde = null
-      this.form.linkDeductibleId = null
       this.form.diaMatParameterCde = null
       this.form.diaMatDesc = null
       this.form.cdeType = null
@@ -250,8 +256,8 @@ export default {
         this.form.sickEndDesc = data.diaDesc
       }
       if (this.matchTyp === 3) {
-        this.form.diaMatParameterCde = data.diaMatParameterCde
-        this.form.diaMatDesc = data.explCategort
+        this.form.diamatparameterCde = data.diaMatParameterCde
+        this.form.diamatdesc = data.explCategort
       }
       if (this.matchTyp === 4) {
         this.form.explainCde = data.explCde

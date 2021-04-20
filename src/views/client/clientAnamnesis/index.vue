@@ -155,7 +155,7 @@ export default {
       })
     },
     handleSave() {
-      this.form = { id: null, paramCde: this.listQuery.paramCde, linkDeductibleId: this.listQuery.linkDeductibleId }
+      this.form = { id: null, plyNo: this.listQuery.plyNo, plyPartNo: this.listQuery.plyPartNo, insuredNo: this.listQuery.insuredNo }
       this.dialogVisible = true
     },
     handleEdit(id) {
