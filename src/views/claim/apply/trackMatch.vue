@@ -28,7 +28,6 @@ export default {
   },
   watch: {
     sonData(newVal, oldVal) {
-      debugger
       this.data = newVal
       this.dialogTrackVisible = true
     }

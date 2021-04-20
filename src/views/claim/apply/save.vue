@@ -298,8 +298,8 @@
         <el-input v-model="form.beneficiary" placeholder="请输入受益人" />
       </el-form-item>
 
-      <el-form-item label="被保人id" prop="insuresId" label-width="120px">
-        <el-input v-model="form.insuresId" placeholder="请输入被保人id" />
+      <el-form-item label="被保人id" prop="insuredId" label-width="120px">
+        <el-input v-model="form.insuredId" placeholder="请输入被保人id" />
       </el-form-item>
 
       <el-form-item label="案件状态" prop="caseStatus" label-width="120px">
@@ -448,7 +448,7 @@ export default {
         status: '',
         description: '',
         beneficiary: '',
-        insuresId: '',
+        insuredId: '',
         caseStatus: '',
         investigate: '',
         investigateRemark: '',
@@ -540,7 +540,7 @@ export default {
       this.form.status = null
       this.form.description = null
       this.form.beneficiary = null
-      this.form.insuresId = null
+      this.form.insuredId = null
       this.form.caseStatus = null
       this.form.investigate = null
       this.form.investigateRemark = null

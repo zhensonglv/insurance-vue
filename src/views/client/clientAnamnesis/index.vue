@@ -2,9 +2,6 @@
   <div class="app-container">
     <el-card>
       <div>
-
-        <el-input v-model="listQuery.paramCde" style="width: 200px;" placeholder="请输入参数码查询" />
-
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="resetData">重置</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
@@ -88,6 +85,9 @@ import Save from './save'
 
 export default {
   components: { Pagination, Save },
+  props: {
+    appData: Object
+  },
   data() {
     return {
       list: null,
@@ -108,18 +108,28 @@ export default {
       DiaMatchTyp: {}
     }
   },
+  watch: {
+    appData: {
+      handler(v) {
+        if (v && v.plyNo && v.plyPartNo && v.insuredNo) {
+          this.listQuery.plyNo = v.plyNo
+          this.listQuery.plyPartNo = v.plyPartNo
+          this.listQuery.insuredNo = v.insuredNo
+          this.fetchTypeData()
+        }
+      },
+      immediate: true
+    }
+  },
+
   created() {
-    debugger
-    if (this.$route.query.plyNo) { // 上级页面传入参数
+    if (this.$route.query && this.$route.query.plyNo &&
+          this.$route.query.plyPartNo && this.$route.query.insuredNo) { // 上级页面传入参数
       this.listQuery.plyNo = this.$route.query.plyNo
-    }
-    if (this.$route.query.plyPartNo) { // 上级页面传入参数
       this.listQuery.plyPartNo = this.$route.query.plyPartNo
-    }
-    if (this.$route.query.insuredNo) { // 上级页面传入参数
       this.listQuery.insuredNo = this.$route.query.insuredNo
+      this.fetchTypeData()
     }
-    this.fetchTypeData()
   },
   mounted() {
   },
@@ -140,7 +150,6 @@ export default {
       })
     },
     resetData() {
-      this.listQuery.paramCde = null
     },
     fetchTypeData() {
       // 获取codeList

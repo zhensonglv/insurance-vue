@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :title="dialogTitle" :before-close="handleClose" :visible.sync="dialogVisible" width="55%">
+  <el-dialog :modal="false" :title="dialogTitle" :before-close="handleClose" :visible.sync="dialogVisible" width="55%">
     <el-form ref="form" :inline="true" :rules="rules" :model="form" status-icon label-position="right" label-width="80px">
 
       <el-form-item label="分单号" prop="plyPartNo" label-width="120px">
@@ -11,18 +11,6 @@
       <el-form-item label="承诺N天赔付" prop="payoutAfterDay" label-width="120px">
         <el-input v-model="form.payoutAfterDay" placeholder="请输入承诺N天赔付" />
       </el-form-item>
-
-      <!-- <el-form-item label="合计限额额度" prop="amountQuotaLimit" label-width="120px">
-        <el-input v-model="form.amountQuotaLimit" placeholder="请输入合计限额额度" />
-      </el-form-item>
-      <el-form-item label="起始日" prop="plyBgnTm">
-        <el-date-picker
-          v-model="form.plyBgnTm"
-          type="datetime"
-          value-format="yyyy-MM-dd"
-          placeholder="选择日期时间"
-        />
-      </el-form-item>-->
       <el-form-item label="疾病范围选择" prop="herttyp" label-width="120px">
         <el-select v-model="form.herttyp" placeholder="请选择" onchange="changecodeTyp">
           <el-option
@@ -65,15 +53,15 @@
         <el-input v-model="form.sickendDesc" placeholder="请输入终止代码描述" />
       </el-form-item>
 
-      <el-form-item v-if="form.herttyp=='2'" label="诊断转换码" prop="diamatparameterCde" label-width="120px">
-        <el-input v-model="form.diamatparameterCde" placeholder="请选择诊断转换码">
+      <el-form-item v-if="form.herttyp=='2'" label="诊断匹配码" prop="diamatparameterCde" label-width="120px">
+        <el-input v-model="form.diamatparameterCde" placeholder="请输入诊断匹配码">
           <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(3)" />
         </el-input>
       </el-form-item>
       <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
 
-      <el-form-item v-if="form.herttyp=='2'" label="诊断转换码描述" prop="diamatdesc" label-width="120px">
-        <el-input v-model="form.diamatdesc" placeholder="请输入诊断转换码描述" />
+      <el-form-item v-if="form.herttyp=='2'" label="诊断匹配码描述" prop="diamatdesc" label-width="120px">
+        <el-input v-model="form.diamatdesc" placeholder="请输入诊断匹配码描述" />
       </el-form-item>
       <el-form-item label="起始日" prop="startTm">
         <el-date-picker
@@ -182,7 +170,6 @@ export default {
         startCodeDesc: '',
         endCde: '',
         endCodeDesc: '',
-        desc: '',
         hertParamCde: '',
         explainCde: '',
         explainCdeDesc: '',
@@ -201,11 +188,10 @@ export default {
       matchTyp: null,
       rules: {
         paramCde: [{ required: true, trigger: 'blur', message: '请输入参数码' }],
-        cdeType: [{ required: true, trigger: 'blur', message: '请选择代码类型' }]
-        /*    sickBgnCde: [{ required: true, trigger: 'blur', message: '请选择起始代码' }],
-        sickendCde: [{ required: true, trigger: 'blur', message: '请选择终止代码' }],
-        sickBgnDesc: [{ required: true, trigger: 'blur', message: '请选择起始代码描述' }],
-        sickEndDesc: [{ required: true, trigger: 'blur', message: '请选择终止代码描述' }]*/
+        cdeType: [{ required: true, trigger: 'blur', message: '请选择代码类型' }],
+        startTm: [{ required: true, trigger: 'blur', message: '请选择起始日' }],
+        endTm: [{ required: true, trigger: 'blur', message: '请选择终止日' }],
+        dutyConvert: [{ required: true, trigger: 'blur', message: '请选择责任转换' }]
       }
     }
   },
@@ -228,13 +214,34 @@ export default {
       })
     },
     clearForm() {
-      this.form.diaMatParameterCde = null
-      this.form.diaMatDesc = null
-      this.form.cdeType = null
-      this.form.sickegnCde = null
-      this.form.sickendCde = null
+      this.form.id = null
+      this.form.anamnesisNo = null
+      this.form.principalInsuredClientN = null
+      this.form.insuredNo = null
+      this.form.anamnesisTyp = null
+      this.form.payoutAfterDay = null
+      this.form.byPass = null
+      this.form.startTm = null
+      this.form.endTm = null
+      this.form.explanationCde = null
+      this.form.codeTyp = null
+      this.form.dutyConvert = null
+      this.form.startCde = null
+      this.form.startCodeDesc = null
+      this.form.endCde = null
+      this.form.endCodeDesc = null
+      this.form.hertParamCde = null
+      this.form.explainCde = null
+      this.form.explainCdeDesc = null
+      this.form.sickbgnCde = null
       this.form.sickbgnDesc = null
+      this.form.sickendCde = null
       this.form.sickendDesc = null
+      this.form.diamatparameterCde = null
+      this.form.diamatdesc = null
+      this.form.herttyp = null
+      this.form.plyNo = null
+      this.form.plyPartNo = null
     },
     handleClose() {
       this.clearForm()
@@ -246,7 +253,6 @@ export default {
       this.matchTyp = matchTyp
     },
     matchConfirm(data) {
-      debugger
       if (this.matchTyp === 1) {
         this.form.sickbgnCde = data.diaCde
         this.form.sickbgnDesc = data.diaDesc

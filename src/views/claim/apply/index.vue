@@ -8,7 +8,7 @@
         <el-button style="margin-left: 10px;" type="primary" @click="initResponse">初始化定责</el-button>
         <el-button style="margin-left: 10px;" type="primary" @click="calcClmData">理算</el-button>
         <el-button style="margin-left: 10px;" type="primary" @click="viewImage">影像</el-button>
-        <el-button style="margin-left: 10px;" type="primary" @click="viewImage">被保人既往症设置</el-button>
+        <el-button style="margin-left: 10px;" type="primary" @click="handleAnamnesis">被保人既往症设置</el-button>
         <el-button style="margin-left: 10px;" type="primary" @click="handleTrackMatch">操作轨迹</el-button>
         <el-button style="margin-left: 10px;" type="primary" @click="viewImage">历史理赔</el-button>
         <el-button style="margin-left: 10px;" type="primary" @click="viewImage">问题件</el-button>
@@ -63,7 +63,7 @@
         </el-table-column>
         <el-table-column align="center" label="被保人id">
           <template slot-scope="scope">
-            {{ scope.row.insuresId }}
+            {{ scope.row.insuredId }}
           </template>
         </el-table-column>
         <el-table-column align="center" :show-overflow-tooltip="true" label="申请人证件号">
@@ -132,6 +132,7 @@
 
       <save :son-data="form" :business-data="businessData" @sonStatus="status" />
       <trackMatch :son-data="selectData" :business-data="businessData" @sonStatus="status" />
+      <anamnesis :anamnesis-data="anamnesisData" />
       <pagination
         v-show="total>0"
         :total="total"
@@ -152,9 +153,10 @@ import Save from './save'
 import duty from '../duty'
 import trackMatch from '@/views/claim/apply/trackMatch'
 import { mapState } from 'vuex'
+import anamnesis from './anamnesis'
 
 export default {
-  components: { Pagination, Save, duty, trackMatch },
+  components: { Pagination, Save, duty, trackMatch, anamnesis },
   data() {
     return {
       list: null,
@@ -174,7 +176,8 @@ export default {
       businessData: {},
       CCaseStatuses: {},
       selected: [],
-      selectData: null
+      selectData: null,
+      anamnesisData: null
     }
   },
   computed: mapState({
@@ -241,6 +244,18 @@ export default {
       findById(id).then(response => {
         this.form = response.data
       })
+    },
+    handleAnamnesis() {
+      debugger
+      if (this.selected.length !== 1) {
+        this.$message({
+          showClose: true,
+          message: '请选择1条数据',
+          type: 'warning'
+        })
+      } else {
+        this.anamnesisData = { plyNo: this.selected[0].plyNo, plyPartNo: this.selected[0].plyPartNo, insuredNo: this.selected[0].insuredId }
+      }
     },
     handleTrackMatch() {
       if (this.selected.length !== 1) {

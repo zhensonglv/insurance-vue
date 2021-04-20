@@ -1,6 +1,6 @@
 <template>
   <el-dialog title="解释码" :visible.sync="dialogTableVisible" append-to-body width="80%">
-    <explainNo dialog :param-type="paramType" @setMultipleSeleValues="setMultipleSeleValues" />
+    <explainNo dialog @setMultipleSeleValues="setMultipleSeleValues" />
     <div slot="footer" class="dialog-footer">
       <el-button @click="handleClose">
         取消
