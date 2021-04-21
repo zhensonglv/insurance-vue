@@ -28,7 +28,7 @@
         <el-input v-model="form.correlation" placeholder="请输入参数描述" />
       </el-form-item>
       <el-form-item label="限额类型" prop="amountType" label-width="120px">
-        <el-select v-model="form.amountType" placeholder="请选择">
+        <el-select v-model="form.amountType" placeholder="请选择" clearable>
           <el-option
             v-for="item in businessData.QuotaTyp"
             :key="item.value"
@@ -38,7 +38,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="重疾" prop="isStricken" label-width="120px">
-        <el-select v-model="form.isStricken" placeholder="请选择">
+        <el-select v-model="form.isStricken" placeholder="请选择" clearable>
           <el-option
             v-for="item in businessData.TrueOrFalse"
             :key="item.value"
@@ -49,7 +49,7 @@
       </el-form-item>
 
       <el-form-item label="是否关联" prop="isRelation" label-width="120px">
-        <el-select v-model="form.isRelation" placeholder="请选择">
+        <el-select v-model="form.isRelation" placeholder="请选择" clearable>
           <el-option
             v-for="item in businessData.TrueOrFalse"
             :key="item.value"

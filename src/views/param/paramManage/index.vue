@@ -4,7 +4,7 @@
       <div>
         <template v-if="paramType != 'param_0015'">
           <el-input v-model="listQuery.prodCde" style="width: 200px;" placeholder="请输入参数码查询" />
-          <el-select v-model="listQuery.applyTyp" placeholder="请选择适用层级" @change="applyTypChange">
+          <el-select v-model="listQuery.applyTyp" placeholder="请选择适用层级" clearable @change="applyTypChange">
             <el-option
               v-for="item in businessData.CProdApplyTyp"
               :key="item.value"
@@ -15,6 +15,7 @@
           <el-select
             v-model="listQuery.paramterTyp"
             placeholder="请选择参数类型"
+            clearable
           >
             <el-option
               v-for="item in paramData.prodParamterTyp"

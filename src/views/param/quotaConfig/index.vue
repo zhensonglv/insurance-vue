@@ -5,7 +5,7 @@
 
         <el-input v-model="listQuery.paramCde" style="width: 200px;" placeholder="请输入参数码查询" disabled="disabled" />
         <el-input v-model="listQuery.quotaDesc" style="width: 200px;" placeholder="请输入限额描述" />
-        <el-select v-model="listQuery.quotaTyp" placeholder="请选择限额类型">
+        <el-select v-model="listQuery.quotaTyp" placeholder="请选择限额类型" clearable>
           <el-option
             v-for="item in businessData.QuotaTyp"
             :key="item.value"

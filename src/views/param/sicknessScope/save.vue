@@ -6,7 +6,7 @@
       </el-form-item>
 
       <el-form-item label="代码类型" prop="cdeType" label-width="120px">
-        <el-select v-model="form.cdeType" placeholder="请选择" onchange="changecodeTyp">
+        <el-select v-model="form.cdeType" placeholder="请选择" onchange="changecodeTyp" clearable>
           <el-option
             v-for="item in businessData.DiaMatchTyp"
             :key="item.value"

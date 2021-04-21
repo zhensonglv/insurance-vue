@@ -2,7 +2,7 @@
   <div class="app-container">
     <el-card>
       <div>
-        <el-select v-model="listQuery.noTyp" placeholder="请选择数据类型">
+        <el-select v-model="listQuery.noTyp" placeholder="请选择数据类型" clearable>
           <el-option
             v-for="item in businessData.dutyMatchType"
             :key="item.value"

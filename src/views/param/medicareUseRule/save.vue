@@ -15,7 +15,7 @@
       <match v-model="matchVisable" @matchConfirm="matchConfirm" />
 
       <el-form-item label="是否使用医保卡" prop="isUseMedicare" label-width="120px">
-        <el-select v-model="form.isUseMedicare" placeholder="请选择">
+        <el-select v-model="form.isUseMedicare" placeholder="请选择" clearable>
           <el-option
             v-for="item in businessData.TrueOrFalse"
             :key="item.value"
@@ -30,7 +30,7 @@
       </el-form-item>
 
       <el-form-item label="就诊类型" prop="visitTyp" label-width="120px">
-        <el-select v-model="form.visitTyp" placeholder="请选择">
+        <el-select v-model="form.visitTyp" placeholder="请选择" clearable>
           <el-option
             v-for="item in businessData.CProDutyDesc"
             :key="item.value"
@@ -40,7 +40,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="事故类型" prop="accidentTyp" label-width="120px">
-        <el-select v-model="form.accidentTyp" placeholder="请选择">
+        <el-select v-model="form.accidentTyp" placeholder="请选择" clearable>
           <el-option
             v-for="item in businessData.AccidentType"
             :key="item.value"

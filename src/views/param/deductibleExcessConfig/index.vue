@@ -5,7 +5,7 @@
 
         <el-input v-model="listQuery.paramCde" style="width: 200px;" placeholder="请输入参数码查询" disabled="disabled" />
         <el-input v-model="listQuery.deductibleExcessDesc" style="width: 200px;" placeholder="请输入免赔额描述" />
-        <el-select v-model="listQuery.deductibleExcessTyp" placeholder="请选择免赔额类型">
+        <el-select v-model="listQuery.deductibleExcessTyp" placeholder="请选择免赔额类型" clearable>
           <el-option
             v-for="item in businessData.CDeductibleExcessTyp"
             :key="item.value"

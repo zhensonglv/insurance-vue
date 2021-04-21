@@ -2,7 +2,7 @@
   <el-dialog :title="dialogTitle" :before-close="handleClose" :visible.sync="dialogVisible" width="55%">
     <el-form ref="form" :inline="true" :rules="rules" :model="form" status-icon label-position="right" label-width="80px">
       <el-form-item label="公共保额类型" prop="pubCoverTyp" label-width="120px">
-        <el-select v-model="form.pubCoverTyp" placeholder="请选择公共保额类型">
+        <el-select v-model="form.pubCoverTyp" placeholder="请选择公共保额类型" clearable>
           <el-option
             v-for="item in businessData.CPubCoverTyp"
             :key="item.value"
@@ -12,7 +12,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="集团/团体类型" prop="teamTyp" label-width="120px">
-        <el-select v-model="form.teamTyp" placeholder="请输入集团/团体类型">
+        <el-select v-model="form.teamTyp" placeholder="请输入集团/团体类型" clearable>
           <el-option
             v-for="item in businessData.CTeamTyp"
             :key="item.value"

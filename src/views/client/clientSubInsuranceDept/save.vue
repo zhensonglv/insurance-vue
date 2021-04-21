@@ -26,7 +26,7 @@
         <el-input v-model="form.subDeptEmail" placeholder="请输入电子邮件" />
       </el-form-item>
       <el-form-item label="子投保单位语言" prop="subDeptLanguage" label-width="120px">
-        <el-select v-model="form.subDeptLanguage" placeholder="请选择">
+        <el-select v-model="form.subDeptLanguage" placeholder="请选择" clearable>
           <el-option
             v-for="item in businessData.Language"
             :key="item.value"
@@ -36,7 +36,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="邮递方式" prop="postWay" label-width="120px">
-        <el-select v-model="form.postWay" placeholder="请选择">
+        <el-select v-model="form.postWay" placeholder="请选择" clearable>
           <el-option
             v-for="item in businessData.MailTyp"
             :key="item.value"

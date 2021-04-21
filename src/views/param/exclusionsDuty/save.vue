@@ -8,7 +8,7 @@
         <el-input v-model="form.exclusionsDesc" placeholder="请输入除外责任说明" />
       </el-form-item>
       <el-form-item label="除外责任类型" prop="exclusionsTyp" label-width="120px">
-        <el-select v-model="form.exclusionsTyp" placeholder="请选择">
+        <el-select v-model="form.exclusionsTyp" placeholder="请选择" clearable>
           <el-option
             v-for="item in businessData.CExclusionsTyp"
             :key="item.value"
@@ -19,7 +19,7 @@
       </el-form-item>
 
       <el-form-item label="就诊类型" prop="invoiceTyp" label-width="120px">
-        <el-select v-model="form.invoiceTyp" placeholder="请选择">
+        <el-select v-model="form.invoiceTyp" placeholder="请选择" clearable>
           <el-option
             v-for="item in businessData.ClinicType"
             :key="item.value"
@@ -42,7 +42,7 @@
       </el-form-item>
 
       <el-form-item label="诊断码代码类型" prop="quotaCodeTyp" label-width="120px">
-        <el-select v-model="form.quotaCodeTyp" placeholder="请选择">
+        <el-select v-model="form.quotaCodeTyp" placeholder="请选择" clearable>
           <el-option
             v-for="item in businessData.DiaMatchTyp"
             :key="item.value"
@@ -82,7 +82,7 @@
       </el-form-item>
 
       <el-form-item label="诊疗代码类型" prop="treatTyp" label-width="120px">
-        <el-select v-model="form.treatTyp" placeholder="请选择">
+        <el-select v-model="form.treatTyp" placeholder="请选择" clearable>
           <el-option
             v-for="item in businessData.TreatCodeTyp"
             :key="item.value"
@@ -144,7 +144,7 @@
       </el-form-item>
 
       <el-form-item label="性别" prop="sex" label-width="120px">
-        <el-select v-model="form.sex" placeholder="请选择">
+        <el-select v-model="form.sex" placeholder="请选择" clearable>
           <el-option
             v-for="item in businessData.CEasyDiaSex"
             :key="item.value"

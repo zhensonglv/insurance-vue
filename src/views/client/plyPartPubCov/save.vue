@@ -5,7 +5,7 @@
         <el-input v-model="form.plyPartNo" placeholder="请输入分单号" />
       </el-form-item>
       <el-form-item label="分单保额类型" prop="plyPartTyp" label-width="120px">
-        <el-select v-model="form.plyPartTyp" placeholder="请输入分单保额类型">
+        <el-select v-model="form.plyPartTyp" placeholder="请输入分单保额类型" clearable>
           <el-option
             v-for="item in businessData.CPlyPartTyp"
             :key="item.value"

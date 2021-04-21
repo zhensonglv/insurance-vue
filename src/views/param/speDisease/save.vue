@@ -6,7 +6,7 @@
       </el-form-item>
 
       <el-form-item label="代码类型" prop="codeTyp" label-width="120px">
-        <el-select v-model="form.codeTyp" placeholder="请选择">
+        <el-select v-model="form.codeTyp" placeholder="请选择" clearable>
           <el-option
             v-for="item in businessData.DiaMatchTyp"
             :key="item.value"
@@ -38,7 +38,7 @@
       </el-form-item>-->
 
       <el-form-item label="门诊类型" prop="mentorTyp" label-width="120px">
-        <el-select v-model="form.mentorTyp" placeholder="请选择">
+        <el-select v-model="form.mentorTyp" placeholder="请选择" clearable>
           <el-option
             v-for="item in businessData.MentorTyp"
             :key="item.value"
@@ -49,7 +49,7 @@
       </el-form-item>
 
       <el-form-item label="就诊类型" prop="clinicTyp" label-width="120px">
-        <el-select v-model="form.clinicTyp" placeholder="请选择">
+        <el-select v-model="form.clinicTyp" placeholder="请选择" clearable>
           <el-option
             v-for="item in businessData.ClinicType"
             :key="item.value"

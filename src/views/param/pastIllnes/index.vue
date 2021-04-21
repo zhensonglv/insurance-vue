@@ -5,7 +5,7 @@
 
         <el-input v-model="listQuery.paramCde" style="width: 200px;" placeholder="请输入参数码查询" disabled="disabled" />
 
-        <el-select v-model="listQuery.codeTyp" placeholder="请选择代码类型">
+        <el-select v-model="listQuery.codeTyp" placeholder="请选择代码类型" clearable>
           <el-option
             v-for="item in businessData.DiaMatchTyp"
             :key="item.value"

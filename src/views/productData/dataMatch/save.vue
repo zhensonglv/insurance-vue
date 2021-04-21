@@ -2,7 +2,7 @@
   <el-dialog :title="dialogTitle" :before-close="handleClose" :visible.sync="dialogVisible" width="55%">
     <el-form ref="form" :inline="true" :rules="rules" :model="form" status-icon label-position="right" label-width="80px">
       <el-form-item label="数据类型" prop="noTyp" label-width="120px">
-        <el-select v-model="form.noTyp" placeholder="请选择" @change="changeNoTyp">
+        <el-select v-model="form.noTyp" placeholder="请选择" clearable @change="changeNoTyp">
           <el-option
             v-for="item in businessData.dutyMatchType"
             :key="item.value"

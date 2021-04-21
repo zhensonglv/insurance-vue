@@ -9,7 +9,7 @@
       </el-form-item>
 
       <el-form-item label="剂型" prop="treatDrugForm" label-width="120px">
-        <el-select v-model="form.treatDrugForm" placeholder="请选择">
+        <el-select v-model="form.treatDrugForm" placeholder="请选择" clearable>
           <el-option
             v-for="item in businessData.CTreatDrugForm"
             :key="item.value"
@@ -40,7 +40,7 @@
       </el-form-item>
 
       <el-form-item label="大项号" prop="cateGoryNo" label-width="120px">
-        <el-select v-model="form.cateGoryNo" placeholder="请选择">
+        <el-select v-model="form.cateGoryNo" placeholder="请选择" clearable>
           <el-option
             v-for="item in businessData.CostTyp"
             :key="item.value"

@@ -24,7 +24,7 @@
         />
       </el-form-item>
       <el-form-item label="责任类型" prop="proDutyTyp" label-width="120px">
-        <el-select v-model="form.proDutyTyp" placeholder="请选择">
+        <el-select v-model="form.proDutyTyp" placeholder="请选择" clearable>
           <el-option
             v-for="item in businessData.CProDutyTyp"
             :key="item.value"
@@ -34,7 +34,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="就诊类型" prop="vistDoctor" label-width="120px">
-        <el-select v-model="form.vistDoctor" placeholder="请选择">
+        <el-select v-model="form.vistDoctor" placeholder="请选择" clearable>
           <el-option
             v-for="item in businessData.CProDutyDesc"
             :key="item.value"
@@ -44,7 +44,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="是否意外" prop="isAcciddent" label-width="120px">
-        <el-select v-model="form.isAcciddent" placeholder="请选择">
+        <el-select v-model="form.isAcciddent" placeholder="请选择" clearable>
           <el-option
             v-for="item in businessData.CIsAcciddent"
             :key="item.value"
@@ -54,7 +54,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="是否生育" prop="isBirth" label-width="120px">
-        <el-select v-model="form.isBirth" placeholder="请选择">
+        <el-select v-model="form.isBirth" placeholder="请选择" clearable>
           <el-option
             v-for="item in businessData.TrueOrFalse"
             :key="item.value"
@@ -64,7 +64,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="是否齿科" prop="isDentidtry" label-width="120px">
-        <el-select v-model="form.isDentidtry" placeholder="请选择">
+        <el-select v-model="form.isDentidtry" placeholder="请选择" clearable>
           <el-option
             v-for="item in businessData.TrueOrFalse"
             :key="item.value"
@@ -74,7 +74,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="是否重疾" prop="isStricken" label-width="120px">
-        <el-select v-model="form.isStricken" placeholder="请选择">
+        <el-select v-model="form.isStricken" placeholder="请选择" clearable>
           <el-option
             v-for="item in businessData.TrueOrFalse"
             :key="item.value"
@@ -84,7 +84,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="是否急诊" prop="isEmergTreat" label-width="120px">
-        <el-select v-model="form.isEmergTreat" placeholder="请选择">
+        <el-select v-model="form.isEmergTreat" placeholder="请选择" clearable>
           <el-option
             v-for="item in businessData.TrueOrFalse"
             :key="item.value"
@@ -94,7 +94,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="是否缺材料" prop="isLackMaterial" label-width="120px">
-        <el-select v-model="form.isLackMaterial" placeholder="请选择">
+        <el-select v-model="form.isLackMaterial" placeholder="请选择" clearable>
           <el-option
             v-for="item in businessData.TrueOrFalse"
             :key="item.value"
@@ -104,7 +104,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="是否既往病史" prop="isMedicalHistory" label-width="120px">
-        <el-select v-model="form.isMedicalHistory" placeholder="请选择">
+        <el-select v-model="form.isMedicalHistory" placeholder="请选择" clearable>
           <el-option
             v-for="item in businessData.TrueOrFalse"
             :key="item.value"
@@ -114,7 +114,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="是否工伤" prop="isInjuryJob" label-width="120px">
-        <el-select v-model="form.isInjuryJob" placeholder="请选择">
+        <el-select v-model="form.isInjuryJob" placeholder="请选择" clearable>
           <el-option
             v-for="item in businessData.TrueOrFalse"
             :key="item.value"
@@ -124,7 +124,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="门诊特殊" prop="specialOutPatient" label-width="120px">
-        <el-select v-model="form.specialOutPatient" placeholder="请选择">
+        <el-select v-model="form.specialOutPatient" placeholder="请选择" clearable>
           <el-option
             v-for="item in businessData.TrueOrFalse"
             :key="item.value"

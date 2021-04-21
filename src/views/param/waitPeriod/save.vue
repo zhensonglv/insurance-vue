@@ -9,7 +9,7 @@
       </el-form-item>
 
       <el-form-item label="就诊原因" prop="visitReason" label-width="120px">
-        <el-select v-model="form.visitReason" placeholder="请选择">
+        <el-select v-model="form.visitReason" placeholder="请选择" clearable>
           <el-option
             v-for="item in businessData.QuotaVisitReason"
             :key="item.value"
@@ -24,7 +24,7 @@
       </el-form-item>
 
       <el-form-item label="等待期起算期" prop="nwaitDaysStart" label-width="120px">
-        <el-select v-model="form.nwaitDaysStart" placeholder="请选择">
+        <el-select v-model="form.nwaitDaysStart" placeholder="请选择" clearable>
           <el-option
             v-for="item in businessData.CNWaitDaysStart"
             :key="item.value"

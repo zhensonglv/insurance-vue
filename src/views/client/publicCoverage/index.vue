@@ -3,7 +3,7 @@
     <el-card>
       <div>
         <el-input v-model="listQuery.teamNo" style="width: 200px;" placeholder="请输入集团/团体号称查询" />
-        <el-select v-model="listQuery.teamTyp" placeholder="请选择集团/团体类型">
+        <el-select v-model="listQuery.teamTyp" placeholder="请选择集团/团体类型" clearable>
           <el-option
             v-for="item in businessData.CTeamTyp"
             :key="item.value"
@@ -11,7 +11,7 @@
             :value="item.value"
           />
         </el-select>
-        <el-select v-model="listQuery.pubCoverTyp" placeholder="请选择公共保额类型">
+        <el-select v-model="listQuery.pubCoverTyp" placeholder="请选择公共保额类型" clearable>
           <el-option
             v-for="item in businessData.CPubCoverTyp"
             :key="item.value"

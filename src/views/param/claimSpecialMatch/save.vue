@@ -9,7 +9,7 @@
       </el-form-item>
 
       <el-form-item label="类型" prop="typ" label-width="120px">
-        <el-select v-model="form.typ" placeholder="请选择">
+        <el-select v-model="form.typ" placeholder="请选择" clearable>
           <el-option
             v-for="item in businessData.CSpecialTyp"
             :key="item.value"
@@ -20,7 +20,7 @@
       </el-form-item>
 
       <el-form-item label="悬挂层级" prop="suspendLevel" label-width="120px">
-        <el-select v-model="form.suspendLevel" placeholder="请选择">
+        <el-select v-model="form.suspendLevel" placeholder="请选择" clearable>
           <el-option
             v-for="item in businessData.CSpecialLevel"
             :key="item.value"

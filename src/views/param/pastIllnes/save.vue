@@ -5,7 +5,7 @@
         <el-input v-model="form.paramCde" placeholder="请输入就参数码" disabled="disabled" />
       </el-form-item>
       <el-form-item label="代码类型" prop="codeTyp" label-width="120px">
-        <el-select v-model="form.codeTyp" placeholder="请选择">
+        <el-select v-model="form.codeTyp" placeholder="请选择" clearable>
           <el-option
             v-for="item in businessData.DiaMatchTyp"
             :key="item.value"

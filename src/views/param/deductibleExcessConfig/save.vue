@@ -5,7 +5,7 @@
         <el-input v-model="form.paramCde" placeholder="请输入就参数码" disabled="disabled" />
       </el-form-item>
       <el-form-item label="免赔额类型" prop="deductibleExcessTyp" label-width="120px">
-        <el-select v-model="form.deductibleExcessTyp" placeholder="请选择">
+        <el-select v-model="form.deductibleExcessTyp" placeholder="请选择" clearable>
           <el-option
             v-for="item in businessData.CDeductibleExcessTyp"
             :key="item.value"
@@ -15,7 +15,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="就诊类型" prop="docTyp" label-width="120px">
-        <el-select v-model="form.docTyp" placeholder="请选择">
+        <el-select v-model="form.docTyp" placeholder="请选择" clearable>
           <el-option
             v-for="item in businessData.ClinicType"
             :key="item.value"
@@ -25,7 +25,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="就诊原因" prop="visitReason" label-width="120px">
-        <el-select v-model="form.visitReason" placeholder="请选择">
+        <el-select v-model="form.visitReason" placeholder="请选择" clearable>
           <el-option
             v-for="item in businessData.QuotaVisitReason"
             :key="item.value"
@@ -35,7 +35,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="适用条件" prop="applyCondition" label-width="120px">
-        <el-select v-model="form.applyCondition" placeholder="请选择">
+        <el-select v-model="form.applyCondition" placeholder="请选择" clearable>
           <el-option
             v-for="item in businessData.CiRateCondition"
             :key="item.value"
@@ -45,7 +45,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="账单类型" prop="billTyp" label-width="120px">
-        <el-select v-model="form.billTyp" placeholder="请选择">
+        <el-select v-model="form.billTyp" placeholder="请选择" clearable>
           <el-option
             v-for="item in businessData.CiRateBillTyp"
             :key="item.value"
@@ -55,7 +55,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="阶梯" prop="isLadder" label-width="120px">
-        <el-select v-model="form.isLadder" placeholder="请选择">
+        <el-select v-model="form.isLadder" placeholder="请选择" clearable>
           <el-option
             v-for="item in businessData.TrueOrFalse"
             :key="item.value"
@@ -65,7 +65,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="是否医保投保" prop="isMedical" label-width="120px">
-        <el-select v-model="form.isMedical" placeholder="请选择">
+        <el-select v-model="form.isMedical" placeholder="请选择" clearable>
           <el-option
             v-for="item in businessData.TrueOrFalse"
             :key="item.value"

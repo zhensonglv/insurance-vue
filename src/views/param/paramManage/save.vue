@@ -2,7 +2,7 @@
   <el-dialog :modal="false" :title="dialogTitle" :before-close="handleClose" :visible.sync="dialogVisible" width="55%">
     <el-form ref="form" :inline="true" :rules="rules" :model="form" status-icon label-position="right" label-width="80px">
       <el-form-item label="适用层级" prop="applyTyp" label-width="120px">
-        <el-select v-model="form.applyTyp" placeholder="请选择适用层级" @change="handlerTypChange">
+        <el-select v-model="form.applyTyp" placeholder="请选择适用层级" clearable @change="handlerTypChange">
           <el-option
             v-for="item in businessData.CProdApplyTyp"
             :key="item.value"
@@ -12,7 +12,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="参数类型" prop="paramterTyp" label-width="120px">
-        <el-select v-model="form.paramterTyp" placeholder="请输入参数类型">
+        <el-select v-model="form.paramterTyp" placeholder="请输入参数类型" clearable>
           <el-option
             v-for="item in saveBusinessData.prodParamterTyp"
             :key="item.value"

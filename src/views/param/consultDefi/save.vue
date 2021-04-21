@@ -8,7 +8,7 @@
         <el-input v-model="form.consultDays" placeholder="请输入就诊天数" />
       </el-form-item>
       <el-form-item label="诊断码" prop="isDiagnoseCde" label-width="120px">
-        <el-select v-model="form.isDiagnoseCde" placeholder="请选择">
+        <el-select v-model="form.isDiagnoseCde" placeholder="请选择" clearable>
           <el-option
             v-for="item in businessData.TrueOrFalse"
             :key="item.value"
@@ -18,7 +18,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="就诊医院" prop="isDiagnoseHospital" label-width="120px">
-        <el-select v-model="form.isDiagnoseHospital" placeholder="请选择">
+        <el-select v-model="form.isDiagnoseHospital" placeholder="请选择" clearable>
           <el-option
             v-for="item in businessData.TrueOrFalse"
             :key="item.value"
@@ -28,7 +28,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="就诊科室" prop="isDiagnoseDepartment" label-width="120px">
-        <el-select v-model="form.isDiagnoseDepartment" placeholder="请选择">
+        <el-select v-model="form.isDiagnoseDepartment" placeholder="请选择" clearable>
           <el-option
             v-for="item in businessData.TrueOrFalse"
             :key="item.value"
@@ -38,7 +38,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="就诊类型" prop="docTyp" label-width="120px">
-        <el-select v-model="form.docTyp" placeholder="请选择">
+        <el-select v-model="form.docTyp" placeholder="请选择" clearable>
           <el-option
             v-for="item in businessData.ClinicType"
             :key="item.value"
@@ -48,7 +48,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="是否合并门诊" prop="isCombineClinic" label-width="120px">
-        <el-select v-model="form.isCombineClinic" placeholder="请选择">
+        <el-select v-model="form.isCombineClinic" placeholder="请选择" clearable>
           <el-option
             v-for="item in businessData.TrueOrFalse"
             :key="item.value"
