@@ -44,6 +44,7 @@ export default {
   watch: {
     sonData: function(newVal, oldVal) {
       this.paramData = newVal
+      this.setParamData.paramCode = newVal.paramCode
       this.setParamData.paramType = newVal.paramType
       this.setParamData.treeType = newVal.treeType
       this.loadVisible = true

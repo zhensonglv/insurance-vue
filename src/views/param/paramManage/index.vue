@@ -151,6 +151,7 @@ export default {
   watch: {
     setParamData: {
       handler(v) {
+        this.listQuery.prodCde = v && v.paramCode
         this.listQuery.applyTyp = v && v.treeType
         this.listQuery.paramterTyp = v && v.paramType
         this.fetchTypeData()

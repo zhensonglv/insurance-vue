@@ -120,6 +120,9 @@ export default {
     },
     changeAdjust() {
       this.adjustForm.finalCompensateAmt = parseFloat(this.adjustForm.compensateAmt) + parseFloat(this.adjustForm.adjustAmt)
+      if (parseFloat(this.adjustForm.finalCompensateAmt) < 0) {
+        this._notify('最终赔付金额小于0', 'error')
+      }
     },
     clearForm() {
       this.adjustForm.adjustDesc = null
@@ -138,6 +141,10 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
+        if (this.adjustForm.finalCompensateAmt && parseFloat(this.adjustForm.finalCompensateAmt) < 0) {
+          this._notify('最终赔付金额小于0', 'error')
+          return
+        }
         adjustDuty(this.adjustForm).then(response => {
           if (response.code === 200) {
             this._notify(response.msg, 'success')
