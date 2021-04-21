@@ -15,7 +15,7 @@
         </el-table-column>
         <el-table-column align="center" label="状态" width="150">
           <template slot-scope="scope">
-            {{ scope.row.appStatus }}
+            {{ caseStatus[scope.row.appStatus] }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="备注" width="150">
@@ -49,6 +49,7 @@
 <script>
 import { getList } from '@/api/claim/track'
 import Pagination from '@/components/Pagination'
+import { getCodeList } from '@/api/code'
 
 export default {
   components: { Pagination },
@@ -69,7 +70,8 @@ export default {
       },
       total: 0,
       dialogVisible: false,
-      businessData: {}
+      businessData: {},
+      caseStatus: {}
     }
   },
   watch: {
@@ -110,7 +112,7 @@ export default {
     },
     fetchTypeData() {
       // 获取codeList
-      /* getCodeList({ parent: ['CTeamTyp', 'CPubCoverTyp'] }).then(res => {
+      getCodeList({ parent: ['caseStatus'] }).then(res => {
         this.businessData = res.data
         // 组装table 的map
         for (const key in this.businessData) {
@@ -118,7 +120,7 @@ export default {
             this[key][item.value] = item.label
           })
         }
-      })*/
+      })
       this.fetchData()
     }
   }

@@ -279,17 +279,6 @@
         <el-input v-model="form.priorityOrder" placeholder="请输入理算优先顺序" />
       </el-form-item>
 
-      <el-form-item label="状态" prop="status" label-width="120px">
-        <el-select v-model="form.status" clearable placeholder="请选择">
-          <el-option
-            v-for="item in businessData.CBatchStatus"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          />
-        </el-select>
-      </el-form-item>
-
       <el-form-item label="备注" prop="description" label-width="120px">
         <el-input v-model="form.description" placeholder="请输入备注" />
       </el-form-item>
@@ -445,7 +434,6 @@ export default {
         orignImage: '',
         endCaseTm: '',
         priorityOrder: '',
-        status: '',
         description: '',
         beneficiary: '',
         insuredId: '',
@@ -537,7 +525,6 @@ export default {
       this.form.orignImage = null
       this.form.endCaseTm = null
       this.form.priorityOrder = null
-      this.form.status = null
       this.form.description = null
       this.form.beneficiary = null
       this.form.insuredId = null
