@@ -275,29 +275,18 @@
         </el-select>
       </el-form-item>
 
-      <el-form-item label="批次状态" prop="batchStatus" label-width="120px">
-        <el-select v-model="form.batchStatus" clearable placeholder="请选择">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          />-->
-        </el-select>
-      </el-form-item>
-
       <el-form-item label="案件数量" prop="caseNumber" label-width="120px">
         <el-input v-model="form.caseNumber" placeholder="请输入案件数量" />
       </el-form-item>
 
       <el-form-item label="批次案件状态" prop="caseStatus" label-width="120px">
         <el-select v-model="form.caseStatus" clearable placeholder="请选择">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
+          <el-option
+            v-for="item in businessData.caseStatus"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          />-->
+          />
         </el-select>
       </el-form-item>
 
@@ -311,23 +300,23 @@
 
       <el-form-item label="案件流转类型" prop="caseTyp" label-width="120px">
         <el-select v-model="form.caseTyp" clearable placeholder="请选择">
-          <!--          <el-option
-            v-for="item in businessData.calcLevel"
+          <el-option
+            v-for="item in businessData.caseTyp"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          />-->
+          />
         </el-select>
       </el-form-item>
 
       <el-form-item label="案件性质" prop="caseNature" label-width="120px">
         <el-select v-model="form.caseNature" clearable placeholder="请选择">
-          <!--          <el-option
-            v-for="item in businessData.calcLevel"
+          <el-option
+            v-for="item in businessData.caseNature"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          />-->
+          />
         </el-select>
       </el-form-item>
 
@@ -350,7 +339,7 @@ export default {
   // 父组件向子组件传值，通过props获取。
   // 一旦父组件改变了`sonData`对应的值，子组件的`sonData`会立即改变，通过watch函数可以实时监听到值的变化
   // `props`不属于data，但是`props`中的参数可以像data中的参数一样直接使用
-  props: ['sonData'/*, 'businessData'*/],
+  props: ['sonData', 'businessData'],
   data() {
     return {
       dialogVisible: false,
@@ -398,7 +387,6 @@ export default {
         clmUpdTm: '',
         isAsyncProc: '',
         batchTyp: '',
-        batchStatus: '',
         caseNumber: '',
         caseStatus: '',
         batchDesc: '',
@@ -478,7 +466,6 @@ export default {
       this.form.clmUpdTm = null
       this.form.isAsyncProc = null
       this.form.batchTyp = null
-      this.form.batchStatus = null
       this.form.caseNumber = null
       this.form.caseStatus = null
       this.form.batchDesc = null

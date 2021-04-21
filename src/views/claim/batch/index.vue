@@ -50,11 +50,6 @@
             {{ scope.row.batchNo }}
           </template>
         </el-table-column>
-        <el-table-column align="center" :show-overflow-tooltip="true" label="客户批次号" width="180">
-          <template slot-scope="scope">
-            {{ scope.row.customBatchNo }}
-          </template>
-        </el-table-column>
         <el-table-column align="center" :show-overflow-tooltip="true" label="保单号" width="180">
           <template slot-scope="scope">
             {{ scope.row.plyNo }}
@@ -70,7 +65,7 @@
             {{ scope.row.diagReviewer }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="医疗审核人员" width="150">
+        <el-table-column align="center" label="审核人员" width="150">
           <template slot-scope="scope">
             {{ scope.row.medicalAuditor }}
           </template>
