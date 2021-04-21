@@ -96,7 +96,7 @@
 
         <el-table-column align="center" label="案件状态">
           <template slot-scope="scope">
-            {{ CCaseStatuses[scope.row.caseStatus] }}
+            {{ caseStatus[scope.row.caseStatus] }}
           </template>
         </el-table-column>
 
@@ -174,7 +174,7 @@ export default {
       trackVisible: false,
       form: null,
       businessData: {},
-      CCaseStatuses: {},
+      caseStatus: {},
       selected: [],
       selectData: null,
       anamnesisData: null
@@ -223,7 +223,7 @@ export default {
     },
     fetchTypeData() {
       // 获取codeList
-      getCodeList({ parent: ['TrueOrFalse', 'AccidentTypes', 'CBankTyp', 'MedicalRMethod', 'CBatchStatus', 'CCaseStatuses', 'calcLevel'] }).then(res => {
+      getCodeList({ parent: ['TrueOrFalse', 'AccidentTypes', 'CBankTyp', 'MedicalRMethod', 'caseStatus', 'caseTyp', 'caseNature', 'calcLevel'] }).then(res => {
         this.businessData = res.data
         // 组装table 的map
         for (const key in this.businessData) {

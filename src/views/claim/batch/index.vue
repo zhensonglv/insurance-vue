@@ -6,30 +6,23 @@
         <el-input v-model="listQuery.groupNme" style="width: 200px;" placeholder="请输入团体名称查询" />
         <el-input v-model="listQuery.plyNo" style="width: 200px;" placeholder="请输入保单号称查询" />
 
+        <el-select v-model="listQuery.caseTyp" clearable placeholder="请选择案件流转类型">
+          <el-option
+            v-for="item in businessData.caseTyp"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
         <el-select v-model="listQuery.batchStatus" clearable placeholder="请选择批次状态">
-          <!--<el-option
-            v-for="item in businessData.CTeamTyp"
+          <el-option
+            v-for="item in businessData.caseStatus"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          />-->
+          />
         </el-select>
-        <el-select v-model="listQuery.batchOrigin" clearable placeholder="请选择批次来源">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          />-->
-        </el-select>
-        <el-select v-model="listQuery.batchTyp" clearable placeholder="请选择批次类型">
-          <!--<el-option
-            v-for="item in businessData.CPubCoverTyp"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          />-->
-        </el-select>
+
       </div>
       <div>
         <el-input v-model="listQuery.medicalAuditor" style="width: 200px;" placeholder="请输入医疗审核人员查询" />
@@ -99,7 +92,7 @@
         </el-table-column>
         <el-table-column align="center" label="批次案件状态" width="150">
           <template slot-scope="scope">
-            {{ scope.row.caseStatus }}
+            {{ caseStatus[ scope.row.caseStatus ] }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="操作" fixed="right" width="120">
@@ -142,15 +135,11 @@ export default {
       listQuery: {
         pageNum: 1,
         pageSize: 10,
-        /* teamTyp: '',
-        teamNo: '',
-        pubCoverTyp: '',*/
         batchNo: '',
         groupNme: '',
         plyNo: '',
         batchStatus: '',
-        batchOrigin: '',
-        batchTyp: '',
+        caseTyp: '',
         medicalAuditor: '',
         sort: '+id'
       },
@@ -158,8 +147,7 @@ export default {
       dialogVisible: false,
       form: null,
       businessData: {},
-      CTeamTyp: {},
-      CPubCoverTyp: {},
+      caseStatus: {},
       selected: []
     }
   },
@@ -197,11 +185,12 @@ export default {
     },
     fetchTypeData() {
       // 获取codeList
-      getCodeList({ parent: ['CTeamTyp', 'CPubCoverTyp'] }).then(res => {
+      getCodeList({ parent: ['caseStatus', 'caseTyp', 'caseNature'] }).then(res => {
         this.businessData = res.data
         // 组装table 的map
         for (const key in this.businessData) {
           this.businessData[key].forEach(item => {
+            !this[key] && (this[key] = {})
             this[key][item.value] = item.label
           })
         }

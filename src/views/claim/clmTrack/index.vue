@@ -73,16 +73,20 @@ export default {
     }
   },
   watch: {
-    data: function(newVal, oldVal) {
-      debugger
-      this.listQuery.batchNo = newVal.batchNo
-      this.listQuery.plyPartNo = newVal.plyPartNo
-      this.listQuery.customAppNo = newVal.customAppNo
-      this.fetchTypeData()
+    data: {
+      handler(v) {
+        if (v && v.batchNo && v.plyPartNo && v.customAppNo) {
+          this.listQuery.batchNo = v.batchNo
+          this.listQuery.plyPartNo = v.plyPartNo
+          this.listQuery.customAppNo = v.customAppNo
+          this.fetchTypeData()
+        }
+      },
+      immediate: true
     }
   },
   created() {
-    this.fetchTypeData()
+    // this.fetchTypeData()
   },
   mounted() {
   },
