@@ -156,6 +156,9 @@ import Pagination from '@/components/Pagination'
 
 export default {
   components: { Pagination },
+  props: {
+    insuredId: String
+  },
   data() {
     return {
       list: null,
@@ -182,6 +185,17 @@ export default {
 
     }
   },
+  watch: {
+    insuredId: {
+      handler(v) {
+        if (v) {
+          this.list.query.insuredId = v
+          this.fetchTypeData()
+        }
+      }
+    },
+    immediate: true
+  },
   created() {
     this.fetchTypeData()
   },
@@ -207,6 +221,7 @@ export default {
     },
     handleSelect(data) {
       this.selected = data
+      this.$emit('setMultipleSeleValues', data)
     },
     handleMedical() {
       if (this.selected == null) {

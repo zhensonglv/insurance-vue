@@ -58,7 +58,10 @@
         </el-table-column>
         <el-table-column align="center" :show-overflow-tooltip="true" label="分单号">
           <template slot-scope="scope">
-            {{ scope.row.plyPartNo }}
+            <el-input v-model="scope.row.plyPartNo">
+              <svg-icon slot="suffix" icon-class="search" @click="handlePart(scope.$index)" />
+            </el-input>
+            <part v-model="matchVisable" :index="index" @matchConfirm="matchConfirm" />
           </template>
         </el-table-column>
         <el-table-column align="center" label="被保人id">
@@ -145,7 +148,7 @@
 </template>
 
 <script>
-import { claimRule, init, calc, findById, del } from '@/api/claim/apply'
+import { claimRule, init, calc, findById, del, edit } from '@/api/claim/apply'
 import { getList } from '@/api/base'
 import { getCodeList } from '@/api/code'
 import Pagination from '@/components/Pagination'
@@ -154,9 +157,10 @@ import duty from '../duty'
 import trackMatch from '@/views/claim/apply/trackMatch'
 import { mapState } from 'vuex'
 import anamnesis from './anamnesis'
+import part from './part'
 
 export default {
-  components: { Pagination, Save, duty, trackMatch, anamnesis },
+  components: { Pagination, Save, duty, trackMatch, anamnesis, part },
   data() {
     return {
       list: null,
@@ -177,7 +181,10 @@ export default {
       caseStatus: {},
       selected: [],
       selectData: null,
-      anamnesisData: null
+      anamnesisData: null,
+      matchVisable: false,
+      index: null,
+      insuredId: null
     }
   },
   computed: mapState({
@@ -243,6 +250,27 @@ export default {
       // 跳转到新的页面
       findById(id).then(response => {
         this.form = response.data
+      })
+    },
+    handlePart(index) {
+      this.matchVisable = true
+      this.index = index
+      this.insuredId = this.list[index].insuredId
+    },
+    matchConfirm(data) {
+      this.list[data.index].plyPartNo = data.value.plyPartNo
+      this.updateApp(this.list[data.index])
+    },
+    updateApp(data) {
+      edit(data).then(response => {
+        if (response.code === 200) {
+          this._notify(response.msg, 'success')
+          this.clearForm()
+          this.$emit('sonStatus', true)
+          this.dialogVisible = false
+        } else {
+          this._notify(response.msg, 'error')
+        }
       })
     },
     handleAnamnesis() {

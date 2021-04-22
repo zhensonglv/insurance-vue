@@ -15,7 +15,7 @@ export function findById(id) {
   })
 }
 
-export function save(data, id) {
+export function save(data) {
   return request({
     url: '/base/apply/save',
     method: 'post',
