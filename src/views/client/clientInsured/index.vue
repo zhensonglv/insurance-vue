@@ -185,16 +185,17 @@ export default {
 
     }
   },
+
   watch: {
     insuredId: {
       handler(v) {
         if (v) {
-          this.list.query.insuredId = v
+          this.listQuery.insuredNo = v
           this.fetchTypeData()
         }
-      }
-    },
-    immediate: true
+      },
+      immediate: true
+    }
   },
   created() {
     this.fetchTypeData()

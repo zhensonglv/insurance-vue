@@ -61,7 +61,7 @@
             <el-input v-model="scope.row.plyPartNo">
               <svg-icon slot="suffix" icon-class="search" @click="handlePart(scope.$index)" />
             </el-input>
-            <part v-model="matchVisable" :index="index" @matchConfirm="matchConfirm" />
+            <part v-model="matchVisable" :insured-id="insuredId" :index="index" @matchConfirm="matchConfirm" />
           </template>
         </el-table-column>
         <el-table-column align="center" label="被保人id">
@@ -265,9 +265,6 @@ export default {
       edit(data).then(response => {
         if (response.code === 200) {
           this._notify(response.msg, 'success')
-          this.clearForm()
-          this.$emit('sonStatus', true)
-          this.dialogVisible = false
         } else {
           this._notify(response.msg, 'error')
         }
