@@ -104,7 +104,8 @@ export default {
       rules: {
         amountDeductibleLimit: [{ required: true, trigger: 'blur', message: '请输入合计免赔额额度' }],
         correlation: [{ required: true, trigger: 'blur', message: '请输入关联责任' }],
-        amountType: [{ required: true, trigger: 'blur', message: '请选择限额累心' }]
+        amountType: [{ required: true, trigger: 'blur', message: '请选择免赔额类型' }],
+        isRelation: [{ required: true, trigger: 'blur', message: '请选择是否关联' }]
       }
     }
   },

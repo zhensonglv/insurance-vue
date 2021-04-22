@@ -47,7 +47,8 @@ export default {
       },
       total: 0,
       multipleSeleValues: [],
-      dialogTableVisible: false
+      dialogTableVisible: false,
+      title: null
     }
   },
   watch: {
