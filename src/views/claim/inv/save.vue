@@ -28,8 +28,11 @@
             </el-form-item>
 
             <el-form-item label="医院号" prop="hospitalNo" label-width="120px">
-              <el-input v-model="form.hospitalNo" placeholder="请输入医院号" />
+              <el-input v-model="form.hospitalNo" placeholder="请输入医院号">
+                <svg-icon slot="suffix" icon-class="search" @click="hanldeDiagHosp(2)" />
+              </el-input>
             </el-form-item>
+            <diagHosp v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
 
             <el-form-item label="医院名称" prop="hospitalNme" label-width="120px">
               <el-input v-model="form.hospitalNme" placeholder="请输入医院名称" />
@@ -40,8 +43,11 @@
             </el-form-item>
 
             <el-form-item label="诊断码" prop="diagCde" label-width="120px">
-              <el-input v-model="form.diagCde" placeholder="请输入诊断码" />
+              <el-input v-model="form.diagCde" placeholder="请输入诊断码">
+                <svg-icon slot="suffix" icon-class="search" @click="hanldeDiagHosp(1)" />
+              </el-input>
             </el-form-item>
+            <diagHosp v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
 
             <el-form-item label="诊断描述" prop="diagDesc" label-width="120px">
               <el-input v-model="form.diagDesc" placeholder="请输入诊断描述" />
@@ -566,11 +572,12 @@
 
 <script>
 import { initData, save, edit } from '@/api/claim/inv'
-
+import diagHosp from '@/views/claim/inv/diaghosp'
 export default {
   // 父组件向子组件传值，通过props获取。
   // 一旦父组件改变了`sonData`对应的值，子组件的`sonData`会立即改变，通过watch函数可以实时监听到值的变化
   // `props`不属于data，但是`props`中的参数可以像data中的参数一样直接使用
+  components: { diagHosp },
   props: ['sonData', 'businessData'],
   data() {
     return {
@@ -662,7 +669,9 @@ export default {
       rules: {
         batchNo: [{ required: true, trigger: 'blur', message: '请输入批次号' }]
       },
-      oldForm: {}
+      oldForm: {},
+      matchVisable: false,
+      matchTyp: null
     }
   },
   watch: {
@@ -684,6 +693,22 @@ export default {
         type: type
       })
     },
+    hanldeDiagHosp(matchTyp) {
+      this.matchVisable = true
+      this.matchTyp = matchTyp
+    },
+
+    matchConfirm(data) {
+      if (data.diaCde && this.matchTyp === 1) {
+        this.form.diagCde = data.diaCde
+        this.form.diagDesc = data.diaDesc
+      }
+      if (this.matchTyp === 2) {
+        this.form.hospitalNo = data.hospNo
+        this.form.hospitalNme = data.hospName
+      }
+    },
+
     handlerThe1() {
       this.show1 = !this.show1
     },

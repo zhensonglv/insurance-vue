@@ -12,15 +12,36 @@
       </el-form-item>
 
       <el-form-item label="医院等级" prop="hospLevel" label-width="120px">
-        <el-input v-model="form.hospLevel" placeholder="请输入医院等级" />
+        <el-select v-model="form.hospLevel" placeholder="请选择" clearable>
+          <el-option
+            v-for="item in businessData.CHospitalLevel"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
 
       <el-form-item label="等级属性" prop="hospSecondaryLevel" label-width="120px">
-        <el-input v-model="form.hospSecondaryLevel" placeholder="请输入等级属性" />
+        <el-select v-model="form.hospSecondaryLevel" placeholder="请选择" clearable>
+          <el-option
+            v-for="item in businessData.CHospSecondaryLevel"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
 
       <el-form-item label="医院类型" prop="hospTyp" label-width="120px">
-        <el-input v-model="form.hospTyp" placeholder="请输入医院类型" />
+        <el-select v-model="form.hospTyp" placeholder="请选择" clearable>
+          <el-option
+            v-for="item in businessData.CHospitalTyp"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
 
       <el-form-item label="境内地区" prop="hospInternalArea" label-width="120px">
@@ -36,7 +57,14 @@
       </el-form-item>
 
       <el-form-item label="指定医院" prop="assignHosp" label-width="120px">
-        <el-input v-model="form.assignHosp" placeholder="请输入指定医院" />
+        <el-select v-model="form.assignHosp" placeholder="请选择" clearable>
+          <el-option
+            v-for="item in businessData.CSociInsuHosp"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
 
       <el-form-item label="省" prop="province" label-width="120px">
@@ -46,13 +74,15 @@
         <el-input v-model="form.city" placeholder="请输入市" />
       </el-form-item>
       <el-form-item label="医院性质" prop="hospitalNature" label-width="120px">
-        <el-input v-model="form.hospitalNature" placeholder="请输入医院性质" />
+        <el-select v-model="form.hospitalNature" placeholder="请选择" clearable>
+          <el-option
+            v-for="item in businessData.CHospitalNature"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
-
-      <!--<el-form-item label="医疗集团号" prop="mediGroupNo" label-width="120px">
-        <el-input v-model="form.mediGroupNo" placeholder="请输入医疗集团号" />
-      </el-form-item>-->
-
       <el-form-item label="医疗集团号" prop="mediGroupNo" label-width="120px">
         <el-input v-model="form.mediGroupNo" placeholder="请选择医疗集团号">
           <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch" />
@@ -64,7 +94,14 @@
         <el-input v-model="form.sociInsuArea" placeholder="请输入社保地区" />
       </el-form-item>
       <el-form-item label="医保定点" prop="sociInsuHosp" label-width="120px">
-        <el-input v-model="form.sociInsuHosp" placeholder="请输入医保定点" />
+        <el-select v-model="form.sociInsuHosp" placeholder="请选择" clearable>
+          <el-option
+            v-for="item in businessData.TrueOrFalse"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
 
     </el-form>

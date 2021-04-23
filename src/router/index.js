@@ -332,12 +332,14 @@ export const constantRoutes = [
         path: 'sicknessScope',
         component: () => import('@/views/param/sicknessScope/index'),
         name: '疾病范围',
+        hidden: true,
         meta: { title: '疾病范围', icon: 'guide', noCache: true }
       },
       {
         path: 'codeConfig',
         component: () => import('@/views/param/codeConfig/index'),
         name: '代码类型',
+        hidden: true,
         meta: { title: '代码类型', icon: 'guide', noCache: true }
       },
       {
@@ -369,30 +371,35 @@ export const constantRoutes = [
         path: 'accidentDiaCde',
         component: () => import('@/views/param/accidentDiaCde/index'),
         name: '意外诊断码',
+        hidden: true,
         meta: { title: '意外诊断码', icon: 'guide', noCache: true }
       },
       {
         path: 'waitPeriod',
         component: () => import('@/views/param/waitPeriod/index'),
         name: '等待期',
+        hidden: true,
         meta: { title: '等待期', icon: 'guide', noCache: true }
       },
       {
         path: 'medicalNetworkDetail',
         component: () => import('@/views/param/medicalNetworkDetail/index'),
         name: '医院网络码',
+        hidden: true,
         meta: { title: '医院网络码', icon: 'guide', noCache: true }
       },
       {
         path: 'medicareUseRule',
         component: () => import('@/views/param/medicareUseRule/index'),
         name: '医保卡使用规则',
+        hidden: true,
         meta: { title: '医保卡使用规则', icon: 'guide', noCache: true }
       },
       {
         path: 'speDisease',
         component: () => import('@/views/param/speDisease/index'),
         name: '门诊特殊病',
+        hidden: true,
         meta: { title: '门诊特殊病', icon: 'guide', noCache: true }
       },
       {
@@ -411,6 +418,7 @@ export const constantRoutes = [
         path: 'diagnosisMatchingDetail',
         component: () => import('@/views/param/diagnosisMatchingDetail/index'),
         name: '诊断匹配明细管理',
+        hidden: true,
         meta: { title: '诊断匹配明细管理', icon: 'guide', noCache: true }
       },
 
@@ -418,36 +426,42 @@ export const constantRoutes = [
         path: 'amtConfig',
         component: () => import('@/views/param/amtConfig/index'),
         name: '集团公共保额',
+        hidden: true,
         meta: { title: '集团公共保额', icon: 'guide', noCache: true }
       },
       {
         path: 'adjustmentOrder',
         component: () => import('@/views/param/adjustmentOrder/index'),
         name: '理算顺序',
+        hidden: true,
         meta: { title: '理算顺序', icon: 'guide', noCache: true }
       },
       {
         path: 'ciRate',
         component: () => import('@/views/param/ciRate/index'),
         name: '赔付比例',
+        hidden: true,
         meta: { title: '赔付比例', icon: 'guide', noCache: true }
       },
       {
         path: 'hospitalzationAllowance',
         component: () => import('@/views/param/hospitalzationAllowance/index'),
         name: '津贴',
+        hidden: true,
         meta: { title: '津贴', icon: 'guide', noCache: true }
       },
       {
         path: 'exclusionsDuty',
         component: () => import('@/views/param/exclusionsDuty/index'),
         name: '除外责任',
+        hidden: true,
         meta: { title: '除外责任', icon: 'guide', noCache: true }
       },
       {
         path: 'claimSpecialMatch',
         component: () => import('@/views/param/claimSpecialMatch/index'),
         name: '理赔审核规则匹配',
+        hidden: true,
         meta: { title: '理赔审核规则匹配', icon: 'guide', noCache: true }
       },
       {
@@ -466,67 +480,77 @@ export const constantRoutes = [
         path: 'medicdutyLimit',
         component: () => import('@/views/param/medicdutyLimit/index'),
         name: '责任范围',
-        // hidden: true,
+        hidden: true,
         meta: { title: '责任范围', icon: 'guide', noCache: true }
       },
       {
         path: 'serviceTypManage',
         component: () => import('@/views/param/serviceTypManage/index'),
         name: '服务类型管理',
+        hidden: true,
         meta: { title: '服务类型管理', icon: 'guide', noCache: true }
       },
       {
         path: 'dutySevParamMatch',
         component: () => import('@/views/param/dutySevParamMatch/index'),
         name: '责任服务类型匹配参数',
+        hidden: true,
         meta: { title: '责任服务类型匹配参数', icon: 'guide', noCache: true }
       },
       {
         path: 'quotaConfig',
         component: () => import('@/views/param/quotaConfig/index'),
         name: '限额',
+        hidden: true,
         meta: { title: '限额', icon: 'guide', noCache: true }
       },
       {
         path: 'deductibleExcessConfig',
         component: () => import('@/views/param/deductibleExcessConfig/index'),
         name: '免赔额',
+        hidden: true,
         meta: { title: '免赔额', icon: 'guide', noCache: true }
       },
       {
         path: 'pastIllnes',
         component: () => import('@/views/param/pastIllnes/index'),
         name: '既往病史',
+        hidden: true,
         meta: { title: '既往病史', icon: 'guide', noCache: true }
       },
       {
         path: 'diagnosisConvert',
         component: () => import('@/views/param/diagnosisConvert/index'),
         name: '诊断转换',
+        hidden: true,
         meta: { title: '诊断转换', icon: 'guide', noCache: true }
       },
       {
         path: 'amountQuota',
         component: () => import('@/views/param/amountQuota/index'),
         name: '合计限额',
+        hidden: true,
         meta: { title: '合计限额', icon: 'guide', noCache: true }
       },
       {
         path: 'amountDeductible',
         component: () => import('@/views/param/amountDeductible/index'),
         name: '合计免赔额',
+        hidden: true,
         meta: { title: '合计免赔额', icon: 'guide', noCache: true }
       },
       {
         path: 'ladderDetail',
         component: () => import('@/views/param/ladderDetail/index'),
         name: '阶梯明细',
+        hidden: true,
         meta: { title: '阶梯明细', icon: 'guide', noCache: true }
       },
       {
         path: 'serviceTreatmentMatching',
         component: () => import('@/views/param/serviceTreatmentMatching/index'),
         name: '服务诊疗匹配',
+        hidden: true,
         meta: { title: '服务诊疗匹配', icon: 'guide', noCache: true }
       },
       {
@@ -539,30 +563,35 @@ export const constantRoutes = [
         path: 'baseAdjustOrder',
         component: () => import('@/views/param/baseAdjustOrder/index'),
         name: '基础理算顺序',
+        hidden: true,
         meta: { title: '基础理算顺序', icon: 'guide', noCache: true }
       },
       {
         path: 'cardPeriod',
         component: () => import('@/views/param/cardPeriod/index'),
         name: '办卡期',
+        hidden: true,
         meta: { title: '办卡期', icon: 'guide', noCache: true }
       },
       {
         path: 'entityNorm',
         component: () => import('@/views/param/entityNorm/index'),
         name: '实体限额',
+        hidden: true,
         meta: { title: '实体限额', icon: 'guide', noCache: true }
       },
       {
         path: 'ciRateDetail',
         component: () => import('@/views/param/ciRateDetail/index'),
         name: '阶梯比例明细',
+        hidden: true,
         meta: { title: '阶梯比例明细', icon: 'guide', noCache: true }
       },
       {
         path: 'quotaNumConfig',
         component: () => import('@/views/param/quotaNumConfig/index'),
         name: '限额次数',
+        hidden: true,
         meta: { title: '限额次数', icon: 'guide', noCache: true }
       }
     ]
@@ -698,17 +727,6 @@ export const constantRoutes = [
       }
     ]
   },
-
-  // {
-  //   path: '/demo/index',
-  //   component: () => import('@/views/demo/index'),
-  //   hidden: true
-  // },
-  // {
-  //   path: '/demo/edit',
-  //   component: () => import('@/views/demo/edit'),
-  //   hidden: true
-  // },
   {
     path: '/profile',
     component: Layout,

@@ -39,13 +39,13 @@
 
         <el-table-column align="center" label="医院等级" width="150">
           <template slot-scope="scope">
-            {{ scope.row.hospLevel }}
+            {{ CHospitalLevel[scope.row.hospLevel] }}
           </template>
         </el-table-column>
 
         <el-table-column align="center" label="等级属性" width="150">
           <template slot-scope="scope">
-            {{ scope.row.hospSecondaryLevel }}
+            {{ CHospSecondaryLevel[scope.row.hospSecondaryLevel] }}
           </template>
         </el-table-column>
 
@@ -55,22 +55,11 @@
           </template>
         </el-table-column>
 
-        <!--<el-table-column align="center" label="医保定点" width="150">
-          <template slot-scope="scope">
-            {{ scope.row.sociInsuHosp }}
-          </template>
-        </el-table-column>-->
         <el-table-column align="center" label="医院性质" width="150">
           <template slot-scope="scope">
-            {{ scope.row.hospitalNature }}
+            {{ CHospitalTyp[scope.row.hospitalNature] }}
           </template>
         </el-table-column>
-
-        <!--<el-table-column align="center" label="境内地区" width="150">
-          <template slot-scope="scope">
-            {{ scope.row.hospInternalArea }}
-          </template>
-        </el-table-column>-->
 
         <el-table-column align="center" label="社保地区" width="150">
           <template slot-scope="scope">
@@ -90,9 +79,9 @@
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="是否指定医院" width="150">
+        <el-table-column align="center" label="医保定点" width="150">
           <template slot-scope="scope">
-            {{ scope.row.sociInsuHosp }}
+            {{ TrueOrFalse[scope.row.sociInsuHosp] }}
           </template>
         </el-table-column>
 
@@ -119,7 +108,7 @@
 
 <script>
 import { getList, findById, del } from '@/api/base'
-// import { getCodeList } from '@/api/code'
+import { getCodeList } from '@/api/code'
 import Pagination from '@/components/Pagination'
 import Save from './save'
 
@@ -138,15 +127,18 @@ export default {
       total: 0,
       dialogVisible: false,
       form: null,
-      businessData: {}
+      businessData: {},
+      paramRadio: false,
+      CHospitalLevel: {},
+      CHospSecondaryLevel: {},
+      CHospitalTyp: {},
+      CHospitalNature: {},
+      CSociInsuHosp: {},
+      TrueOrFalse: {}
     }
   },
   created() {
-    /* if (this.$route.query.pubCoverId) { // 上级页面传入参数
-          this.listQuery.pubCoverId = this.$route.query.pubCoverId
-        }*/
-    this.fetchData()
-    // this.fetchTypeData()
+    this.fetchTypeData()
   },
   mounted() {
   },
@@ -157,6 +149,10 @@ export default {
         type: type
       })
     },
+    handleSelect(data) {
+      this.selected = data
+      this.$emit('setMultipleSeleValues', data)
+    },
     fetchData() {
       this.listLoading = true
       getList(this.basePath, this.listQuery).then(response => {
@@ -165,18 +161,20 @@ export default {
         this.listLoading = false
       })
     },
-    /* fetchTypeData() {
-        // 获取codeList
-        getCodeList({ parent: ['CExplCdeSubcategory'] }).then(res => {
-          this.businessData = res.data
-          // 组装table 的map
-          for (const key in this.businessData) {
-            this.businessData[key].forEach(item => {
-              this[key][item.value] = item.label
-            })
-          }
-        })
-      },*/
+    fetchTypeData() {
+      // 获取codeList
+      getCodeList({ parent: ['CHospitalLevel', 'CHospSecondaryLevel', 'CHospitalTyp', 'CHospitalNature', 'TrueOrFalse', 'CSociInsuHosp'] }).then(res => {
+        this.businessData = res.data
+        // 组装table 的map
+        for (const key in this.businessData) {
+          this.businessData[key].forEach(item => {
+            !this[key] && (this[key] = {})
+            this[key][item.value] = item.label
+          })
+        }
+        this.fetchData()
+      })
+    },
     handleSave() {
       this.form = { id: null }
       /* if (this.$route.query.pubCoverId) { // 上级页面传入参数
