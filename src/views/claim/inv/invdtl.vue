@@ -146,7 +146,7 @@
             </el-form-item>
 
             <el-form-item label="发票总金额" prop="sumAmt" label-width="120px">
-              <el-input v-model="invdtlForm.sumAmt" placeholder="请输入发票总金额" @change="changSumAmt" />
+              <el-input v-model="invdtlForm.sumAmt" placeholder="请输入发票总金额" @change="changeInvSumAmt(this.invdtlForm.sumAmt)" />
             </el-form-item>
 
             <el-form-item label="统筹金额" prop="overallAmt" label-width="120px">
@@ -307,7 +307,7 @@
         <el-input v-model="calcForm.dtlCategSelfpayAmt" placeholder="请输入总金额" />
       </el-form-item>
 
-      <el-form-item label="分类自付差值" prop="dtlCategDeduct" label-width="120px">
+      <el-form-item label="分类自付差值" prop="dtlCategDeduct" :class="{redTip: redCategColor}" label-width="120px">
         <el-input v-model="calcForm.dtlCategDeduct" placeholder="请输入分类自付差值" />
       </el-form-item>
 
@@ -323,10 +323,10 @@
         <el-input v-model="calcForm.dtlSelfAmt" placeholder="请输入总金额" />
       </el-form-item>
 
-      <el-form-item label="自费差值" prop="dtlSelfDeduct" label-width="120px">
+      <el-form-item label="自费差值" prop="dtlSelfDeduct" :class="{redTip: redSelfColor}" label-width="120px">
         <el-input v-model="calcForm.dtlSelfDeduct" placeholder="请输入分类自付差值" />
       </el-form-item>
-      <el-form-item label="总金额差值" prop="dtlSumAmtDeduct" label-width="120px">
+      <el-form-item label="总金额差值" prop="dtlSumAmtDeduct" :class="{redTip: redColor}" label-width="120px">
         <el-input v-model="calcForm.dtlSumAmtDeduct" placeholder="请输入总金额差值" />
       </el-form-item>
 
@@ -392,13 +392,13 @@
 
       <el-table-column align="center" label="分类自付比例" width="150">
         <template slot-scope="scope">
-          <el-input v-model="scope.row.categSelfpayRate" :disabled="scope.row.secuTyp!='B'" type="number" @change="changeRate(scope.row)" />
+          <el-input v-model="scope.row.categSelfpayRate" :disabled="scope.row.secuTyp!='B'" @change="changeRate(scope.row)" />
         </template>
       </el-table-column>
 
       <el-table-column align="center" label="分类自付金额" width="150">
         <template slot-scope="scope">
-          <el-input v-model="scope.row.categSelfpayAmt" type="number" :disabled="scope.row.secuTyp!='B'" @change="changeCategSelfpayAmt" />
+          <el-input v-model="scope.row.categSelfpayAmt" :disabled="scope.row.secuTyp!='B'" @change="changeCategSelfpayAmt" />
         </template>
       </el-table-column>
 
@@ -577,7 +577,10 @@ export default {
       dtlBusinessdata: null,
       matchVisable: false,
       index: null,
-      drugArr: ['01', '02', '03']
+      drugArr: ['01', '02', '03'],
+      redColor: false,
+      redCategColor: false,
+      redSelfColor: false
     }
   },
 
@@ -738,8 +741,8 @@ export default {
     checkFloat(data) {
       return isNaN(parseFloat(data)) || !/^(([1-9]{1}\d*)|(0{1}))(\.\d{1,2})?$/.test(data)
     },
-    changSumAmt(data) {
-      if (this.checkFloat(data)) {
+    changeInvSumAmt(data) {
+      if (data && this.checkFloat(data)) {
         this._notify('你输入正确的数值格式', 'warning')
         return
       }
@@ -749,6 +752,36 @@ export default {
       })
       var deduct = sum - parseFloat(this.invdtlForm.sumAmt)
       this.calcForm.dtlSumAmtDeduct = deduct.toFixed(2)
+      if (parseFloat(this.calcForm.dtlSumAmtDeduct) !== 0.0) {
+        this.redColor = true
+      } else {
+        this.redColor = false
+      }
+    },
+
+    changSumAmt(data) {
+      if (data && this.checkFloat(data)) {
+        this._notify('你输入正确的数值格式', 'warning')
+        return
+      }
+      var sum = 0.0
+      this.list.forEach((val, i) => {
+        sum = sum + parseFloat(val.sumAmt)
+        if (val.secuTyp === 'B') {
+          val.categSelfpayAmt = (parseFloat(val.sumAmt) * parseFloat(val.categSelfpayRate)).toFixed(2)
+        } else if (val.secuTyp === 'C') {
+          val.selfAmt = (parseFloat(val.sumAmt) * parseFloat(val.categSelfpayRate)).toFixed(2)
+        }
+      })
+      var deduct = sum - parseFloat(this.invdtlForm.sumAmt)
+      this.calcForm.dtlSumAmtDeduct = deduct.toFixed(2)
+      if (parseFloat(this.calcForm.dtlSumAmtDeduct) !== 0.0) {
+        this.redColor = true
+      } else {
+        this.redColor = false
+      }
+      this.changeCategSelfpayAmt()
+      this.changSelfAmt()
     },
     changeCategSelfpayAmt() {
       var sum = 0.0
@@ -769,6 +802,12 @@ export default {
       this.calcForm.dtlCategDeduct = deduct.toFixed(2)
       this.calcForm.categDrug = categDrug.toFixed(2)
       this.calcForm.categTreat = categTreat.toFixed(2)
+
+      if (parseFloat(this.calcForm.dtlCategDeduct) !== 0.0) {
+        this.redCategColor = true
+      } else {
+        this.redCategColor = false
+      }
     },
     changSelfAmt() {
       var sum = 0.0
@@ -789,6 +828,12 @@ export default {
       this.calcForm.dtlSelfDeduct = deduct.toFixed(2)// 自费差值
       this.calcForm.selfDrug = selfDrug.toFixed(2)// 自费药品
       this.calcForm.selfTreat = selfTreat.toFixed(2)// 自费诊疗
+
+      if (parseFloat(this.calcForm.dtlSelfDeduct) !== 0.0) {
+        this.redSelfColor = true
+      } else {
+        this.redSelfColor = false
+      }
     },
     // -----------------------明细js function----------------------------------------------
     handleSelect(data) {
@@ -814,7 +859,7 @@ export default {
         this._notify('请修改分类自付比例区间(0 , 1)', 'warning')
       }
       row.selfAmt = 0.0
-      row.categSelfpayAmt = parseFloat(row.sumAmt) * parseFloat(row.categSelfpayRate).toFixed(2)
+      row.categSelfpayAmt = (parseFloat(row.sumAmt) * parseFloat(row.categSelfpayRate)).toFixed(2)
       this.changeCategSelfpayAmt()
     },
     changeSecuTyp(row) {
@@ -823,15 +868,21 @@ export default {
           this._notify('请修改分类自付比例区间(0 , 1)', 'warning')
         }
         row.selfAmt = 0.0
-        row.categSelfpayAmt = parseFloat(row.sumAmt) * parseFloat(row.categSelfpayRate).toFixed(2)
+        row.categSelfpayAmt = (parseFloat(row.sumAmt) * parseFloat(row.categSelfpayRate)).toFixed(2)
+        this.changeCategSelfpayAmt()
+        this.changSelfAmt()
       } else if (row.secuTyp === 'C') {
         row.categSelfpayRate = 1.0
         row.categSelfpayAmt = 0.0
-        row.selfAmt = parseFloat(row.sumAmt) * parseFloat(row.categSelfpayRate).toFixed(2)
+        row.selfAmt = (parseFloat(row.sumAmt) * parseFloat(row.categSelfpayRate)).toFixed(2)
+        this.changeCategSelfpayAmt()
+        this.changSelfAmt()
       } else {
         row.categSelfpayRate = 0.0
         row.selfAmt = 0.0
         row.categSelfpayAmt = 0.0
+        this.changeCategSelfpayAmt()
+        this.changSelfAmt()
       }
     },
 
@@ -841,8 +892,6 @@ export default {
         this.list = response.data.data
         this.total = response.data.total
         this.changSumAmt()
-        this.changeCategSelfpayAmt()
-        this.changSelfAmt()
         this.listLoading = false
       })
     },
@@ -946,7 +995,12 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
+
+  .el-form >>> .redTip .el-input__inner {
+    color: red
+  }
+
   .line {
     text-align: center;
   }
