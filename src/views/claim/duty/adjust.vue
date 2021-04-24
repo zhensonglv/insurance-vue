@@ -80,10 +80,15 @@ export default {
   },
 
   watch: {
-    adjustData: function(newVal, oldVal) {
-      this.adjustForm.id = newVal.id
-      this.adjustForm.compensateAmt = newVal.compensateAmt
-      this.dialogAdjustVisible = true
+    adjustData: {
+      handler(v) {
+        if (v) {
+          this.adjustForm.id = v.id
+          this.adjustForm.compensateAmt = v.compensateAmt
+          this.dialogAdjustVisible = true
+        }
+      },
+      immediate: true
     }
   },
   created() {

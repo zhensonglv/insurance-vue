@@ -20,10 +20,10 @@
 
       <el-form-item label="诊断码" prop="diagCde" label-width="120px">
         <el-input v-model="form.diagCde" placeholder="请输入诊断码">
-          <svg-icon slot="suffix" icon-class="search" @click="hanldeDiagCde" />
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeDiag" />
         </el-input>
       </el-form-item>
-      <diag :inv-id="invId" @matchConfirm="matchConfirmDiag" />
+      <diag v-model="diagVisable" :inv-id="invId" @matchConfirmDiag="matchConfirmDiag" />
 
       <el-form-item label="诊断描述" prop="diagDesc" label-width="120px">
         <el-input v-model="form.diagDesc" placeholder="请输入诊断码" />
@@ -203,9 +203,9 @@
       <el-form-item label="校验审核信息" prop="auditInformation" label-width="120px">
         <el-input v-model="form.auditInformation" placeholder="请输入校验审核信息" />
       </el-form-item>
-      <!--      <el-form-item label="账单层id" prop="invId" label-width="120px">
+      <el-form-item label="账单层id" prop="invId" label-width="120px">
         <el-input v-model="form.invId" placeholder="请输入账单层id" />
-      </el-form-item>-->
+      </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="handleClose">
@@ -281,12 +281,14 @@ export default {
       rules: {
         batchNo: [{ required: true, trigger: 'blur', message: '请输入批次号' }]
       },
-      invId: null
+      invId: null,
+      diagVisable: false
     }
   },
   watch: {
     'sonData': function(newVal, oldVal) {
       this.form = newVal
+      this.invId = newVal.invId
       this.dialogVisible = true
       if (newVal.id != null) {
         this.dialogTitle = 'Edit'
@@ -347,15 +349,13 @@ export default {
       this.clearForm()
       this.dialogVisible = false
     },
-    hanldeDiagCde() {
-      debugger
-      this.invId = this.form.invId
+    hanldeDiag() {
+      this.diagVisable = true
     },
     matchConfirmDiag(data) {
       if (data.diagCde) {
         this.form.diagCde = data.diagCde
         this.form.diagDesc = data.diagDesc
-        this.form.maxtermNo = data.cateGoryNo
       }
     },
 

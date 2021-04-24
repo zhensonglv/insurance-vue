@@ -55,6 +55,7 @@ import { getDiag } from '@/api/claim/treat'
 export default {
   name: 'Match',
   props: {
+    value: Boolean,
     invId: Number
   },
   data() {
@@ -73,12 +74,11 @@ export default {
     }
   },
   watch: {
-
-    invId: {
+    value: {
       handler(v) {
         if (v) {
-          this.listQuery.invId = v
-          this.dialogTableVisible = true
+          this.listQuery.invId = this.invId
+          this.dialogTableVisible = v
           this.queryData()
         }
       },
