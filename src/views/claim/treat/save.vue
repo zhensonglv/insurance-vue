@@ -203,9 +203,9 @@
       <el-form-item label="校验审核信息" prop="auditInformation" label-width="120px">
         <el-input v-model="form.auditInformation" placeholder="请输入校验审核信息" />
       </el-form-item>
-      <el-form-item label="账单层id" prop="invId" label-width="120px">
+      <!--      <el-form-item label="账单层id" prop="invId" label-width="120px">
         <el-input v-model="form.invId" placeholder="请输入账单层id" />
-      </el-form-item>
+      </el-form-item>-->
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="handleClose">
