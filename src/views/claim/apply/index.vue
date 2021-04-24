@@ -56,7 +56,7 @@
             {{ scope.row.plyNo }}
           </template>
         </el-table-column>
-        <el-table-column align="center" :show-overflow-tooltip="true" label="分单号">
+        <el-table-column align="center" :show-overflow-tooltip="true" label="分单号" width="200">
           <template slot-scope="scope">
             <el-input v-model="scope.row.plyPartNo">
               <svg-icon slot="suffix" icon-class="search" @click="handlePart(scope.$index)" />
