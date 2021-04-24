@@ -84,11 +84,7 @@ export default {
     }
   },
   created() {
-    /* if (this.$route.query.pubCoverId) { // 上级页面传入参数
-        this.listQuery.pubCoverId = this.$route.query.pubCoverId
-      }*/
     this.fetchData()
-    // this.fetchTypeData()
   },
   mounted() {
   },
@@ -116,6 +112,7 @@ export default {
     },
     fetchData() {
       this.listLoading = true
+      this.paramRadio = false
       getList(this.basePath, this.listQuery).then(response => {
         this.list = response.data.data
         this.total = response.data.total

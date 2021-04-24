@@ -294,29 +294,42 @@
     </div>
 
     <el-form ref="invdtlForm" :inline="true" :model="calcForm" status-icon label-position="right" label-width="80px">
-      <el-form-item label="总金额" prop="dtlSumAmt" label-width="120px">
-        <el-input v-model="calcForm.dtlSumAmt" placeholder="请输入总金额" />
+
+      <el-form-item label="分类药品" prop="categDrug" label-width="120px">
+        <el-input v-model="calcForm.categDrug" placeholder="请输入总金额" />
       </el-form-item>
 
-      <el-form-item label="分类自付合计" prop="dtlCategSelfpayAmt" label-width="120px">
-        <el-input v-model="calcForm.dtlCategSelfpayAmt" placeholder="请输入分类自付合计" />
+      <el-form-item label="分类诊疗" prop="categTreat" label-width="120px">
+        <el-input v-model="calcForm.categTreat" placeholder="请输入总金额" />
       </el-form-item>
 
-      <el-form-item label="自费合计" prop="dtlSelfAmt" label-width="120px">
-        <el-input v-model="calcForm.dtlSelfAmt" placeholder="请输入自费合计" />
-      </el-form-item>
-
-      <el-form-item label="总金额差值" prop="dtlSumAmtDeduct" label-width="120px">
-        <el-input v-model="calcForm.dtlSumAmtDeduct" placeholder="请输入总金额差值" />
+      <el-form-item label="分类合计" prop="dtlCategSelfpayAmt" label-width="120px">
+        <el-input v-model="calcForm.dtlCategSelfpayAmt" placeholder="请输入总金额" />
       </el-form-item>
 
       <el-form-item label="分类自付差值" prop="dtlCategDeduct" label-width="120px">
         <el-input v-model="calcForm.dtlCategDeduct" placeholder="请输入分类自付差值" />
       </el-form-item>
 
-      <el-form-item label="自费差值" prop="dtlSelfDeduct" label-width="120px">
-        <el-input v-model="calcForm.dtlSelfDeduct" placeholder="请输入自费差值" />
+      <el-form-item label="自费药品" prop="selfDrug" label-width="120px">
+        <el-input v-model="calcForm.selfDrug" placeholder="请输入总金额" />
       </el-form-item>
+
+      <el-form-item label="自费诊疗" prop="selfTreat" label-width="120px">
+        <el-input v-model="calcForm.selfTreat" placeholder="请输入总金额" />
+      </el-form-item>
+
+      <el-form-item label="自费合计" prop="dtlSelfAmt" label-width="120px">
+        <el-input v-model="calcForm.dtlSelfAmt" placeholder="请输入总金额" />
+      </el-form-item>
+
+      <el-form-item label="自费差值" prop="dtlSelfDeduct" label-width="120px">
+        <el-input v-model="calcForm.dtlSelfDeduct" placeholder="请输入分类自付差值" />
+      </el-form-item>
+      <el-form-item label="总金额差值" prop="dtlSumAmtDeduct" label-width="120px">
+        <el-input v-model="calcForm.dtlSumAmtDeduct" placeholder="请输入总金额差值" />
+      </el-form-item>
+
     </el-form>
 
     <div align="center">
@@ -373,7 +386,7 @@
 
       <el-table-column align="center" label="总金额" width="150">
         <template slot-scope="scope">
-          <el-input v-model="scope.row.sumAmt" @change="changSumAmt" />
+          <el-input v-model="scope.row.sumAmt" @change="changSumAmt(scope.row.sumAmt)" />
         </template>
       </el-table-column>
 
@@ -532,9 +545,12 @@ export default {
         isRehabiliation: ''
       },
       calcForm: {
-        dtlSumAmt: null,
+        categDrug: null,
+        categTreat: null,
         dtlCategSelfpayAmt: null,
         dtlCategDeduct: null,
+        selfDrug: null,
+        selfTreat: null,
         dtlSelfAmt: null,
         dtlSelfDeduct: null,
         dtlSumAmtDeduct: null
@@ -560,7 +576,8 @@ export default {
       selected: [],
       dtlBusinessdata: null,
       matchVisable: false,
-      index: null
+      index: null,
+      drugArr: ['01', '02', '03']
     }
   },
 
@@ -595,9 +612,12 @@ export default {
       this.show3 = !this.show3
     },
     clearCalcForm() {
-      this.calcForm.dtlSumAmt = null
+      this.calcForm.categDrug = null
+      this.calcForm.categTreat = null
       this.calcForm.dtlCategSelfpayAmt = null
       this.calcForm.dtlCategDeduct = null
+      this.calcForm.selfDrug = null
+      this.calcForm.selfTreat = null
       this.calcForm.dtlSelfAmt = null
       this.calcForm.dtlSelfDeduct = null
       this.calcForm.dtlSumAmtDeduct = null
@@ -709,55 +729,66 @@ export default {
         }
       })
     },
-    /*   onSubmit(invdtlForm) {
-      this.$refs[invdtlForm].validate((valid) => {
-        if (valid) {
-          if (this.invdtlForm.id !== null) {
-            edit(this.invdtlForm).then(response => {
-              if (response.code === 200) {
-                this._notify(response.msg, 'success')
-                this.clearForm()
-                this.$emit('sonStatus', true)
-                this.clearFlag()
-              } else {
-                this._notify(response.msg, 'error')
-              }
-            })
-          }
-        } else {
-          this.$message('error submit!!')
-          return false
-        }
-      })
-    },*/
     // ------------------------合计信息js function-------------------------------------------
-    changSumAmt() {
-      var sum = 0.0
-      for (var i = 0; i < this.list.length; i++) {
-        sum = sum + parseFloat(this.list[i].sumAmt)
+    /**
+     * 校验数字格式
+     * @param data
+     * @returns {boolean|boolean}
+     */
+    checkFloat(data) {
+      return isNaN(parseFloat(data)) || !/^(([1-9]{1}\d*)|(0{1}))(\.\d{1,2})?$/.test(data)
+    },
+    changSumAmt(data) {
+      if (this.checkFloat(data)) {
+        this._notify('你输入正确的数值格式', 'warning')
+        return
       }
+      var sum = 0.0
+      this.list.forEach((val, i) => {
+        sum = sum + parseFloat(val.sumAmt)
+      })
       var deduct = sum - parseFloat(this.invdtlForm.sumAmt)
-      this.calcForm.dtlSumAmt = sum.toFixed(2)
       this.calcForm.dtlSumAmtDeduct = deduct.toFixed(2)
     },
     changeCategSelfpayAmt() {
-      debugger
       var sum = 0.0
-      for (var i = 0; i < this.list.length; i++) {
-        sum = sum + parseFloat(this.list[i].categSelfpayAmt)
-      }
+      var categDrug = 0.0 // 分类药品
+      var categTreat = 0.0// 分类诊疗
+      this.list.forEach((val, i) => {
+        if (val.secuTyp === 'B') {
+          sum = sum + parseFloat(val.categSelfpayAmt)
+          if (this.drugArr.includes(val.maxtermNo)) { // 药品
+            categDrug = categDrug + parseFloat(val.categSelfpayAmt)
+          } else {
+            categTreat = categTreat + parseFloat(val.categSelfpayAmt)
+          }
+        }
+      })
       var deduct = sum - parseFloat(this.invdtlForm.categSelfPay)
       this.calcForm.dtlCategSelfpayAmt = sum.toFixed(2)
       this.calcForm.dtlCategDeduct = deduct.toFixed(2)
+      this.calcForm.categDrug = categDrug.toFixed(2)
+      this.calcForm.categTreat = categTreat.toFixed(2)
     },
     changSelfAmt() {
       var sum = 0.0
-      for (var i = 0; i < this.list.length; i++) {
-        sum = sum + parseFloat(this.list[i].selfAmt)
-      }
+      var selfDrug = 0.0
+      var selfTreat = 0.0
+      this.list.forEach((val, i) => {
+        if (val.secuTyp === 'C') {
+          sum = sum + parseFloat(val.selfAmt)
+          if (this.drugArr.includes(val.maxtermNo)) { // 药品
+            selfDrug = selfDrug + parseFloat(val.categSelfpayAmt)
+          } else {
+            selfTreat = selfTreat + parseFloat(val.categSelfpayAmt)
+          }
+        }
+      })
       var deduct = sum - parseFloat(this.invdtlForm.selfExpense)
-      this.calcForm.dtlSelfAmt = sum.toFixed(2)
-      this.calcForm.dtlSelfDeduct = deduct.toFixed(2)
+      this.calcForm.dtlSelfAmt = sum.toFixed(2) // 自费合计
+      this.calcForm.dtlSelfDeduct = deduct.toFixed(2)// 自费差值
+      this.calcForm.selfDrug = selfDrug.toFixed(2)// 自费药品
+      this.calcForm.selfTreat = selfTreat.toFixed(2)// 自费诊疗
     },
     // -----------------------明细js function----------------------------------------------
     handleSelect(data) {
@@ -774,11 +805,17 @@ export default {
     },
 
     changeRate(row) {
+      if (this.checkFloat(row.categSelfpayRate)) {
+        this._notify('你输入正确的数值格式', 'warning')
+        return
+      }
+
       if (!(parseFloat(row.categSelfpayRate) > 0.0 && parseFloat(row.categSelfpayRate) < 1.0)) {
         this._notify('请修改分类自付比例区间(0 , 1)', 'warning')
       }
       row.selfAmt = 0.0
       row.categSelfpayAmt = parseFloat(row.sumAmt) * parseFloat(row.categSelfpayRate).toFixed(2)
+      this.changeCategSelfpayAmt()
     },
     changeSecuTyp(row) {
       if (row.secuTyp === 'B') {

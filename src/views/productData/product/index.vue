@@ -129,6 +129,7 @@ export default {
     },
     fetchData() {
       this.listLoading = true
+      this.paramRadio = false
       getList(this.basePath, this.listQuery).then(response => {
         this.list = response.data.data
         this.total = response.data.total
