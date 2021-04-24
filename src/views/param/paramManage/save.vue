@@ -21,7 +21,12 @@
           />
         </el-select>
       </el-form-item>
-      <el-form-item label="参数描述" prop="paramterDesc" label-width="120px">
+      <el-form-item
+        :class="{redTip: redColor}"
+        label="参数描述"
+        prop="paramterDesc"
+        label-width="120px"
+      >
         <el-input v-model="form.paramterDesc" placeholder="请输入参数描述" />
       </el-form-item>
     </el-form>
@@ -47,6 +52,7 @@ export default {
   props: ['sonData', 'businessData'],
   data() {
     return {
+      redColor: false,
       dialogVisible: false,
       dialogTitle: '新增',
       basePath: 'paramManage',
@@ -81,6 +87,9 @@ export default {
         this.dialogTitle = 'Add'
       }
     }
+  },
+  mounted() {
+    this.redColor = true
   },
   methods: {
     _notify(message, type) {
@@ -151,7 +160,10 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
+  .el-form >>> .redTip .el-input__inner {
+    color: red
+  }
   .line {
     text-align: center;
   }
