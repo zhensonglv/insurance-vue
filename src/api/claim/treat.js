@@ -61,3 +61,10 @@ export function update(data) {
     data
   })
 }
+
+export function getDiag(id) {
+  return request({
+    url: '/base/treat/getDiag/' + id,
+    method: 'get'
+  })
+}

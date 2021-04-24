@@ -57,12 +57,12 @@
               <el-input v-model="form.secdiagCdeOne" placeholder="请输入次诊断码1" />
             </el-form-item>
 
-            <el-form-item label="次诊断码2" prop="secdiagCdeTwo" label-width="120px">
-              <el-input v-model="form.secdiagCdeTwo" placeholder="请输入次诊断码2" />
-            </el-form-item>
-
             <el-form-item label="次诊断描述1" prop="secdiagDescOne" label-width="120px">
               <el-input v-model="form.secdiagDescOne" placeholder="请输入次诊断描述1" />
+            </el-form-item>
+
+            <el-form-item label="次诊断码2" prop="secdiagCdeTwo" label-width="120px">
+              <el-input v-model="form.secdiagCdeTwo" placeholder="请输入次诊断码2" />
             </el-form-item>
 
             <el-form-item label="次诊断描述2" prop="secdiagDescTwo" label-width="120px">

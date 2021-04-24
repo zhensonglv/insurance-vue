@@ -18,6 +18,17 @@
         <el-input v-model="form.invNo" placeholder="请输入发票号" />
       </el-form-item>
 
+      <el-form-item label="诊断码" prop="diagCde" label-width="120px">
+        <el-input v-model="form.diagCde" placeholder="请输入诊断码">
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeDiagCde" />
+        </el-input>
+      </el-form-item>
+      <diag :inv-id="invId" @matchConfirm="matchConfirmDiag" />
+
+      <el-form-item label="诊断描述" prop="diagDesc" label-width="120px">
+        <el-input v-model="form.diagDesc" placeholder="请输入诊断码" />
+      </el-form-item>
+
       <el-form-item label="起始诊疗日" prop="treatBgnTm" label-width="120px">
         <el-date-picker
           v-model="form.treatBgnTm"
@@ -34,14 +45,6 @@
           value-format="yyyy-MM-dd"
           placeholder="选择日期时间"
         />
-      </el-form-item>
-
-      <el-form-item label="诊断码" prop="diagCde" label-width="120px">
-        <el-input v-model="form.diagCde" placeholder="请输入诊断码" />
-      </el-form-item>
-
-      <el-form-item label="诊疗描述" prop="treatDesc" label-width="120px">
-        <el-input v-model="form.treatDesc" placeholder="请输入诊疗描述" />
       </el-form-item>
 
       <el-form-item label="服务类型" prop="serviceTyp" label-width="120px">
@@ -170,6 +173,10 @@
       </el-form-item>
       <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
 
+      <el-form-item label="诊疗描述" prop="treatDesc" label-width="120px">
+        <el-input v-model="form.treatDesc" placeholder="请输入诊疗描述" />
+      </el-form-item>
+
       <el-form-item label="大型号" prop="maxtermNo" label-width="120px">
         <el-input v-model="form.maxtermNo" placeholder="请输入大型号" />
       </el-form-item>
@@ -196,9 +203,9 @@
       <el-form-item label="校验审核信息" prop="auditInformation" label-width="120px">
         <el-input v-model="form.auditInformation" placeholder="请输入校验审核信息" />
       </el-form-item>
-      <el-form-item label="账单层id" prop="invId" label-width="120px">
+      <!--      <el-form-item label="账单层id" prop="invId" label-width="120px">
         <el-input v-model="form.invId" placeholder="请输入账单层id" />
-      </el-form-item>
+      </el-form-item>-->
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="handleClose">
@@ -214,13 +221,14 @@
 <script>
 import { save, edit } from '@/api/claim/treat'
 import Match from './match'
+import Diag from './diag'
 
 export default {
   // 父组件向子组件传值，通过props获取。
   // 一旦父组件改变了`sonData`对应的值，子组件的`sonData`会立即改变，通过watch函数可以实时监听到值的变化
   // `props`不属于data，但是`props`中的参数可以像data中的参数一样直接使用
   components: {
-    Match
+    Match, Diag
   },
   props: ['sonData', 'businessData'],
   data() {
@@ -237,6 +245,7 @@ export default {
         treatBgnTm: '',
         treatEndTm: '',
         diagCde: '',
+        diagDesc: '',
         treatDesc: '',
         serviceTyp: '',
         sumAmt: '',
@@ -271,7 +280,8 @@ export default {
       matchTyp: null,
       rules: {
         batchNo: [{ required: true, trigger: 'blur', message: '请输入批次号' }]
-      }
+      },
+      invId: null
     }
   },
   watch: {
@@ -303,6 +313,7 @@ export default {
       this.form.treatBgnTm = null
       this.form.treatEndTm = null
       this.form.diagCde = null
+      this.form.diagDesc = null
       this.form.treatDesc = null
       this.form.serviceTyp = null
       this.form.sumAmt = null
@@ -336,6 +347,18 @@ export default {
       this.clearForm()
       this.dialogVisible = false
     },
+    hanldeDiagCde() {
+      debugger
+      this.invId = this.form.invId
+    },
+    matchConfirmDiag(data) {
+      if (data.diagCde) {
+        this.form.diagCde = data.diagCde
+        this.form.diagDesc = data.diagDesc
+        this.form.maxtermNo = data.cateGoryNo
+      }
+    },
+
     hanldeMatch(matchTyp) {
       this.matchVisable = true
       this.matchTyp = matchTyp
@@ -343,6 +366,7 @@ export default {
     matchConfirm(data) {
       if (data.treatNo) { // 诊疗码
         this.form.treatCde = data.treatNo
+        this.form.maxtermNo = data.cateGoryNo
       }
       if (data.explCde) { // 解释码
         this.form.adjustInterpCde = data.explCde
