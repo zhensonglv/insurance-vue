@@ -25,7 +25,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="代码类型" prop="codeTyp" label-width="120px">
-        <el-select v-model="form.codeTyp" placeholder="请选择" clearable>
+        <el-select v-model="form.codeTyp" placeholder="请选择" clearable @change="changecodeTyp(form.codeTyp)">
           <el-option
             v-for="item in businessData.DiaMatchTyp"
             :key="item.value"
@@ -34,34 +34,36 @@
           />
         </el-select>
       </el-form-item>
+      <el-row v-if="form.codeTyp=='1'">
+        <el-form-item label="起始代码" prop="bgnCode" label-width="120px">
+          <el-input v-model="form.bgnCode" placeholder="请选择起始代码">
+            <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(2)" />
+          </el-input>
+        </el-form-item>
+        <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
 
-      <el-form-item label="起始代码" prop="bgnCode" label-width="120px">
-        <el-input v-model="form.bgnCode" placeholder="请选择起始代码">
-          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(2)" />
-        </el-input>
-      </el-form-item>
-      <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
+        <el-form-item label="起始代码描述" prop="bgnCodeDesc" label-width="120px">
+          <el-input v-model="form.bgnCodeDesc" placeholder="请输入起始代码描述" />
+        </el-form-item>
+        <el-form-item label="终止代码" prop="endCode" label-width="120px">
+          <el-input v-model="form.endCode" placeholder="请选择起始代码">
+            <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(3)" />
+          </el-input>
+        </el-form-item>
+        <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
 
-      <el-form-item label="起始代码描述" prop="bgnCodeDesc" label-width="120px">
-        <el-input v-model="form.bgnCodeDesc" placeholder="请输入起始代码描述" />
-      </el-form-item>
-      <el-form-item label="终止代码" prop="endCode" label-width="120px">
-        <el-input v-model="form.endCode" placeholder="请选择起始代码">
-          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(3)" />
-        </el-input>
-      </el-form-item>
-      <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
-
-      <el-form-item label="终止代码描述" prop="endCodeDesc" label-width="120px">
-        <el-input v-model="form.endCodeDesc" placeholder="请输入终止代码描述" />
-      </el-form-item>
-      <el-form-item label="诊断匹配码" prop="diaMatchCde" label-width="120px">
-        <el-input v-model="form.diaMatchCde" placeholder="请输入诊断匹配码" />
-      </el-form-item>
-      <el-form-item label="诊断匹配描述" prop="diaMatchDesc" label-width="120px">
-        <el-input v-model="form.diaMatchDesc" placeholder="请输入诊断匹配描述" />
-      </el-form-item>
-
+        <el-form-item label="终止代码描述" prop="endCodeDesc" label-width="120px">
+          <el-input v-model="form.endCodeDesc" placeholder="请输入终止代码描述" />
+        </el-form-item>
+      </el-row>
+      <el-row v-if="form.codeTyp=='2'">
+        <el-form-item label="诊断匹配码" prop="diaMatchCde" label-width="120px">
+          <el-input v-model="form.diaMatchCde" placeholder="请输入诊断匹配码" />
+        </el-form-item>
+        <el-form-item label="诊断匹配描述" prop="diaMatchDesc" label-width="120px">
+          <el-input v-model="form.diaMatchDesc" placeholder="请输入诊断匹配描述" />
+        </el-form-item>
+      </el-row>
       <el-form-item label="解释码" prop="explianCde" label-width="120px">
         <el-input v-model="form.explianCde" placeholder="请选择解释码">
           <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(1)" />
@@ -352,6 +354,17 @@ export default {
           return false
         }
       })
+    },
+    changecodeTyp(codeTyp) {
+      if (codeTyp === '1') {
+        this.form.diaMatchCde = null
+        this.form.diaMatchDesc = null
+      } else if (codeTyp === '2') {
+        this.form.bgnCode = null
+        this.form.bgnCodeDesc = null
+        this.form.endCode = null
+        this.form.endCodeDesc = null
+      }
     }
   }
 }

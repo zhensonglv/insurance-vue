@@ -11,7 +11,7 @@
       </el-form-item>-->
 
       <el-form-item label="代码类型" prop="codeTyp" label-width="120px">
-        <el-select v-model="form.codeTyp" placeholder="请选择" @change="changecodeTyp">
+        <el-select v-model="form.codeTyp" placeholder="请选择" @change="changecodeTyp(form.codeTyp)">
           <el-option
             v-for="item in businessData.CodeType"
             :key="item.value"
@@ -48,7 +48,7 @@
           <el-input v-model="form.endCodeDesc" placeholder="请输入终止代码描述" />
         </el-form-item>
       </el-row>
-      <el-row v-else-if="form.codeTyp=='2'">
+      <el-row v-if="form.codeTyp=='2'">
         <el-form-item label="起始代码" prop="starCde" label-width="120px">
           <el-input v-model="form.starCde" placeholder="请输入起始代码" @change="changeCode" />
         </el-form-item>
@@ -218,12 +218,12 @@ export default {
         }
       })
     },
-    changecodeTyp() {
-      this.form.starCde = null
-      this.form.starCodeDesc = null
-      this.form.endCde = null
-      this.form.endCodeDesc = null
-      this.form.underTyp = null
+    changecodeTyp(codeTyp) {
+      // this.form.starCde = null
+      // this.form.starCodeDesc = null
+      // this.form.endCde = null
+      // this.form.endCodeDesc = null
+      // this.form.underTyp = null
       this.underTyp = false
     }
   }
