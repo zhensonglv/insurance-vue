@@ -50,7 +50,7 @@
         </el-table-column>
         <el-table-column align="center" label="是否慢性病" width="150">
           <template slot-scope="scope">
-            {{ scope.row.isSlowlyDise }}
+            {{ YesorNo[scope.row.isSlowlyDise] }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="易发年龄起始" width="150">
@@ -65,12 +65,12 @@
         </el-table-column>
         <el-table-column align="center" label="易发性别" width="150">
           <template slot-scope="scope">
-            {{ scope.row.diaSex }}
+            {{ CEasyDiaSex[scope.row.diaSex] }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="是否外包" width="150">
           <template slot-scope="scope">
-            {{ scope.row.isOut }}
+            {{ YesorNo[scope.row.isOut] }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="临床诊断" width="150">
@@ -80,7 +80,7 @@
         </el-table-column>
         <el-table-column align="center" label="严重程度" width="150">
           <template slot-scope="scope">
-            {{ scope.row.diaSeverityLevel }}
+            {{ CDiaSeverityLevel[scope.row.diaSeverityLevel] }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="发病率" width="150">
@@ -122,7 +122,7 @@
         </el-table-column>
       </el-table>
 
-      <save :son-data="form" @sonStatus="status" />
+      <save :son-data="form" :business-data="businessData" @sonStatus="status" />
 
       <pagination
         v-show="total>0"
@@ -137,6 +137,7 @@
 
 <script>
 import { getList, findById, del } from '@/api/base'
+import { getCodeList } from '@/api/code'
 import Pagination from '@/components/Pagination'
 import Save from './save'
 
@@ -157,11 +158,16 @@ export default {
       total: 0,
       dialogVisible: false,
       form: null,
+      YesorNo: {},
+      CEasyDiaSex: {},
+      CDiaSeverityLevel: {},
+      businessData: {},
       paramRadio: false
     }
   },
   created() {
-    this.fetchData()
+    // this.fetchData()
+    this.fetchTypeData()
   },
   methods: {
     _notify(message, type) {
@@ -177,6 +183,21 @@ export default {
         this.list = response.data.data
         this.total = response.data.total
         this.listLoading = false
+      })
+    },
+    fetchTypeData() {
+      // 获取codeList
+      var parantData = ['YesorNo', 'CEasyDiaSex', 'CDiaSeverityLevel']
+      getCodeList({ parent: parantData }).then(res => {
+        this.businessData = res.data
+        // 组装table 的map
+        for (const key in this.businessData) {
+          this.businessData[key].forEach(item => {
+            !this[key] && (this[key] = {})
+            this[key][item.value] = item.label
+          })
+        }
+        this.fetchData()
       })
     },
     handleSave() {

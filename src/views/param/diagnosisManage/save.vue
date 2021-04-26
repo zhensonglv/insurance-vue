@@ -16,27 +16,62 @@
       <el-form-item label="ICD主码分类名称" prop="icdTypNme" label-width="120px">
         <el-input v-model="form.icdTypNme" placeholder="请输入ICD主码分类名称" />
       </el-form-item>
+
       <el-form-item label="是否慢性病" prop="isSlowlyDise" label-width="120px">
-        <el-input v-model="form.isSlowlyDise" placeholder="请输入是否慢性病" />
+        <el-select v-model="form.isSlowlyDise" placeholder="请选择" clearable>
+          <el-option
+            v-for="item in businessData.YesorNo"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
+
       <el-form-item label="易发年龄起始" prop="diaBgnSex" label-width="120px">
         <el-input v-model="form.diaBgnSex" placeholder="请输入易发年龄起始" />
       </el-form-item>
       <el-form-item label="易发年龄结束" prop="diaEndSex" label-width="120px">
         <el-input v-model="form.diaEndSex" placeholder="请输入易发年龄结束" />
       </el-form-item>
+
       <el-form-item label="易发性别" prop="diaSex" label-width="120px">
-        <el-input v-model="form.diaSex" placeholder="请输入易发性别" />
+        <el-select v-model="form.diaSex" placeholder="请选择" clearable>
+          <el-option
+            v-for="item in businessData.CEasyDiaSex"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
+
       <el-form-item label="是否外包" prop="isOut" label-width="120px">
-        <el-input v-model="form.isOut" placeholder="请输入是否外包" />
+        <el-select v-model="form.isOut" placeholder="请选择" clearable>
+          <el-option
+            v-for="item in businessData.YesorNo"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
+
       <el-form-item label="临床诊断" prop="clinicDia" label-width="120px">
         <el-input v-model="form.clinicDia" placeholder="请输入临床诊断" />
       </el-form-item>
+
       <el-form-item label="严重程度" prop="diaSeverityLevel" label-width="120px">
-        <el-input v-model="form.diaSeverityLevel" placeholder="请输入严重程度" />
+        <el-select v-model="form.diaSeverityLevel" placeholder="请选择" clearable>
+          <el-option
+            v-for="item in businessData.CDiaSeverityLevel"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
+
       <el-form-item label="发病率" prop="diaSeverityRate" label-width="120px">
         <el-input v-model="form.diaSeverityRate" placeholder="请输入发病率" />
       </el-form-item>
@@ -83,7 +118,7 @@ export default {
   components: {
     Match
   },
-  props: ['sonData'],
+  props: ['sonData', 'businessData'],
 
   data() {
     return {
