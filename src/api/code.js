@@ -16,3 +16,11 @@ export function getHospital(data) {
   })
 }
 
+export function getDiag(data) {
+  return request({
+    url: '/base/code/getDiag',
+    method: 'post',
+    data
+  })
+}
+

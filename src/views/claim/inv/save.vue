@@ -60,14 +60,31 @@
             </el-form-item>
 
             <el-form-item label="诊断码" prop="diagCde" label-width="120px">
-              <el-input v-model="form.diagCde" placeholder="请输入诊断码">
-                <svg-icon slot="suffix" icon-class="search" @click="hanldeDiagHosp(1)" />
-              </el-input>
+              <el-input v-model="form.diagCde" placeholder="请输入诊断码" />
+              <!--                <svg-icon slot="suffix" icon-class="search" @click="hanldeDiagHosp(1)" />
+              </el-input>-->
             </el-form-item>
-            <diagHosp v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
+            <!--            <diagHosp v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />-->
 
             <el-form-item label="诊断描述" prop="diagDesc" label-width="120px">
-              <el-input v-model="form.diagDesc" placeholder="请输入诊断描述" />
+              <!--              <el-input v-model="form.diagDesc" placeholder="请输入诊断描述" />-->
+              <el-select
+                v-model="form.diagDesc"
+                filterable
+                remote
+                reserve-keyword
+                placeholder="请输入诊断描述(支持模糊查询)"
+                :remote-method="remoteDiagMethod"
+                :loading="loading"
+                @change="changeDiagCde"
+              >
+                <el-option
+                  v-for="item in diagList"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.label"
+                />
+              </el-select>
             </el-form-item>
 
             <el-form-item label="次诊断码1" prop="secdiagCdeOne" label-width="120px">
@@ -589,13 +606,11 @@
 
 <script>
 import { initData, save, edit } from '@/api/claim/inv'
-import { getHospital } from '@/api/code'
-import diagHosp from '@/views/claim/inv/diaghosp'
+import { getHospital, getDiag } from '@/api/code'
 export default {
   // 父组件向子组件传值，通过props获取。
   // 一旦父组件改变了`sonData`对应的值，子组件的`sonData`会立即改变，通过watch函数可以实时监听到值的变化
   // `props`不属于data，但是`props`中的参数可以像data中的参数一样直接使用
-  components: { diagHosp },
   props: ['sonData', 'businessData'],
   data() {
     return {
@@ -691,7 +706,9 @@ export default {
       matchVisable: false,
       matchTyp: null,
       loading: false,
-      hospList: []
+      loadDiag: false,
+      hospList: [],
+      diagList: []
     }
   },
   watch: {
@@ -719,7 +736,7 @@ export default {
         this.loading = true
         this.getHospital(query)
       } else {
-        this.options = []
+        this.hospList = []
       }
     },
     getHospital(data) {
@@ -736,6 +753,31 @@ export default {
         }
       })
       this.form.hospitalNo = item[0].value
+    },
+
+    remoteDiagMethod(query) {
+      if (query !== '' && query.length >= 2) {
+        this.diagList = []
+        this.loadDiag = true
+        this.getDiag(query)
+      } else {
+        this.diagList = []
+      }
+    },
+    getDiag(data) {
+      getDiag({ diaDesc: data }).then(response => {
+        this.diagList = response.data
+        this.loadDiag = false
+      })
+    },
+    changeDiagCde() {
+      var current = this.form.diagDesc
+      var item = this.diagList.filter(function(c, i, a) { // c:当前项  i : 索引  a:原值
+        if (c.label === current) {
+          return c
+        }
+      })
+      this.form.diagCde = item[0].value
     },
     hanldeDiagHosp(matchTyp) {
       this.matchVisable = true
