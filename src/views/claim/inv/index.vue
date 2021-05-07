@@ -53,7 +53,7 @@
             {{ InInvoice[scope.row.invArea] }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="发票号">
+        <el-table-column align="center" :show-overflow-tooltip="true" label="发票号">
           <template slot-scope="scope">
             {{ scope.row.invNo }}
           </template>

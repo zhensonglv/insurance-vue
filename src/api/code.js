@@ -8,3 +8,11 @@ export function getCodeList(data) {
   })
 }
 
+export function getHospital(data) {
+  return request({
+    url: '/base/code/getHospital',
+    method: 'post',
+    data
+  })
+}
+

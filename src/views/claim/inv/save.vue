@@ -28,14 +28,31 @@
             </el-form-item>
 
             <el-form-item label="医院号" prop="hospitalNo" label-width="120px">
-              <el-input v-model="form.hospitalNo" placeholder="请输入医院号">
+              <el-input v-model="form.hospitalNo" placeholder="请输入医院号" />
+              <!--              <el-input v-model="form.hospitalNo" placeholder="请输入医院号">
                 <svg-icon slot="suffix" icon-class="search" @click="hanldeDiagHosp(2)" />
-              </el-input>
+              </el-input>-->
             </el-form-item>
-            <diagHosp v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
+            <!--            <diagHosp v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />-->
 
             <el-form-item label="医院名称" prop="hospitalNme" label-width="120px">
-              <el-input v-model="form.hospitalNme" placeholder="请输入医院名称" />
+              <el-select
+                v-model="form.hospitalNme"
+                filterable
+                remote
+                reserve-keyword
+                placeholder="请输入医院名称(支持模糊查询)"
+                :remote-method="remoteMethod"
+                :loading="loading"
+                @change="changeHospNo"
+              >
+                <el-option
+                  v-for="item in hospList"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.label"
+                />
+              </el-select>
             </el-form-item>
 
             <el-form-item label="医院科室" prop="hospitalDepart" label-width="120px">
@@ -572,6 +589,7 @@
 
 <script>
 import { initData, save, edit } from '@/api/claim/inv'
+import { getHospital } from '@/api/code'
 import diagHosp from '@/views/claim/inv/diaghosp'
 export default {
   // 父组件向子组件传值，通过props获取。
@@ -671,7 +689,9 @@ export default {
       },
       oldForm: {},
       matchVisable: false,
-      matchTyp: null
+      matchTyp: null,
+      loading: false,
+      hospList: []
     }
   },
   watch: {
@@ -692,6 +712,30 @@ export default {
         message: message,
         type: type
       })
+    },
+    remoteMethod(query) {
+      if (query !== '' && query.length >= 2) {
+        this.hospList = []
+        this.loading = true
+        this.getHospital(query)
+      } else {
+        this.options = []
+      }
+    },
+    getHospital(data) {
+      getHospital({ hospName: data }).then(response => {
+        this.hospList = response.data
+        this.loading = false
+      })
+    },
+    changeHospNo() {
+      var current = this.form.hospitalNme
+      var item = this.hospList.filter(function(c, i, a) { // c:当前项  i : 索引  a:原值
+        if (c.label === current) {
+          return c
+        }
+      })
+      this.form.hospitalNo = item[0].value
     },
     hanldeDiagHosp(matchTyp) {
       this.matchVisable = true
@@ -796,6 +840,7 @@ export default {
       this.form.isignUseCardRule = null
       this.form.isignWait = null
       this.form.isRehabiliation = null
+      this.hospList = []
     },
     handleClose() {
       this.clearForm()

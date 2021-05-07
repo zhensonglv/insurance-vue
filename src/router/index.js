@@ -227,6 +227,7 @@ export const constantRoutes = [
         path: 'clientAnamnesis',
         component: () => import('@/views/client/clientAnamnesis/index'),
         name: '被保人既往症',
+        hidden: true,
         meta: { title: '被保人既往症', icon: 'guide', noCache: true }
       },
       {

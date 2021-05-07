@@ -577,7 +577,7 @@ export default {
       dtlBusinessdata: null,
       matchVisable: false,
       index: null,
-      drugArr: ['01', '02', '03'],
+      drugArr: ['01', '02', '03'], // 药品大项号
       redColor: false,
       redCategColor: false,
       redSelfColor: false
@@ -817,9 +817,9 @@ export default {
         if (val.secuTyp === 'C') {
           sum = sum + parseFloat(val.selfAmt)
           if (this.drugArr.includes(val.maxtermNo)) { // 药品
-            selfDrug = selfDrug + parseFloat(val.categSelfpayAmt)
+            selfDrug = selfDrug + parseFloat(val.selfAmt)
           } else {
-            selfTreat = selfTreat + parseFloat(val.categSelfpayAmt)
+            selfTreat = selfTreat + parseFloat(val.selfAmt)
           }
         }
       })
