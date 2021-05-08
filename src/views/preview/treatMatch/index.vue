@@ -28,8 +28,11 @@
         </el-table-column>
 
         <el-table-column align="center" label="任务名称" width="200">
-          <template slot-scope="scope">
+          <template v-if="!scope.row.edit" slot-scope="scope">
             {{ scope.row.name }}
+          </template>
+          <template v-else-if="scope.row.edit" slot-scope="scope">
+            <el-input v-model="scope.row.name" />
           </template>
         </el-table-column>
 
@@ -69,13 +72,13 @@
             </el-select>
           </template>
         </el-table-column>
-        <!--  <el-table-column align="center" label="编辑">
+        <!--        <el-table-column align="center" label="编辑">
           <template slot-scope="scope">
-            <el-button v-show='!scope.row.edit' type="primary" @click='scope.row.edit=true' size="small" icon="edit">编辑</el-button>
-            <el-button v-show='scope.row.edit' type="success"  @click='handleFinish(scope.row)' size="small" icon="check">完成</el-button>
+            <el-button v-show="!scope.row.edit" type="primary" size="small" icon="edit" @click="scope.row.edit=true">编辑</el-button>
+            <el-button v-show="scope.row.edit" type="success" size="small" icon="check" @click="scope.row.edit=false">完成</el-button>
           </template>
         </el-table-column>-->
-        <!-- <el-table-column align="center" label="操作">
+        <!--        <el-table-column align="center" label="操作">
           <template slot-scope="scope">
             <el-button type="primary" size="mini" icon="el-icon-edit">保存</el-button>
           </template>
@@ -172,7 +175,9 @@ export default {
         this.form = response.data
       })
     },
-
+    handleFinish(row) {
+      row.edit = false
+    },
     handleSearch(row) {
 
     },
