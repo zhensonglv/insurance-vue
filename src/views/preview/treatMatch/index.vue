@@ -6,7 +6,6 @@
         <el-input v-model="listQuery.status" style="width: 200px;" placeholder="请选择" />
         <el-input v-model="listQuery.taskId" style="width: 200px;" placeholder="请输入任务id" />
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
-        <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
       </div>
       <br>
       <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
@@ -28,15 +27,12 @@
         </el-table-column>
 
         <el-table-column align="center" label="任务名称" width="200">
-          <template v-if="!scope.row.edit" slot-scope="scope">
-            {{ scope.row.name }}
-          </template>
-          <template v-else-if="scope.row.edit" slot-scope="scope">
+          <template slot-scope="scope">
             <el-input v-model="scope.row.name" />
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="匹配结果" width="200">
+        <el-table-column align="center" label="匹配结果" width="300">
           <template slot-scope="scope">
             <el-select v-model="scope.row.selectValue" placeholder="请选择">
               <el-option
@@ -48,45 +44,33 @@
             </el-select>
           </template>
         </el-table-column>
-
-        <el-table-column align="center" label="检索条件" width="200">
+        <el-table-column align="center" label="检索" width="300">
           <template slot-scope="scope">
-            <el-input v-model="scope.row.searchName" size="small" />
-          </template>
-        </el-table-column>
-
-        <el-table-column align="center" label="Actions">
-          <template slot-scope="scope">
-            <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleSearch(scope.row)">检索</el-button>
-          </template>
-        </el-table-column>
-        <el-table-column align="center" label="检索结果" width="200">
-          <template slot-scope="scope">
-            <el-select v-model="scope.row.selectSearchValue" placeholder="请选择">
+            <el-select
+              v-model="scope.row.selectSearchValue"
+              filterable
+              remote
+              reserve-keyword
+              placeholder="请输入诊疗描述(支持模糊查询)"
+              :remote-method="remoteDiagMethod"
+              :loading="loading"
+            >
               <el-option
-                v-for="item in scope.row.searchOptions"
+                v-for="item in treatList"
                 :key="item.value"
                 :label="item.label"
-                :value="item.value"
+                :value="item.label"
               />
             </el-select>
           </template>
         </el-table-column>
-        <!--        <el-table-column align="center" label="编辑">
-          <template slot-scope="scope">
-            <el-button v-show="!scope.row.edit" type="primary" size="small" icon="edit" @click="scope.row.edit=true">编辑</el-button>
-            <el-button v-show="scope.row.edit" type="success" size="small" icon="check" @click="scope.row.edit=false">完成</el-button>
+
+        <el-table-column align="center" label="操作" width="300">
+          <template>
+            <el-button type="primary" size="small" icon="el-icon-edit">保存</el-button>
           </template>
-        </el-table-column>-->
-        <!--        <el-table-column align="center" label="操作">
-          <template slot-scope="scope">
-            <el-button type="primary" size="mini" icon="el-icon-edit">保存</el-button>
-          </template>
-        </el-table-column>-->
+        </el-table-column>
       </el-table>
-
-      <save :son-data="form" :business-data="businessData" @sonStatus="status" />
-
       <pagination
         v-show="total>0"
         :total="total"
@@ -99,13 +83,11 @@
 </template>
 
 <script>
-import { getList, findById, del } from '@/api/preview/base'
-import { getCodeList } from '@/api/code'
+import { getList } from '@/api/preview/base'
+import { getTreat } from '@/api/preview/code'
 import Pagination from '@/components/Pagination'
-import Save from './save'
-
 export default {
-  components: { Pagination, Save },
+  components: { Pagination },
   data() {
     return {
       list: null,
@@ -116,22 +98,16 @@ export default {
         pageSize: 10,
         sort: '+id',
         batchNo: '',
-        status: '',
+        matchStatus: '',
         taskId: ''
       },
       total: 0,
-      dialogVisible: false,
-      form: null,
-      businessData: {},
-      DiaMatchTyp: {}
+      loading: false,
+      treatList: []
     }
   },
   created() {
-    /* if (this.$route.query.pubCoverId) { // 上级页面传入参数
-          this.listQuery.pubCoverId = this.$route.query.pubCoverId
-        }*/
-    // this.fetchData()
-    this.fetchTypeData()
+    this.fetchData()
   },
   mounted() {
   },
@@ -150,61 +126,20 @@ export default {
         this.listLoading = false
       })
     },
-    fetchTypeData() {
-      // 获取codeList
-      getCodeList({ parent: ['DiaMatchTyp'] }).then(res => {
-        this.businessData = res.data
-        // 组装table 的map
-        for (const key in this.businessData) {
-          this.businessData[key].forEach(item => {
-            !this[key] && (this[key] = {})
-            this[key][item.value] = item.label
-          })
-        }
-        this.fetchData()
-      })
-    },
-    handleSave() {
-      this.form = { id: null }
 
-      this.dialogVisible = true
-    },
-    handleEdit(id) {
-      // 跳转到新的页面
-      findById(this.basePath, id).then(response => {
-        this.form = response.data
-      })
-    },
-    handleFinish(row) {
-      row.edit = false
-    },
-    handleSearch(row) {
-
-    },
-    // 子组件的状态Flag，子组件通过`this.$emit('sonStatus', val)`给父组件传值
-    // 父组件通过`@sonStatus`的方法`status`监听到子组件传递的值
-    status(data) {
-      if (data) {
-        this.fetchData()
+    remoteDiagMethod(query) {
+      if (query !== '' && query.length >= 2) {
+        this.treatList = []
+        this.loading = true
+        this.getTreat(query)
+      } else {
+        this.treatList = []
       }
     },
-
-    handleDel(id) {
-      this.$confirm('你确定永久删除此数据？, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        del(this.basePath, id).then(response => {
-          if (response.code === 200) {
-            this._notify(response.msg, 'success')
-          } else {
-            this._notify(response.msg, 'error')
-          }
-          this.fetchData()
-        })
-      }).catch(() => {
-        this._notify('已取消删除', 'info')
+    getTreat(data) {
+      getTreat({ treatDesc: data }).then(response => {
+        this.treatList = response.data
+        this.loading = false
       })
     }
   }

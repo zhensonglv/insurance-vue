@@ -24,3 +24,10 @@ export function getDiag(data) {
   })
 }
 
+export function getTreat(data) {
+  return request({
+    url: '/preview/code/getTreat',
+    method: 'post',
+    data
+  })
+}
