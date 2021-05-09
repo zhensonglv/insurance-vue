@@ -141,6 +141,18 @@ export const constantRoutes = [
     meta: { title: '初审', icon: 'guide', noCache: true },
     children: [
       {
+        path: 'inputBatchInfo',
+        component: () => import('@/views/preview/inputBatchInfo/index'),
+        name: '87批次信息',
+        meta: { title: '87批次信息', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'inputAppInfo',
+        component: () => import('@/views/preview/inputAppInfo/index'),
+        name: '87申请信息',
+        meta: { title: '87申请信息', icon: 'guide', noCache: true }
+      },
+      {
         path: 'index',
         component: () => import('@/views/preview/treatMatch/index'),
         name: '文本匹配',
