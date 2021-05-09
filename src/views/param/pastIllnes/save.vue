@@ -5,7 +5,7 @@
         <el-input v-model="form.paramCde" placeholder="请输入就参数码" disabled="disabled" />
       </el-form-item>
       <el-form-item label="代码类型" prop="codeTyp" label-width="120px">
-        <el-select v-model="form.codeTyp" placeholder="请选择" clearable>
+        <el-select v-model="form.codeTyp" placeholder="请选择" clearable @change="changecodeTyp()">
           <el-option
             v-for="item in businessData.DiaMatchTyp"
             :key="item.value"
@@ -14,32 +14,36 @@
           />
         </el-select>
       </el-form-item>
-      <el-form-item label="起始代码" prop="starCde" label-width="120px">
-        <el-input v-model="form.starCde" placeholder="请选择起始代码">
-          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(1)" />
-        </el-input>
-      </el-form-item>
-      <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
+      <el-row v-show="form.codeTyp=='1'">
+        <el-form-item label="起始代码" prop="starCde" label-width="120px">
+          <el-input v-model="form.starCde" placeholder="请选择起始代码">
+            <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(1)" />
+          </el-input>
+        </el-form-item>
+        <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
 
-      <el-form-item label="起始码描述" prop="starCodeDesc" label-width="120px">
-        <el-input v-model="form.starCodeDesc" placeholder="请输入起始码描述" />
-      </el-form-item>
-      <el-form-item label="终止代码" prop="endCde" label-width="120px">
-        <el-input v-model="form.endCde" placeholder="请选择起始代码">
-          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(2)" />
-        </el-input>
-      </el-form-item>
-      <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
+        <el-form-item label="起始码描述" prop="starCodeDesc" label-width="120px">
+          <el-input v-model="form.starCodeDesc" placeholder="请输入起始码描述" />
+        </el-form-item>
+        <el-form-item label="终止代码" prop="endCde" label-width="120px">
+          <el-input v-model="form.endCde" placeholder="请选择起始代码">
+            <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(2)" />
+          </el-input>
+        </el-form-item>
+        <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
 
-      <el-form-item label="终止码描述" prop="endCodeDesc" label-width="120px">
-        <el-input v-model="form.endCodeDesc" placeholder="请输入终止码描述" />
-      </el-form-item>
-      <el-form-item label="高层诊断码" prop="diaMatParameterCde" label-width="120px">
-        <el-input v-model="form.diaMatParameterCde" placeholder="请输入高层诊断码" />
-      </el-form-item>
-      <el-form-item label="高层诊断码描述" prop="diaMatParameterDesc" label-width="120px">
-        <el-input v-model="form.diaMatParameterDesc" placeholder="请输入高层诊断码描述" />
-      </el-form-item>
+        <el-form-item label="终止码描述" prop="endCodeDesc" label-width="120px">
+          <el-input v-model="form.endCodeDesc" placeholder="请输入终止码描述" />
+        </el-form-item>
+      </el-row>
+      <el-row v-show="form.codeTyp=='2'">
+        <el-form-item label="高层诊断码" prop="diaMatParameterCde" label-width="120px">
+          <el-input v-model="form.diaMatParameterCde" placeholder="请输入高层诊断码" />
+        </el-form-item>
+        <el-form-item label="高层诊断码描述" prop="diaMatParameterDesc" label-width="120px">
+          <el-input v-model="form.diaMatParameterDesc" placeholder="请输入高层诊断码描述" />
+        </el-form-item>
+      </el-row>
       <el-form-item label="既往病史说明" prop="illnessDesc" label-width="120px">
         <el-input v-model="form.illnessDesc" placeholder="请输入既往病史说明" />
       </el-form-item>
@@ -171,6 +175,26 @@ export default {
           return false
         }
       })
+    },
+    changecodeTyp() {
+      if (this.form.starCde !== null && this.form.starCde !== '' && this.form.starCde !== undefined) {
+        this.form.starCde = ''
+      }
+      if (this.form.starCodeDesc !== null && this.form.starCodeDesc !== '' && this.form.starCodeDesc !== undefined) {
+        this.form.starCodeDesc = ''
+      }
+      if (this.form.endCde !== null && this.form.endCde !== '' && this.form.endCde !== undefined) {
+        this.form.endCde = ''
+      }
+      if (this.form.endCodeDesc !== null && this.form.endCodeDesc !== '' && this.form.endCodeDesc !== undefined) {
+        this.form.endCodeDesc = ''
+      }
+      if (this.form.diaMatParameterCde !== null && this.form.diaMatParameterCde !== '' && this.form.diaMatParameterCde !== undefined) {
+        this.form.diaMatParameterCde = ''
+      }
+      if (this.form.diaMatParameterDesc !== null && this.form.diaMatParameterDesc !== '' && this.form.diaMatParameterDesc !== undefined) {
+        this.form.diaMatParameterDesc = ''
+      }
     }
   }
 }

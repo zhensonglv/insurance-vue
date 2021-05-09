@@ -6,7 +6,7 @@
       </el-form-item>
 
       <el-form-item label="代码类型" prop="codeTyp" label-width="120px">
-        <el-select v-model="form.codeTyp" placeholder="请选择" clearable>
+        <el-select v-model="form.codeTyp" placeholder="请选择" clearable @change="changecodeTyp()">
           <el-option
             v-for="item in businessData.DiaMatchTyp"
             :key="item.value"
@@ -15,35 +15,40 @@
           />
         </el-select>
       </el-form-item>
+      <el-row v-show="form.codeTyp=='1'">
+        <el-form-item label="起始代码" prop="bgnCde" label-width="120px">
+          <el-input v-model="form.bgnCde" placeholder="请选择起始代码">
+            <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(1)" />
+          </el-input>
+        </el-form-item>
+        <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
 
-      <el-form-item label="起始代码" prop="bgnCde" label-width="120px">
-        <el-input v-model="form.bgnCde" placeholder="请选择起始代码">
-          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(1)" />
-        </el-input>
-      </el-form-item>
-      <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
+        <el-form-item label="起始代码描述" prop="bgnCodeDesc" label-width="120px">
+          <el-input v-model="form.bgnCodeDesc" placeholder="请输入起始代码描述" />
+        </el-form-item>
 
-      <el-form-item label="起始代码描述" prop="bgnCodeDesc" label-width="120px">
-        <el-input v-model="form.bgnCodeDesc" placeholder="请输入起始代码描述" />
-      </el-form-item>
+        <el-form-item label="终止代码" prop="endCde" label-width="120px">
+          <el-input v-model="form.endCde" placeholder="请选择终止代码">
+            <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(2)" />
+          </el-input>
+        </el-form-item>
+        <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
 
-      <el-form-item label="终止代码" prop="endCde" label-width="120px">
-        <el-input v-model="form.endCde" placeholder="请选择起始代码">
-          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(2)" />
-        </el-input>
-      </el-form-item>
-      <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
+        <el-form-item label="终止代码描述" prop="endCodeDesc" label-width="120px">
+          <el-input v-model="form.endCodeDesc" placeholder="请输入终止代码描述" />
+        </el-form-item>
+      </el-row>
+      <el-row v-show="form.codeTyp=='2'">
+        <el-form-item label="诊断匹配码" prop="diaMatParameterCde" label-width="120px">
+          <el-input v-model="form.diaMatParameterCde" placeholder="请输入就诊匹配码" />
+        </el-form-item>
 
-      <el-form-item label="终止代码描述" prop="endCodeDesc" label-width="120px">
-        <el-input v-model="form.endCodeDesc" placeholder="请输入终止代码描述" />
-      </el-form-item>
-
-      <el-form-item label="意外诊断说明" prop="diaMatDesc" label-width="120px">
-        <el-input v-model="form.diaMatDesc" placeholder="请输入意外诊断说明" />
-      </el-form-item>
-
-      <el-form-item label="就诊匹配码" prop="diaMatParameterCde" label-width="120px">
-        <el-input v-model="form.diaMatParameterCde" placeholder="请输入就诊匹配码" />
+        <el-form-item label="诊断匹配描述" prop="diaMatDesc" label-width="120px">
+          <el-input v-model="form.diaMatDesc" placeholder="请输入就诊匹配描述" />
+        </el-form-item>
+      </el-row>
+      <el-form-item label="意外诊断说明" prop="accidentDiaExp" label-width="120px">
+        <el-input v-model="form.accidentDiaExp" placeholder="请输入意外诊断说明" />
       </el-form-item>
 
     </el-form>
@@ -84,15 +89,16 @@ export default {
         endCde: '',
         endCodeDesc: '',
         diaMatDesc: '',
-        diaMatParameterCde: ''
+        diaMatParameterCde: '',
+        accidentDiaExp: ''
       },
       matchVisable: false,
       matchTyp: null,
       rules: {
-        accidentDiaCde: [{ required: true, trigger: 'blur', message: '请输入意外诊断码' }],
-        codeTyp: [{ required: true, trigger: 'blur', message: '请输入代码类型' }],
-        bgnCde: [{ required: true, trigger: 'blur', message: '请输入起始代码' }],
-        endCde: [{ required: true, trigger: 'blur', message: '请输入终止代码' }]
+        accidentDiaCde: [{ required: true, trigger: 'blur', message: '请输入意外诊断码' }]
+        // codeTyp: [{ required: true, trigger: 'blur', message: '请输入代码类型' }],
+        // bgnCde: [{ required: true, trigger: 'blur', message: '请输入起始代码' }],
+        // endCde: [{ required: true, trigger: 'blur', message: '请输入终止代码' }]
       }
     }
   },
@@ -176,6 +182,26 @@ export default {
           return false
         }
       })
+    },
+    changecodeTyp() {
+      if (this.form.bgnCde !== null && this.form.bgnCde !== '' && this.form.bgnCde !== undefined) {
+        this.form.bgnCde = ''
+      }
+      if (this.form.bgnCodeDesc !== null && this.form.bgnCodeDesc !== '' && this.form.bgnCodeDesc !== undefined) {
+        this.form.bgnCodeDesc = ''
+      }
+      if (this.form.endCde !== null && this.form.endCde !== '' && this.form.endCde !== undefined) {
+        this.form.endCde = ''
+      }
+      if (this.form.endCodeDesc !== null && this.form.endCodeDesc !== '' && this.form.endCodeDesc !== undefined) {
+        this.form.endCodeDesc = ''
+      }
+      if (this.form.diaMatParameterCde !== null && this.form.diaMatParameterCde !== '' && this.form.diaMatParameterCde !== undefined) {
+        this.form.diaMatParameterCde = ''
+      }
+      if (this.form.diaMatDesc !== null && this.form.diaMatDesc !== '' && this.form.diaMatDesc !== undefined) {
+        this.form.diaMatDesc = ''
+      }
     }
   }
 }

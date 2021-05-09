@@ -219,22 +219,19 @@ export default {
       })
     },
     changecodeTyp(codeTyp) {
-      if (this.form.starCde !== null) {
+      if (this.form.starCde !== null && this.form.starCde !== '' && this.form.starCde !== undefined) {
         this.form.starCde = ''
       }
-      if (this.form.starCodeDesc !== null) {
+      if (this.form.starCodeDesc !== null && this.form.starCodeDesc !== '' && this.form.starCodeDesc !== undefined) {
         this.form.starCodeDesc = ''
       }
-      if (this.form.endCde !== null) {
+      if (this.form.endCde !== null && this.form.endCde !== '' && this.form.endCde !== undefined) {
         this.form.endCde = ''
       }
-      if (this.form.endCde !== null) {
-        this.form.endCde = ''
-      }
-      if (this.form.endCodeDesc !== null) {
+      if (this.form.endCodeDesc !== null && this.form.endCodeDesc !== '' && this.form.endCodeDesc !== undefined) {
         this.form.endCodeDesc = ''
       }
-      if (this.form.underTyp !== null) {
+      if (this.form.underTyp !== null && this.form.underTyp !== '' && this.form.underTyp !== undefined) {
         this.form.underTyp = ''
         this.underTyp = false
       }

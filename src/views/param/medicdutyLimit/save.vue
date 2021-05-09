@@ -34,7 +34,7 @@
           />
         </el-select>
       </el-form-item>
-      <el-row v-if="form.codeTyp=='1'">
+      <el-row v-show="form.codeTyp=='1'">
         <el-form-item label="起始代码" prop="bgnCode" label-width="120px">
           <el-input v-model="form.bgnCode" placeholder="请选择起始代码">
             <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(2)" />
@@ -56,7 +56,7 @@
           <el-input v-model="form.endCodeDesc" placeholder="请输入终止代码描述" />
         </el-form-item>
       </el-row>
-      <el-row v-if="form.codeTyp=='2'">
+      <el-row v-show="form.codeTyp=='2'">
         <el-form-item label="诊断匹配码" prop="diaMatchCde" label-width="120px">
           <el-input v-model="form.diaMatchCde" placeholder="请输入诊断匹配码" />
         </el-form-item>
@@ -110,7 +110,7 @@
       </el-row>
 
       <el-form-item label="诊疗代码类型" prop="treatTyp" label-width="120px">
-        <el-select v-model="form.treatTyp" placeholder="请选择" clearable>
+        <el-select v-model="form.treatTyp" placeholder="请选择" clearable @change="changeTreatTyp()">
           <el-option
             v-for="item in businessData.TreatCodeTyp"
             :key="item.value"
@@ -119,19 +119,22 @@
           />
         </el-select>
       </el-form-item>
-      <el-form-item label="起始诊疗码" prop="medicDetailStart" label-width="120px">
-        <el-input v-model="form.medicDetailStart" placeholder="请输入起始诊疗码" />
-      </el-form-item>
-      <el-form-item label="终止诊疗码" prop="medicDetailEnd" label-width="120px">
-        <el-input v-model="form.medicDetailEnd" placeholder="请输入终止诊疗码" />
-      </el-form-item>
-
-      <el-form-item label="高层诊疗码" prop="treatMatchCde" label-width="120px">
-        <el-input v-model="form.treatMatchCde" placeholder="请输入高层诊疗码" />
-      </el-form-item>
-      <el-form-item label="高层诊疗码描述" prop="treatMatchDesc" label-width="120px">
-        <el-input v-model="form.treatMatchDesc" placeholder="请输入高层诊疗码描述" />
-      </el-form-item>
+      <el-row v-show="form.treatTyp=='1'">
+        <el-form-item label="起始诊疗码" prop="medicDetailStart" label-width="120px">
+          <el-input v-model="form.medicDetailStart" placeholder="请输入起始诊疗码" />
+        </el-form-item>
+        <el-form-item label="终止诊疗码" prop="medicDetailEnd" label-width="120px">
+          <el-input v-model="form.medicDetailEnd" placeholder="请输入终止诊疗码" />
+        </el-form-item>
+      </el-row>
+      <el-row v-show="form.treatTyp=='2'">
+        <el-form-item label="高层诊疗码" prop="treatMatchCde" label-width="120px">
+          <el-input v-model="form.treatMatchCde" placeholder="请输入高层诊疗码" />
+        </el-form-item>
+        <el-form-item label="高层诊疗码描述" prop="treatMatchDesc" label-width="120px">
+          <el-input v-model="form.treatMatchDesc" placeholder="请输入高层诊疗码描述" />
+        </el-form-item>
+      </el-row>
 
       <el-form-item label="描述" prop="descCrible" label-width="120px">
         <el-input v-model="form.descCrible" placeholder="请输入参数描述" />
@@ -356,14 +359,37 @@ export default {
       })
     },
     changecodeTyp(codeTyp) {
-      if (codeTyp === '1') {
-        this.form.diaMatchCde = null
-        this.form.diaMatchDesc = null
-      } else if (codeTyp === '2') {
-        this.form.bgnCode = null
-        this.form.bgnCodeDesc = null
-        this.form.endCode = null
-        this.form.endCodeDesc = null
+      if (this.form.bgnCode !== null && this.form.bgnCode !== '' && this.form.bgnCode !== undefined) {
+        this.form.bgnCode = ''
+      }
+      if (this.form.bgnCodeDesc !== null && this.form.bgnCodeDesc !== '' && this.form.bgnCodeDesc !== undefined) {
+        this.form.bgnCodeDesc = ''
+      }
+      if (this.form.endCode !== null && this.form.endCode !== '' && this.form.endCode !== undefined) {
+        this.form.endCode = ''
+      }
+      if (this.form.endCodeDesc !== null && this.form.endCodeDesc !== '' && this.form.endCodeDesc !== undefined) {
+        this.form.endCodeDesc = ''
+      }
+      if (this.form.diaMatchCde !== null && this.form.diaMatchCde !== '' && this.form.diaMatchCde !== undefined) {
+        this.form.diaMatchCde = ''
+      }
+      if (this.form.diaMatchDesc !== null && this.form.diaMatchDesc !== '' && this.form.diaMatchDesc !== undefined) {
+        this.form.diaMatchDesc = ''
+      }
+    },
+    changeTreatTyp() {
+      if (this.form.medicDetailStart !== null && this.form.medicDetailStart !== '' && this.form.medicDetailStart !== undefined) {
+        this.form.medicDetailStart = ''
+      }
+      if (this.form.medicDetailEnd !== null && this.form.medicDetailEnd !== '' && this.form.medicDetailEnd !== undefined) {
+        this.form.medicDetailEnd = ''
+      }
+      if (this.form.treatMatchCde !== null && this.form.treatMatchCde !== '' && this.form.treatMatchCde !== undefined) {
+        this.form.treatMatchCde = ''
+      }
+      if (this.form.treatMatchDesc !== null && this.form.treatMatchDesc !== '' && this.form.treatMatchDesc !== undefined) {
+        this.form.treatMatchDesc = ''
       }
     }
   }

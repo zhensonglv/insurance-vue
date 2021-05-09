@@ -42,7 +42,7 @@
       </el-form-item>
 
       <el-form-item label="诊断码代码类型" prop="quotaCodeTyp" label-width="120px">
-        <el-select v-model="form.quotaCodeTyp" placeholder="请选择" clearable>
+        <el-select v-model="form.quotaCodeTyp" placeholder="请选择" clearable @change="changeQuotaCodeTyp()">
           <el-option
             v-for="item in businessData.DiaMatchTyp"
             :key="item.value"
@@ -52,37 +52,39 @@
         </el-select>
       </el-form-item>
 
-      <el-form-item label="起始诊断代码" prop="quotaStarCde" label-width="120px">
-        <el-input v-model="form.quotaStarCde" placeholder="请选择起始代码">
-          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(3)" />
-        </el-input>
-      </el-form-item>
-      <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
+      <el-row v-show="form.quotaCodeTyp=='1'">
+        <el-form-item label="起始诊断代码" prop="quotaStarCde" label-width="120px">
+          <el-input v-model="form.quotaStarCde" placeholder="请选择起始代码">
+            <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(3)" />
+          </el-input>
+        </el-form-item>
+        <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
 
-      <el-form-item label="起始诊断代码描述" prop="quotaStarCdeDesc" label-width="120px">
-        <el-input v-model="form.quotaStarCdeDesc" placeholder="请输入起始代码描述" />
-      </el-form-item>
+        <el-form-item label="起始诊断代码描述" prop="quotaStarCdeDesc" label-width="120px">
+          <el-input v-model="form.quotaStarCdeDesc" placeholder="请输入起始代码描述" />
+        </el-form-item>
 
-      <el-form-item label="终止诊断代码" prop="quotaEndCde" label-width="120px">
-        <el-input v-model="form.quotaEndCde" placeholder="请选择起始代码">
-          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(4)" />
-        </el-input>
-      </el-form-item>
-      <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
+        <el-form-item label="终止诊断代码" prop="quotaEndCde" label-width="120px">
+          <el-input v-model="form.quotaEndCde" placeholder="请选择起始代码">
+            <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(4)" />
+          </el-input>
+        </el-form-item>
+        <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
 
-      <el-form-item label="终止诊断代码描述" prop="quotaEndCdeDesc" label-width="120px">
-        <el-input v-model="form.quotaEndCdeDesc" placeholder="请输入终止代码描述" />
-      </el-form-item>
-
-      <el-form-item label="高层诊断码" prop="treatMatchCde" label-width="120px">
-        <el-input v-model="form.diaMatParameterCde" placeholder="请输入高层诊疗码" />
-      </el-form-item>
-      <el-form-item label="高层诊断码描述" prop="treatMatchDesc" label-width="120px">
-        <el-input v-model="form.diaMatchDesc" placeholder="请输入高层诊疗码描述" />
-      </el-form-item>
-
+        <el-form-item label="终止诊断代码描述" prop="quotaEndCdeDesc" label-width="120px">
+          <el-input v-model="form.quotaEndCdeDesc" placeholder="请输入终止代码描述" />
+        </el-form-item>
+      </el-row>
+      <el-row v-show="form.quotaCodeTyp=='2'">
+        <el-form-item label="高层诊断码" prop="treatMatchCde" label-width="120px">
+          <el-input v-model="form.diaMatParameterCde" placeholder="请输入高层诊疗码" />
+        </el-form-item>
+        <el-form-item label="高层诊断码描述" prop="treatMatchDesc" label-width="120px">
+          <el-input v-model="form.diaMatchDesc" placeholder="请输入高层诊疗码描述" />
+        </el-form-item>
+      </el-row>
       <el-form-item label="诊疗代码类型" prop="treatTyp" label-width="120px">
-        <el-select v-model="form.treatTyp" placeholder="请选择" clearable>
+        <el-select v-model="form.treatTyp" placeholder="请选择" clearable @change="changeTreatTyp()">
           <el-option
             v-for="item in businessData.TreatCodeTyp"
             :key="item.value"
@@ -91,20 +93,22 @@
           />
         </el-select>
       </el-form-item>
-      <el-form-item label="起始诊疗码" prop="medicDetailStart" label-width="120px">
-        <el-input v-model="form.medicDetailStart" placeholder="请输入起始诊疗码" />
-      </el-form-item>
-      <el-form-item label="终止诊疗码" prop="medicDetailEnd" label-width="120px">
-        <el-input v-model="form.medicDetailEnd" placeholder="请输入终止诊疗码" />
-      </el-form-item>
-
-      <el-form-item label="高层诊疗码" prop="treatMatchCde" label-width="120px">
-        <el-input v-model="form.treatMatchCde" placeholder="请输入高层诊疗码" />
-      </el-form-item>
-      <el-form-item label="高层诊疗码描述" prop="treatMatchDesc" label-width="120px">
-        <el-input v-model="form.treatMatchDesc" placeholder="请输入高层诊疗码描述" />
-      </el-form-item>
-
+      <el-row v-show="form.treatTyp=='1'">
+        <el-form-item label="起始诊疗码" prop="medicDetailStart" label-width="120px">
+          <el-input v-model="form.medicDetailStart" placeholder="请输入起始诊疗码" />
+        </el-form-item>
+        <el-form-item label="终止诊疗码" prop="medicDetailEnd" label-width="120px">
+          <el-input v-model="form.medicDetailEnd" placeholder="请输入终止诊疗码" />
+        </el-form-item>
+      </el-row>
+      <el-row v-show="form.treatTyp=='2'">
+        <el-form-item label="高层诊疗码" prop="treatMatchCde" label-width="120px">
+          <el-input v-model="form.treatMatchCde" placeholder="请输入高层诊疗码" />
+        </el-form-item>
+        <el-form-item label="高层诊疗码描述" prop="treatMatchDesc" label-width="120px">
+          <el-input v-model="form.treatMatchDesc" placeholder="请输入高层诊疗码描述" />
+        </el-form-item>
+      </el-row>
       <el-row>
         <el-form-item label="费用类型" prop="categoryNo" label-width="120px">
           <div class="check">
@@ -379,7 +383,42 @@ export default {
           return false
         }
       })
+    },
+    changeQuotaCodeTyp() {
+      if (this.form.quotaStarCde !== null && this.form.quotaStarCde !== '' && this.form.quotaStarCde !== undefined) {
+        this.form.quotaStarCde = ''
+      }
+      if (this.form.quotaStarCdeDesc !== null && this.form.quotaStarCdeDesc !== '' && this.form.quotaStarCdeDesc !== undefined) {
+        this.form.quotaStarCdeDesc = ''
+      }
+      if (this.form.quotaEndCde !== null && this.form.quotaEndCde !== '' && this.form.quotaEndCde !== undefined) {
+        this.form.quotaEndCde = ''
+      }
+      if (this.form.quotaEndCdeDesc !== null && this.form.quotaEndCdeDesc !== '' && this.form.quotaEndCdeDesc !== undefined) {
+        this.form.quotaEndCdeDesc = ''
+      }
+      if (this.form.diaMatParameterCde !== null && this.form.diaMatParameterCde !== '' && this.form.diaMatParameterCde !== undefined) {
+        this.form.diaMatParameterCde = ''
+      }
+      if (this.form.diaMatchDesc !== null && this.form.diaMatchDesc !== '' && this.form.diaMatchDesc !== undefined) {
+        this.form.diaMatchDesc = ''
+      }
+    },
+    changeTreatTyp() {
+      if (this.form.medicDetailStart !== null && this.form.medicDetailStart !== '' && this.form.medicDetailStart !== undefined) {
+        this.form.medicDetailStart = ''
+      }
+      if (this.form.medicDetailEnd !== null && this.form.medicDetailEnd !== '' && this.form.medicDetailEnd !== undefined) {
+        this.form.medicDetailEnd = ''
+      }
+      if (this.form.treatMatchCde !== null && this.form.treatMatchCde !== '' && this.form.treatMatchCde !== undefined) {
+        this.form.treatMatchCde = ''
+      }
+      if (this.form.treatMatchDesc !== null && this.form.treatMatchDesc !== '' && this.form.treatMatchDesc !== undefined) {
+        this.form.treatMatchDesc = ''
+      }
     }
+
   }
 }
 </script>

@@ -13,7 +13,7 @@
       </el-form-item>
 
       <el-form-item label="代码类型" prop="codeTyp" label-width="120px">
-        <el-select v-model="form.codeTyp" placeholder="请选择" clearable>
+        <el-select v-model="form.codeTyp" placeholder="请选择" clearable @change="changecodeTyp()">
           <el-option
             v-for="item in businessData.DiaMatchTyp"
             :key="item.value"
@@ -22,32 +22,36 @@
           />
         </el-select>
       </el-form-item>
-      <el-form-item label="起始代码" prop="diaBgnCde" label-width="120px">
-        <el-input v-model="form.diaBgnCde" placeholder="请选择起始代码">
-          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(1)" />
-        </el-input>
-      </el-form-item>
-      <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
+      <el-row v-show="form.codeTyp=='1'">
+        <el-form-item label="起始代码" prop="diaBgnCde" label-width="120px">
+          <el-input v-model="form.diaBgnCde" placeholder="请选择起始代码">
+            <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(1)" />
+          </el-input>
+        </el-form-item>
+        <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
 
-      <el-form-item label="起始码描述" prop="diaBgnCdeDesc" label-width="120px">
-        <el-input v-model="form.diaBgnCdeDesc" placeholder="请输入起始码描述" />
-      </el-form-item>
-      <el-form-item label="终止代码" prop="diaEndCde" label-width="120px">
-        <el-input v-model="form.diaEndCde" placeholder="请选择起始代码">
-          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(2)" />
-        </el-input>
-      </el-form-item>
-      <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
+        <el-form-item label="起始码描述" prop="diaBgnCdeDesc" label-width="120px">
+          <el-input v-model="form.diaBgnCdeDesc" placeholder="请输入起始码描述" />
+        </el-form-item>
+        <el-form-item label="终止代码" prop="diaEndCde" label-width="120px">
+          <el-input v-model="form.diaEndCde" placeholder="请选择起始代码">
+            <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(2)" />
+          </el-input>
+        </el-form-item>
+        <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
 
-      <el-form-item label="终止码描述" prop="diaEndCdeDesc" label-width="120px">
-        <el-input v-model="form.diaEndCdeDesc" placeholder="请输入终止码描述" />
-      </el-form-item>
-      <el-form-item label="高层诊断码" prop="diaMatParameterCde" label-width="120px">
-        <el-input v-model="form.diaMatParameterCde" placeholder="请输入高层诊断码" />
-      </el-form-item>
-      <el-form-item label="高层诊断码描述" prop="diaMatParameterDesc" label-width="120px">
-        <el-input v-model="form.diaMatParameterDesc" placeholder="请输入高层诊断码描述" />
-      </el-form-item>
+        <el-form-item label="终止码描述" prop="diaEndCdeDesc" label-width="120px">
+          <el-input v-model="form.diaEndCdeDesc" placeholder="请输入终止码描述" />
+        </el-form-item>
+      </el-row>
+      <el-row v-show="form.codeTyp=='2'">
+        <el-form-item label="高层诊断码" prop="diaMatParameterCde" label-width="120px">
+          <el-input v-model="form.diaMatParameterCde" placeholder="请输入高层诊断码" />
+        </el-form-item>
+        <el-form-item label="高层诊断码描述" prop="diaMatParameterDesc" label-width="120px">
+          <el-input v-model="form.diaMatParameterDesc" placeholder="请输入高层诊断码描述" />
+        </el-form-item>
+      </el-row>
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="handleClose">
@@ -179,6 +183,26 @@ export default {
           return false
         }
       })
+    },
+    changecodeTyp() {
+      if (this.form.diaBgnCde !== null && this.form.diaBgnCde !== '' && this.form.diaBgnCde !== undefined) {
+        this.form.diaBgnCde = ''
+      }
+      if (this.form.diaBgnCdeDesc !== null && this.form.diaBgnCdeDesc !== '' && this.form.diaBgnCdeDesc !== undefined) {
+        this.form.diaBgnCdeDesc = ''
+      }
+      if (this.form.diaEndCde !== null && this.form.diaEndCde !== '' && this.form.diaEndCde !== undefined) {
+        this.form.diaEndCde = ''
+      }
+      if (this.form.diaEndCdeDesc !== null && this.form.diaEndCdeDesc !== '' && this.form.diaEndCdeDesc !== undefined) {
+        this.form.diaEndCdeDesc = ''
+      }
+      if (this.form.diaMatParameterCde !== null && this.form.diaMatParameterCde !== '' && this.form.diaMatParameterCde !== undefined) {
+        this.form.diaMatParameterCde = ''
+      }
+      if (this.form.diaMatParameterDesc !== null && this.form.diaMatParameterDesc !== '' && this.form.diaMatParameterDesc !== undefined) {
+        this.form.diaMatParameterDesc = ''
+      }
     }
   }
 }
