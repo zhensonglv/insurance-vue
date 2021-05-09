@@ -25,7 +25,7 @@
         <el-input v-model="form.codeDesc" placeholder="请输入说明" />
       </el-form-item>
 
-      <el-row v-if="form.codeTyp=='1'">
+      <el-row v-show="form.codeTyp=='1'">
         <el-form-item label="起始代码" prop="starCde" label-width="120px">
           <el-input v-model="form.starCde" placeholder="请选择起始代码">
             <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(1)" />
@@ -48,7 +48,7 @@
           <el-input v-model="form.endCodeDesc" placeholder="请输入终止代码描述" />
         </el-form-item>
       </el-row>
-      <el-row v-if="form.codeTyp=='2'">
+      <el-row v-show="form.codeTyp=='2'">
         <el-form-item label="起始代码" prop="starCde" label-width="120px">
           <el-input v-model="form.starCde" placeholder="请输入起始代码" @change="changeCode" />
         </el-form-item>
