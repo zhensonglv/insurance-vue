@@ -89,12 +89,19 @@ export default {
     handleTab(count) {
       this.expandArr = []
       const levelIds = this.getExpandArr(this.treeData)
-      this.expandArr = levelIds.slice(0, count + 1)
+      for (const item of levelIds) {
+        if (item.level <= count) {
+          this.expandArr.push(item.id)
+        }
+      }
     },
     getExpandArr(data) {
       return data.reduce((list, item) => {
-        const { children, id } = item
-        list.push(id)
+        const { children, id, level } = item
+        list.push({
+          level: level,
+          id: id
+        })
         if (children && children.length > 0) {
           list = list.concat(this.getExpandArr(children))
         }
