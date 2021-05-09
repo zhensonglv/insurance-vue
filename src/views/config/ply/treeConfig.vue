@@ -151,7 +151,6 @@ export default {
       })
     },
     handleNodeClick(data) {
-      console.log(data, '---')
       this.setTreeData = data
     },
     fetchTreeData() {
@@ -168,12 +167,12 @@ export default {
         this.form = response.data
       })
     },
-
     handlePublish() {
       publish(this.basePath, this.treeQuery).then(response => {
         if (response.code === 200) {
+          this.setTreeData = {}
           this._notify('发布成功', 'success')
-          this.fetchTreeData()
+          this.handleNodeClick()
         } else {
           this._notify(response.msg, 'error')
         }
