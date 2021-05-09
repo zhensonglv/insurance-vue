@@ -219,12 +219,25 @@ export default {
       })
     },
     changecodeTyp(codeTyp) {
-      // this.form.starCde = null
-      // this.form.starCodeDesc = null
-      // this.form.endCde = null
-      // this.form.endCodeDesc = null
-      // this.form.underTyp = null
-      this.underTyp = false
+      if (this.form.starCde !== null) {
+        this.form.starCde = ''
+      }
+      if (this.form.starCodeDesc !== null) {
+        this.form.starCodeDesc = ''
+      }
+      if (this.form.endCde !== null) {
+        this.form.endCde = ''
+      }
+      if (this.form.endCde !== null) {
+        this.form.endCde = ''
+      }
+      if (this.form.endCodeDesc !== null) {
+        this.form.endCodeDesc = ''
+      }
+      if (this.form.underTyp !== null) {
+        this.form.underTyp = ''
+        this.underTyp = false
+      }
     }
   }
 }
