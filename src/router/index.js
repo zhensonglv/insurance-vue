@@ -153,6 +153,12 @@ export const constantRoutes = [
         meta: { title: '87申请信息', icon: 'guide', noCache: true }
       },
       {
+        path: 'inputInvInfo',
+        component: () => import('@/views/preview/inputInvInfo/index'),
+        name: '87账单信息',
+        meta: { title: '87账单信息', icon: 'guide', noCache: true }
+      },
+      {
         path: 'index',
         component: () => import('@/views/preview/treatMatch/index'),
         name: '文本匹配',
