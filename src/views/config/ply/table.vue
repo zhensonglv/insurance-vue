@@ -83,11 +83,14 @@ export default {
   watch: {
     setTreeData: {
       handler(v) {
-        this.treeType = v.type
-        this.treeId = v.id
-        this.fetchTypeData()
+        if (Object.keys(v).length > 0) {
+          this.treeType = v.type
+          this.treeId = v.id
+          this.fetchTypeData()
+        }
       },
-      immediate: true
+      immediate: true,
+      deep: true
     }
   },
   methods: {
