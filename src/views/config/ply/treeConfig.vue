@@ -59,6 +59,7 @@ export default {
     return {
       expandArr: [],
       setTreeData: {},
+      setTreeDataCopy: {},
       rowId: null,
       basePath: 'plyTreeConfig',
       paramPath: 'plyTreeSetParam',
@@ -69,6 +70,7 @@ export default {
       },
       form: null,
       treeData: [],
+      treeDataCopy: [],
       tabData: ['集团', '团体', '保单', '等级', '产品', '险种', '责任']
     }
   },
@@ -86,7 +88,10 @@ export default {
         type: type
       })
     },
-    handleTab(count) {
+    async handleTab(count) {
+      this.treeData = []
+      await this.$nextTick()
+      this.treeData = this.treeDataCopy
       this.expandArr = []
       const levelIds = this.getExpandArr(this.treeData)
       for (const item of levelIds) {
@@ -151,11 +156,13 @@ export default {
       })
     },
     handleNodeClick(data) {
+      this.setTreeDataCopy = data
       this.setTreeData = data
     },
     fetchTreeData() {
       getTree(this.basePath, this.treeQuery).then(response => {
         this.treeData = response.data
+        this.treeDataCopy = response.data
       })
     },
     handleSave() {
@@ -172,7 +179,9 @@ export default {
         if (response.code === 200) {
           this.setTreeData = {}
           this._notify('发布成功', 'success')
-          this.handleNodeClick()
+          this.$nextTick(_ => {
+            this.setTreeData = this.setTreeDataCopy
+          })
         } else {
           this._notify(response.msg, 'error')
         }
