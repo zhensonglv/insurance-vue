@@ -59,13 +59,13 @@
       <el-form-item label="科室代码" prop="isMust" label-width="120px">
         <el-input v-model="form.isMust" placeholder="请输入科室代码" />
       </el-form-item>
-      <el-form-item label="疾病代码" prop="diagDesc" label-width="120px">
+      <el-form-item label="诊断" prop="diagDesc" label-width="120px">
         <el-select
           v-model="form.diagDesc"
           filterable
           remote
           reserve-keyword
-          placeholder="请输入疾病代码支持模糊查询)"
+          placeholder="请输入诊断描述(支持模糊查询)"
           :remote-method="remoteDiagMethod"
           :loading="loading"
           @change="changeDiagCde"
@@ -77,6 +77,10 @@
             :value="item.label"
           />
         </el-select>
+      </el-form-item>
+
+      <el-form-item label="诊断码" prop="isMust" label-width="120px">
+        <el-input v-model="form.diagCde" placeholder="请输入诊断码" />
       </el-form-item>
 
       <el-form-item label="账单类型" prop="invTyp" label-width="120px">

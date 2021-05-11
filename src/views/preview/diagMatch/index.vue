@@ -13,7 +13,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="序号" width="250">
+        <el-table-column align="center" label="序号" width="200">
           <template slot-scope="scope">
             {{ scope.row.idx }}
           </template>
@@ -25,25 +25,25 @@
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="报案号" width="250">
+        <el-table-column align="center" label="报案号" width="200">
           <template slot-scope="scope">
             {{ scope.row.caseNo }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="姓名" width="250">
+        <el-table-column align="center" label="姓名" width="200">
           <template slot-scope="scope">
             {{ scope.row.appNme }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="证件类型" width="250">
+        <el-table-column align="center" label="证件类型" width="200">
           <template slot-scope="scope">
             {{ scope.row.certCls }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="证件号" width="250">
+        <el-table-column align="center" label="证件号" width="200">
           <template slot-scope="scope">
             {{ scope.row.certCde }}
           </template>
@@ -51,8 +51,7 @@
 
         <el-table-column align="center" label="操作" fixed="right">
           <template slot-scope="scope">
-            <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)">编辑</el-button>
-            <el-button type="danger" size="mini" icon="el-icon-delete" class="action-button" @click="handleDel(scope.row.id)">删除</el-button>
+            <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)">操作</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -73,51 +72,64 @@
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="批次号" width="250">
+        <el-table-column align="center" label="发票号" width="200">
           <template slot-scope="scope">
-            {{ scope.row.batchNo }}
+            {{ scope.row.invNo }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="对应人员层序号" width="250">
+        <el-table-column align="center" label="诊断" width="200">
           <template slot-scope="scope">
-            {{ scope.row.appId }}
+            <el-select
+              v-model="scope.row.diagDesc"
+              filterable
+              remote
+              reserve-keyword
+              placeholder="请输入疾病代码支持模糊查询)"
+              :remote-method="remoteDiagMethod"
+              :loading="loadDiag"
+              @change="changeDiagCde(scope.row)"
+            >
+              <el-option
+                v-for="item in diagList"
+                :key="item.value"
+                :label="item.label"
+                :value="item.label"
+              />
+            </el-select>
           </template>
         </el-table-column>
-        <el-table-column align="center" label="就诊医院代码" width="250">
+        <el-table-column align="center" label="诊断码" width="200">
           <template slot-scope="scope">
-            {{ scope.row.hospitalNo }}
+            {{ scope.row.diagCde }}
           </template>
         </el-table-column>
-
-        <el-table-column align="center" label="医院名称" width="250">
-          <template slot-scope="scope">
-            {{ scope.row.hospitalNme }}
-          </template>
-        </el-table-column>
-
-        <el-table-column align="center" label="科室代码" width="250">
-          <template slot-scope="scope">
-            {{ scope.row.hospitalDepart }}
-          </template>
-        </el-table-column>
-
-        <el-table-column align="center" label="账单类型" width="250">
+        <el-table-column align="center" label="账单类型" width="200">
           <template slot-scope="scope">
             {{ scope.row.invTyp }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="发票金额" width="250">
+        <el-table-column align="center" label="就诊日期" width="200">
           <template slot-scope="scope">
-            {{ scope.row.sumAmt }}
+            {{ scope.row.outpatientTm }}
           </template>
         </el-table-column>
 
+        <el-table-column align="center" label="入院日期" width="200">
+          <template slot-scope="scope">
+            {{ scope.row.inHospBgnTm }}
+          </template>
+        </el-table-column>
+
+        <el-table-column align="center" label="出院日期" width="200">
+          <template slot-scope="scope">
+            {{ scope.row.inHospEndTm }}
+          </template>
+        </el-table-column>
         <el-table-column align="center" label="操作" fixed="right">
           <template slot-scope="scope">
-            <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)">编辑</el-button>
-            <el-button type="danger" size="mini" icon="el-icon-delete" class="action-button" @click="handleDel(scope.row.id)">删除</el-button>
+            <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleInvEdit(scope.row)">保存</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -133,8 +145,9 @@
 </template>
 
 <script>
-import { getList, findById } from '@/api/preview/base'
+import { getList, edit } from '@/api/preview/base'
 import Pagination from '@/components/Pagination'
+import { getDiag } from '@/api/preview/code'
 
 export default {
   components: { Pagination },
@@ -160,6 +173,8 @@ export default {
       },
       total: 0,
       invTotal: 0,
+      loadDiag: false,
+      diagList: [],
       businessData: {}
     }
   },
@@ -187,6 +202,8 @@ export default {
     },
     fetchInvData() {
       this.listInvLoading = true
+      this.diagList = []
+      this.loadDiag = false
       getList(this.invPath, this.invQuery).then(response => {
         this.invList = response.data.data
         this.invTotal = response.data.total
@@ -194,10 +211,46 @@ export default {
       })
     },
     handleEdit(id) {
-      // 跳转到新的页面
-      findById(this.basePath, id).then(response => {
-        this.form = response.data
+      this.invQuery.appPkId = id
+      this.fetchInvData()// 默认查询出第一条
+    },
+    /**
+     * 修改账单保存
+     * @param row
+     */
+    handleInvEdit(row) {
+      edit(this.invPath, row).then(response => {
+        if (response.code === 200) {
+          this._notify(response.msg, 'success')
+        } else {
+          this._notify(response.msg, 'error')
+        }
       })
+    },
+
+    remoteDiagMethod(query) {
+      if (query !== '' && query.length >= 2) {
+        this.diagList = []
+        this.loadDiag = true
+        this.getDiag(query)
+      } else {
+        this.diagList = []
+      }
+    },
+    getDiag(data) {
+      getDiag({ diaDesc: data }).then(response => {
+        this.diagList = response.data
+        this.loadDiag = false
+      })
+    },
+    changeDiagCde(row) {
+      var current = this.row.diagDesc
+      var item = this.diagList.filter(function(c, i, a) { // c:当前项  i : 索引  a:原值
+        if (c.label === current) {
+          return c
+        }
+      })
+      this.row.diagCde = item[0].value
     }
   }
 }
