@@ -146,7 +146,7 @@
 </template>
 
 <script>
-import { save, edit } from '@/api/base'
+import { save, edit } from '@/api/preview/base'
 
 export default {
   // 父组件向子组件传值，通过props获取。
