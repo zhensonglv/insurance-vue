@@ -244,13 +244,13 @@ export default {
       })
     },
     changeDiagCde(row) {
-      var current = this.row.diagDesc
+      var current = row.diagDesc
       var item = this.diagList.filter(function(c, i, a) { // c:当前项  i : 索引  a:原值
         if (c.label === current) {
           return c
         }
       })
-      this.row.diagCde = item[0].value
+      row.diagCde = item[0].value
     }
   }
 }
