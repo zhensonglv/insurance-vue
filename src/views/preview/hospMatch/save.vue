@@ -98,8 +98,8 @@
         <el-input v-model="form.occupationDesc" placeholder="请输入职业描述" />
       </el-form-item>
 
-      <el-form-item label="状态" prop="appStatus" label-width="120px">
-        <el-input v-model="form.appStatus" placeholder="请输入状态" />
+      <el-form-item label="状态" prop="status" label-width="120px">
+        <el-input v-model="form.status" placeholder="请输入状态" />
       </el-form-item>
 
       <el-form-item label="保单号" prop="plyNo" label-width="120px">
@@ -160,7 +160,7 @@ export default {
         applyHangRemark: '',
         occupationType: '',
         occupationDesc: '',
-        appStatus: '',
+        status: '',
         plyNo: '',
         backReson: ''
       },
@@ -214,7 +214,7 @@ export default {
       this.form.applyHangRemark = null
       this.form.occupationType = null
       this.form.occupationDesc = null
-      this.form.appStatus = null
+      this.form.status = null
       this.form.plyNo = null
       this.form.backReson = null
     },

@@ -36,17 +36,47 @@
       <el-form-item label="就诊医院代码" prop="hospitalNo" label-width="120px">
         <el-input v-model="form.hospitalNo" placeholder="请输入就诊医院代码" />
       </el-form-item>
-
       <el-form-item label="医院名称" prop="hospitalNme" label-width="120px">
-        <el-input v-model="form.hospitalNme" placeholder="请输入医院名称" />
+        <el-select
+          v-model="form.hospitalNme"
+          filterable
+          remote
+          reserve-keyword
+          placeholder="请输入医院名称(支持模糊查询)"
+          :remote-method="remoteMethod"
+          :loading="loading"
+          @change="changeHospNo"
+        >
+          <el-option
+            v-for="item in hospList"
+            :key="item.value"
+            :label="item.label"
+            :value="item.label"
+          />
+        </el-select>
       </el-form-item>
 
       <el-form-item label="科室代码" prop="isMust" label-width="120px">
         <el-input v-model="form.isMust" placeholder="请输入科室代码" />
       </el-form-item>
-
-      <el-form-item label="疾病代码" prop="diagCde" label-width="120px">
-        <el-input v-model="form.diagCde" placeholder="请输入疾病代码" />
+      <el-form-item label="疾病代码" prop="diagDesc" label-width="120px">
+        <el-select
+          v-model="form.diagDesc"
+          filterable
+          remote
+          reserve-keyword
+          placeholder="请输入疾病代码支持模糊查询)"
+          :remote-method="remoteDiagMethod"
+          :loading="loading"
+          @change="changeDiagCde"
+        >
+          <el-option
+            v-for="item in diagList"
+            :key="item.value"
+            :label="item.label"
+            :value="item.label"
+          />
+        </el-select>
       </el-form-item>
 
       <el-form-item label="账单类型" prop="invTyp" label-width="120px">
@@ -147,6 +177,7 @@
 
 <script>
 import { save, edit } from '@/api/preview/base'
+import { getDiag, getHospital } from '@/api/preview/code'
 
 export default {
   // 父组件向子组件传值，通过props获取。
@@ -165,6 +196,7 @@ export default {
         hospitalNme: '',
         isMust: '',
         diagCde: '',
+        diagDesc: '',
         invTyp: '',
         invNo: '',
         sumAmt: '',
@@ -189,10 +221,12 @@ export default {
         clmHangRemark: '',
         inHospEndTm: ''
       },
+      loading: false,
+      loadDiag: false,
+      diagList: [],
+      hospList: [],
       rules: {
-        /* effectiveTm: [{ required: true, trigger: 'blur', message: '请输入生效日' }],
-        expiryTm: [{ required: true, trigger: 'blur', message: '请输入终止日' }],
-        lifeStyleDesc: [{ required: true, trigger: 'blur', message: '请输入生活方式描述' }]*/
+
       }
     }
   },
@@ -214,12 +248,63 @@ export default {
         type: type
       })
     },
+    // ---------------疾病代码搜索------------------
+    remoteDiagMethod(query) {
+      if (query !== '' && query.length >= 2) {
+        this.diagList = []
+        this.loadDiag = true
+        this.getDiag(query)
+      } else {
+        this.diagList = []
+      }
+    },
+    getDiag(data) {
+      getDiag({ diaDesc: data }).then(response => {
+        this.diagList = response.data
+        this.loadDiag = false
+      })
+    },
+    changeDiagCde() {
+      var current = this.form.diagDesc
+      var item = this.diagList.filter(function(c, i, a) { // c:当前项  i : 索引  a:原值
+        if (c.label === current) {
+          return c
+        }
+      })
+      this.form.diagCde = item[0].value
+    },
+    // -------------医院搜索---------------
+    remoteMethod(query) {
+      if (query !== '' && query.length >= 2) {
+        this.hospList = []
+        this.loading = true
+        this.getHospital(query)
+      } else {
+        this.hospList = []
+      }
+    },
+    getHospital(data) {
+      getHospital({ hospName: data }).then(response => {
+        this.hospList = response.data
+        this.loading = false
+      })
+    },
+    changeHospNo() {
+      var current = this.form.hospitalNme
+      var item = this.hospList.filter(function(c, i, a) { // c:当前项  i : 索引  a:原值
+        if (c.label === current) {
+          return c
+        }
+      })
+      this.form.hospitalNo = item[0].value
+    },
     clearForm() {
       this.form.appId = null
       this.form.hospitalNo = null
       this.form.hospitalNme = null
       this.form.isMust = null
       this.form.diagCde = null
+      this.form.diagDesc = null
       this.form.invTyp = null
       this.form.invNo = null
       this.form.sumAmt = null
@@ -243,6 +328,8 @@ export default {
       this.form.clmHangCause = null
       this.form.clmHangRemark = null
       this.form.inHospEndTm = null
+      this.hospList = []
+      this.diagList = []
     },
     handleClose() {
       this.clearForm()

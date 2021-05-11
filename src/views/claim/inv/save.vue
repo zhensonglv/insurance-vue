@@ -75,7 +75,7 @@
                 reserve-keyword
                 placeholder="请输入诊断描述(支持模糊查询)"
                 :remote-method="remoteDiagMethod"
-                :loading="loading"
+                :loading="loadDiag"
                 @change="changeDiagCde"
               >
                 <el-option

@@ -143,19 +143,19 @@ export const constantRoutes = [
       {
         path: 'inputBatchInfo',
         component: () => import('@/views/preview/inputBatchInfo/index'),
-        name: '87批次信息',
+        name: '批次信息',
         meta: { title: '87批次信息', icon: 'guide', noCache: true }
       },
       {
         path: 'inputAppInfo',
         component: () => import('@/views/preview/inputAppInfo/index'),
-        name: '87申请信息',
+        name: '申请信息',
         meta: { title: '87申请信息', icon: 'guide', noCache: true }
       },
       {
         path: 'inputInvInfo',
         component: () => import('@/views/preview/inputInvInfo/index'),
-        name: '87账单信息',
+        name: '账单信息',
         meta: { title: '87账单信息', icon: 'guide', noCache: true }
       },
       {
@@ -187,7 +187,22 @@ export const constantRoutes = [
         component: () => import('@/views/client/group/index'),
         name: '诊断详情',
         meta: { title: '诊断详情', icon: 'guide', noCache: true }
+      },
+
+      {
+        path: 'hospMatch',
+        component: () => import('@/views/preview/hospMatch/index'),
+        name: '医院匹配',
+        meta: { title: '医院匹配', icon: 'guide', noCache: true }
+      },
+
+      {
+        path: 'diagMatch',
+        component: () => import('@/views/preview/diagMatch/index'),
+        name: '诊断匹配',
+        meta: { title: '诊断匹配', icon: 'guide', noCache: true }
       }
+
     ]
   },
   {

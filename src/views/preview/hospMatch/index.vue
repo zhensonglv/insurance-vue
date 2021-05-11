@@ -14,44 +14,39 @@
           </template>
         </el-table-column>
 
+        <el-table-column align="center" label="序号" width="250">
+          <template slot-scope="scope">
+            {{ scope.row.idx }}
+          </template>
+        </el-table-column>
+
         <el-table-column align="center" label="批次号" width="250">
           <template slot-scope="scope">
             {{ scope.row.batchNo }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="对应人员层序号" width="250">
+        <el-table-column align="center" label="报案号" width="250">
           <template slot-scope="scope">
-            {{ scope.row.appId }}
-          </template>
-        </el-table-column>
-        <el-table-column align="center" label="就诊医院代码" width="250">
-          <template slot-scope="scope">
-            {{ scope.row.hospitalNo }}
+            {{ scope.row.caseNo }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="医院名称" width="250">
+        <el-table-column align="center" label="姓名" width="250">
           <template slot-scope="scope">
-            {{ scope.row.hospitalNme }}
+            {{ scope.row.appNme }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="科室代码" width="250">
+        <el-table-column align="center" label="证件类型" width="250">
           <template slot-scope="scope">
-            {{ scope.row.hospitalDepart }}
+            {{ scope.row.certCls }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="账单类型" width="250">
+        <el-table-column align="center" label="证件号" width="250">
           <template slot-scope="scope">
-            {{ scope.row.invTyp }}
-          </template>
-        </el-table-column>
-
-        <el-table-column align="center" label="发票金额" width="250">
-          <template slot-scope="scope">
-            {{ scope.row.sumAmt }}
+            {{ scope.row.certCde }}
           </template>
         </el-table-column>
 
@@ -88,7 +83,7 @@ export default {
     return {
       list: null,
       listLoading: true,
-      basePath: 'inputInvInfo',
+      basePath: 'inputAppInfo',
       listQuery: {
         pageNum: 1,
         pageSize: 10,
