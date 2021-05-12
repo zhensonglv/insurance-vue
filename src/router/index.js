@@ -144,19 +144,25 @@ export const constantRoutes = [
         path: 'inputBatchInfo',
         component: () => import('@/views/preview/inputBatchInfo/index'),
         name: '批次信息',
-        meta: { title: '87批次信息', icon: 'guide', noCache: true }
+        meta: { title: '批次信息', icon: 'guide', noCache: true }
       },
       {
         path: 'inputAppInfo',
         component: () => import('@/views/preview/inputAppInfo/index'),
         name: '申请信息',
-        meta: { title: '87申请信息', icon: 'guide', noCache: true }
+        meta: { title: '申请信息', icon: 'guide', noCache: true }
       },
       {
         path: 'inputInvInfo',
         component: () => import('@/views/preview/inputInvInfo/index'),
         name: '账单信息',
-        meta: { title: '87账单信息', icon: 'guide', noCache: true }
+        meta: { title: '账单信息', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'inputTreatInfo',
+        component: () => import('@/views/preview/inputTreatInfo/index'),
+        name: '明细信息',
+        meta: { title: '明细信息', icon: 'guide', noCache: true }
       },
       {
         path: 'index',
