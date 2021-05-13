@@ -207,6 +207,12 @@ export const constantRoutes = [
         component: () => import('@/views/preview/diagMatch/index'),
         name: '诊断匹配',
         meta: { title: '诊断匹配', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'invdeduct',
+        component: () => import('@/views/preview/invDeduct/index'),
+        name: '人工扣费',
+        meta: { title: '人工扣费', icon: 'guide', noCache: true }
       }
 
     ]

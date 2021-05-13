@@ -89,6 +89,10 @@
     </el-card>
     <el-card>
       <br>
+      <div>
+        待处理账单
+      </div>
+      <br>
       <el-table v-loading="listInvLoading" :data="invList" element-loading-text="Loading" border fit highlight-current-row>
         <el-table-column align="center" label="序号" width="95">
           <template slot-scope="scope">
@@ -96,66 +100,66 @@
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="发票号" width="200">
+        <el-table-column align="center" label="发票号" width="150">
           <template slot-scope="scope">
             {{ scope.row.invNo }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="诊断" width="200">
-          <template slot-scope="scope">
-            <el-select
-              v-model="scope.row.diagDesc"
-              filterable
-              remote
-              reserve-keyword
-              placeholder="请输入疾病代码支持模糊查询)"
-              :remote-method="remoteDiagMethod"
-              :loading="loadDiag"
-              @change="changeDiagCde(scope.row)"
-            >
-              <el-option
-                v-for="item in diagList"
-                :key="item.value"
-                :label="item.label"
-                :value="item.label"
-              />
-            </el-select>
-          </template>
-        </el-table-column>
-        <el-table-column align="center" label="诊断码" width="200">
-          <template slot-scope="scope">
-            {{ scope.row.diagCde }}
-          </template>
-        </el-table-column>
-        <el-table-column align="center" label="账单类型" width="200">
-          <template slot-scope="scope">
-            {{ scope.row.invTyp }}
-          </template>
-        </el-table-column>
-
-        <el-table-column align="center" label="就诊日期" width="200">
+        <el-table-column align="center" label="就诊日期" width="150">
           <template slot-scope="scope">
             {{ scope.row.outpatientTm }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="入院日期" width="200">
+        <el-table-column align="center" label="入院日期" width="150">
           <template slot-scope="scope">
             {{ scope.row.inHospBgnTm }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="出院日期" width="200">
+        <el-table-column align="center" label="出院日期" width="150">
           <template slot-scope="scope">
             {{ scope.row.inHospEndTm }}
           </template>
         </el-table-column>
+
+        <el-table-column align="center" label="医院名称" :show-overflow-tooltip="true" width="200">
+          <template slot-scope="scope">
+            {{ scope.row.hospName }}
+          </template>
+        </el-table-column>
+
+        <el-table-column align="center" label="科室" width="150">
+          <template slot-scope="scope">
+            {{ scope.row.hospitalDepart }}
+          </template>
+        </el-table-column>
+
+        <el-table-column align="center" label="疾病名称" :show-overflow-tooltip="true" width="150">
+          <template slot-scope="scope">
+            {{ scope.row.diagDesc }}
+          </template>
+        </el-table-column>
+
+        <el-table-column align="center" label="账单类型" width="100">
+          <template slot-scope="scope">
+            {{ scope.row.invTyp }}
+          </template>
+        </el-table-column>
+
+        <el-table-column align="center" label="是否特需" width="100">
+          <template slot-scope="scope">
+            {{ scope.row.isMust }}
+          </template>
+        </el-table-column>
+
         <el-table-column align="center" label="操作" fixed="right">
           <template slot-scope="scope">
             <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleInvEdit(scope.row)">保存</el-button>
           </template>
         </el-table-column>
+
       </el-table>
       <pagination
         v-show="invTotal>0"

@@ -13,39 +13,63 @@
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="序号" width="200">
-          <template slot-scope="scope">
-            {{ scope.row.idx }}
-          </template>
-        </el-table-column>
-
-        <el-table-column align="center" label="批次号" width="250">
+        <el-table-column align="center" label="申请号" :show-overflow-tooltip="true" width="200">
           <template slot-scope="scope">
             {{ scope.row.batchNo }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="报案号" width="200">
+        <el-table-column align="center" label="案件号" width="150">
           <template slot-scope="scope">
             {{ scope.row.caseNo }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="姓名" width="200">
+        <el-table-column align="center" label="申请文档编号" :show-overflow-tooltip="true" width="150">
+          <template slot-scope="scope">
+            {{ scope.row.customAppNo }}
+          </template>
+        </el-table-column>
+
+        <el-table-column align="center" label="姓名" :show-overflow-tooltip="true" width="200">
           <template slot-scope="scope">
             {{ scope.row.appNme }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="证件类型" width="200">
+        <el-table-column align="center" label="被保人id" width="100">
+          <template slot-scope="scope">
+            {{ scope.row.insuredId }}
+          </template>
+        </el-table-column>
+
+        <el-table-column align="center" label="证件类型" width="100">
           <template slot-scope="scope">
             {{ scope.row.certCls }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="证件号" width="200">
+        <el-table-column align="center" label="证件号" :show-overflow-tooltip="true" width="150">
           <template slot-scope="scope">
             {{ scope.row.certCde }}
+          </template>
+        </el-table-column>
+
+        <el-table-column align="center" label="申请日期" width="150">
+          <template slot-scope="scope">
+            {{ scope.row.appTm }}
+          </template>
+        </el-table-column>
+
+        <el-table-column align="center" label="账单张数" width="100">
+          <template slot-scope="scope">
+            {{ scope.row.invNum }}
+          </template>
+        </el-table-column>
+
+        <el-table-column align="center" label="案件状态" width="150">
+          <template slot-scope="scope">
+            {{ scope.row.appStatus }}
           </template>
         </el-table-column>
 
@@ -257,3 +281,8 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">//该样式在scope中是不起作用的
+.el-tooltip__popper{font-size: 14px; max-width:50% }
+</style>
+
