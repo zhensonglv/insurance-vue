@@ -28,7 +28,7 @@
 
         <el-table-column align="center" label="状态" width="150">
           <template slot-scope="scope">
-            {{ scope.row.status }}
+            {{ scope.row.batchStatus }}
           </template>
         </el-table-column>
 

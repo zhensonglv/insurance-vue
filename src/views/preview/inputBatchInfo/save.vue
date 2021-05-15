@@ -9,8 +9,8 @@
         <el-input v-model="form.online" placeholder="请输入线上/线下" />
       </el-form-item>
 
-      <el-form-item label="状态" prop="status" label-width="120px">
-        <el-input v-model="form.status" placeholder="请输入状态" />
+      <el-form-item label="状态" prop="batchStatus" label-width="120px">
+        <el-input v-model="form.batchStatus" placeholder="请输入状态" />
       </el-form-item>
 
       <el-form-item label="申请数量" prop="appNum" label-width="120px">
@@ -75,7 +75,7 @@ export default {
         id: '',
         batchNo: '',
         online: '',
-        status: '',
+        batchStatus: '',
         appNum: '',
         orgin: '',
         plyNo: '',
@@ -114,7 +114,7 @@ export default {
       this.form.id = null
       this.form.batchNo = null
       this.form.online = null
-      this.form.status = null
+      this.form.batchStatus = null
       this.form.appNum = null
       this.form.orgin = null
       this.form.plyNo = null

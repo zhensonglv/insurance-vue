@@ -188,7 +188,6 @@ export default {
       this.dialogVisible = true
     },
     handleEdit(id) {
-      debugger
       // 跳转到新的页面
       findById(this.basePath, id).then(response => {
         this.form = response.data

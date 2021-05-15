@@ -57,7 +57,7 @@
       </el-form-item>
 
       <el-form-item label="科室代码" prop="isMust" label-width="120px">
-        <el-input v-model="form.isMust" placeholder="请输入科室代码" />
+        <el-input v-model="form.hospitalDepart" placeholder="请输入科室代码" />
       </el-form-item>
       <el-form-item label="诊断" prop="diagDesc" label-width="120px">
         <el-select
@@ -198,6 +198,7 @@ export default {
         appId: '',
         hospitalNo: '',
         hospitalNme: '',
+        hospitalDepart: '',
         isMust: '',
         diagCde: '',
         diagDesc: '',
@@ -306,6 +307,7 @@ export default {
       this.form.appId = null
       this.form.hospitalNo = null
       this.form.hospitalNme = null
+      this.form.hospitalDepart = null
       this.form.isMust = null
       this.form.diagCde = null
       this.form.diagDesc = null

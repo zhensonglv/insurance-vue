@@ -294,12 +294,6 @@ export const constantRoutes = [
         meta: { title: '投保公司', icon: 'guide', noCache: true }
       },
       {
-        path: 'plyPreserHistory',
-        component: () => import('@/views/client/plyPreserHistory/index'),
-        name: '保全信息',
-        meta: { title: '保全信息', icon: 'guide', noCache: true }
-      },
-      {
         path: 'clientNaturalPersion',
         component: () => import('@/views/client/clientNaturalPersion/index'),
         name: '自然人管理',
@@ -717,6 +711,12 @@ export const constantRoutes = [
         component: () => import('@/views/config/plyPart/index'),
         name: '分单配置',
         meta: { title: '分单配置', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'plyPreserHistory',
+        component: () => import('@/views/config/plyPreserHistory/index'),
+        name: '保全信息',
+        meta: { title: '保全信息', icon: 'guide', noCache: true }
       }
     ]
   },

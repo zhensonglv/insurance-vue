@@ -100,9 +100,12 @@
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="发票号" width="150">
+        <el-table-column align="center" label="发票号" width="180">
           <template slot-scope="scope">
-            {{ scope.row.invNo }}
+            <el-input v-model="scope.row.invNo">
+              <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(scope.row)" />
+            </el-input>
+            <invdtl :son-inv-data="invdtlForm" :business-data="businessData" @dealStatus="status" />
           </template>
         </el-table-column>
 
@@ -173,12 +176,13 @@
 </template>
 
 <script>
-import { getList, edit } from '@/api/preview/base'
+import { getList, edit, findById } from '@/api/preview/base'
 import Pagination from '@/components/Pagination'
 import { getDiag } from '@/api/preview/code'
+import invdtl from '@/views/preview/invDeduct/invdtl'
 
 export default {
-  components: { Pagination },
+  components: { Pagination, invdtl },
   data() {
     return {
       list: null,
@@ -197,13 +201,17 @@ export default {
         pageNum: 1,
         pageSize: 10,
         appPkId: '',
+        deductCheck: '', // 扣费完成标识
         sort: '+id'
       },
       total: 0,
       invTotal: 0,
       loadDiag: false,
       diagList: [],
-      businessData: {}
+      businessData: {},
+      matchVisable: false,
+      invdtlForm: null
+
     }
   },
   created() {
@@ -279,6 +287,21 @@ export default {
         }
       })
       row.diagCde = item[0].value
+    },
+
+    hanldeMatch(row) {
+      this.matchVisable = true
+      findById(this.invPath, row.id).then(response => {
+        this.invdtlForm = response.data
+      })
+    },
+    matchConfirm() {
+
+    },
+    status(data) {
+      if (data) {
+        this.fetchInvData()
+      }
     }
   }
 }

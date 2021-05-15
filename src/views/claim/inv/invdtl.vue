@@ -293,7 +293,7 @@
       <el-button style="margin-left: 10px;" type="primary" @click="save('invdtlForm')">保存</el-button>
     </div>
 
-    <el-form ref="invdtlForm" :inline="true" :model="calcForm" status-icon label-position="right" label-width="80px">
+    <el-form ref="calcForm" :inline="true" :model="calcForm" status-icon label-position="right" label-width="80px">
 
       <el-form-item label="分类药品" prop="categDrug" label-width="120px">
         <el-input v-model="calcForm.categDrug" placeholder="请输入总金额" />
@@ -444,9 +444,6 @@
       <el-button @click="handleClose">
         Cancel
       </el-button>
-      <!--      <el-button type="primary" @click="onSubmit('invdtlForm')">
-        Confirm
-      </el-button>-->
     </div>
   </el-dialog>
 </template>
