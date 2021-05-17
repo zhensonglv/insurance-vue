@@ -162,7 +162,7 @@ export default {
       })
     },*/
     handleSave() {
-      this.form = { id: null }
+      this.form = { id: null, batchNo: this.listQuery.batchNo }
       /* if (this.$route.query.pubCoverId) { // 上级页面传入参数
             this.form.pubCoverId = this.$route.query.pubCoverId
           }*/

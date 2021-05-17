@@ -195,7 +195,7 @@ export default {
       })
     },*/
     handleSave() {
-      this.form = { id: null }
+      this.form = { id: null, invPkId: this.listQuery.invPkId }
       this.dialogVisible = true
     },
     handleEdit(id) {

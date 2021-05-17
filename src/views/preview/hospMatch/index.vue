@@ -277,6 +277,7 @@ export default {
         }
       })
       row.hospitalNo = item[0].value
+      row.medicalArea = item[0].province + ';' + item[0].city
     }
   }
 }

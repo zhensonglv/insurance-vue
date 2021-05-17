@@ -167,6 +167,10 @@
         <el-input v-model="form.anamnesisTime" placeholder="请输入既往症期间" />
       </el-form-item>
 
+      <el-form-item label="医保地区" prop="medicalArea" label-width="120px">
+        <el-input v-model="form.medicalArea" placeholder="请输入医保地区" />
+      </el-form-item>
+
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="handleClose">
@@ -224,7 +228,8 @@ export default {
         clmHangType: '',
         clmHangCause: '',
         clmHangRemark: '',
-        inHospEndTm: ''
+        inHospEndTm: '',
+        medicalArea: ''
       },
       loading: false,
       loadDiag: false,
@@ -302,6 +307,7 @@ export default {
         }
       })
       this.form.hospitalNo = item[0].value
+      this.form.medicalArea = item[0].province + ';' + item[0].city
     },
     clearForm() {
       this.form.appId = null
@@ -334,6 +340,7 @@ export default {
       this.form.clmHangCause = null
       this.form.clmHangRemark = null
       this.form.inHospEndTm = null
+      this.form.medicalArea = null
       this.hospList = []
       this.diagList = []
     },
