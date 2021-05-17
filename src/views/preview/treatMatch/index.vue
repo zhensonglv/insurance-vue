@@ -66,8 +66,8 @@
         </el-table-column>
 
         <el-table-column align="center" label="操作" width="300">
-          <template>
-            <el-button type="primary" size="small" icon="el-icon-edit">保存</el-button>
+          <template slot-scope="scope">
+            <el-button type="primary" size="small" icon="el-icon-edit" @click="save(scope.row)">保存</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -83,7 +83,7 @@
 </template>
 
 <script>
-import { getList } from '@/api/preview/base'
+import { edit, getList } from '@/api/preview/base'
 import { getTreat } from '@/api/preview/code'
 import Pagination from '@/components/Pagination'
 export default {
@@ -141,7 +141,17 @@ export default {
         this.treatList = response.data
         this.loading = false
       })
+    },
+    save(row) {
+      edit(this.basePath, row).then(response => {
+        if (response.code === 200) {
+          this._notify(response.msg, 'success')
+        } else {
+          this._notify(response.msg, 'error')
+        }
+      })
     }
+
   }
 }
 </script>
