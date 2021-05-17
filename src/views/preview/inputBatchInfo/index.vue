@@ -5,9 +5,14 @@
         <el-input v-model="listQuery.batchNo" style="width: 200px;" placeholder="请输入申请查询" />
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
+        <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleDtl">数据明细</el-button>
       </div>
       <br>
-      <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
+      <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row @selection-change="handleSelect">
+        <el-table-column
+          type="selection"
+          width="55"
+        />
         <el-table-column align="center" label="序号" width="95">
           <template slot-scope="scope">
             {{ scope.$index +1 }}
@@ -116,7 +121,8 @@ export default {
       total: 0,
       dialogVisible: false,
       form: null,
-      businessData: {}
+      businessData: {},
+      selected: []
       // DiaMatchTyp: {}
     }
   },
@@ -136,6 +142,21 @@ export default {
         type: type
       })
     },
+    handleSelect(data) {
+      this.selected = data
+    },
+    handleDtl() {
+      if (this.selected.length !== 1) {
+        this.$message({
+          showClose: true,
+          message: '只能选择一条查看',
+          type: 'warning'
+        })
+      } else {
+        this.$router.push({ path: '/preview/inputAppInfo', query: { batchNo: this.selected[0].batchNo }})
+      }
+    },
+
     fetchData() {
       this.listLoading = true
       getList(this.basePath, this.listQuery).then(response => {

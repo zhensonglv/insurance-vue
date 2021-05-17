@@ -150,18 +150,21 @@ export const constantRoutes = [
         path: 'inputAppInfo',
         component: () => import('@/views/preview/inputAppInfo/index'),
         name: '申请信息',
+        hidden: true,
         meta: { title: '申请信息', icon: 'guide', noCache: true }
       },
       {
         path: 'inputInvInfo',
         component: () => import('@/views/preview/inputInvInfo/index'),
         name: '账单信息',
+        hidden: true,
         meta: { title: '账单信息', icon: 'guide', noCache: true }
       },
       {
         path: 'inputTreatInfo',
         component: () => import('@/views/preview/inputTreatInfo/index'),
         name: '明细信息',
+        hidden: true,
         meta: { title: '明细信息', icon: 'guide', noCache: true }
       },
       {

@@ -2,12 +2,28 @@
   <div class="app-container">
     <el-card>
       <div>
-        <el-input v-model="listQuery.batchNo" style="width: 200px;" placeholder="请输入申请查询" />
-        <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
       </div>
       <br>
-      <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
+      <el-table
+        v-loading="listLoading"
+        class="table"
+        :data="list"
+        element-loading-text="Loading"
+        border
+        fit
+        highlight-current-row
+        @expand-change="expandChange"
+        @selection-change="handleSelect"
+      >
+        <el-table-column type="expand">
+          <template>
+            <treat aggregate :inv-pk-id="invPkId" />
+          </template>
+        </el-table-column>
+        <el-table-column
+          type="selection"
+        />
         <el-table-column align="center" label="序号" width="95">
           <template slot-scope="scope">
             {{ scope.$index +1 }}
@@ -78,37 +94,48 @@
 
 <script>
 import { getList, findById, del } from '@/api/preview/base'
+import treat from '../inputTreatInfo'
 // import { getCodeList } from '@/api/code'
 import Pagination from '@/components/Pagination'
 import Save from './save'
 
 export default {
-  components: { Pagination, Save },
+  components: { Pagination, Save, treat },
+  props: {
+    aggregate: {
+      type: Boolean,
+      default: false
+    },
+    appPkId: {
+      type: Number,
+      defalut: 0
+    }
+  },
   data() {
     return {
       list: null,
       listLoading: true,
+      invPkId: null,
       basePath: 'inputInvInfo',
       listQuery: {
         pageNum: 1,
         pageSize: 10,
+        appPkId: '',
         sort: '+id'
       },
       total: 0,
       dialogVisible: false,
       form: null,
-      businessData: {}
+      businessData: {},
+      selected: []
       // DiaMatchTyp: {}
     }
   },
-  created() {
-    /* if (this.$route.query.pubCoverId) { // 上级页面传入参数
-          this.listQuery.pubCoverId = this.$route.query.pubCoverId
-        }*/
-    this.fetchData()
-    // this.fetchTypeData()
-  },
   mounted() {
+    if (this.appPkId) {
+      this.listQuery.appPkId = this.appPkId
+      this.fetchData()
+    }
   },
   methods: {
     _notify(message, type) {
@@ -116,6 +143,13 @@ export default {
         message: message,
         type: type
       })
+    },
+
+    expandChange(row, extend) {
+      this.invPkId = row.id
+    },
+    handleSelect(data) {
+      this.selected = data
     },
     fetchData() {
       this.listLoading = true

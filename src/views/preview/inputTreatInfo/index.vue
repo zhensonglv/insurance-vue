@@ -2,8 +2,6 @@
   <div class="app-container">
     <el-card>
       <div>
-        <el-input v-model="listQuery.batchNo" style="width: 200px;" placeholder="请输入申请查询" />
-        <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
       </div>
       <br>
@@ -133,6 +131,16 @@ import Save from './save'
 
 export default {
   components: { Pagination, Save },
+  props: {
+    aggregate: {
+      type: Boolean,
+      default: false
+    },
+    invPkId: {
+      type: Number,
+      defalut: 0
+    }
+  },
   data() {
     return {
       list: null,
@@ -150,10 +158,11 @@ export default {
       businessData: {}
     }
   },
-  created() {
-    this.fetchData()
-  },
   mounted() {
+    if (this.invPkId) {
+      this.listQuery.invPkId = this.invPkId
+      this.fetchData()
+    }
   },
   methods: {
     _notify(message, type) {
