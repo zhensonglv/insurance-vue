@@ -285,6 +285,12 @@ export const constantRoutes = [
         meta: { title: '生活方式管理', icon: 'guide', noCache: true }
       },
       {
+        path: 'clmItemList',
+        component: () => import('@/views/client/clmItemList/index'),
+        name: '城市比例',
+        meta: { title: '城市比例', icon: 'guide', noCache: true }
+      },
+      {
         path: 'clientInsuranceDept',
         component: () => import('@/views/client/clientInsuranceDept/index'),
         name: '投保单位',
