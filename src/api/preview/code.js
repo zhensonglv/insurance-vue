@@ -31,3 +31,18 @@ export function getTreat(data) {
     data
   })
 }
+export function getProvince(data) {
+  return request({
+    url: '/preview/code/getProvince',
+    method: 'post',
+    data
+  })
+}
+
+export function getCity(data) {
+  return request({
+    url: '/preview/code/data',
+    method: 'post',
+    data
+  })
+}

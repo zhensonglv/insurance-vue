@@ -70,7 +70,7 @@
 </template>
 
 <script>
-import { getList, findById, del } from '@/api/base'
+import { getList, findById, del } from '@/api/preview/base'
 // import { getCodeList } from '@/api/code'
 import Pagination from '@/components/Pagination'
 import Save from './save'

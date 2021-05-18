@@ -278,7 +278,14 @@
 
       <el-table-column align="center" label="医保地省" width="80">
         <template slot-scope="scope">
-          {{ scope.row.province }}
+          <el-select v-model="scope.row.province" clearable placeholder="请选择">
+            <el-option
+              v-for="item in businessData.province"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            />
+          </el-select>
         </template>
       </el-table-column>
 
@@ -630,6 +637,9 @@ export default {
 
     },
     batchDel() {
+
+    },
+    handleDel() {
 
     }
   }

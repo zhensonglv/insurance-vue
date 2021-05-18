@@ -168,6 +168,12 @@ export const constantRoutes = [
         meta: { title: '明细信息', icon: 'guide', noCache: true }
       },
       {
+        path: 'databack',
+        component: () => import('@/views/preview/databack/index'),
+        name: '案件回退池',
+        meta: { title: '案件回退池', icon: 'guide', noCache: true }
+      },
+      {
         path: 'index',
         component: () => import('@/views/preview/treatMatch/index'),
         name: '文本匹配',
@@ -216,6 +222,12 @@ export const constantRoutes = [
         component: () => import('@/views/preview/invDeduct/index'),
         name: '人工扣费',
         meta: { title: '人工扣费', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'clmItemList',
+        component: () => import('@/views/preview/clmItemList/index'),
+        name: '城市比例',
+        meta: { title: '城市比例', icon: 'guide', noCache: true }
       }
 
     ]
@@ -283,12 +295,6 @@ export const constantRoutes = [
         component: () => import('@/views/client/clientLifeStyle/index'),
         name: '生活方式管理',
         meta: { title: '生活方式管理', icon: 'guide', noCache: true }
-      },
-      {
-        path: 'clmItemList',
-        component: () => import('@/views/client/clmItemList/index'),
-        name: '城市比例',
-        meta: { title: '城市比例', icon: 'guide', noCache: true }
       },
       {
         path: 'clientInsuranceDept',

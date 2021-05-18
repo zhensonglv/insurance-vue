@@ -180,6 +180,7 @@ import { getList, edit, findById } from '@/api/preview/base'
 import Pagination from '@/components/Pagination'
 import { getDiag } from '@/api/preview/code'
 import invdtl from '@/views/preview/invDeduct/invdtl'
+import { getCodeList } from '@/api/preview/code'
 
 export default {
   components: { Pagination, invdtl },
@@ -194,14 +195,14 @@ export default {
       listQuery: {
         pageNum: 1,
         pageSize: 10,
-        appStatus: '14',
+        // appStatus: '14',
         sort: '+id'
       },
       invQuery: {
         pageNum: 1,
         pageSize: 10,
         appPkId: '',
-        deductCheck: '', // 扣费完成标识
+        deductCheck: '0', // 扣费完成标识
         sort: '+id'
       },
       total: 0,
@@ -215,7 +216,7 @@ export default {
     }
   },
   created() {
-    this.fetchData()
+    this.fetchTypeData()
   },
   mounted() {
   },
@@ -226,14 +227,35 @@ export default {
         type: type
       })
     },
+
+    fetchTypeData() {
+      debugger
+      // 获取codeList
+      getCodeList({ parent: ['secuTyp', 'province'] }).then(res => {
+        this.businessData = res.data
+        // 组装table 的map
+        for (const key in this.businessData) {
+          this.businessData[key].forEach(item => {
+            !this[key] && (this[key] = {})
+            this[key][item.value] = item.label
+          })
+        }
+        this.fetchData()
+      })
+    },
     fetchData() {
       this.listLoading = true
       getList(this.basePath, this.listQuery).then(response => {
         this.list = response.data.data
         this.total = response.data.total
         this.listLoading = false
-        this.invQuery.appPkId = this.list[0].id
-        this.fetchInvData()// 默认查询出第一条
+        if (this.list.length > 0) {
+          this.invQuery.appPkId = this.list[0].id
+          this.fetchInvData()// 默认查询出第一条
+        } else {
+          this.listInvLoading = false
+          this.invList = []
+        }
       })
     },
     fetchInvData() {

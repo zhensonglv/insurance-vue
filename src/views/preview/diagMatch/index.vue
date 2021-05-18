@@ -128,29 +128,67 @@
             {{ scope.row.diagCde }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="账单类型" width="200">
+
+        <el-table-column align="center" label="次诊断1" width="200">
+          <template slot-scope="scope">
+            <el-select
+              v-model="scope.row.secdiagDesc1"
+              filterable
+              remote
+              reserve-keyword
+              placeholder="请输入疾病代码支持模糊查询)"
+              :remote-method="remoteDiagMethod1"
+              :loading="loadDiag1"
+              @change="changeDiagCde1(scope.row)"
+            >
+              <el-option
+                v-for="item in diagList1"
+                :key="item.value"
+                :label="item.label"
+                :value="item.label"
+              />
+            </el-select>
+          </template>
+        </el-table-column>
+        <el-table-column align="center" label="次诊断码1" width="150">
+          <template slot-scope="scope">
+            {{ scope.row.secdiagCde1 }}
+          </template>
+        </el-table-column>
+
+        <el-table-column align="center" label="次诊断2" width="200">
+          <template slot-scope="scope">
+            <el-select
+              v-model="scope.row.secdiagDesc2"
+              filterable
+              remote
+              reserve-keyword
+              placeholder="请输入疾病代码支持模糊查询)"
+              :remote-method="remoteDiagMethod2"
+              :loading="loadDiag2"
+              @change="changeDiagCde2(scope.row)"
+            >
+              <el-option
+                v-for="item in diagList2"
+                :key="item.value"
+                :label="item.label"
+                :value="item.label"
+              />
+            </el-select>
+          </template>
+        </el-table-column>
+        <el-table-column align="center" label="次诊断码2" width="150">
+          <template slot-scope="scope">
+            {{ scope.row.secdiagCde2 }}
+          </template>
+        </el-table-column>
+
+        <el-table-column align="center" label="账单类型" width="100">
           <template slot-scope="scope">
             {{ scope.row.invTyp }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="就诊日期" width="200">
-          <template slot-scope="scope">
-            {{ scope.row.outpatientTm }}
-          </template>
-        </el-table-column>
-
-        <el-table-column align="center" label="入院日期" width="200">
-          <template slot-scope="scope">
-            {{ scope.row.inHospBgnTm }}
-          </template>
-        </el-table-column>
-
-        <el-table-column align="center" label="出院日期" width="200">
-          <template slot-scope="scope">
-            {{ scope.row.inHospEndTm }}
-          </template>
-        </el-table-column>
         <el-table-column align="center" label="操作" fixed="right">
           <template slot-scope="scope">
             <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleInvEdit(scope.row)">保存</el-button>
@@ -186,7 +224,7 @@ export default {
       listQuery: {
         pageNum: 1,
         pageSize: 10,
-        appStatus: '6',
+        appStatus: '6', // 状态待人工
         sort: '+id'
       },
       invQuery: {
@@ -198,7 +236,11 @@ export default {
       total: 0,
       invTotal: 0,
       loadDiag: false,
+      loadDiag1: false,
+      loadDiag2: false,
       diagList: [],
+      diagList1: [],
+      diagList2: [],
       businessData: {}
     }
   },
@@ -220,8 +262,13 @@ export default {
         this.list = response.data.data
         this.total = response.data.total
         this.listLoading = false
-        this.invQuery.appPkId = this.list[0].id
-        this.fetchInvData()// 默认查询出第一条
+        if (this.list.length > 0) {
+          this.invQuery.appPkId = this.list[0].id
+          this.fetchInvData()// 默认查询出第一条
+        } else {
+          this.listInvLoading = false
+          this.invList = []
+        }
       })
     },
     fetchInvData() {
@@ -251,7 +298,7 @@ export default {
         }
       })
     },
-
+    // ----------------主诊断-------------------
     remoteDiagMethod(query) {
       if (query !== '' && query.length >= 2) {
         this.diagList = []
@@ -275,6 +322,56 @@ export default {
         }
       })
       row.diagCde = item[0].value
+    },
+    // ----------------次诊断1-------------------
+    remoteDiagMethod1(query) {
+      if (query !== '' && query.length >= 2) {
+        this.diagList1 = []
+        this.loadDiag1 = true
+        this.getDiag1(query)
+      } else {
+        this.diagList1 = []
+      }
+    },
+    getDiag1(data) {
+      getDiag({ diaDesc: data }).then(response => {
+        this.diagList1 = response.data
+        this.loadDiag1 = false
+      })
+    },
+    changeDiagCde1(row) {
+      var current = row.secdiagDesc1
+      var item = this.diagList1.filter(function(c, i, a) { // c:当前项  i : 索引  a:原值
+        if (c.label === current) {
+          return c
+        }
+      })
+      row.secdiagCde1 = item[0].value
+    },
+    // ----------------次诊断2-------------------
+    remoteDiagMethod2(query) {
+      if (query !== '' && query.length >= 2) {
+        this.diagList2 = []
+        this.loadDiag2 = true
+        this.getDiag2(query)
+      } else {
+        this.diagList2 = []
+      }
+    },
+    getDiag2(data) {
+      getDiag({ diaDesc: data }).then(response => {
+        this.diagList2 = response.data
+        this.loadDiag2 = false
+      })
+    },
+    changeDiagCde2(row) {
+      var current = row.secdiagDesc2
+      var item = this.diagList2.filter(function(c, i, a) { // c:当前项  i : 索引  a:原值
+        if (c.label === current) {
+          return c
+        }
+      })
+      row.secdiagCde2 = item[0].value
     }
   }
 }

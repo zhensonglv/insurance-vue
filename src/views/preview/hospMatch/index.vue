@@ -220,8 +220,13 @@ export default {
         this.list = response.data.data
         this.total = response.data.total
         this.listLoading = false
-        this.invQuery.appPkId = this.list[0].id
-        this.fetchInvData()// 默认查询出第一条
+        if (this.list.length > 0) {
+          this.invQuery.appPkId = this.list[0].id
+          this.fetchInvData()// 默认查询出第一条
+        } else {
+          this.listInvLoading = false
+          this.invList = []
+        }
       })
     },
     fetchInvData() {
