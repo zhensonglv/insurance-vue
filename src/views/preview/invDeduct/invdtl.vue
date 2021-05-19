@@ -276,9 +276,9 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="医保地省" width="80">
+      <el-table-column align="center" label="医保地省" width="150">
         <template slot-scope="scope">
-          <el-select v-model="scope.row.province" clearable placeholder="请选择">
+          <el-select v-model="scope.row.province" clearable placeholder="请选择" @change="changeProvince(scope.row)">
             <el-option
               v-for="item in businessData.province"
               :key="item.value"
@@ -289,33 +289,53 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="医保地市" width="80">
+      <el-table-column align="center" label="医保地市" width="150">
         <template slot-scope="scope">
-          {{ scope.row.city }}
+          <el-select v-model="scope.row.city" clearable :loading="loadCity" placeholder="请选择">
+            <el-option
+              v-for="item in scope.row.cityList"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            />
+          </el-select>
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" label="检索" width="100">
+        <template slot-scope="scope">
+          <el-button style="margin-left: 10px;" type="primary" @click="search(scope.row)">检索</el-button>
         </template>
       </el-table-column>
 
       <el-table-column align="center" label="系统比例" width="80">
         <template slot-scope="scope">
-          {{ scope.row.sysRate }}
+          <el-input v-model="scope.row.sysRate" @change="changeSysRate(scope.row)" />
         </template>
       </el-table-column>
 
       <el-table-column align="center" label="费用金额" width="120">
         <template slot-scope="scope">
-          {{ scope.row.sumAmt }}
+          <el-input v-model="scope.row.sumAmt" @change="changeAmt(scope.row)" />
         </template>
       </el-table-column>
 
       <el-table-column align="center" label="扣费比例" width="80">
         <template slot-scope="scope">
-          {{ scope.row.categSelfpayRate }}
+          <el-input v-model="scope.row.categSelfpayRate" @change="changeRate(scope.row)" />
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="医保类型" width="80">
+      <el-table-column align="center" label="医保类型" width="100">[
         <template slot-scope="scope">
-          {{ scope.row.secuTyp }}
+          <el-select v-model="scope.row.secuTyp" clearable placeholder="请选择">
+            <el-option
+              v-for="item in businessData.secuTyp"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            />
+          </el-select>
         </template>
       </el-table-column>
 
@@ -333,7 +353,7 @@
 
       <el-table-column align="center" label="操作" fixed="right">
         <template slot-scope="scope">
-          <el-button type="primary" size="mini" icon="el-icon-edit" @click="edit(scope.row.id)">编辑</el-button>
+          <el-button type="primary" size="mini" icon="el-icon-edit" @click="edit(scope.row)">保存</el-button>
           <el-button type="danger" size="mini" icon="el-icon-delete" class="action-button" @click="handleDel(scope.row.id)">删除</el-button>
         </template>
       </el-table-column>
@@ -361,8 +381,8 @@
 </template>
 
 <script>
-import { save, edit, getList } from '@/api/preview/base'
-import { getDiag, getHospital } from '@/api/preview/code'
+import { save, edit, getList, search } from '@/api/preview/base'
+import { getDiag, getHospital, getCity } from '@/api/preview/code'
 import Pagination from '@/components/Pagination'
 import Save from '../inputTreatInfo/save'
 import Match from '@/views/claim/inv/match'
@@ -443,6 +463,7 @@ export default {
       index: null,
       form: null,
       selected: [],
+      loadCity: false,
       rules: {
 
       }
@@ -630,8 +651,81 @@ export default {
       this.form = { id: null, invPkId: this.invForm.id }
     },
 
+    changeProvince(row) {
+      this.loadCity = true
+      row.cityList = []
+      getCity({ parent: row.province }).then(response => {
+        row.cityList = response.data
+        this.loadCity = false
+      })
+    },
+    /**
+     * 检索按钮
+     */
+    search(row) {
+      search(this.treatPath, row).then(response => {
+        row.sysRate = response.data
+        row.categSelfpayRate = row.sysRate
+        this.changeRate(row)
+      })
+    },
+    /**
+     * 变更系统比例
+     * @param row
+     */
+    changeSysRate(row) {
+      if (row.sysRate && this.checkFloat(row.sysRate)) {
+        this._notify('系统比例非数字', 'error')
+      }
+      row.categSelfpayRate = row.sysRate
+      this.changeRate(row)
+    },
+    /**
+     * 变更费用金额
+     * @param row
+     */
+    changeAmt(row) {
+      if (row.sumAmt && this.checkFloat(row.sumAmt)) {
+        this._notify('费用金额非数字', 'error')
+      }
+      this.calcCateg(row)
+    },
+    /**
+     * 变更扣费比例
+     * @param row
+     */
+    changeRate(row) {
+      if (row.categSelfpayRate && this.checkFloat(row.categSelfpayRate)) {
+        this._notify('扣费比例非数字', 'error')
+      }
+      if (parseFloat(row.categSelfpayRate) > 0.0 && parseFloat(row.categSelfpayRate) < 1.0) { // 乙类
+        row.secuTyp = '2'
+      } else if (parseFloat(row.categSelfpayRate) === 1.0) { // 丙类
+        row.secuTyp = '3'
+      } else if (parseFloat(row.categSelfpayRate) === 0.0) { // 甲类
+        row.secuTyp = '1'
+      }
+      this.calcCateg(row)
+    },
+    /**
+     * 计算自付金额
+     * @param row
+     */
+    calcCateg(row) {
+      if (!row.categSelfpayRate || !row.sumAmt) {
+        return
+      }
+      var categSelfPay = parseFloat(row.sumAmt) * parseFloat(row.categSelfpayRate)
+      row.categSelfpayAmt = categSelfPay.toFixed(2)
+    },
     edit(row) {
-
+      edit(this.treatPath, row).then(response => {
+        if (response.code === 200) {
+          this._notify(response.msg, 'success')
+        } else {
+          this._notify(response.msg, 'error')
+        }
+      })
     },
     batchSave() {
 
@@ -641,6 +735,9 @@ export default {
     },
     handleDel() {
 
+    },
+    checkFloat(data) {
+      return isNaN(parseFloat(data)) || !/^(([1-9]{1}\d*)|(0{1}))(\.\d{1,2})?$/.test(data)
     }
   }
 }

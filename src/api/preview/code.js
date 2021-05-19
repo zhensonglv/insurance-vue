@@ -41,7 +41,7 @@ export function getProvince(data) {
 
 export function getCity(data) {
   return request({
-    url: '/preview/code/data',
+    url: '/preview/code/getCity',
     method: 'post',
     data
   })

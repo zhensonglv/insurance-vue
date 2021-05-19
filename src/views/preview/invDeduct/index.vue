@@ -229,7 +229,6 @@ export default {
     },
 
     fetchTypeData() {
-      debugger
       // 获取codeList
       getCodeList({ parent: ['secuTyp', 'province'] }).then(res => {
         this.businessData = res.data

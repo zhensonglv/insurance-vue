@@ -44,3 +44,10 @@ export function edit(path, data) {
   })
 }
 
+export function search(path, data) {
+  return request({
+    url: '/preview/' + path + '/search',
+    method: 'post',
+    data
+  })
+}
