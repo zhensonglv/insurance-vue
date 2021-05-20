@@ -381,7 +381,7 @@
 </template>
 
 <script>
-import { save, edit, getList, search } from '@/api/preview/base'
+import { save, edit, getList, search, del } from '@/api/preview/base'
 import { getDiag, getHospital, getCity } from '@/api/preview/code'
 import Pagination from '@/components/Pagination'
 import Save from '../inputTreatInfo/save'
@@ -646,6 +646,7 @@ export default {
       this.list[data.index].treatCde = data.value.treatNo
       this.list[data.index].payNme = data.value.treatDesc
       this.list[data.index].treatDesc = data.value.treatDesc
+      this.list[data.index].maxtermNo = data.value.cateGoryNo
     },
     handleSave() {
       this.form = { id: null, invPkId: this.invForm.id }
@@ -696,7 +697,7 @@ export default {
      */
     changeRate(row) {
       if (row.categSelfpayRate && this.checkFloat(row.categSelfpayRate)) {
-        this._notify('扣费比例非数字', 'error')
+        this._notify('比例非数字', 'error')
       }
       if (parseFloat(row.categSelfpayRate) > 0.0 && parseFloat(row.categSelfpayRate) < 1.0) { // 乙类
         row.secuTyp = '2'
@@ -733,8 +734,23 @@ export default {
     batchDel() {
 
     },
-    handleDel() {
-
+    handleDel(id) {
+      this.$confirm('你确定永久删除此数据？, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        del(this.treatPath, id).then(response => {
+          if (response.code === 200) {
+            this._notify(response.msg, 'success')
+          } else {
+            this._notify(response.msg, 'error')
+          }
+          this.fetchData()
+        })
+      }).catch(() => {
+        this._notify('已取消删除', 'info')
+      })
     },
     checkFloat(data) {
       return isNaN(parseFloat(data)) || !/^(([1-9]{1}\d*)|(0{1}))(\.\d{1,2})?$/.test(data)

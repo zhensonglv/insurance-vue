@@ -88,8 +88,16 @@
       />
     </el-card>
     <el-card>
+      <div>
+        <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="batchSave">批次保存</el-button>
+        <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="matchConfirm">匹配完成</el-button>
+      </div>
       <br>
-      <el-table v-loading="listInvLoading" :data="invList" element-loading-text="Loading" border fit highlight-current-row>
+      <el-table v-loading="listInvLoading" :data="invList" element-loading-text="Loading" border fit highlight-current-row @selection-change="handleSelect">
+        <el-table-column
+          type="selection"
+          width="55"
+        />
         <el-table-column align="center" label="序号" width="95">
           <template slot-scope="scope">
             {{ scope.$index +1 }}
@@ -128,7 +136,7 @@
             {{ scope.row.hospitalNo }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="账单类型" width="200">
+        <el-table-column align="center" label="账单类型" width="150">
           <template slot-scope="scope">
             {{ scope.row.invTyp }}
           </template>
@@ -169,7 +177,7 @@
 </template>
 
 <script>
-import { getList, edit } from '@/api/preview/base'
+import { getList, edit, batchSave, hospMatchConfirm } from '@/api/preview/base'
 import Pagination from '@/components/Pagination'
 import { getHospital } from '@/api/preview/code'
 
@@ -199,7 +207,8 @@ export default {
       invTotal: 0,
       loading: false,
       hospList: [],
-      businessData: {}
+      businessData: {},
+      selected: {}
     }
   },
   created() {
@@ -253,6 +262,37 @@ export default {
       edit(this.invPath, row).then(response => {
         if (response.code === 200) {
           this._notify(response.msg, 'success')
+        } else {
+          this._notify(response.msg, 'error')
+        }
+      })
+    },
+
+    handleSelect(data) {
+      this.selected = data
+    },
+    batchSave() {
+      if (this.selected.length === 0) {
+        this.$message({
+          showClose: true,
+          message: '请选择数据',
+          type: 'warning'
+        })
+      } else {
+        batchSave(this.invPath, this.selected).then(response => {
+          if (response.code === 200) {
+            this._notify(response.msg, 'success')
+          } else {
+            this._notify(response.msg, 'error')
+          }
+        })
+      }
+    },
+    matchConfirm() {
+      hospMatchConfirm(this.basePath, { id: this.invQuery.appPkId }).then(response => {
+        if (response.code === 200) {
+          this._notify(response.msg, 'success')
+          this.fetchData()
         } else {
           this._notify(response.msg, 'error')
         }

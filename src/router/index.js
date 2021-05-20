@@ -174,19 +174,19 @@ export const constantRoutes = [
         meta: { title: '案件回退池', icon: 'guide', noCache: true }
       },
       {
-        path: 'index',
+        path: 'treatMatchTask',
+        component: () => import('@/views/preview/treatMatchTask/index'),
+        name: '文本匹配',
+        meta: { title: '文本匹配', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'treatMatch',
         component: () => import('@/views/preview/treatMatch/index'),
         name: '文本匹配',
         meta: { title: '文本匹配', icon: 'guide', noCache: true }
       },
       {
-        path: 'index',
-        component: () => import('@/views/client/group/index'),
-        name: '客户定位',
-        meta: { title: '客户定位', icon: 'guide', noCache: true }
-      },
-      {
-        path: 'index',
+        path: 'group',
         component: () => import('@/views/client/group/index'),
         name: '理赔数据录入',
         meta: { title: '理赔数据录入', icon: 'guide', noCache: true }
@@ -241,7 +241,7 @@ export const constantRoutes = [
     meta: { title: '客户管理', icon: 'guide', noCache: true },
     children: [
       {
-        path: 'index',
+        path: 'group',
         component: () => import('@/views/client/group/index'),
         name: '投保集团管理',
         meta: { title: '投保集团管理', icon: 'guide', noCache: true }

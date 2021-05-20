@@ -51,3 +51,25 @@ export function search(path, data) {
     data
   })
 }
+export function batchSave(path, data) {
+  return request({
+    url: '/preview/' + path + '/batchSave',
+    method: 'put',
+    data
+  })
+}
+
+export function diagMatchConfirm(path, data) {
+  return request({
+    url: '/preview/' + path + '/diagMatchConfirm',
+    method: 'post',
+    data
+  })
+}
+export function hospMatchConfirm(path, data) {
+  return request({
+    url: '/preview/' + path + '/hospMatchConfirm',
+    method: 'post',
+    data
+  })
+}
