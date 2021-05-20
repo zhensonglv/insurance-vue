@@ -73,3 +73,11 @@ export function hospMatchConfirm(path, data) {
     data
   })
 }
+
+export function taskMatchConfirm(path, data) {
+  return request({
+    url: '/preview/' + path + '/taskMatchConfirm',
+    method: 'post',
+    data
+  })
+}

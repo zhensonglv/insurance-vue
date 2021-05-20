@@ -14,9 +14,14 @@
           </el-select>
           <el-input v-model="listQuery.taskId" style="width: 200px;" placeholder="请输入任务id" />
           <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
+          <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="batchSave">批量保存</el-button>
         </div>
         <br>
-        <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
+        <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row @selection-change="handleSelect">
+          <el-table-column
+            type="selection"
+            width="55"
+          />
           <el-table-column align="center" label="序号" width="95">
             <template slot-scope="scope">
               {{ scope.$index +1 }}
@@ -92,15 +97,15 @@
       <el-button @click="handleClose">
         Cancel
       </el-button>
-      <el-button type="primary" @click="onSubmit()">
-        Confirm
+      <el-button type="primary" @click="onSubmit">
+        匹配完成
       </el-button>
     </div>
   </el-dialog>
 </template>
 
 <script>
-import { edit, getList } from '@/api/preview/base'
+import { batchSave, edit, getList, taskMatchConfirm } from '@/api/preview/base'
 import { getCodeList, getTreat } from '@/api/preview/code'
 import Pagination from '@/components/Pagination'
 export default {
@@ -130,7 +135,8 @@ export default {
       loading: false,
       dialogVisible: false,
       businessData: [],
-      treatList: []
+      treatList: [],
+      selected: []
     }
   },
   watch: {
@@ -172,6 +178,9 @@ export default {
         this.fetchData()
       })
     },
+    handleSelect(data) {
+      this.selected = data
+    },
     fetchData() {
       this.listLoading = true
       getList(this.basePath, this.listQuery).then(response => {
@@ -207,6 +216,42 @@ export default {
     },
     handleClose() {
       this.dialogVisible = false
+    },
+    batchSave() {
+      if (this.selected.length === 0) {
+        this.$message({
+          showClose: true,
+          message: '请选择数据',
+          type: 'warning'
+        })
+      } else {
+        batchSave(this.basePath, this.selected).then(response => {
+          if (response.code === 200) {
+            this._notify(response.msg, 'success')
+          } else {
+            this._notify(response.msg, 'error')
+          }
+        })
+      }
+    },
+    onSubmit() {
+      this.$confirm('是否已保存数据？, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        taskMatchConfirm('inputAppInfo', { batchNo: this.listQuery.batchNo }).then(response => {
+          if (response.code === 200) {
+            this._notify(response.msg, 'success')
+            this.$emit('sonStatus', true)
+            this.dialogVisible = false
+          } else {
+            this._notify(response.msg, 'error')
+          }
+        })
+      }).catch(() => {
+        this._notify('已取消删除', 'info')
+      })
     }
   }
 }

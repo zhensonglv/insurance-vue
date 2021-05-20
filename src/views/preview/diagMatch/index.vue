@@ -328,13 +328,21 @@ export default {
       }
     },
     matchConfirm() {
-      diagMatchConfirm(this.basePath, { id: this.invQuery.appPkId }).then(response => {
-        if (response.code === 200) {
-          this._notify(response.msg, 'success')
-          this.fetchData()
-        } else {
-          this._notify(response.msg, 'error')
-        }
+      this.$confirm('是否已保存数据？, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        diagMatchConfirm(this.basePath, { id: this.invQuery.appPkId }).then(response => {
+          if (response.code === 200) {
+            this._notify(response.msg, 'success')
+            this.fetchData()
+          } else {
+            this._notify(response.msg, 'error')
+          }
+        })
+      }).catch(() => {
+        this._notify('已取消删除', 'info')
       })
     },
     // ----------------主诊断-------------------

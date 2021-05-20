@@ -22,7 +22,7 @@
             <el-input v-model="scope.row.batchNo">
               <svg-icon slot="suffix" icon-class="search" @click="handleMatch(scope.row.batchNo)" />
             </el-input>
-            <match v-model="matchVisible" :batch-no="batchNo" @status="status" />
+            <match v-model="matchVisible" :batch-no="batchNo" @sonStatus="status" />
           </template>
         </el-table-column>
 
@@ -107,6 +107,7 @@ export default {
       listQuery: {
         pageNum: 1,
         pageSize: 10,
+        batchStatus: '13',
         sort: '+id'
       },
       total: 0,
