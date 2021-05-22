@@ -144,7 +144,7 @@ export default {
       this.dialogVisible = val
       if (this.dialogVisible === true) {
         this.listQuery.batchNo = this.batchNo
-        this.listQuery.matchStatus = 1
+        // this.listQuery.matchStatus = 1
         this.fetchTypeData()
       }
     },

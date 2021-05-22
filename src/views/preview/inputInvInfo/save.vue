@@ -102,7 +102,9 @@
       <el-form-item label="社保支付金额" prop="overallAmt" label-width="120px">
         <el-input v-model="form.overallAmt" placeholder="请输入社保支付金额" />
       </el-form-item>
-
+      <el-form-item label="分类自付金额" prop="categSelfpay" label-width="120px">
+        <el-input v-model="form.categSelfpay" placeholder="请输入自费金额" />
+      </el-form-item>
       <el-form-item label="自费金额" prop="selfExpense" label-width="120px">
         <el-input v-model="form.selfExpense" placeholder="请输入自费金额" />
       </el-form-item>

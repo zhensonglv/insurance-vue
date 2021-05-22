@@ -195,7 +195,7 @@ export default {
       listQuery: {
         pageNum: 1,
         pageSize: 10,
-        // appStatus: '14',
+        appStatus: '14',
         sort: '+id'
       },
       invQuery: {

@@ -103,6 +103,10 @@
         <el-input v-model="invForm.overallAmt" placeholder="请输入社保支付金额" />
       </el-form-item>
 
+      <el-form-item label="分类自付金额" prop="categSelfpay" label-width="120px">
+        <el-input v-model="invForm.categSelfpay" placeholder="请输入自费金额" />
+      </el-form-item>
+
       <el-form-item label="自费金额" prop="selfExpense" label-width="120px">
         <el-input v-model="invForm.selfExpense" placeholder="请输入自费金额" />
       </el-form-item>
@@ -464,6 +468,7 @@ export default {
       form: null,
       selected: [],
       loadCity: false,
+      drugArr: ['01', '02', '03'], // 药品大项号
       rules: {
 
       }
@@ -494,6 +499,7 @@ export default {
         this.list = response.data.data
         this.total = response.data.total
         this.listLoading = false
+        this.calcDeductInfo()
       })
     },
 
@@ -718,6 +724,75 @@ export default {
       }
       var categSelfPay = parseFloat(row.sumAmt) * parseFloat(row.categSelfpayRate)
       row.categSelfpayAmt = categSelfPay.toFixed(2)
+
+      // 计算差值信息
+      this.calcDeductInfo()
+    },
+    /**
+     * 计算差值信息
+     */
+    calcDeductInfo() {
+      var sumAmt = 0.0 // 总金额
+      var categSum = 0.0// 分类合计
+      var selfSum = 0.0 // 自费合计
+      var categDrug = 0.0// 分类药品
+      var categTreat = 0.0 // 分类诊疗
+      var selfDrug = 0.0 // 自费药品
+      var selfTreat = 0.0 // 自费诊疗
+      this.list.forEach((val, i) => {
+        sumAmt = sumAmt + parseFloat(val.sumAmt)
+        if (val.secuTyp === 'B' && val.categSelfpayAmt) {
+          categSum = categSum + parseFloat(val.categSelfpayAmt)
+          if (this.drugArr.includes(val.maxtermNo)) { // 药品
+            categDrug = categDrug + parseFloat(val.categSelfpayAmt)
+          } else {
+            categTreat = categTreat + parseFloat(val.categSelfpayAmt)
+          }
+        } else if (val.secuTyp === 'C' && val.categSelfpayAmt) {
+          selfSum = selfSum + parseFloat(val.categSelfpayAmt)
+          if (this.drugArr.includes(val.maxtermNo)) { // 药品
+            selfDrug = selfDrug + parseFloat(val.categSelfpayAmt)
+          } else {
+            selfTreat = selfTreat + parseFloat(val.categSelfpayAmt)
+          }
+        }
+      })
+      /**
+       *总金额
+       */
+      var deduct = sumAmt - parseFloat(this.invForm.sumAmt)
+      this.calcForm.dtlSumAmtDeduct = deduct.toFixed(2)
+      if (parseFloat(this.calcForm.dtlSumAmtDeduct) !== 0.0) {
+        this.redColor = true
+      } else {
+        this.redColor = false
+      }
+      /**
+       * 分类自付
+       */
+      var categDeduct = categSum - parseFloat(this.invForm.categSelfpay)// 分类自付差值
+      this.calcForm.dtlCategSelfpayAmt = categSum.toFixed(2)// 分类合计
+      this.calcForm.dtlCategDeduct = categDeduct.toFixed(2)// 分类差值
+      this.calcForm.categDrug = categDrug.toFixed(2)// 分类药品
+      this.calcForm.categTreat = categTreat.toFixed(2)// 分类诊疗
+      if (parseFloat(this.calcForm.dtlCategDeduct) !== 0.0) {
+        this.redCategColor = true
+      } else {
+        this.redCategColor = false
+      }
+      /**
+       * 自费
+       */
+      var selfDeduct = selfSum - parseFloat(this.invForm.selfExpense)
+      this.calcForm.dtlSelfAmt = selfSum.toFixed(2) // 自费合计
+      this.calcForm.dtlSelfDeduct = selfDeduct.toFixed(2)// 自费差值
+      this.calcForm.selfDrug = selfDrug.toFixed(2)// 自费药品
+      this.calcForm.selfTreat = selfTreat.toFixed(2)// 自费诊疗
+      if (parseFloat(this.calcForm.dtlSelfDeduct) !== 0.0) {
+        this.redSelfColor = true
+      } else {
+        this.redSelfColor = false
+      }
     },
     edit(row) {
       edit(this.treatPath, row).then(response => {
