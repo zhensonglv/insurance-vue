@@ -59,6 +59,14 @@ export function batchSave(path, data) {
   })
 }
 
+export function batchDel(path, data) {
+  return request({
+    url: '/preview/' + path + '/batchSave',
+    method: 'put',
+    data
+  })
+}
+
 export function diagMatchConfirm(path, data) {
   return request({
     url: '/preview/' + path + '/diagMatchConfirm',
@@ -77,6 +85,14 @@ export function hospMatchConfirm(path, data) {
 export function taskMatchConfirm(path, data) {
   return request({
     url: '/preview/' + path + '/taskMatchConfirm',
+    method: 'post',
+    data
+  })
+}
+
+export function deductConfirm(path, data) {
+  return request({
+    url: '/preview/' + path + '/deductConfirm',
     method: 'post',
     data
   })

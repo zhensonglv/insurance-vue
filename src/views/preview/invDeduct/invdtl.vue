@@ -96,7 +96,7 @@
       </el-form-item>
 
       <el-form-item label="发票金额" prop="sumAmt" label-width="120px">
-        <el-input v-model="invForm.sumAmt" placeholder="请输入发票金额" />
+        <el-input v-model="invForm.sumAmt" placeholder="请输入发票金额" @change="calcDeductInfo" />
       </el-form-item>
 
       <el-form-item label="社保支付金额" prop="overallAmt" label-width="120px">
@@ -104,11 +104,11 @@
       </el-form-item>
 
       <el-form-item label="分类自付金额" prop="categSelfpay" label-width="120px">
-        <el-input v-model="invForm.categSelfpay" placeholder="请输入自费金额" />
+        <el-input v-model="invForm.categSelfpay" placeholder="请输入分类自付金额" @change="calcDeductInfo" />
       </el-form-item>
 
       <el-form-item label="自费金额" prop="selfExpense" label-width="120px">
-        <el-input v-model="invForm.selfExpense" placeholder="请输入自费金额" />
+        <el-input v-model="invForm.selfExpense" placeholder="请输入自费金额" @change="calcDeductInfo" />
       </el-form-item>
 
       <el-form-item label="他方支付" prop="thirdCompen" label-width="120px">
@@ -173,7 +173,7 @@
 
     </el-form>
     <div align="center">
-      <el-button style="margin-left: 10px;" type="primary" @click="save('invdtlForm')">保存</el-button>
+      <el-button style="margin-left: 10px;" type="primary" @click="onSubmit('invdtlForm')">保存</el-button>
     </div>
     <div>
       <el-form ref="calcForm" :inline="true" :model="calcForm" status-icon label-position="right" label-width="80px">
@@ -376,7 +376,7 @@
       <el-button @click="handleClose">
         Cancel
       </el-button>
-      <el-button type="primary" @click="onSubmit('invForm')">
+      <el-button type="primary" @click="deductConfirm">
         扣费完成
       </el-button>
     </div>
@@ -385,7 +385,15 @@
 </template>
 
 <script>
-import { save, edit, getList, search, del } from '@/api/preview/base'
+import {
+  edit,
+  getList,
+  search,
+  del,
+  batchSave,
+  batchDel,
+  deductConfirm
+} from '@/api/preview/base'
 import { getDiag, getHospital, getCity } from '@/api/preview/code'
 import Pagination from '@/components/Pagination'
 import Save from '../inputTreatInfo/save'
@@ -603,34 +611,11 @@ export default {
       this.dialogVisible = false
     },
     onSubmit(form) {
-      this.$refs[form].validate((valid) => {
-        if (valid) {
-          if (this.invForm.id === null) {
-            save(this.basePath, this.invForm).then(response => {
-              if (response.code === 200) {
-                this._notify(response.msg, 'success')
-                this.clearForm()
-                this.$emit('dealStatus', true)
-                this.dialogVisible = false
-              } else {
-                this._notify(response.msg, 'error')
-              }
-            })
-          } else {
-            edit(this.basePath, this.invForm).then(response => {
-              if (response.code === 200) {
-                this._notify(response.msg, 'success')
-                this.clearForm()
-                this.$emit('dealStatus', true)
-                this.dialogVisible = false
-              } else {
-                this._notify(response.msg, 'error')
-              }
-            })
-          }
+      edit(this.basePath, this.invForm).then(response => {
+        if (response.code === 200) {
+          this._notify(response.msg, 'success')
         } else {
-          this.$message('error submit!!')
-          return false
+          this._notify(response.msg, 'error')
         }
       })
     },
@@ -682,7 +667,7 @@ export default {
      */
     changeSysRate(row) {
       if (row.sysRate && this.checkFloat(row.sysRate)) {
-        this._notify('系统比例非数字', 'error')
+        this._notify('系统比例不符合格式', 'error')
       }
       row.categSelfpayRate = row.sysRate
       this.changeRate(row)
@@ -693,7 +678,7 @@ export default {
      */
     changeAmt(row) {
       if (row.sumAmt && this.checkFloat(row.sumAmt)) {
-        this._notify('费用金额非数字', 'error')
+        this._notify('费用金额不符合格式', 'error')
       }
       this.calcCateg(row)
     },
@@ -703,7 +688,7 @@ export default {
      */
     changeRate(row) {
       if (row.categSelfpayRate && this.checkFloat(row.categSelfpayRate)) {
-        this._notify('比例非数字', 'error')
+        this._notify('比例不符合格式', 'error')
       }
       if (parseFloat(row.categSelfpayRate) > 0.0 && parseFloat(row.categSelfpayRate) < 1.0) { // 乙类
         row.secuTyp = '2'
@@ -741,14 +726,14 @@ export default {
       var selfTreat = 0.0 // 自费诊疗
       this.list.forEach((val, i) => {
         sumAmt = sumAmt + parseFloat(val.sumAmt)
-        if (val.secuTyp === 'B' && val.categSelfpayAmt) {
+        if (val.secuTyp === '2' && val.categSelfpayAmt) {
           categSum = categSum + parseFloat(val.categSelfpayAmt)
           if (this.drugArr.includes(val.maxtermNo)) { // 药品
             categDrug = categDrug + parseFloat(val.categSelfpayAmt)
           } else {
             categTreat = categTreat + parseFloat(val.categSelfpayAmt)
           }
-        } else if (val.secuTyp === 'C' && val.categSelfpayAmt) {
+        } else if (val.secuTyp === '3' && val.categSelfpayAmt) {
           selfSum = selfSum + parseFloat(val.categSelfpayAmt)
           if (this.drugArr.includes(val.maxtermNo)) { // 药品
             selfDrug = selfDrug + parseFloat(val.categSelfpayAmt)
@@ -804,10 +789,59 @@ export default {
       })
     },
     batchSave() {
-
+      if (this.selected.length === 0) {
+        this.$message({
+          showClose: true,
+          message: '请选择数据',
+          type: 'warning'
+        })
+      } else {
+        batchSave(this.treatPath, this.selected).then(response => {
+          if (response.code === 200) {
+            this._notify(response.msg, 'success')
+          } else {
+            this._notify(response.msg, 'error')
+          }
+        })
+      }
     },
     batchDel() {
-
+      if (this.selected.length === 0) {
+        this.$message({
+          showClose: true,
+          message: '请选择数据',
+          type: 'warning'
+        })
+      } else {
+        batchDel(this.treatPath, this.selected).then(response => {
+          if (response.code === 200) {
+            this._notify(response.msg, 'success')
+          } else {
+            this._notify(response.msg, 'error')
+          }
+        })
+      }
+    },
+    deductConfirm() {
+      this.$confirm('是否已保存数据？, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        deductConfirm(this.basePath, { id: this.invForm.id }).then(response => {
+          if (response.code === 200) {
+            this._notify(response.msg, 'success')
+            this.$emit('sonStatus', true)
+            this.clearForm()
+            this.clearCalcForm()
+            this.dialogVisible = false
+          } else {
+            this._notify(response.msg, 'error')
+          }
+        })
+      }).catch(() => {
+        this._notify('已取消删除', 'info')
+      })
     },
     handleDel(id) {
       this.$confirm('你确定永久删除此数据？, 是否继续?', '提示', {

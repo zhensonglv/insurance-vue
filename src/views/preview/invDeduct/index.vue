@@ -105,7 +105,7 @@
             <el-input v-model="scope.row.invNo">
               <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(scope.row)" />
             </el-input>
-            <invdtl :son-inv-data="invdtlForm" :business-data="businessData" @dealStatus="status" />
+            <invdtl :son-inv-data="invdtlForm" :business-data="businessData" @sonStatus="status" />
           </template>
         </el-table-column>
 
@@ -250,6 +250,7 @@ export default {
         this.listLoading = false
         if (this.list.length > 0) {
           this.invQuery.appPkId = this.list[0].id
+          this.invQuery.deductCheck = '0'
           this.fetchInvData()// 默认查询出第一条
         } else {
           this.listInvLoading = false

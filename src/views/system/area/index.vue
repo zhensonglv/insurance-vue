@@ -2,7 +2,7 @@
   <div class="app-container">
     <el-card>
       <div>
-        <el-input v-model="listQuery.id" style="width: 200px;" placeholder="请输入代码查询" />
+        <el-input v-model="listQuery.areaCode" style="width: 200px;" placeholder="请输入代码查询" />
         <el-input v-model="listQuery.level" style="width: 200px;" placeholder="请输入类型查询" />
         <el-input v-model="listQuery.name" style="width: 200px;" placeholder="请输入中文名称查询" />
         <el-input v-model="listQuery.pid" style="width: 200px;" placeholder="请输入父类查询" />
@@ -18,7 +18,7 @@
         </el-table-column>
         <el-table-column align="center" label="代码" width="150">
           <template slot-scope="scope">
-            {{ scope.row.id }}
+            {{ scope.row.areaCode }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="类型" width="150">
