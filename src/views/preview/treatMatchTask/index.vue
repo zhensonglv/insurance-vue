@@ -73,12 +73,6 @@
             {{ scope.row.originFileName }}
           </template>
         </el-table-column>
-
-        <el-table-column align="center" label="退回原因" width="150">
-          <template slot-scope="scope">
-            {{ scope.row.backReson }}
-          </template>
-        </el-table-column>
       </el-table>
       <pagination
         v-show="total>0"

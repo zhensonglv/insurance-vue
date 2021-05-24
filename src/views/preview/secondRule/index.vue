@@ -28,25 +28,25 @@
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="创建时间" width="250">
+        <el-table-column align="center" label="创建时间" width="200">
           <template slot-scope="scope">
             {{ scope.row.crtTm }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="创建人" width="250">
+        <el-table-column align="center" label="创建人" width="200">
           <template slot-scope="scope">
             {{ scope.row.crtCde }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="修改时间" width="250">
+        <el-table-column align="center" label="修改时间" width="200">
           <template slot-scope="scope">
             {{ scope.row.updTm }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="修改人" width="250">
+        <el-table-column align="center" label="修改人" width="200">
           <template slot-scope="scope">
             {{ scope.row.updCde }}
           </template>

@@ -180,12 +180,6 @@ export const constantRoutes = [
         meta: { title: '文本匹配', icon: 'guide', noCache: true }
       },
       {
-        path: 'treatMatch',
-        component: () => import('@/views/preview/treatMatch/index'),
-        name: '文本匹配',
-        meta: { title: '文本匹配', icon: 'guide', noCache: true }
-      },
-      {
         path: 'group',
         component: () => import('@/views/client/group/index'),
         name: '理赔数据录入',
