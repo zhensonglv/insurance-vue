@@ -97,3 +97,11 @@ export function deductConfirm(path, data) {
     data
   })
 }
+
+export function handleFinish(path, data) {
+  return request({
+    url: '/preview/' + path + '/handleFinish',
+    method: 'post',
+    data
+  })
+}

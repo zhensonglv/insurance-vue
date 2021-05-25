@@ -840,7 +840,7 @@ export default {
           }
         })
       }).catch(() => {
-        this._notify('已取消删除', 'info')
+        this._notify('已取消', 'info')
       })
     },
     handleDel(id) {

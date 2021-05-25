@@ -69,7 +69,7 @@
 
         <el-table-column align="center" label="案件状态" width="150">
           <template slot-scope="scope">
-            {{ scope.row.appStatus }}
+            {{ PreviewStatus[scope.row.appStatus] }}
           </template>
         </el-table-column>
 
@@ -147,7 +147,7 @@
 
         <el-table-column align="center" label="账单类型" width="100">
           <template slot-scope="scope">
-            {{ scope.row.invTyp }}
+            {{ CInvoiceTyp[scope.row.invTyp] }}
           </template>
         </el-table-column>
 
@@ -211,8 +211,9 @@ export default {
       diagList: [],
       businessData: {},
       matchVisable: false,
-      invdtlForm: null
-
+      invdtlForm: null,
+      PreviewStatus: {},
+      CInvoiceTyp: {}
     }
   },
   created() {
@@ -230,7 +231,7 @@ export default {
 
     fetchTypeData() {
       // 获取codeList
-      getCodeList({ parent: ['secuTyp', 'province'] }).then(res => {
+      getCodeList({ parent: ['secuTyp', 'province', 'CInvoiceTyp', 'PreviewStatus'] }).then(res => {
         this.businessData = res.data
         // 组装table 的map
         for (const key in this.businessData) {

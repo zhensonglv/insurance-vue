@@ -78,7 +78,7 @@
             </template>
           </el-table-column>
 
-          <el-table-column align="center" label="操作" width="300">
+          <el-table-column align="center" label="操作" width="200">
             <template slot-scope="scope">
               <el-button type="primary" size="small" icon="el-icon-edit" @click="save(scope.row)">保存</el-button>
             </template>
@@ -93,7 +93,7 @@
         />
       </el-card>
     </div>
-    <div slot="footer" class="dialog-footer">
+    <div slot="footer" align="center" class="dialog-footer">
       <el-button @click="handleClose">
         Cancel
       </el-button>
@@ -250,7 +250,7 @@ export default {
           }
         })
       }).catch(() => {
-        this._notify('已取消删除', 'info')
+        this._notify('已取消', 'info')
       })
     }
   }

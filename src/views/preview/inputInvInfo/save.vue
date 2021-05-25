@@ -170,7 +170,7 @@
       </el-form-item>
 
       <el-form-item label="医保地区" prop="medicalArea" label-width="120px">
-        <el-input v-model="form.medicalArea" placeholder="请输入医保地区" />
+        <el-cascader v-model="form.medicalArea" :options="this.businessData.area" clearable placeholder="请选择医保地区" />
       </el-form-item>
 
     </el-form>
@@ -351,6 +351,7 @@ export default {
       this.dialogVisible = false
     },
     onSubmit(form) {
+      debugger
       this.$refs[form].validate((valid) => {
         if (valid) {
           if (this.form.id === null) {

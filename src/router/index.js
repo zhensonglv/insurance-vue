@@ -192,8 +192,8 @@ export const constantRoutes = [
         meta: { title: '二级初审规则', icon: 'guide', noCache: true }
       },
       {
-        path: 'index',
-        component: () => import('@/views/client/group/index'),
+        path: 'diagReview',
+        component: () => import('@/views/preview/diagReview/index'),
         name: '诊断详情',
         meta: { title: '诊断详情', icon: 'guide', noCache: true }
       },

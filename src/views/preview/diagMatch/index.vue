@@ -69,7 +69,7 @@
 
         <el-table-column align="center" label="案件状态" width="150">
           <template slot-scope="scope">
-            {{ scope.row.appStatus }}
+            {{ PreviewStatus[scope.row.appStatus] }}
           </template>
         </el-table-column>
 
@@ -193,7 +193,7 @@
 
         <el-table-column align="center" label="账单类型" width="80">
           <template slot-scope="scope">
-            {{ scope.row.invTyp }}
+            {{ CInvoiceTyp[scope.row.invTyp] }}
           </template>
         </el-table-column>
 
@@ -217,7 +217,7 @@
 <script>
 import { getList, edit, batchSave, diagMatchConfirm } from '@/api/preview/base'
 import Pagination from '@/components/Pagination'
-import { getDiag } from '@/api/preview/code'
+import { getDiag, getCodeList } from '@/api/preview/code'
 
 export default {
   components: { Pagination },
@@ -250,11 +250,13 @@ export default {
       diagList1: [],
       diagList2: [],
       businessData: {},
-      selected: []
+      selected: [],
+      CInvoiceTyp: {},
+      PreviewStatus: {}
     }
   },
   created() {
-    this.fetchData()
+    this.fetchTypeData()
   },
   mounted() {
   },
@@ -263,6 +265,21 @@ export default {
       this.$message({
         message: message,
         type: type
+      })
+    },
+    fetchTypeData() {
+    // 获取codeList
+      getCodeList({ parent: ['CInvoiceTyp', 'PreviewStatus'] }).then(res => {
+        debugger
+        this.businessData = res.data
+        // 组装table 的map
+        for (const key in this.businessData) {
+          this.businessData[key].forEach(item => {
+            !this[key] && (this[key] = {})
+            this[key][item.value] = item.label
+          })
+        }
+        this.fetchData()
       })
     },
     fetchData() {
@@ -342,7 +359,7 @@ export default {
           }
         })
       }).catch(() => {
-        this._notify('已取消删除', 'info')
+        this._notify('已取消', 'info')
       })
     },
     // ----------------主诊断-------------------

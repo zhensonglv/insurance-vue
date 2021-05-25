@@ -95,7 +95,7 @@
 <script>
 import { getList, findById, del } from '@/api/preview/base'
 import treat from '../inputTreatInfo'
-// import { getCodeList } from '@/api/code'
+import { getAreaCascader } from '@/api/preview/code'
 import Pagination from '@/components/Pagination'
 import Save from './save'
 
@@ -157,6 +157,13 @@ export default {
         this.list = response.data.data
         this.total = response.data.total
         this.listLoading = false
+        this.getAreaCascader()
+      })
+    },
+    getAreaCascader() {
+      getAreaCascader().then(response => {
+        debugger
+        this.businessData.area = response.data
       })
     },
     /* fetchTypeData() {

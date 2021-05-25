@@ -46,3 +46,10 @@ export function getCity(data) {
     data
   })
 }
+
+export function getAreaCascader() {
+  return request({
+    url: '/preview/code/getAreaCascader',
+    method: 'post'
+  })
+}
