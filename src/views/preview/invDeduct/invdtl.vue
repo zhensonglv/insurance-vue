@@ -484,6 +484,7 @@ export default {
   },
   watch: {
     'sonInvData': function(newVal, oldVal) {
+      debugger
       this.invForm = newVal
       this.dialogVisible = true
       if (newVal.id != null) {

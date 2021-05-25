@@ -131,11 +131,6 @@ export default {
       })
     },
 
-    handleRoute(data) {
-      console.log(data, '钱总来了---')
-      this.$router.push({ path: '/system/dict', params: data })
-    },
-
     // 子组件的状态Flag，子组件通过`this.$emit('sonStatus', val)`给父组件传值
     // 父组件通过`@sonStatus`的方法`status`监听到子组件传递的值
     status(data) {
