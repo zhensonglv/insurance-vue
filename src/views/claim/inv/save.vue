@@ -528,6 +528,10 @@
               <el-input v-model="form.selfAmt" placeholder="请输入自付金额" />
             </el-form-item>
 
+            <el-form-item label="币种" prop="currencyType" label-width="120px">
+              <el-input v-model="form.currencyType" placeholder="请输入币种" />
+            </el-form-item>
+
             <el-form-item label="大额支付" prop="largePay" label-width="120px">
               <el-input v-model="form.largePay" placeholder="请输入大额支付" />
             </el-form-item>
@@ -693,7 +697,8 @@ export default {
         isignUseCardRule: '',
         isignExcelusion: '',
         isignWait: '',
-        isRehabiliation: ''
+        isRehabiliation: '',
+        currencyType: ''
       },
       show1: true,
       show2: true,
@@ -882,6 +887,7 @@ export default {
       this.form.isignUseCardRule = null
       this.form.isignWait = null
       this.form.isRehabiliation = null
+      this.form.currencyType = null
       this.hospList = []
     },
     handleClose() {

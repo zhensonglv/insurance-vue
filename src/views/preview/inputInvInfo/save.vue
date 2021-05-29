@@ -169,6 +169,10 @@
         <el-input v-model="form.anamnesisTime" placeholder="请输入既往症期间" />
       </el-form-item>
 
+      <el-form-item label="是否急诊" prop="isEmergTreat" label-width="120px">
+        <el-input v-model="form.isEmergTreat" placeholder="请输入是否急诊" />
+      </el-form-item>
+
       <el-form-item label="医保地区" prop="medicalArea" label-width="120px">
         <el-cascader v-model="form.medicalArea" :options="this.businessData.area" clearable placeholder="请选择医保地区" />
       </el-form-item>
@@ -231,7 +235,9 @@ export default {
         clmHangCause: '',
         clmHangRemark: '',
         inHospEndTm: '',
-        medicalArea: ''
+        medicalArea: '',
+        anamnesisTime: '',
+        isEmergTreat: ''
       },
       loading: false,
       loadDiag: false,
@@ -343,6 +349,8 @@ export default {
       this.form.clmHangRemark = null
       this.form.inHospEndTm = null
       this.form.medicalArea = null
+      this.form.anamnesisTime = null
+      this.form.isEmergTreat = null
       this.hospList = []
       this.diagList = []
     },
@@ -379,7 +387,6 @@ export default {
           }
         } else {
           this.$message('error submit!!')
-          return false
         }
       })
     }

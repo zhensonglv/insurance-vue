@@ -13,7 +13,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="申请号" :show-overflow-tooltip="true" width="200">
+        <el-table-column align="center" label="申请号" width="200">
           <template slot-scope="scope">
             {{ scope.row.batchNo }}
           </template>
@@ -25,7 +25,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="申请文档编号" :show-overflow-tooltip="true" width="150">
+        <el-table-column align="center" label="申请文档编号" width="150">
           <template slot-scope="scope">
             <el-input v-model="scope.row.customAppNo">
               <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(scope.row)" />
@@ -34,7 +34,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="姓名" :show-overflow-tooltip="true" width="200">
+        <el-table-column align="center" label="姓名" width="200">
           <template slot-scope="scope">
             {{ scope.row.appNme }}
           </template>
@@ -52,7 +52,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="证件号" :show-overflow-tooltip="true" width="150">
+        <el-table-column align="center" label="证件号" width="150">
           <template slot-scope="scope">
             {{ scope.row.certCde }}
           </template>

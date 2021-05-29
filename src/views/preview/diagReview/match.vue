@@ -11,7 +11,7 @@
               {{ scope.$index +1 }}
             </template>
           </el-table-column>
-          <el-table-column align="center" label="姓名" :show-overflow-tooltip="true" width="200">
+          <el-table-column align="center" label="姓名" width="200">
             <template slot-scope="scope">
               {{ scope.row.appNme }}
             </template>
@@ -26,7 +26,7 @@
               {{ scope.row.certCls }}
             </template>
           </el-table-column>
-          <el-table-column align="center" label="证件号" :show-overflow-tooltip="true" width="150">
+          <el-table-column align="center" label="证件号" width="150">
             <template slot-scope="scope">
               {{ scope.row.certCde }}
             </template>
@@ -64,6 +64,7 @@
             </template>
           </el-table-column>
         </el-table>
+        <appHangle :app-form="appForm" :business-data="businessData" @appSonstatus="appSonstatus" />
       </el-card>
       <el-card>
         <div>
@@ -145,6 +146,7 @@
             </template>
           </el-table-column>
         </el-table>
+        <invHangle :inv-form="invForm" :business-data="businessData" @appSonstatus="appSonstatus" />
         <pagination
           v-show="invTotal>0"
           :total="invTotal"
@@ -165,9 +167,10 @@
 <script>
 import { getList, batchSave, handleFinish } from '@/api/preview/base'
 import Pagination from '@/components/Pagination'
-
+import appHangle from '@/views/preview/diagReview/appHangle'
+import invHangle from '@/views/preview/diagReview/invHangle'
 export default {
-  components: { Pagination },
+  components: { Pagination, appHangle, invHangle },
   props: {
     value: {
       type: Boolean,
@@ -207,7 +210,10 @@ export default {
       diagList2: [],
       businessData: {},
       selected: [],
-      dialogVisible: false
+      dialogVisible: false,
+      appHangeVisible: false,
+      appForm: {},
+      invForm: {}
     }
   },
   watch: {
@@ -233,6 +239,11 @@ export default {
         message: message,
         type: type
       })
+    },
+    appSonstatus(data) {
+      if (data) {
+        this.fetchData()
+      }
     },
     handleClose() {
       this.dialogVisible = false
@@ -282,10 +293,25 @@ export default {
       })
     },
     appHange() {
-
+      this.appForm = { id: this.appPkId }
     },
     invHange() {
-
+      if (this.selected.length === 0) {
+        this.$message({
+          showClose: true,
+          message: '请选择数据',
+          type: 'warning'
+        })
+      } else {
+        var ids = ''
+        this.selected.forEach((val, i) => {
+          ids += val.id
+          if (i !== this.selected.length - 1) {
+            ids += ','
+          }
+        })
+        this.invForm = { ids: ids }
+      }
     },
     handleSelect(data) {
       this.selected = data
