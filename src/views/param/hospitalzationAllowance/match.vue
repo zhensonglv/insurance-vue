@@ -1,11 +1,13 @@
 <template>
   <el-dialog :modal="false" :title="title" :visible.sync="dialogTableVisible" append-to-body width="80%">
-
-    <div v-if="matchTyp == 1">
-      <paramManage dialog :param-type="paramType" @setMultipleSeleValues="setMultipleSeleValues" />
+    <div v-if="matchTyp === 1">
+      <paramManage dialog :set-param-data="setParamData" @setMultipleSeleValues="setMultipleSeleValues" />
     </div>
-    <div v-else>
+    <div v-else-if="matchTyp === 2">
       <explainNo dialog @setMultipleSeleValues="setMultipleSeleValues" />
+    </div>
+    <div v-else-if="matchTyp === 3">
+      <diagnosisMatching dialog @setMultipleSeleValues="setMultipleSeleValues" />
     </div>
     <div slot="footer" class="dialog-footer">
       <el-button @click="handleClose">
@@ -20,9 +22,10 @@
 <script>
 import paramManage from '../paramManage'
 import explainNo from '../explainNo'
+import diagnosisMatching from '../diagnosisMatching'
 export default {
   name: 'Match',
-  components: { paramManage, explainNo },
+  components: { paramManage, explainNo, diagnosisMatching },
   props: {
     value: {
       type: Boolean,
@@ -51,7 +54,8 @@ export default {
       total: 0,
       multipleSeleValues: [],
       dialogTableVisible: false,
-      title: null
+      title: null,
+      setParamData: { paramCode: null, paramType: 'param_0015' }
     }
   },
   watch: {

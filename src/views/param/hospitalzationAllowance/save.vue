@@ -21,7 +21,7 @@
       </el-form-item>
 
       <el-form-item label="免赔类型" prop="deductTyp" label-width="120px">
-        <el-select v-model="form.deductTyp" placeholder="请选择" onchange="changeTyp">
+        <el-select v-model="form.deductTyp" placeholder="请选择">
           <el-option
             v-for="item in businessData.CDeductionType"
             :key="item.value"
@@ -119,7 +119,7 @@
 
 <script>
 import { save, edit } from '@/api/base'
-import Match from '@/views/param/sicknessScope/match'
+import Match from './match'
 
 export default {
   // 父组件向子组件传值，通过props获取。
@@ -231,6 +231,10 @@ export default {
       if (data.explCde) { // 解释码
         this.form.explainCde = data.explCde
         this.form.explainCodeDesc = data.explCdeDesc
+      }
+      if (data.diaMatParameterCde) {
+        this.form.diaMatParameterCde = data.diaMatParameterCde
+        this.form.diagnoseCodeDesc = data.explCategort
       }
     },
     handleClose() {
