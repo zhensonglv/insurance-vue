@@ -74,3 +74,10 @@ export function delTree(path, data) {
     data
   })
 }
+export function getInsuredPartList(path, data) {
+  return request({
+    url: '/base/' + path + '/getInsuredPartList',
+    method: 'post',
+    data
+  })
+}

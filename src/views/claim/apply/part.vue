@@ -1,7 +1,7 @@
 <template>
   <el-dialog title="分单信息" :visible.sync="dialogTableVisible" append-to-body width="80%">
 
-    <clientInsured :insured-id="insuredId" dialog @setMultipleSeleValues="setMultipleSeleValues" />
+    <insuredPart :insured-id="insuredId" dialog @setMultipleSeleValues="setMultipleSeleValues" />
     <div slot="footer" class="dialog-footer">
       <el-button @click="handleClose">
         取消
@@ -14,10 +14,10 @@
 </template>
 <script>
 
-import clientInsured from '../../client/clientInsured'
+import insuredPart from './insuredPart'
 export default {
   name: 'Match',
-  components: { clientInsured },
+  components: { insuredPart },
   props: {
     value: {
       type: Boolean,
