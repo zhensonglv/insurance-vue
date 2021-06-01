@@ -27,6 +27,10 @@
               <el-input v-model="form.riskNo" placeholder="请输入出险人号" />
             </el-form-item>
 
+            <el-form-item label="发票姓名" prop="invInsuredNme" label-width="120px">
+              <el-input v-model="form.invInsuredNme" placeholder="请输入发票姓名" />
+            </el-form-item>
+
             <el-form-item label="医院号" prop="hospitalNo" label-width="120px">
               <el-input v-model="form.hospitalNo" placeholder="请输入医院号" />
               <!--              <el-input v-model="form.hospitalNo" placeholder="请输入医院号">
@@ -698,7 +702,8 @@ export default {
         isignExcelusion: '',
         isignWait: '',
         isRehabiliation: '',
-        currencyType: ''
+        currencyType: '',
+        invInsuredNme: ''
       },
       show1: true,
       show2: true,
@@ -888,6 +893,7 @@ export default {
       this.form.isignWait = null
       this.form.isRehabiliation = null
       this.form.currencyType = null
+      this.form.invInsuredNme = null
       this.hospList = []
     },
     handleClose() {
@@ -921,6 +927,11 @@ export default {
 
       this.oldForm.overallAmt = newVal.overallAmt// 社保支付
       this.oldForm.thirdCompenOne = newVal.thirdCompenOne// 原始第三方支付金额
+      this.oldForm.invInsuredNme = newVal.invInsuredNme// 发票姓名
+      this.oldForm.accidentTm = newVal.accidentTm // 事故日期
+      this.oldForm.hospitalNo = newVal.hospitalNo // 医院号
+      this.oldForm.diagCde = newVal.diagCde // 诊断吗
+      this.oldForm.hospitalDepart = newVal.hospitalDepart // 科室
     },
     checkOldForm() {
       var flag = false
@@ -948,14 +959,16 @@ export default {
       if (this.form.isMedicalHistory !== this.oldForm.isMedicalHistory) {
         flag = true
       }
-      if (this.form.isignUseCardRule !== this.oldForm.isignUseCardRule) {
+      if (this.form.isignUseCardRule !== this.oldForm.isignUseCardRule) { // 医保卡使用规则
         flag = true
       }
-      if (this.form.overallAmt !== this.oldForm.overallAmt) {
-        flag = true
-        this.checkOrignal = true
-      }
-      if (this.form.thirdCompenOne !== this.oldForm.thirdCompenOne) {
+      if (this.form.overallAmt !== this.oldForm.overallAmt || // 社保支付
+          this.form.thirdCompenOne !== this.oldForm.thirdCompenOne || // 第三方支付1
+          this.form.invInsuredNme !== this.oldForm.invInsuredNme || // 发票姓名
+          this.form.accidentTm !== this.oldForm.accidentTm || // 事故日期
+          this.form.hospitalNo !== this.oldForm.hospitalNo || // 医院号
+          this.form.hospitalDepart !== this.oldForm.hospitalDepart || // 科室
+          this.form.diagCde !== this.oldForm.diagCde) { // 诊断
         flag = true
         this.checkOrignal = true
       }
@@ -977,7 +990,7 @@ export default {
             })
           } else {
             if (this.checkOldForm()) {
-              if (this.checkOrignal && this.form.isOriginalInv !== 'Y') {
+              if (this.checkOrignal && this.form.isOriginalInv && this.form.isOriginalInv !== 'Y') {
                 this._notify('非原始发票', 'error')
                 return
               }
