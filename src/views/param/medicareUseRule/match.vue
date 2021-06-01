@@ -1,6 +1,6 @@
 <template>
   <el-dialog :modal="false" title="医院网络码" :visible.sync="dialogTableVisible" append-to-body width="80%">
-    <paramManage dialog :param-type="paramType" @setMultipleSeleValues="setMultipleSeleValues" />
+    <paramManage dialog :set-param-data="setParamData" @setMultipleSeleValues="setMultipleSeleValues" />
     <div slot="footer" class="dialog-footer">
       <el-button @click="handleClose">
         取消
@@ -24,7 +24,7 @@ export default {
   },
   data() {
     return {
-      paramType: 'param_0015',
+      setParamData: { paramCode: null, paramType: 'param_0015' },
       list: null,
       listLoading: true,
       basePath: 'paramManage',

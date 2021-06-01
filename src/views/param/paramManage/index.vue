@@ -195,9 +195,9 @@ export default {
       })
     },
     fetchData() {
-      if (this.paramType && this.paramType === 'param_0015') { // 医院网络码
+      /* if (this.paramType && this.paramType === 'param_0015') { // 医院网络码
         this.listQuery.paramterTyp = this.paramType
-      }
+      }*/
       this.listLoading = true
       getList(this.basePath, this.listQuery).then(response => {
         this.list = response.data.data

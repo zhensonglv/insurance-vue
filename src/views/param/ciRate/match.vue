@@ -2,7 +2,7 @@
   <el-dialog :modal="false" :title="title" :visible.sync="dialogTableVisible" append-to-body width="80%">
 
     <div v-if="matchTyp == 1">
-      <paramManage dialog :param-type="paramType" @setMultipleSeleValues="setMultipleSeleValues" />
+      <paramManage dialog :set-param-data="setParamData" @setMultipleSeleValues="setMultipleSeleValues" />
     </div>
     <div v-else>
       <explainNo dialog @setMultipleSeleValues="setMultipleSeleValues" />
@@ -35,7 +35,7 @@ export default {
   },
   data() {
     return {
-      paramType: 'param_0015',
+      setParamData: { paramCode: null, paramType: 'param_0015' },
       list: null,
       listLoading: true,
       basePath: null,
