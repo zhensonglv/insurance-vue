@@ -271,7 +271,6 @@ export default {
       })
     },
     handleAnamnesis() {
-      debugger
       if (this.selected.length !== 1) {
         this.$message({
           showClose: true,

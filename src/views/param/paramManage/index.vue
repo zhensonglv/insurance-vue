@@ -4,21 +4,21 @@
       <div>
         <template v-if="paramType != 'param_0015'">
           <el-input v-model="listQuery.prodCde" style="width: 200px;" placeholder="请输入参数码查询" />
-          <el-select v-model="listQuery.applyTyp" placeholder="请选择适用层级" clearable @change="applyTypChange">
+          <!--          <el-select v-model="listQuery.applyTyp" placeholder="请选择适用层级" clearable @change="applyTypChange">
             <el-option
               v-for="item in businessData.CProdApplyTyp"
               :key="item.value"
               :label="item.label"
               :value="item.value"
             />
-          </el-select>
+          </el-select>-->
           <el-select
             v-model="listQuery.paramterTyp"
             placeholder="请选择参数类型"
             clearable
           >
             <el-option
-              v-for="item in paramData.prodParamterTyp"
+              v-for="item in businessData.CParamTyps"
               :key="item.value"
               :label="item.label"
               :value="item.value"
@@ -152,7 +152,7 @@ export default {
     setParamData: {
       handler(v) {
         this.listQuery.prodCde = v && v.paramCode
-        this.listQuery.applyTyp = v && v.treeType
+        // this.listQuery.applyTyp = v && v.treeType
         this.listQuery.paramterTyp = v && v.paramType
         this.fetchTypeData()
       },
@@ -223,7 +223,7 @@ export default {
           })
         }
         // 参数类型配置
-        if (this.listQuery.applyTyp) {
+        /* if (this.listQuery.applyTyp) {
           getCodeList({ parent: [this.listQuery.applyTyp] }).then(res => {
             this.paramData = res.data
             for (const key in this.paramData) { // key:group  value：array
@@ -231,7 +231,7 @@ export default {
               this.paramData.prodParamterTyp = this.paramData[key]
             }
           })
-        }
+        }*/
         this.fetchData()
       })
     },
