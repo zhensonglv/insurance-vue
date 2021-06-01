@@ -5,8 +5,11 @@
         <el-input v-model="form.paramCde" placeholder="请输入就参数码" disabled="disabled" />
       </el-form-item>
       <el-form-item label="责任号" prop="dutyNo" label-width="120px">
-        <el-input v-model="form.dutyNo" placeholder="责任号" />
+        <el-input v-model="form.dutyNo" placeholder="责任号">
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(4)" />
+        </el-input>
       </el-form-item>
+      <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
 
       <el-form-item label="诊断转换描述" prop="dutyDesc" label-width="120px">
         <el-input v-model="form.dutyDesc" placeholder="诊断转换说明" />
@@ -46,8 +49,11 @@
       </el-row>
       <el-row v-show="form.codeTyp=='2'">
         <el-form-item label="高层诊断码" prop="diaMatParameterCde" label-width="120px">
-          <el-input v-model="form.diaMatParameterCde" placeholder="请输入高层诊断码" />
+          <el-input v-model="form.diaMatParameterCde" placeholder="请输入高层诊断码">
+            <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(3)" />
+          </el-input>
         </el-form-item>
+        <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
         <el-form-item label="高层诊断码描述" prop="diaMatParameterDesc" label-width="120px">
           <el-input v-model="form.diaMatParameterDesc" placeholder="请输入高层诊断码描述" />
         </el-form-item>
@@ -150,6 +156,14 @@ export default {
       if (this.matchTyp === 2) {
         this.form.diaEndCde = data.diaCde
         this.form.diaEndCdeDesc = data.diaDesc
+      }
+      if (this.matchTyp === 3) {
+        this.form.diaMatParameterCde = data.diaMatParameterCde
+        this.form.diaMatParameterDesc = data.explCategort
+      }
+      if (this.matchTyp === 4) {
+        this.form.dutyNo = data.proDuty
+        this.form.dutyDesc = data.proDutyNme
       }
     },
     onSubmit(form) {
