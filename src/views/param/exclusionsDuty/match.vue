@@ -7,9 +7,13 @@
     <div v-else-if="matchTyp === 2">
       <explainNo dialog @setMultipleSeleValues="setMultipleSeleValues" />
     </div>
+    <div v-else-if="matchTyp === 5">
+      <diagnosisMatching dialog @setMultipleSeleValues="setMultipleSeleValues" />
+    </div>
     <div v-else>
       <diagnosisManage dialog @setMultipleSeleValues="setMultipleSeleValues" />
     </div>
+
     <div slot="footer" class="dialog-footer">
       <el-button @click="handleClose">
         取消

@@ -37,7 +37,7 @@
       <el-row v-show="form.codeTyp=='1'">
         <el-form-item label="起始代码" prop="bgnCode" label-width="120px">
           <el-input v-model="form.bgnCode" placeholder="请选择起始代码">
-            <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(2)" />
+            <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(1)" />
           </el-input>
         </el-form-item>
         <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
@@ -47,7 +47,7 @@
         </el-form-item>
         <el-form-item label="终止代码" prop="endCode" label-width="120px">
           <el-input v-model="form.endCode" placeholder="请选择起始代码">
-            <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(3)" />
+            <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(2)" />
           </el-input>
         </el-form-item>
         <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
@@ -58,15 +58,19 @@
       </el-row>
       <el-row v-show="form.codeTyp=='2'">
         <el-form-item label="诊断匹配码" prop="diaMatchCde" label-width="120px">
-          <el-input v-model="form.diaMatchCde" placeholder="请输入诊断匹配码" />
+          <el-input v-model="form.diaMatchCde" placeholder="请输入诊断匹配码">
+            <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(3)" />
+          </el-input>
         </el-form-item>
+        <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
+
         <el-form-item label="诊断匹配描述" prop="diaMatchDesc" label-width="120px">
           <el-input v-model="form.diaMatchDesc" placeholder="请输入诊断匹配描述" />
         </el-form-item>
       </el-row>
       <el-form-item label="解释码" prop="explianCde" label-width="120px">
         <el-input v-model="form.explianCde" placeholder="请选择解释码">
-          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(1)" />
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(4)" />
         </el-input>
       </el-form-item>
       <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
@@ -282,13 +286,17 @@ export default {
         this.form.explianCde = data.explCde
         this.form.explainDesc = data.explCdeDesc
       }
-      if (data.diaCde && this.matchTyp === 2) {
+      if (data.diaCde && this.matchTyp === 1) {
         this.form.bgnCode = data.diaCde
         this.form.bgnCodeDesc = data.diaDesc
       }
-      if (data.diaCde && this.matchTyp === 3) {
+      if (data.diaCde && this.matchTyp === 2) {
         this.form.endCode = data.diaCde
         this.form.endCodeDesc = data.diaDesc
+      }
+      if (this.matchTyp === 3) {
+        this.form.diaMatchCde = data.diaMatParameterCde
+        this.form.diaMatchDesc = data.explCategort
       }
     },
     clearForm() {

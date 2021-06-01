@@ -1,11 +1,17 @@
 <template>
   <el-dialog :modal="false" :title="title" :visible.sync="dialogTableVisible" append-to-body width="80%">
 
-    <div v-if="matchTyp == 1">
-      <explainNo dialog @setMultipleSeleValues="setMultipleSeleValues" />
-    </div>
-    <div v-else>
+    <div v-if="matchTyp === 1">
       <diagnosisManage dialog @setMultipleSeleValues="setMultipleSeleValues" />
+    </div>
+    <div v-else-if="matchTyp === 2">
+      <diagnosisManage dialog @setMultipleSeleValues="setMultipleSeleValues" />
+    </div>
+    <div v-else-if="matchTyp === 3">
+      <diagnosisMatching dialog @setMultipleSeleValues="setMultipleSeleValues" />
+    </div>
+    <div v-else-if="matchTyp === 4">
+      <explainNo dialog @setMultipleSeleValues="setMultipleSeleValues" />
     </div>
     <div slot="footer" class="dialog-footer">
       <el-button @click="handleClose">
@@ -56,12 +62,15 @@ export default {
       this.dialogTableVisible = val
     },
     matchTyp(val) {
-      if (val === 1) {
+      if (val === 1 || val === 2) {
+        this.basePath = 'diagnosisManage'
+        this.title = '诊断管理'
+      } else if (val === 3) {
+        this.basePath = 'diagnosisMatching'
+        this.title = '高层诊断码'
+      } else if (val === 4) {
         this.basePath = 'explainNo'
         this.title = '解释码'
-      } else {
-        this.basePath = 'diagnosisManage'
-        this.title = '诊断码'
       }
     },
     dialogTableVisible(val) {

@@ -76,11 +76,14 @@
         </el-form-item>
       </el-row>
       <el-row v-show="form.quotaCodeTyp=='2'">
-        <el-form-item label="高层诊断码" prop="treatMatchCde" label-width="120px">
-          <el-input v-model="form.diaMatParameterCde" placeholder="请输入高层诊疗码" />
+        <el-form-item label="高层诊断码" prop="diaMatParameterCde" label-width="120px">
+          <el-input v-model="form.diaMatParameterCde" placeholder="请输入高层诊断码">
+            <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(5)" />
+          </el-input>
         </el-form-item>
-        <el-form-item label="高层诊断码描述" prop="treatMatchDesc" label-width="120px">
-          <el-input v-model="form.diaMatchDesc" placeholder="请输入高层诊疗码描述" />
+        <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
+        <el-form-item label="高层诊断码描述" prop="diaMatDesc" label-width="120px">
+          <el-input v-model="form.diaMatDesc" placeholder="请输入高层诊断码描述" />
         </el-form-item>
       </el-row>
       <el-form-item label="诊疗代码类型" prop="treatTyp" label-width="120px">
@@ -241,9 +244,9 @@ export default {
         invoiceTyp: [{ required: true, trigger: 'blur', message: '请输入就诊类型' }],
         explainCde: [{ required: true, trigger: 'blur', message: '请输入解释码' }],
         explainCdeDesc: [{ required: true, trigger: 'blur', message: '请输入解释码描述' }],
-        quotaCodeTyp: [{ required: true, trigger: 'blur', message: '请输入代码类型' }],
-        quotaStarCde: [{ required: true, trigger: 'blur', message: '请输入起始代码描述' }],
-        quotaEndCde: [{ required: true, trigger: 'blur', message: '请输入终止代码' }]
+        quotaCodeTyp: [{ required: true, trigger: 'blur', message: '请输入代码类型' }]
+      /*  quotaStarCde: [{ required: true, trigger: 'blur', message: '请输入起始代码描述' }],
+        quotaEndCde: [{ required: true, trigger: 'blur', message: '请输入终止代码' }]*/
       }
     }
   },
@@ -343,6 +346,10 @@ export default {
         this.form.quotaEndCde = data.diaCde
         this.form.quotaEndCdeDesc = data.diaDesc
       }
+      if (this.matchTyp === 5) {
+        this.form.diaMatParameterCde = data.diaMatParameterCde
+        this.form.diaMatDesc = data.explCategort
+      }
     },
     handleClose() {
       this.clearForm()
@@ -400,8 +407,8 @@ export default {
       if (this.form.diaMatParameterCde !== null && this.form.diaMatParameterCde !== '' && this.form.diaMatParameterCde !== undefined) {
         this.form.diaMatParameterCde = ''
       }
-      if (this.form.diaMatchDesc !== null && this.form.diaMatchDesc !== '' && this.form.diaMatchDesc !== undefined) {
-        this.form.diaMatchDesc = ''
+      if (this.form.diaMatDesc !== null && this.form.diaMatDesc !== '' && this.form.diaMatDesc !== undefined) {
+        this.form.diaMatDesc = ''
       }
     },
     changeTreatTyp() {
