@@ -68,3 +68,11 @@ export function splitInv(data) {
     data
   })
 }
+
+export function updateExcel(data) {
+  return request({
+    url: '/base/inv/updateExcel',
+    method: 'put',
+    data
+  })
+}

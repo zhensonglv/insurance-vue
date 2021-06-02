@@ -122,7 +122,7 @@
               <el-input v-model="form.invNo" placeholder="请输入发票号" />
             </el-form-item>
 
-            <el-form-item label="就诊起始日" prop="docBgnTm" label-width="100px">
+            <el-form-item label="就诊起始日" prop="visitBgnTm" label-width="100px">
               <el-date-picker
                 v-model="form.visitBgnTm"
                 type="datetime"
@@ -131,7 +131,7 @@
               />
             </el-form-item>
 
-            <el-form-item label="就诊终止日" prop="docEndTm" label-width="100px">
+            <el-form-item label="就诊终止日" prop="visitEndTm" label-width="100px">
               <el-date-picker
                 v-model="form.visitEndTm"
                 type="datetime"
@@ -608,12 +608,15 @@
       <el-button type="primary" @click="onSubmit('form')">
         Confirm
       </el-button>
+      <el-button type="primary" @click="updateExcel('form')">
+        更新备份表信息
+      </el-button>
     </div>
   </el-dialog>
 </template>
 
 <script>
-import { initData, save, edit } from '@/api/claim/inv'
+import { initData, save, edit, updateExcel } from '@/api/claim/inv'
 import { getHospital, getDiag } from '@/api/code'
 export default {
   // 父组件向子组件传值，通过props获取。
@@ -641,8 +644,8 @@ export default {
         secdiagDescOne: '',
         secdiagDescTwo: '',
         docTyp: '',
-        docBgnTm: '',
-        docEndTm: '',
+        visitBgnTm: '',
+        visitEndTm: '',
         isAccident: '',
         isEmergTreat: '',
         isLackMaterial: '',
@@ -831,8 +834,8 @@ export default {
       this.form.secdiagDescOne = null
       this.form.secdiagDescTwo = null
       this.form.docTyp = null
-      this.form.docBgnTm = null
-      this.form.docEndTm = null
+      this.form.visitBgnTm = null
+      this.form.visitEndTm = null
       this.form.isAccident = null
       this.form.isEmergTreat = null
       this.form.isLackMaterial = null
@@ -932,6 +935,8 @@ export default {
       this.oldForm.hospitalNo = newVal.hospitalNo // 医院号
       this.oldForm.diagCde = newVal.diagCde // 诊断吗
       this.oldForm.hospitalDepart = newVal.hospitalDepart // 科室
+      this.oldForm.visitBgnTm = newVal.visitBgnTm // 就诊起期
+      this.oldForm.visitEndTm = newVal.visitEndTm // 就诊止期
     },
     checkOldForm() {
       var flag = false
@@ -968,11 +973,46 @@ export default {
           this.form.accidentTm !== this.oldForm.accidentTm || // 事故日期
           this.form.hospitalNo !== this.oldForm.hospitalNo || // 医院号
           this.form.hospitalDepart !== this.oldForm.hospitalDepart || // 科室
-          this.form.diagCde !== this.oldForm.diagCde) { // 诊断
+          this.form.diagCde !== this.oldForm.diagCde ||// 诊断
+          this.form.visitBgnTm !== this.oldForm.visitBgnTm || // 就诊起期
+          this.form.visitEndTm !== this.oldForm.visitEndTm) { // 就诊止期
         flag = true
         this.checkOrignal = true
       }
       return flag
+    },
+    updateExcel() {
+      if (this.form.id == null) {
+        this._notify('新增操作不允许操作此按钮', 'warning')
+        return
+      }
+      this.$confirm('是否同步更新备份表信息？, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        updateExcel(this.form).then(response => {
+          if (response.code === 200) {
+            this._notify(response.msg, 'success')
+            this.clearForm()
+            this.$emit('sonStatus', false)
+            this.clearFlag()
+          } else {
+            this._notify(response.msg, 'error')
+          }
+        })
+      }).catch(() => {
+        edit(this.form).then(response => {
+          if (response.code === 200) {
+            this._notify(response.msg, 'success')
+            this.clearForm()
+            this.$emit('sonStatus', true)
+            this.clearFlag()
+          } else {
+            this._notify(response.msg, 'error')
+          }
+        })
+      })
     },
     onSubmit(form) {
       this.$refs[form].validate((valid) => {
