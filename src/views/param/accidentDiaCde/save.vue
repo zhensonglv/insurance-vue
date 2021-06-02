@@ -40,8 +40,11 @@
       </el-row>
       <el-row v-show="form.codeTyp=='2'">
         <el-form-item label="诊断匹配码" prop="diaMatParameterCde" label-width="120px">
-          <el-input v-model="form.diaMatParameterCde" placeholder="请输入就诊匹配码" />
+          <el-input v-model="form.diaMatParameterCde" placeholder="请输入就诊匹配码">
+            <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(3)" />
+          </el-input>
         </el-form-item>
+        <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
 
         <el-form-item label="诊断匹配描述" prop="diaMatDesc" label-width="120px">
           <el-input v-model="form.diaMatDesc" placeholder="请输入就诊匹配描述" />
@@ -148,6 +151,10 @@ export default {
       if (this.matchTyp === 2) {
         this.form.endCde = data.diaCde
         this.form.endCodeDesc = data.diaDesc
+      }
+      if (this.matchTyp === 3) {
+        this.form.diaMatParameterCde = data.diaMatParameterCde
+        this.form.diaMatDesc = data.explCategort
       }
     },
 

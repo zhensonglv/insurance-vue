@@ -10,7 +10,7 @@
       </el-form-item>
 
       <el-form-item label="津贴类型" prop="hospitalizationTyp" label-width="120px">
-        <el-select v-model="form.hospitalizationTyp" placeholder="请选择" onchange="changeTyp">
+        <el-select v-model="form.hospitalizationTyp" clearable placeholder="请选择" onchange="changeTyp">
           <el-option
             v-for="item in businessData.CHospitalizationTyp"
             :key="item.value"
@@ -21,7 +21,7 @@
       </el-form-item>
 
       <el-form-item label="免赔类型" prop="deductTyp" label-width="120px">
-        <el-select v-model="form.deductTyp" placeholder="请选择">
+        <el-select v-model="form.deductTyp" clearable placeholder="请选择">
           <el-option
             v-for="item in businessData.CDeductionType"
             :key="item.value"
@@ -69,7 +69,7 @@
         </el-form-item>
 
         <el-form-item label="就诊原因" prop="visitReson" label-width="120px">
-          <el-select v-model="form.visitReson" placeholder="请选择">
+          <el-select v-model="form.visitReson" clearable placeholder="请选择">
             <el-option
               v-for="item in businessData.QuotaVisitReason"
               :key="item.value"
@@ -171,7 +171,8 @@ export default {
         quotaDays: [{ required: true, trigger: 'blur', message: '请输入限额天数' }],
         diaMatParameterCde: [{ required: true, trigger: 'blur', message: '请输入诊断码' }],
         diagnoseCodeDesc: [{ required: true, trigger: 'blur', message: '请输入诊断码描述' }],
-        hospitalizationAmount: [{ required: true, trigger: 'blur', message: '请输入津贴日额' }]
+        hospitalizationAmount: [{ required: true, trigger: 'blur', message: '请输入津贴日额' }],
+        visitReson: [{ required: true, trigger: 'blur', message: '请选择就诊原因' }]
       }
     }
   },

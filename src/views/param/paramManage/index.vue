@@ -16,6 +16,7 @@
             v-model="listQuery.paramterTyp"
             placeholder="请选择参数类型"
             clearable
+            filterable
           >
             <el-option
               v-for="item in businessData.CParamTyps"

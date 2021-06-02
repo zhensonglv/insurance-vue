@@ -71,7 +71,7 @@ export default {
         this.title = '解释码'
       } else if (val === 3) {
         this.basePath = 'diagnosisMatching'
-        this.title = '高层诊断吗'
+        this.title = '高层诊断码'
       }
     },
     dialogTableVisible(val) {

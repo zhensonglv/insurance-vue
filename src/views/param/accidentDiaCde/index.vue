@@ -2,7 +2,6 @@
   <div class="app-container">
     <el-card>
       <div>
-        <h1>{{ code }}</h1>
         <el-input v-model="listQuery.accidentDiaCde" style="width: 200px;" placeholder="请输入意外诊断码查询" />
         <el-input v-model="listQuery.accidentDiaExp" style="width: 200px;" placeholder="请输入意外诊断说明查询" />
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>

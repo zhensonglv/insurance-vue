@@ -167,10 +167,7 @@ export default {
       })
     },
     handleSave() {
-      this.form = { id: null }
-      /* if (this.$route.query.pubCoverId) { // 上级页面传入参数
-            this.form.pubCoverId = this.$route.query.pubCoverId
-          }*/
+      this.form = { id: null, medicareParamCde: this.listQuery.medicareParamCde }
       this.dialogVisible = true
     },
     handleEdit(id) {
