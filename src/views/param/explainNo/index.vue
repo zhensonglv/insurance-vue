@@ -125,7 +125,7 @@ export default {
     },
     fetchTypeData() {
       // 获取codeList
-      getCodeList({ parent: ['CExplCdeSubcategory'] }).then(res => {
+      getCodeList({ parent: ['ConSubcategory', 'CExplCategort'] }).then(res => {
         this.businessData = res.data
         // 组装table 的map
         for (const key in this.businessData) {

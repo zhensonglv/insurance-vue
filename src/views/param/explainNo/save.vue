@@ -5,7 +5,7 @@
         <el-input v-model="form.explCde" placeholder="请输入结论说明码" />
       </el-form-item>
       <el-form-item label="解释码类别" prop="explCategort" label-width="120px">
-        <el-select v-model="form.explCategort" placeholder="请输入解释码类别">
+        <el-select v-model="form.explCategort" placeholder="请选择">
           <el-option
             v-for="item in businessData.CExplCategort"
             :key="item.value"
@@ -15,7 +15,14 @@
         </el-select>
       </el-form-item>
       <el-form-item label="解释码子类别" prop="explCdeSubcategory" label-width="120px">
-        <el-input v-model="form.explCdeSubcategory" placeholder="请输入解释码子类别" />
+        <el-select v-model="form.explCdeSubcategory" placeholder="请选择">
+          <el-option
+            v-for="item in businessData.ConSubcategory"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
       <el-form-item label="解释码状态" prop="explCdeStatus" label-width="120px">
         <el-input v-model="form.explCdeStatus" placeholder="请输入解释码状态" />
