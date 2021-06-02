@@ -81,3 +81,11 @@ export function getInsuredPartList(path, data) {
     data
   })
 }
+
+export function getAggregateLimitList(path, data) {
+  return request({
+    url: '/base/' + path + '/getAggregateLimitList',
+    method: 'post',
+    data
+  })
+}

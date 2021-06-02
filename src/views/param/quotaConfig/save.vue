@@ -90,8 +90,16 @@
       <el-form-item label="累计次数" prop="sumTimes" label-width="120px">
         <el-input v-model="form.sumTimes" placeholder="请输入参数描述" />
       </el-form-item>
-      <el-form-item label="累计限额" prop="aggregateLimitDesc" label-width="120px">
-        <el-input v-model="form.aggregateLimitDesc" placeholder="请输入参数描述" />
+      <el-form-item label="累计限额" prop="aggregateLimitId" label-width="120px">
+        <el-select v-model="form.aggregateLimitId" placeholder="请选择" clearable>
+          <el-option
+            v-for="item in aggregateLimitList"
+            :key="item.id"
+            :label="item.quotaDesc"
+            :value="item.id"
+          />
+        </el-select>
+
       </el-form-item>
       <el-row>
         <el-form-item label="治疗类型" prop="treatmentTyp" label-width="120px">
@@ -154,7 +162,7 @@
 </template>
 
 <script>
-import { save, edit } from '@/api/base'
+import { save, edit, getAggregateLimitList } from '@/api/base'
 import Match from './match'
 
 export default {
@@ -184,6 +192,7 @@ export default {
         amountTyp: '',
         billTyp: '',
         applyCondition: '',
+        aggregateLimitId: '',
         aggregateLimitDesc: '',
         timesTyp: '',
         qoutaTimes: '',
@@ -191,8 +200,8 @@ export default {
         docTyp: '',
         isMedical: '',
         treatmentTyp: '',
-        isLadder: ''
-
+        isLadder: '',
+        aggregateLimitList: []
       },
       matchVisable: false,
       matchTyp: null,
@@ -200,6 +209,7 @@ export default {
       treatmentTypArr: ['1', '2', '3', '4'],
       checkAll: false,
       isIndeterminate: true,
+      aggregateLimitList: [],
       rules: {
         quotaDesc: [{ required: true, trigger: 'blur', message: '请输入限额描述' }],
         quotaTyp: [{ required: true, trigger: 'blur', message: '请选择限额类型' }],
@@ -220,8 +230,10 @@ export default {
       }
       if (newVal.id != null) {
         this.dialogTitle = 'Edit'
+        this.aggregateLimitList = newVal.aggregateLimitList
       } else {
         this.dialogTitle = 'Add'
+        this.getAggregateLimitList()
       }
     }
   },
@@ -245,6 +257,7 @@ export default {
       this.form.amountTyp = null
       this.form.billTyp = null
       this.form.applyCondition = null
+      this.form.aggregateLimitId = null
       this.form.aggregateLimitDesc = null
       this.form.timesTyp = null
       this.form.qoutaTimes = null
@@ -253,7 +266,9 @@ export default {
       this.form.isMedical = null
       this.form.treatmentTyp = null
       this.form.isLadder = null
+      this.form.aggregateLimitList = []
       this.treatmentTyp = []
+      this.aggregateLimitList = []
     },
 
     hanldeMatch(matchTyp) {
@@ -313,6 +328,11 @@ export default {
           this.$message('error submit!!')
           return false
         }
+      })
+    },
+    getAggregateLimitList() {
+      getAggregateLimitList(this.basePath, { paramCde: this.form.paramCde }).then(response => {
+        this.aggregateLimitList = response.data
       })
     }
   }
