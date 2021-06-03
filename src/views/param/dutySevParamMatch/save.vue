@@ -16,12 +16,12 @@
       <el-form-item label="责任描述" prop="dutyDesc" label-width="120px">
         <el-input v-model="form.dutyDesc" placeholder="请输入责任描述" />
       </el-form-item>
-      <el-form-item label="服务类型起始码" prop="serviceTypBgnCde" label-width="120px">
+      <!--      <el-form-item label="服务类型起始码" prop="serviceTypBgnCde" label-width="120px">
         <el-input v-model="form.serviceTypBgnCde" placeholder="请输入服务类型起始码" />
       </el-form-item>
       <el-form-item label="服务类型终止码" prop="serviceTypEndCde" label-width="120px">
         <el-input v-model="form.serviceTypEndCde" placeholder="请输入服务类型终止码" />
-      </el-form-item>
+      </el-form-item>-->
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="handleClose">
@@ -89,10 +89,8 @@ export default {
       this.matchVisable = true
     },
     matchConfirm(data) {
-      this.form.dutyNo = data[0].dutyNo
-      this.form.dutyDesc = data[0].dutyDesc
-      this.form.serviceTypBgnCde = data[0].begSertypCde
-      this.form.serviceTypEndCde = data[0].endSertypCde
+      this.form.dutyNo = data.proDuty
+      this.form.dutyDesc = data.proDutyNme
     },
 
     clearForm() {

@@ -461,6 +461,7 @@ export const constantRoutes = [
         path: 'dutySertypMatching',
         component: () => import('@/views/param/dutySertypMatching/index'),
         name: '责任服务类型匹配',
+        hidden: true,
         meta: { title: '责任服务类型匹配', icon: 'guide', noCache: true }
       },
       {

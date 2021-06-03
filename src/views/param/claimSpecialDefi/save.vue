@@ -88,10 +88,10 @@ export default {
         suspendLevel: [{ required: true, trigger: 'blur', message: '请输入悬挂层级' }],
         suspendExpain: [{ required: true, trigger: 'blur', message: '请输入悬挂解释' }],
         specialDesc: [{ required: true, trigger: 'blur', message: '请输入描述' }],
-        specialLevel: [{ required: true, trigger: 'blur', message: '请输入审阅层级' }],
+        /*  specialLevel: [{ required: true, trigger: 'blur', message: '请输入审阅层级' }],*/
         suspendCondition: [{ required: true, trigger: 'blur', message: '请输入悬挂条件' }],
         suspendStatu: [{ required: true, trigger: 'blur', message: '请输入客户解释码' }],
-        speicalManualOperation: [{ required: true, trigger: 'blur', message: '请输入保单特殊人工操作' }],
+        /*   speicalManualOperation: [{ required: true, trigger: 'blur', message: '请输入保单特殊人工操作' }],*/
         manualOperation: [{ required: true, trigger: 'blur', message: '请输入人工操作' }]
       }
     }

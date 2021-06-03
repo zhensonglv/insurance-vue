@@ -181,6 +181,14 @@
         <el-input v-model="form.maxtermNo" placeholder="请输入大型号" />
       </el-form-item>
 
+      <el-form-item label="适应症" prop="subCateGoryNo" label-width="120px">
+        <el-input v-model="form.subCateGoryNo" placeholder="请输入适应症" />
+      </el-form-item>
+
+      <el-form-item label="适应症名称" prop="subCateGoryName" label-width="120px">
+        <el-input v-model="form.subCateGoryName" placeholder="请输入适应症名称" />
+      </el-form-item>
+
       <el-form-item label="赔付结论" prop="compensateResult" label-width="120px">
         <el-select v-model="form.compensateResult" clearable placeholder="请选择">
           <el-option
@@ -274,7 +282,9 @@ export default {
         company: '',
         conclusionDesc: '',
         auditInformation: '',
-        selfAmt: ''
+        selfAmt: '',
+        subCateGoryNo: '',
+        subCateGoryName: ''
       },
       matchVisable: false,
       matchTyp: null,
@@ -344,6 +354,8 @@ export default {
       this.form.conclusionDesc = null
       this.form.auditInformation = null
       this.form.selfAmt = null
+      this.form.subCateGoryName = null
+      this.form.subCateGoryNo = null
     },
     handleClose() {
       this.clearForm()
@@ -365,8 +377,10 @@ export default {
     },
     matchConfirm(data) {
       if (data.treatNo) { // 诊疗码
-        this.form.treatCde = data.treatNo
-        this.form.maxtermNo = data.cateGoryNo
+        this.form.treatCde = data.treatNo// 诊疗码
+        this.form.maxtermNo = data.cateGoryNo// 大项号
+        this.form.setSubCateGoryNo = data.subCateGoryNo// 适应症
+        this.form.subCateGoryName = data.subCateGoryName// 适应症名称
       }
       if (data.explCde) { // 解释码
         this.form.adjustInterpCde = data.explCde

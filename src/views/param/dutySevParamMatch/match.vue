@@ -1,6 +1,8 @@
 <template>
-  <el-dialog :modal="false" title="责任服务类型匹配" :visible.sync="dialogTableVisible" append-to-body>
-    <dutySertypMatching dialog @setMultipleSeleValues="setMultipleSeleValues" />
+  <el-dialog :modal="false" title="责任服务类型匹配" :visible.sync="dialogTableVisible" append-to-body width="60%">
+    <!--    <dutySertypMatching dialog @setMultipleSeleValues="setMultipleSeleValues" />-->
+    <proDuty dialog @setMultipleSeleValues="setMultipleSeleValues" />
+
     <div slot="footer" class="dialog-footer">
       <el-button @click="handleClose">
         取消
@@ -12,11 +14,11 @@
   </el-dialog>
 </template>
 <script>
-import { getList } from '@/api/base'
-import dutySertypMatching from '../dutySertypMatching'
+import proDuty from '../../productData/proDuty'
+
 export default {
   name: 'Match',
-  components: { dutySertypMatching },
+  components: { proDuty },
   props: {
     value: {
       type: Boolean,
@@ -27,7 +29,7 @@ export default {
     return {
       list: null,
       listLoading: true,
-      basePath: 'dutySertypMatching',
+      basePath: 'proDuty',
       listQuery: {
         pageNum: 1,
         pageSize: 10,
@@ -52,14 +54,6 @@ export default {
     this.queryData()
   },
   methods: {
-    queryData() {
-      this.listLoading = true
-      getList(this.basePath, this.listQuery).then(response => {
-        this.list = response.data.data
-        this.total = response.data.total
-        this.listLoading = false
-      })
-    },
     handleClose() {
       this.dialogTableVisible = false
     },

@@ -32,19 +32,6 @@
             {{ scope.row.dutyDesc }}
           </template>
         </el-table-column>
-
-        <el-table-column align="center" label="服务类型起始码" width="150">
-          <template slot-scope="scope">
-            {{ scope.row.serviceTypBgnCde }}
-          </template>
-        </el-table-column>
-
-        <el-table-column align="center" label="服务类型终止码" width="150">
-          <template slot-scope="scope">
-            {{ scope.row.serviceTypEndCde }}
-          </template>
-        </el-table-column>
-
         <el-table-column align="center" label="操作" fixed="right">
           <template slot-scope="scope">
             <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)">编辑</el-button>

@@ -46,9 +46,9 @@
             {{ scope.row.maxtermNo }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="服务类型">
+        <el-table-column align="center" label="适应症">
           <template slot-scope="scope">
-            {{ scope.row.serviceTyp }}
+            {{ scope.row.subCateGoryName }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="社保类型">
