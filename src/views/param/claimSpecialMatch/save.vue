@@ -5,8 +5,11 @@
         <el-input v-model="form.claimSpecialMatchNo" placeholder="请输入理赔审核规则码" disabled="disabled" />
       </el-form-item>
       <el-form-item label="特殊审核要求码" prop="specialAuditsCde" label-width="120px">
-        <el-input v-model="form.specialAuditsCde" placeholder="请输入特殊审核要求码" />
+        <el-input v-model="form.specialAuditsCde" placeholder="请输入特殊审核要求码">
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch" />
+        </el-input>
       </el-form-item>
+      <match v-model="matchVisable" @matchConfirm="matchConfirm" />
 
       <el-form-item label="类型" prop="typ" label-width="120px">
         <el-select v-model="form.typ" placeholder="请选择" clearable>
@@ -64,11 +67,15 @@
 
 <script>
 import { save, edit } from '@/api/base'
+import Match from './match'
 
 export default {
   // 父组件向子组件传值，通过props获取。
   // 一旦父组件改变了`sonData`对应的值，子组件的`sonData`会立即改变，通过watch函数可以实时监听到值的变化
   // `props`不属于data，但是`props`中的参数可以像data中的参数一样直接使用
+  components: {
+    Match
+  },
   props: ['sonData', 'businessData'],
   data() {
     return {
@@ -87,6 +94,7 @@ export default {
         speicalManualOperation: '',
         specialDesc: ''
       },
+      matchVisable: false,
       rules: {
         claimSpecialMatchNo: [{ required: true, trigger: 'blur', message: '请输入理赔审核规则码' }],
         specialAuditsCde: [{ required: true, trigger: 'blur', message: '请输入特殊审核要求码' }]
@@ -110,6 +118,21 @@ export default {
         message: message,
         type: type
       })
+    },
+    hanldeMatch() {
+      this.matchVisable = true
+    },
+    matchConfirm(data) {
+      if (data.specialAuditsCde) {
+        this.form.specialAuditsCde = data.specialAuditsCde
+        this.form.typ = data.specialTyp
+        this.form.suspendLevel = data.suspendLevel
+        this.form.auditsRule = data.suspendExpain
+        this.form.suspendCondition = data.suspendCondition
+        this.form.manualOperation = data.manualOperation
+        this.form.speicalManualOperation = data.speicalManualOperation
+        this.form.specialDesc = data.specialDesc
+      }
     },
     clearForm() {
       this.form.id = null

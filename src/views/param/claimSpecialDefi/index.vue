@@ -11,6 +11,15 @@
       </div>
       <br>
       <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
+        <el-table-column
+          type="center"
+          label="选择"
+          width="55"
+        >
+          <template slot-scope="scope">
+            <el-radio v-model="paramRadio" :label="scope.$index" @change.native="handleSelect(scope.row)">&nbsp;</el-radio>
+          </template>
+        </el-table-column>
         <el-table-column align="center" label="序号" width="95">
           <template slot-scope="scope">
             {{ scope.$index +1 }}
@@ -88,7 +97,6 @@
 
 <script>
 import { getList, findById, del } from '@/api/base'
-// import { getCodeList } from '@/api/code'
 import Pagination from '@/components/Pagination'
 import Save from './save'
 import { getCodeList } from '@/api/code'
@@ -110,7 +118,9 @@ export default {
       form: null,
       businessData: {},
       CSpecialLevel: {},
-      CSpecialTyp: {}
+      CSpecialTyp: {},
+      paramRadio: false,
+      seleced: []
     }
   },
   created() {
@@ -125,8 +135,13 @@ export default {
         type: type
       })
     },
+    handleSelect(data) {
+      this.selected = data
+      this.$emit('setMultipleSeleValues', data)
+    },
     fetchData() {
       this.listLoading = true
+      this.paramRadio = false
       getList(this.basePath, this.listQuery).then(response => {
         this.list = response.data.data
         this.total = response.data.total
