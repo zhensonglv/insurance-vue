@@ -52,7 +52,7 @@
 
         <el-table-column align="center" label="就诊类型" width="150">
           <template slot-scope="scope">
-            {{ CProDutyDesc[scope.row.visitTyp] }}
+            {{ ClinicType[scope.row.visitTyp] }}
           </template>
         </el-table-column>
 
@@ -117,7 +117,7 @@ export default {
       form: null,
       businessData: {},
       TrueOrFalse: {},
-      CProDutyDesc: {},
+      ClinicType: {},
       AccidentType: {}
     }
   },
@@ -153,7 +153,7 @@ export default {
     },
     fetchTypeData() {
       // 获取codeList
-      getCodeList({ parent: ['TrueOrFalse', 'AccidentType', 'CProDutyDesc'] }).then(res => {
+      getCodeList({ parent: ['TrueOrFalse', 'AccidentType', 'ClinicType'] }).then(res => {
         debugger
         this.businessData = res.data
         // 组装table 的map

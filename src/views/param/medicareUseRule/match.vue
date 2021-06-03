@@ -1,6 +1,11 @@
 <template>
   <el-dialog :modal="false" title="医院网络码" :visible.sync="dialogTableVisible" append-to-body width="80%">
-    <paramManage dialog :set-param-data="setParamData" @setMultipleSeleValues="setMultipleSeleValues" />
+    <div v-if="matchTyp ===1 ">
+      <paramManage dialog :set-param-data="setParamData" @setMultipleSeleValues="setMultipleSeleValues" />
+    </div>
+    <div v-else-if="matchTyp === 2 ">
+      <baseArea dialog @setMultipleSeleValues="setMultipleSeleValues" />
+    </div>
     <div slot="footer" class="dialog-footer">
       <el-button @click="handleClose">
         取消
@@ -13,13 +18,18 @@
 </template>
 <script>
 import paramManage from '../paramManage'
+import baseArea from '../../system/area'
 export default {
   name: 'Match',
-  components: { paramManage },
+  components: { paramManage, baseArea },
   props: {
     value: {
       type: Boolean,
       default: false
+    },
+    matchTyp: {
+      type: Number,
+      default: 0
     }
   },
   data() {
@@ -48,6 +58,13 @@ export default {
     },
     dialogTableVisible(val) {
       this.$emit('input', val)
+    },
+    matchTyp(val) {
+      if (val === 1) {
+        this.title = '医院网络码'
+      } else if (val === 2) {
+        this.title = '社保地'
+      }
     }
   },
   created() {

@@ -5,14 +5,16 @@
         <el-input v-model="form.medicareParamCde" placeholder="请输入医保规则参数码" disabled="disabled" />
       </el-form-item>
       <el-form-item label="社保地" prop="medicareAddress" label-width="120px">
-        <el-input v-model="form.medicareAddress" placeholder="请输入社保地" />
+        <el-input v-model="form.medicareAddress" placeholder="请输入社保地">
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(2)" />
+        </el-input>
       </el-form-item>
       <el-form-item label="医院网络码" prop="hospitalCde" label-width="120px">
         <el-input v-model="form.hospitalCde" placeholder="请选择医院网络码">
-          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch" />
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(1)" />
         </el-input>
       </el-form-item>
-      <match v-model="matchVisable" @matchConfirm="matchConfirm" />
+      <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
 
       <el-form-item label="是否使用医保卡" prop="isUseMedicare" label-width="120px">
         <el-select v-model="form.isUseMedicare" placeholder="请选择" clearable>
@@ -32,7 +34,7 @@
       <el-form-item label="就诊类型" prop="visitTyp" label-width="120px">
         <el-select v-model="form.visitTyp" placeholder="请选择" clearable>
           <el-option
-            v-for="item in businessData.CProDutyDesc"
+            v-for="item in businessData.ClinicType"
             :key="item.value"
             :label="item.label"
             :value="item.value"
@@ -97,6 +99,7 @@ export default {
         medicareRemark: ''
       },
       matchVisable: false,
+      matchTyp: null,
       rules: {
         medicareParamCde: [{ required: true, trigger: 'blur', message: '请输入医保规则参数码' }],
         medicareAddress: [{ required: true, trigger: 'blur', message: '请输入社保地' }],
@@ -134,11 +137,16 @@ export default {
       this.form.userTyp = null
       this.form.medicareRemark = null
     },
-    hanldeMatch() {
+    hanldeMatch(matchTyp) {
+      this.matchTyp = matchTyp
       this.matchVisable = true
     },
     matchConfirm(data) {
-      this.form.hospitalCde = data.prodCde
+      if (this.matchTyp === 1) {
+        this.form.hospitalCde = data.prodCde
+      } else if (this.matchTyp === 2) {
+        this.form.medicareAddress = data.areaCode
+      }
     },
     handleClose() {
       this.clearForm()
