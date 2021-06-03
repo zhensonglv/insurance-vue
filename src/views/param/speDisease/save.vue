@@ -6,7 +6,7 @@
       </el-form-item>
 
       <el-form-item label="代码类型" prop="codeTyp" label-width="120px">
-        <el-select v-model="form.codeTyp" placeholder="请选择" clearable>
+        <el-select v-model="form.codeTyp" placeholder="请选择" clearable @change="changecodeTyp(form.codeTyp)">
           <el-option
             v-for="item in businessData.DiaMatchTyp"
             :key="item.value"
@@ -15,27 +15,50 @@
           />
         </el-select>
       </el-form-item>
-      <el-form-item label="起始代码" prop="bgnCde" label-width="120px">
-        <el-input v-model="form.bgnCde" placeholder="请选择起始代码">
-          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(1)" />
-        </el-input>
-      </el-form-item>
-      <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
 
-      <el-form-item label="终止代码" prop="endCde" label-width="120px">
-        <el-input v-model="form.endCde" placeholder="请选择起始代码">
-          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(2)" />
-        </el-input>
-      </el-form-item>
-      <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
+      <el-row v-show="form.codeTyp=='1'">
+        <el-form-item label="起始代码" prop="bgnCde" label-width="120px">
+          <el-input v-model="form.bgnCde" placeholder="请选择起始代码">
+            <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(1)" />
+          </el-input>
+        </el-form-item>
+        <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
+
+        <el-form-item label="起始码描述" prop="bgnCdeDesc" label-width="120px">
+          <el-input v-model="form.bgnCdeDesc" placeholder="请输入起始码描述" />
+        </el-form-item>
+
+        <el-form-item label="终止代码" prop="endCde" label-width="120px">
+          <el-input v-model="form.endCde" placeholder="请选择起始代码">
+            <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(2)" />
+          </el-input>
+        </el-form-item>
+        <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
+
+        <el-form-item label="终止码描述" prop="endCdeDesc" label-width="120px">
+          <el-input v-model="form.endCdeDesc" placeholder="请输入终止码描述" />
+        </el-form-item>
+      </el-row>
+
+      <el-row v-show="form.codeTyp=='2'">
+        <el-form-item label="诊断匹配码" prop="diaMatParameterCde" label-width="120px">
+          <el-input v-model="form.diaMatParameterCde" placeholder="请输入诊断匹配码">
+            <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(3)" />
+          </el-input>
+        </el-form-item>
+        <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
+
+        <el-form-item label="诊断匹配描述" prop="diaMatDesc" label-width="120px">
+          <el-input v-model="form.diaMatDesc" placeholder="请输入诊断匹配描述" />
+        </el-form-item>
+      </el-row>
 
       <el-form-item label="社保地" prop="socialSecurityErea" label-width="120px">
-        <el-input v-model="form.socialSecurityErea" placeholder="请输入社保地" />
+        <el-input v-model="form.socialSecurityErea" placeholder="请输入社保地">
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(4)" />
+        </el-input>
       </el-form-item>
-
-      <!--<el-form-item label="门诊类型" prop="mentorTyp" label-width="120px">
-        <el-input v-model="form.mentorTyp" placeholder="请输入门诊类型" />
-      </el-form-item>-->
+      <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
 
       <el-form-item label="门诊类型" prop="mentorTyp" label-width="120px">
         <el-select v-model="form.mentorTyp" placeholder="请选择" clearable>
@@ -58,10 +81,6 @@
           />
         </el-select>
       </el-form-item>
-
-      <!--<el-form-item label="就诊类型" prop="clinicTyp" label-width="120px">
-        <el-input v-model="form.clinicTyp" placeholder="请输入就诊类型" />
-      </el-form-item>-->
 
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -98,6 +117,10 @@ export default {
         codeTyp: '',
         bgnCde: '',
         endCde: '',
+        bgnCdeDesc: '',
+        endCdeDesc: '',
+        diaMatParameterCde: '',
+        diaMatDesc: '',
         socialSecurityErea: '',
         mentorTyp: '',
         clinicTyp: ''
@@ -107,8 +130,8 @@ export default {
       rules: {
         speDiseaseCde: [{ required: true, trigger: 'blur', message: '请输入门诊特殊病码' }],
         codeTyp: [{ required: true, trigger: 'blur', message: '请输入代码类型' }],
-        bgnCde: [{ required: true, trigger: 'blur', message: '请输入起始代码' }],
-        endCde: [{ required: true, trigger: 'blur', message: '请输入终止代码' }],
+        /*  bgnCde: [{ required: true, trigger: 'blur', message: '请输入起始代码' }],
+        endCde: [{ required: true, trigger: 'blur', message: '请输入终止代码' }],*/
         socialSecurityErea: [{ required: true, trigger: 'blur', message: '请输入社保地' }],
         mentorTyp: [{ required: true, trigger: 'blur', message: '请输入门诊类型' }],
         clinicTyp: [{ required: true, trigger: 'blur', message: '请输入就诊类型' }]
@@ -133,12 +156,36 @@ export default {
         type: type
       })
     },
+    changecodeTyp(codeTyp) {
+      if (this.form.bgnCde !== null && this.form.bgnCde !== '' && this.form.bgnCde !== undefined) {
+        this.form.bgnCde = ''
+      }
+      if (this.form.bgnCdeDesc !== null && this.form.bgnCdeDesc !== '' && this.form.bgnCdeDesc !== undefined) {
+        this.form.bgnCdeDesc = ''
+      }
+      if (this.form.endCde !== null && this.form.endCde !== '' && this.form.endCde !== undefined) {
+        this.form.endCde = ''
+      }
+      if (this.form.endCdeDesc !== null && this.form.endCdeDesc !== '' && this.form.endCdeDesc !== undefined) {
+        this.form.endCdeDesc = ''
+      }
+      if (this.form.diaMatParameterCde !== null && this.form.diaMatParameterCde !== '' && this.form.diaMatParameterCde !== undefined) {
+        this.form.diaMatParameterCde = ''
+      }
+      if (this.form.diaMatDesc !== null && this.form.diaMatDesc !== '' && this.form.diaMatDesc !== undefined) {
+        this.form.diaMatDesc = ''
+      }
+    },
     clearForm() {
       this.form.id = null
       this.form.speDiseaseCde = null
       this.form.codeTyp = null
       this.form.bgnCde = null
       this.form.endCde = null
+      this.form.endCdeDesc = null
+      this.form.bgnCdeDesc = null
+      this.form.diaMatDesc = null
+      this.form.diaMatParameterCde = null
       this.form.socialSecurityErea = null
       this.form.mentorTyp = null
       this.form.clinicTyp = null
@@ -154,11 +201,18 @@ export default {
     matchConfirm(data) {
       if (this.matchTyp === 1) {
         this.form.bgnCde = data.diaCde
-        this.form.bgnCodeDesc = data.diaDesc
+        this.form.bgnCdeDesc = data.diaDesc
       }
       if (this.matchTyp === 2) {
         this.form.endCde = data.diaCde
-        this.form.endCodeDesc = data.diaDesc
+        this.form.endCdeDesc = data.diaDesc
+      }
+      if (this.matchTyp === 3) {
+        this.form.diaMatParameterCde = data.diaMatParameterCde
+        this.form.diaMatDesc = data.explCategort
+      }
+      if (this.matchTyp === 4) {
+        this.form.socialSecurityErea = data.areaCode
       }
     },
     onSubmit(form) {

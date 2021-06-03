@@ -51,7 +51,7 @@ export default {
   // 父组件向子组件传值，通过props获取。
   // 一旦父组件改变了`sonData`对应的值，子组件的`sonData`会立即改变，通过watch函数可以实时监听到值的变化
   // `props`不属于data，但是`props`中的参数可以像data中的参数一样直接使用
-  props: [],
+  props: ['sonData'],
 
   data() {
     return {
@@ -80,8 +80,8 @@ export default {
   },
   watch: {
     'sonData': function(newVal, oldVal) {
+      debugger
       this.form = newVal
-      this.imgURL = this.form.avatar
       this.dialogVisible = true
       if (newVal.id != null) {
         this.dialogTitle = 'Edit'

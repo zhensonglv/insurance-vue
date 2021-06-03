@@ -25,13 +25,13 @@
 
         <el-table-column align="center" label="悬挂类型" width="150">
           <template slot-scope="scope">
-            {{ scope.row.specialTyp }}
+            {{ CSpecialTyp[scope.row.specialTyp] }}
           </template>
         </el-table-column>
 
         <el-table-column align="center" label="悬挂层级" width="150">
           <template slot-scope="scope">
-            {{ scope.row.suspendLevel }}
+            {{ CSpecialLevel[scope.row.suspendLevel] }}
           </template>
         </el-table-column>
 
@@ -91,6 +91,7 @@ import { getList, findById, del } from '@/api/base'
 // import { getCodeList } from '@/api/code'
 import Pagination from '@/components/Pagination'
 import Save from './save'
+import { getCodeList } from '@/api/code'
 
 export default {
   components: { Pagination, Save },
@@ -107,11 +108,13 @@ export default {
       total: 0,
       dialogVisible: false,
       form: null,
-      businessData: {}
+      businessData: {},
+      CSpecialLevel: {},
+      CSpecialTyp: {}
     }
   },
   created() {
-    this.fetchData()
+    this.fetchTypeData()
   },
   mounted() {
   },
@@ -130,18 +133,21 @@ export default {
         this.listLoading = false
       })
     },
-    /* fetchTypeData() {
-        // 获取codeList
-        getCodeList({ parent: ['CExplCdeSubcategory'] }).then(res => {
-          this.businessData = res.data
-          // 组装table 的map
-          for (const key in this.businessData) {
-            this.businessData[key].forEach(item => {
-              this[key][item.value] = item.label
-            })
-          }
-        })
-      },*/
+    fetchTypeData() {
+      // 获取codeList
+      getCodeList({ parent: ['CSpecialTyp', 'CSpecialLevel'] }).then(res => {
+        debugger
+        this.businessData = res.data
+        // 组装table 的map
+        for (const key in this.businessData) {
+          this.businessData[key].forEach(item => {
+            !this[key] && (this[key] = {})
+            this[key][item.value] = item.label
+          })
+        }
+        this.fetchData()
+      })
+    },
     handleSave() {
       this.form = { id: null }
       /* if (this.$route.query.pubCoverId) { // 上级页面传入参数

@@ -8,11 +8,6 @@
       </div>
       <br>
       <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row style="width: 100%" size="mini">
-        <el-table-column v-if="aggregate" type="expand">
-          <template>
-            <group />
-          </template>
-        </el-table-column>
         <el-table-column align="center" label="序号" width="95">
           <template slot-scope="scope">
             {{ scope.$index +1 }}
@@ -72,17 +67,10 @@
 <script>
 import { getList, findById, del } from '@/api/base'
 import Pagination from '@/components/Pagination'
-import group from '../group'
 import Save from './save'
 
 export default {
-  components: { Pagination, Save, group },
-  props: {
-    aggregate: {
-      type: Boolean,
-      default: false
-    }
-  },
+  components: { Pagination, Save },
   data() {
     return {
       list: null,

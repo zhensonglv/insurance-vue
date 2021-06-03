@@ -324,6 +324,7 @@ export const constantRoutes = [
         path: 'clientworkplace',
         component: () => import('@/views/client/clientworkplace/index'),
         name: '社保地区管理',
+        hidden: true,
         meta: { title: '社保地区管理', icon: 'guide', noCache: true }
       },
 

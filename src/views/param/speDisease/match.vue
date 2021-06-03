@@ -1,6 +1,17 @@
 <template>
-  <el-dialog :modal="false" title="诊断码" :visible.sync="dialogTableVisible" append-to-body width="80%">
-    <diagnosisManage dialog @setMultipleSeleValues="setMultipleSeleValues" />
+  <el-dialog :modal="false" :title="title" :visible.sync="dialogTableVisible" append-to-body width="80%">
+    <div v-if="matchTyp === 1">
+      <diagnosisManage dialog @setMultipleSeleValues="setMultipleSeleValues" />
+    </div>
+    <div v-else-if="matchTyp === 2">
+      <diagnosisManage dialog @setMultipleSeleValues="setMultipleSeleValues" />
+    </div>
+    <div v-else-if="matchTyp === 3">
+      <diagnosisMatching dialog @setMultipleSeleValues="setMultipleSeleValues" />
+    </div>
+    <div v-else-if="matchTyp === 4">
+      <baseArea dialog @setMultipleSeleValues="setMultipleSeleValues" />
+    </div>
     <div slot="footer" class="dialog-footer">
       <el-button @click="handleClose">
         取消
@@ -13,13 +24,20 @@
 </template>
 <script>
 import diagnosisManage from '../diagnosisManage'
+import diagnosisMatching from '../diagnosisMatching'
+import baseArea from '../../system/area'
+
 export default {
   name: 'Match',
-  components: { diagnosisManage },
+  components: { diagnosisManage, diagnosisMatching, baseArea },
   props: {
     value: {
       type: Boolean,
       default: false
+    },
+    matchTyp: {
+      type: Number,
+      default: 0
     }
   },
   data() {
@@ -45,6 +63,15 @@ export default {
     },
     dialogTableVisible(val) {
       this.$emit('input', val)
+    },
+    matchTyp(val) {
+      if (val === 1 || val === 2) {
+        this.title = '诊断管理'
+      } else if (val === 3) {
+        this.title = '高层诊断码'
+      } else if (val === 4) {
+        this.title = '社保地'
+      }
     }
   },
   created() {

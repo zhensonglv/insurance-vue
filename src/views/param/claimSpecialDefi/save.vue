@@ -5,10 +5,24 @@
         <el-input v-model="form.specialAuditsCde" placeholder="请输入悬挂规则码/特殊审核要求码" disabled="disabled" />
       </el-form-item>
       <el-form-item label="悬挂类型" prop="specialTyp" label-width="120px">
-        <el-input v-model="form.specialTyp" placeholder="请输入悬挂类型" />
+        <el-select v-model="form.specialTyp" placeholder="请选择" clearable>
+          <el-option
+            v-for="item in businessData.CSpecialTyp"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
       <el-form-item label="悬挂层级" prop="suspendLevel" label-width="120px">
-        <el-input v-model="form.suspendLevel" placeholder="请输入悬挂层级" />
+        <el-select v-model="form.suspendLevel" placeholder="请选择" clearable>
+          <el-option
+            v-for="item in businessData.CSpecialLevel"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
 
       <el-form-item label="悬挂解释" prop="suspendExpain" label-width="120px">
@@ -20,7 +34,14 @@
       </el-form-item>
 
       <el-form-item label="审阅层级" prop="specialLevel" label-width="120px">
-        <el-input v-model="form.specialLevel" placeholder="请输入审阅层级" />
+        <el-select v-model="form.specialLevel" placeholder="请选择" clearable>
+          <el-option
+            v-for="item in businessData.CSpecialLevel"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
 
       <el-form-item label="悬挂条件" prop="suspendCondition" label-width="120px">
