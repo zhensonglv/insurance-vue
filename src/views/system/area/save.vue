@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :title="dialogTitle" :before-close="handleClose" :visible.sync="dialogVisible" width="40%">
+  <el-dialog :title="dialogTitle" :modal="false" :before-close="handleClose" :visible.sync="dialogVisible" width="40%">
     <el-form ref="form" :rules="rules" :model="form" status-icon label-position="right" label-width="80px">
       <el-form-item label="地区编码" prop="areaCode" label-width="120px">
         <el-input v-model="form.areaCode" placeholder="请输入地区编码" />

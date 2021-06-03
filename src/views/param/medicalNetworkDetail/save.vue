@@ -15,11 +15,15 @@
         </el-select>
       </el-form-item>
       <el-form-item label="结论说明码" prop="explainCde" label-width="120px">
-        <el-input v-model="form.explainCde" placeholder="请输入结论说明码" />
+        <el-input v-model="form.explainCde" placeholder="请输入结论说明码">
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(1)" />
+        </el-input>
       </el-form-item>
 
       <el-form-item label="医院号" prop="hospitalNo" label-width="120px">
-        <el-input v-model="form.hospitalNo" placeholder="请输入医院号" />
+        <el-input v-model="form.hospitalNo" placeholder="请输入医院号">
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(2)" />
+        </el-input>
       </el-form-item>
 
       <el-form-item label="医院名称" prop="hospitalNme" label-width="120px">
@@ -93,9 +97,11 @@
       </el-form-item>
 
       <el-form-item label="社保地区" prop="sociInsuArea" label-width="120px">
-        <el-input v-model="form.sociInsuArea" clearable placeholder="请输入社保地区" />
+        <el-input v-model="form.sociInsuArea" clearable placeholder="请输入社保地区">
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(3)" />
+        </el-input>
       </el-form-item>
-
+      <match v-model="matchVisable" :level="level" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
       <el-form-item label="统筹金额是否大于0" prop="overallAmtFlag" label-width="120px">
         <el-select v-model="form.overallAmtFlag" clearable placeholder="请选择">
           <el-option
@@ -144,11 +150,14 @@
 
 <script>
 import { save, edit } from '@/api/base'
-
+import Match from './match'
 export default {
   // 父组件向子组件传值，通过props获取。
   // 一旦父组件改变了`sonData`对应的值，子组件的`sonData`会立即改变，通过watch函数可以实时监听到值的变化
   // `props`不属于data，但是`props`中的参数可以像data中的参数一样直接使用
+  components: {
+    Match
+  },
   props: ['sonData', 'businessData'],
   data() {
     return {
@@ -180,6 +189,9 @@ export default {
       treatmentTypArr: ['1', '2', '3', '4'],
       checkAll: false,
       isIndeterminate: true,
+      matchVisable: false,
+      matchTyp: null,
+      level: 2,
       rules: {
         mediNetworkCde: [{ required: true, trigger: 'blur', message: '请输入医院网络码' }],
         isInclude: [{ required: true, trigger: 'blur', message: '请输入是否包括' }]
@@ -207,7 +219,23 @@ export default {
         type: type
       })
     },
+    hanldeMatch(matchTyp) {
+      this.matchVisable = true
+      this.matchTyp = matchTyp
+    },
 
+    matchConfirm(data) {
+      if (this.matchTyp === 1) { // 解释码
+        this.form.explainCde = data.explCde
+      }
+      if (this.matchTyp === 2) { // 医院
+        this.form.hospitalNo = data.hospNo
+        this.form.hospitalNme = data.hospName
+      }
+      if (this.matchTyp === 3) { // 社保地
+        this.form.sociInsuArea = data.areaCode
+      }
+    },
     handleCheckAllChange(val) {
       this.treatmentTyp = val ? this.treatmentTypArr : []
       this.isIndeterminate = false

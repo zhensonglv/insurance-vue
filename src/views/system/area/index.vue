@@ -11,6 +11,15 @@
       </div>
       <br>
       <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
+        <el-table-column
+          type="center"
+          label="选择"
+          width="55"
+        >
+          <template slot-scope="scope">
+            <el-radio v-model="paramRadio" :label="scope.$index" @change.native="handleSelect(scope.row)">&nbsp;</el-radio>
+          </template>
+        </el-table-column>
         <el-table-column align="center" label="序号" width="95">
           <template slot-scope="scope">
             {{ scope.$index+1 }}
@@ -79,6 +88,17 @@ import Save from './save'
 
 export default {
   components: { Pagination, Save },
+  /* props:{
+    level : Number
+  },*/
+  /* watch: {
+    level(val) {debugger
+      if(val){
+        this.listQuery.level = val
+        this.fetchData()
+      }
+    }
+  },*/
   data() {
     return {
       list: null,
@@ -91,6 +111,7 @@ export default {
       },
       total: 0,
       dialogVisible: false,
+      paramRadio: false,
       form: null
     }
   },
@@ -104,8 +125,13 @@ export default {
         type: type
       })
     },
+    handleSelect(data) {
+      this.selected = data
+      this.$emit('setMultipleSeleValues', data)
+    },
     fetchData() {
       this.listLoading = true
+      this.paramRadio = false
       getList(this.basePath, this.listQuery).then(response => {
         this.list = response.data.data
         this.total = response.data.total

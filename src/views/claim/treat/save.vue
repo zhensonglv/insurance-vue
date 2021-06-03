@@ -203,14 +203,16 @@
       <el-form-item label="单位" prop="company" label-width="120px">
         <el-input v-model="form.company" placeholder="请输入单位" />
       </el-form-item>
-
-      <el-form-item label="结论描述" prop="conclusionDesc" label-width="120px">
-        <el-input v-model="form.conclusionDesc" placeholder="请输入结论描述" />
-      </el-form-item>
-
-      <el-form-item label="校验审核信息" prop="auditInformation" label-width="120px">
-        <el-input v-model="form.auditInformation" placeholder="请输入校验审核信息" />
-      </el-form-item>
+      <el-row>
+        <el-form-item label="结论描述" prop="conclusionDesc" label-width="100px">
+          <el-input v-model="form.conclusionDesc" type="textarea" style="width: 800px;" :autosize="{ minRows: 2, maxRows: 20}" placeholder="请输入结论描述" clearable />
+        </el-form-item>
+      </el-row>
+      <el-row>
+        <el-form-item label="校验审核信息" prop="auditInformation" label-width="100px">
+          <el-input v-model="form.auditInformation" type="textarea" style="width: 800px;" :autosize="{ minRows: 2, maxRows: 20}" placeholder="请输入结论描述" clearable />
+        </el-form-item>
+      </el-row>
       <!--      <el-form-item label="账单层id" prop="invId" label-width="120px">
         <el-input v-model="form.invId" placeholder="请输入账单层id" />
       </el-form-item>-->
@@ -379,7 +381,7 @@ export default {
       if (data.treatNo) { // 诊疗码
         this.form.treatCde = data.treatNo// 诊疗码
         this.form.maxtermNo = data.cateGoryNo// 大项号
-        this.form.setSubCateGoryNo = data.subCateGoryNo// 适应症
+        this.form.subCateGoryNo = data.subCateGoryNo// 适应症
         this.form.subCateGoryName = data.subCateGoryName// 适应症名称
       }
       if (data.explCde) { // 解释码

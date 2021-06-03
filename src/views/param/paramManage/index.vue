@@ -2,7 +2,7 @@
   <div class="app-container">
     <el-card>
       <div>
-        <template v-if="paramType != 'param_0015'">
+        <template>
           <el-input v-model="listQuery.prodCde" style="width: 200px;" placeholder="请输入参数码查询" />
           <!--          <el-select v-model="listQuery.applyTyp" placeholder="请选择适用层级" clearable @change="applyTypChange">
             <el-option
@@ -196,9 +196,6 @@ export default {
       })
     },
     fetchData() {
-      /* if (this.paramType && this.paramType === 'param_0015') { // 医院网络码
-        this.listQuery.paramterTyp = this.paramType
-      }*/
       this.listLoading = true
       getList(this.basePath, this.listQuery).then(response => {
         this.list = response.data.data
@@ -251,7 +248,7 @@ export default {
       }
     },
     handleSave() {
-      this.form = { id: null }
+      this.form = { id: null, paramterTyp: this.listQuery.paramterTyp }
       this.dialogVisible = true
     },
     handleEdit(id) {

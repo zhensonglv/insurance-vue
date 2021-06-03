@@ -177,7 +177,10 @@ export default {
         ciRateCde: [{ required: true, trigger: 'blur', message: '请输入赔付比例码' }],
         ladderCde: [{ required: true, trigger: 'blur', message: '请选择是否阶梯' }],
         visitTyp: [{ required: true, trigger: 'blur', message: '请选择就诊类型' }],
-        ciRate: [{ required: true, trigger: 'blur', message: '请输入赔付比例' }]
+        ciRate: [{ required: true, trigger: 'blur', message: '请输入赔付比例' }],
+        conditionCde: [{ required: true, trigger: 'blur', message: '请选择适用条件' }],
+        ciRateTyp: [{ required: true, trigger: 'blur', message: '请选择赔付类型' }]
+
       }
     }
   },

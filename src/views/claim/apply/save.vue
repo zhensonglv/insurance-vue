@@ -350,14 +350,16 @@
         </el-select>
       </el-form-item>
 
-      <el-form-item label="结论描述" prop="conclusionDesc" label-width="120px">
-        <el-input v-model="form.conclusionDesc" placeholder="请输入结论描述" />
-      </el-form-item>
-
-      <el-form-item label="校验审核信息" prop="auditInformation" label-width="120px">
-        <el-input v-model="form.auditInformation" placeholder="请输入校验审核信息" />
-      </el-form-item>
-
+      <el-row>
+        <el-form-item label="结论描述" prop="conclusionDesc" label-width="100px">
+          <el-input v-model="form.conclusionDesc" type="textarea" style="width: 800px;" :autosize="{ minRows: 2, maxRows: 20}" placeholder="请输入结论描述" clearable />
+        </el-form-item>
+      </el-row>
+      <el-row>
+        <el-form-item label="校验审核信息" prop="auditInformation" label-width="100px">
+          <el-input v-model="form.auditInformation" type="textarea" style="width: 800px;" :autosize="{ minRows: 2, maxRows: 20}" placeholder="请输入结论描述" clearable />
+        </el-form-item>
+      </el-row>
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="handleClose">

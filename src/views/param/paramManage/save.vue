@@ -1,7 +1,7 @@
 <template>
   <el-dialog :modal="false" :title="dialogTitle" :before-close="handleClose" :visible.sync="dialogVisible" width="55%">
     <el-form ref="form" :inline="true" :rules="rules" :model="form" status-icon label-position="right" label-width="80px">
-      <el-form-item label="适用层级" prop="applyTyp" label-width="120px">
+      <!--      <el-form-item label="适用层级" prop="applyTyp" label-width="120px">
         <el-select v-model="form.applyTyp" placeholder="请选择适用层级" clearable @change="handlerTypChange">
           <el-option
             v-for="item in businessData.CProdApplyTyp"
@@ -10,11 +10,11 @@
             :value="item.value"
           />
         </el-select>
-      </el-form-item>
+      </el-form-item>-->
       <el-form-item label="参数类型" prop="paramterTyp" label-width="120px">
         <el-select v-model="form.paramterTyp" placeholder="请输入参数类型" clearable>
           <el-option
-            v-for="item in saveBusinessData.prodParamterTyp"
+            v-for="item in businessData.CParamTyps"
             :key="item.value"
             :label="item.label"
             :value="item.value"
@@ -72,15 +72,13 @@ export default {
   },
   watch: {
     'sonData': function(newVal, oldVal) {
-      // console.log(JSON.stringify(newVal), '----newVal')
-      // console.log(JSON.stringify(oldVal), '----oldVal')
       this.form = newVal
       this.dialogVisible = true
       if (newVal.id != null) {
         this.dialogTitle = 'Edit'
-        if (oldVal == null || newVal.applyTyp !== oldVal.applyTyp) {
+        /* if (oldVal == null || newVal.applyTyp !== oldVal.applyTyp) {
           this.handlerTypChange(newVal.applyTyp)
-        }
+        }*/
       } else {
         this.dialogTitle = 'Add'
       }
