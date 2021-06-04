@@ -3,7 +3,14 @@
     <el-card>
       <div>
         <el-input v-model="listQuery.areaCode" style="width: 200px;" placeholder="请输入代码查询" />
-        <el-input v-model="listQuery.level" style="width: 200px;" placeholder="请输入类型查询" />
+        <el-select v-model="listQuery.level" placeholder="请选择" clearable>
+          <el-option
+            v-for="item in businessData.areaTyp"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
         <el-input v-model="listQuery.name" style="width: 200px;" placeholder="请输入中文名称查询" />
         <el-input v-model="listQuery.pid" style="width: 200px;" placeholder="请输入父类查询" />
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
@@ -32,7 +39,7 @@
         </el-table-column>
         <el-table-column align="center" label="类型" width="150">
           <template slot-scope="scope">
-            {{ scope.row.levelStr }}
+            {{ areaTyp[scope.row.level] }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="父类" width="150">
@@ -68,7 +75,7 @@
         </el-table-column>
       </el-table>
 
-      <save :son-data="form" @sonStatus="status" />
+      <save :son-data="form" :business-data="businessData" @sonStatus="status" />
 
       <pagination
         v-show="total>0"
@@ -85,6 +92,7 @@
 import { getList, findById, del } from '@/api/base'
 import Pagination from '@/components/Pagination'
 import Save from './save'
+import { getCodeList } from '@/api/code'
 
 export default {
   components: { Pagination, Save },
@@ -112,11 +120,13 @@ export default {
       total: 0,
       dialogVisible: false,
       paramRadio: false,
-      form: null
+      form: null,
+      areaTyp: {},
+      businessData: {}
     }
   },
   created() {
-    this.fetchData()
+    this.fetchTypeData()
   },
   methods: {
     _notify(message, type) {
@@ -128,6 +138,19 @@ export default {
     handleSelect(data) {
       this.selected = data
       this.$emit('setMultipleSeleValues', data)
+    },
+    fetchTypeData() {
+      getCodeList({ parent: ['areaTyp'] }).then(res => {
+        this.businessData = res.data
+        // 组装table 的map
+        for (const key in this.businessData) {
+          this.businessData[key].forEach(item => {
+            !this[key] && (this[key] = {})
+            this[key][item.value] = item.label
+          })
+        }
+        this.fetchData()
+      })
     },
     fetchData() {
       this.listLoading = true
