@@ -1,6 +1,6 @@
 <template>
   <el-dialog :title="dialogTitle" :modal="false" :before-close="handleClose" :visible.sync="dialogVisible" width="85%">
-    <el-form ref="form" :inline="true" :rules="rules" :model="form" status-icon label-position="right" label-width="80px">
+    <el-form ref="form" :inline="true" :rules="rules" :model="form" status-icon label-position="right" label-width="85px">
 
       <el-form-item label="对应人员序号" prop="appId" label-width="120px">
         <el-input v-model="invForm.appId" placeholder="请输入对应人员序号" />
@@ -216,7 +216,7 @@
 
       </el-form>
     </div>
-    <div>
+    <div align="center">
       <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="handleSave">新增</el-button>
       <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="batchSave">批量保存</el-button>
       <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="batchDel">批量批量删除</el-button>

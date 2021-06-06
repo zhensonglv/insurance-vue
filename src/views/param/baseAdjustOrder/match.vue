@@ -50,7 +50,11 @@ import { getBaseOrderDuty } from '@/api/claim/duty'
 export default {
   name: 'Match',
   props: {
-    treeData: Object
+    treeData: Object,
+    matchTyp: {
+      type: Number,
+      default: 0
+    }
   },
   data() {
     return {
@@ -83,7 +87,12 @@ export default {
 
   },
   methods: {
-
+    _notify(message, type) {
+      this.$message({
+        message: message,
+        type: type
+      })
+    },
     handleClose() {
       this.dialogTableVisible = false
     },
@@ -99,6 +108,12 @@ export default {
       })
     },
     onSubmit() {
+      if (this.matchTyp === 2) {
+        if (this.multipleSeleValues.length > 1) {
+          this._notify('仅责任只能选择一条数据', 'error')
+          return
+        }
+      }
       this.$emit('matchConfirm', this.multipleSeleValues)
       this.dialogTableVisible = false
     }

@@ -1,11 +1,6 @@
 <template>
   <el-dialog :modal="false" :title="title" :visible.sync="dialogTableVisible" append-to-body width="80%">
-    <div v-if="matchTyp ===1 ">
-      <paramManage dialog :set-param-data="setParamData" @setMultipleSeleValues="setMultipleSeleValues" />
-    </div>
-    <div v-else-if="matchTyp === 2 ">
-      <baseArea dialog @setMultipleSeleValues="setMultipleSeleValues" />
-    </div>
+    <baseArea dialog @setMultipleSeleValues="setMultipleSeleValues" />
     <div slot="footer" class="dialog-footer">
       <el-button @click="handleClose">
         取消
@@ -17,17 +12,16 @@
   </el-dialog>
 </template>
 <script>
-import paramManage from '../paramManage'
 import baseArea from '../../system/area'
 export default {
   name: 'Match',
-  components: { paramManage, baseArea },
+  components: { baseArea },
   props: {
     value: {
       type: Boolean,
       default: false
     },
-    matchTyp: {
+    areaTyp: {
       type: Number,
       default: 0
     }
@@ -37,7 +31,6 @@ export default {
       setParamData: { paramCode: null, paramType: 'param_0015' },
       list: null,
       listLoading: true,
-      basePath: 'paramManage',
       listQuery: {
         pageNum: 1,
         pageSize: 10,
@@ -47,7 +40,7 @@ export default {
         paramterDesc: '',
         sort: '+id'
       },
-      titile: null,
+      title: null,
       total: 0,
       multipleSeleValues: [],
       dialogTableVisible: false
@@ -60,11 +53,11 @@ export default {
     dialogTableVisible(val) {
       this.$emit('input', val)
     },
-    matchTyp(val) {
+    areaTyp(val) {
       if (val === 1) {
-        this.title = '医院网络码'
+        this.title = '事故地'
       } else if (val === 2) {
-        this.title = '社保地'
+        this.title = '承保地'
       }
     }
   },
@@ -80,7 +73,7 @@ export default {
       this.multipleSeleValues = value
     },
     onSubmit() {
-      this.$emit('matchConfirm', this.multipleSeleValues)
+      this.$emit('areaConfirm', this.multipleSeleValues)
       this.dialogTableVisible = false
     }
   }

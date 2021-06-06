@@ -22,24 +22,30 @@
       </el-form-item>
       <el-form-item label="理算优先级" prop="adjustOrder" label-width="120px">
         <el-input v-model="form.adjustOrder" placeholder="请输入理算优先级">
-          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch" />
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(1)" />
         </el-input>
       </el-form-item>
-      <match :tree-data="treeData" @matchConfirm="matchConfirm" />
+      <match :tree-data="treeData" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
 
       <el-form-item label="仅责任" prop="onlyDuty" label-width="120px">
-        <el-input v-model="form.onlyDuty" placeholder="请输入" />
+        <el-input v-model="form.onlyDuty" placeholder="请输入">
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(2)" />
+        </el-input>
       </el-form-item>
       <el-form-item label="满保额" prop="fullPremium" label-width="120px">
         <el-input v-model="form.fullPremium" placeholder="请输入" />
       </el-form-item>
       <el-form-item label="事故地" prop="accidentPlace" label-width="120px">
-        <el-input v-model="form.accidentPlace" placeholder="请输入事故地" />
+        <el-input v-model="form.accidentPlace" placeholder="请输入事故地">
+          <svg-icon slot="suffix" icon-class="search" @click="handleArea(1)" />
+        </el-input>
       </el-form-item>
       <el-form-item label="承保地" prop="accptPlace" label-width="120px">
-        <el-input v-model="form.accptPlace" placeholder="请输入承保地" />
+        <el-input v-model="form.accptPlace" placeholder="请输入承保地">
+          <svg-icon slot="suffix" icon-class="search" @click="handleArea(2)" />
+        </el-input>
       </el-form-item>
-
+      <socialArea v-model="matchVisable" :area-typ="areaTyp" @areaConfirm="areaConfirm" />
       <el-form-item label="备注" prop="adjustRemark" label-width="120px">
         <el-input v-model="form.adjustRemark" placeholder="请输入备注" />
       </el-form-item>
@@ -62,13 +68,13 @@
 <script>
 import { save, edit } from '@/api/base'
 import Match from './match'
-
+import socialArea from './socialArea'
 export default {
   // 父组件向子组件传值，通过props获取。
   // 一旦父组件改变了`sonData`对应的值，子组件的`sonData`会立即改变，通过watch函数可以实时监听到值的变化
   // `props`不属于data，但是`props`中的参数可以像data中的参数一样直接使用
   components: {
-    Match
+    Match, socialArea
   },
   props: ['sonData', 'businessData'],
   data() {
@@ -90,6 +96,8 @@ export default {
         plyTreeId: ''
       },
       matchVisable: false,
+      matchTyp: null,
+      areaTyp: null,
       treeData: null,
       rules: {
 
@@ -98,7 +106,6 @@ export default {
   },
   watch: {
     'sonData': function(newVal, oldVal) {
-      debugger
       this.form = newVal
       this.dialogVisible = true
       if (newVal.id != null) {
@@ -115,20 +122,36 @@ export default {
         type: type
       })
     },
-
-    hanldeMatch() {
+    handleArea(areaTyp) {
+      this.areaTyp = areaTyp
+      this.matchVisable = true
+    },
+    hanldeMatch(matchTyp) {
+      this.matchTyp = matchTyp
       this.treeData = { plyTreeId: this.form.plyTreeId }
     },
+    areaConfirm(data) {
+      if (this.areaTyp === 1) { // 事故地
+        this.form.accidentPlace = data.areaCode
+      } else if (this.areaTyp === 2) { // 承保地
+        this.form.accptPlace = data.areaCode
+      }
+    },
+
     matchConfirm(data) {
-      var str = null
-      data.forEach((val, i) => {
-        if (!str) {
-          str = val.responseNo
-        } else {
-          str = str + ',' + val.responseNo
-        }
-      })
-      this.form.adjustOrder = str
+      if (this.matchTyp === 1) {
+        var str = null
+        data.forEach((val, i) => {
+          if (!str) {
+            str = val.responseNo
+          } else {
+            str = str + ',' + val.responseNo
+          }
+        })
+        this.form.adjustOrder = str
+      } else if (this.matchTyp === 2) {
+        this.form.onlyDuty = data[0].responseNo
+      }
     },
 
     clearForm() {
@@ -153,6 +176,11 @@ export default {
     onSubmit(form) {
       this.$refs[form].validate((valid) => {
         if (valid) {
+          if (this.form.adjustOrder && this.form.onlyDuty) {
+            this._notify('理算优先级和仅责任不可同时存在', 'error')
+            return
+          }
+
           if (this.form.id === null) {
             save(this.basePath, this.form).then(response => {
               if (response.code === 200) {
