@@ -7,6 +7,7 @@
         <el-button style="margin: 0 0 10px 10px;" type="primary" icon="el-icon-edit" circle @click="handleSave" />
         <el-button style="margin-left: 10px;" type="primary" @click="copyInv">复制</el-button>
         <el-button style="margin-left: 10px;" type="primary" @click="splitInv">拆分</el-button>
+        <el-button style="margin-left: 10px;" type="primary" @click="splitInv">批量更新</el-button>
       </div>
       <el-table
         v-loading="listLoading"

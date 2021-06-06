@@ -625,34 +625,27 @@ export default {
       this.oldForm.isignUseCardRule = newVal.isignUseCardRule// 忽略医保卡使用规则
       this.oldForm.isignExcelusion = newVal.isignExcelusion// 忽略除外责任
       this.oldForm.isRehabiliation = newVal.isRehabiliation// 是否康复
+      this.oldForm.accidentTm = newVal.assign // 事故日期
+      this.oldForm.hospitalNo = newVal.hospitalNo // 医院
+      this.oldForm.hospitalDepart = newVal.hospitalDepart // 科室
+      this.oldForm.diagCde = newVal.diagCde // 科室
     },
     checkOldForm() {
       var flag = false
-      if (this.form.isAccident !== this.oldForm.isAccident) {
+      if (this.form.isAccident !== this.oldForm.isAccident || // 意外
+         this.form.isDentidtry !== this.oldForm.isDentidtry || // 齿科
+         this.form.isBirth !== this.oldForm.isBirth || // 生育
+         this.form.isDesignHospital !== this.oldForm.isDesignHospital || // 指定医院
+         this.form.isignExcelusion !== this.oldForm.isignExcelusion || // 除外责任
+         this.form.isignWait !== this.oldForm.isignWait || // 忽略等待期
+         this.form.isMedicalHistory !== this.oldForm.isMedicalHistory || // 既往病史
+         this.form.isignUseCardRule !== this.oldForm.isignUseCardRule || // 医保卡使用规则
+         this.form.accidentTm !== this.oldForm.accidentTm || // 事故日期
+         this.form.hospitalNo !== this.oldForm.hospitalNo || // 医院
+         this.form.hospitalDepart !== this.oldForm.hospitalDepart || // 科室
+         this.form.diagCde !== this.oldForm.diagCde) { // 诊断
         flag = true
       }
-      if (this.form.isDentidtry !== this.oldForm.isDentidtry) {
-        flag = true
-      }
-      if (this.form.isBirth !== this.oldForm.isBirth) {
-        flag = true
-      }
-      if (this.form.isDesignHospital !== this.oldForm.isDesignHospital) {
-        flag = true
-      }
-      if (this.form.isignExcelusion !== this.oldForm.isignExcelusion) {
-        flag = true
-      }
-      if (this.form.isignWait !== this.oldForm.isignWait) {
-        flag = true
-      }
-      if (this.form.isMedicalHistory !== this.oldForm.isMedicalHistory) {
-        flag = true
-      }
-      if (this.form.isignUseCardRule !== this.oldForm.isignUseCardRule) {
-        flag = true
-      }
-
       return flag
     },
     clearForm() {

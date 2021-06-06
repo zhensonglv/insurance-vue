@@ -3,7 +3,25 @@
     <el-card>
       <div>
         <el-input v-model="listQuery.hospNo" style="width: 200px;" placeholder="请输入医院号查询" />
-        <el-input v-model="listQuery.hospName" style="width: 200px;" placeholder="请输入医院名称/别名查询" />
+        <el-input v-model="listQuery.hospName" style="width: 200px;" placeholder="请输入医院名称查询" />
+        <el-select v-model="listQuery.hospLevel" placeholder="请选择医院等级" clearable>
+          <el-option
+            v-for="item in businessData.CHospitalLevel"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
+
+        <el-select v-model="listQuery.hospTyp" placeholder="请选择医院类型" clearable>
+          <el-option
+            v-for="item in businessData.CHospitalTyp"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
+
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
       </div>
