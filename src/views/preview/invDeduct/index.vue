@@ -105,7 +105,6 @@
             <el-input v-model="scope.row.invNo">
               <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(scope.row)" />
             </el-input>
-            <invdtl :son-inv-data="invdtlForm" :business-data="businessData" @sonStatus="status" />
           </template>
         </el-table-column>
 
@@ -164,6 +163,8 @@
         </el-table-column>
 
       </el-table>
+
+      <invdtl :son-inv-data="invdtlForm" :business-data="businessData" @sonStatus="status" />
       <pagination
         v-show="invTotal>0"
         :total="invTotal"
