@@ -388,7 +388,6 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        debugger
         deleteApp(id).then(response => {
           if (response.code === 200) {
             this._notify(response.msg, 'success')
