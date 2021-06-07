@@ -30,6 +30,13 @@ export function del(id) {
   })
 }
 
+export function deleteApp(id) {
+  return request({
+    url: '/base/apply/delete/' + id,
+    method: 'delete'
+  })
+}
+
 export function edit(data) {
   return request({
     url: '/base/apply/edit',

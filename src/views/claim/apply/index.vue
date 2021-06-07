@@ -148,7 +148,7 @@
 </template>
 
 <script>
-import { claimRule, init, calc, findById, del, edit } from '@/api/claim/apply'
+import { claimRule, init, calc, findById, deleteApp, edit } from '@/api/claim/apply'
 import { getList } from '@/api/base'
 import { getCodeList } from '@/api/code'
 import Pagination from '@/components/Pagination'
@@ -388,7 +388,8 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        del(id).then(response => {
+        debugger
+        deleteApp(id).then(response => {
           if (response.code === 200) {
             this._notify(response.msg, 'success')
           } else {
