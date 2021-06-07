@@ -66,6 +66,12 @@ export function getBaseOrderDuty(id) {
     method: 'post'
   })
 }
+export function getRelationDuty(id) {
+  return request({
+    url: '/base/compensateResult/getRelationDuty/' + id,
+    method: 'post'
+  })
+}
 
 export function copyDuty(data) {
   return request({

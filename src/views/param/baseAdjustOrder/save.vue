@@ -76,7 +76,11 @@ export default {
   components: {
     Match, socialArea
   },
-  props: ['sonData', 'businessData'],
+  props: {
+    sonData: Object,
+    businessData: Object,
+    plyTreeId: { type: Number, defalut: 0 }
+  },
   data() {
     return {
       dialogVisible: false,
@@ -110,6 +114,11 @@ export default {
       this.dialogVisible = true
       if (newVal.id != null) {
         this.dialogTitle = 'Edit'
+        if (this.form.plyTreeId) {
+          if (this.form.plyTreeId !== this.plyTreeId) {
+            this.form.plyTreeId = this.plyTreeId
+          }
+        }
       } else {
         this.dialogTitle = 'Add'
       }

@@ -38,7 +38,7 @@
         </el-table-column>
       </el-table>
 
-      <save :son-data="form" :business-data="businessData" @sonStatus="status" />
+      <save :son-data="form" :ply-tree-id="plyTreeId" :business-data="businessData" @sonStatus="status" />
 
       <pagination
         v-show="total>0"
@@ -77,6 +77,7 @@ export default {
       total: 0,
       dialogVisible: false,
       form: null,
+      plyTreeId: null,
       businessData: {}
     }
   },
@@ -92,6 +93,9 @@ export default {
     }
   },
   created() {
+    if (window.localStorage.getItem('treeData')) {
+      this.plyTreeId = parseInt(window.localStorage.getItem('treeData'))
+    }
   },
   mounted() {
   },
@@ -129,7 +133,7 @@ export default {
       })
     },
     handleSave() {
-      this.form = { id: null, amountCode: this.listQuery.amountCode }
+      this.form = { id: null, amountCode: this.listQuery.amountCode, plyTreeId: this.plyTreeId }
       this.dialogVisible = true
     },
     handleEdit(id) {
