@@ -40,9 +40,11 @@
           </template>
         </el-table-column>
 
-        <el-table-column align="center" :show-overflow-tooltip="true" label="医院名称">
+        <el-table-column align="center" label="医院名称">
           <template slot-scope="scope">
-            {{ scope.row.hospitalNme }}
+            <el-tooltip :content="formaterRow(scope.row)" placement="top">
+              <el-button>   {{ scope.row.hospitalNme }}</el-button>
+            </el-tooltip>
           </template>
         </el-table-column>
         <el-table-column align="center" label="就诊类型">
@@ -192,6 +194,9 @@ export default {
         message: message,
         type: type
       })
+    },
+    formaterRow(row) {
+      return row.hospDesc
     },
     fetchData() {
       this.listLoading = true
