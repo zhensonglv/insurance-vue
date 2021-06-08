@@ -117,7 +117,9 @@ export default {
         amountQuotaLimit: [{ required: true, trigger: 'blur', message: '请输入合计限额额度' }],
         correlation: [{ required: true, trigger: 'blur', message: '请输入关联责任' }],
         amountType: [{ required: true, trigger: 'blur', message: '请选择限额类型' }],
-        isRelation: [{ required: true, trigger: 'blur', message: '请选择是否关联' }]
+        isRelation: [{ required: true, trigger: 'blur', message: '请选择是否关联' }],
+        plyBgnTm: [{ required: true, trigger: 'blur', message: '请输入起始日期' }],
+        plyEndTm: [{ required: true, trigger: 'blur', message: '请输入终止日期' }]
       }
     }
   },
