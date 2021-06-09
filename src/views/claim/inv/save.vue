@@ -995,7 +995,7 @@ export default {
           if (response.code === 200) {
             this._notify(response.msg, 'success')
             this.clearForm()
-            this.$emit('sonStatus', false)
+            this.$emit('sonStatus', true)
             this.clearFlag()
           } else {
             this._notify(response.msg, 'error')

@@ -52,7 +52,7 @@ export default {
         teamNme: ''
       },
       rules: {
-        teamNo: [{ required: true, trigger: 'blur', message: '请输入团体号' }]
+        plyNo: [{ required: true, trigger: 'blur', message: '请输入保单号' }]
       }
     }
   },
