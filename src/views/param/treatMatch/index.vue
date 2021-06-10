@@ -2,72 +2,45 @@
   <div class="app-container">
     <el-card>
       <div>
-
-        <el-input v-model="listQuery.paramCde" style="width: 200px;" placeholder="请输入参数码查询" disabled="disabled" />
-
-        <el-select v-model="listQuery.docTyp" placeholder="请选择就诊类型" clearable>
-          <el-option
-            v-for="item in businessData.ClinicType"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          />
-        </el-select>
+        <el-input v-model="listQuery.diaTreatCde" style="width: 200px;" placeholder="请输入诊疗匹配参数码查询" />
+        <el-input v-model="listQuery.diaTreatDesc" style="width: 200px;" placeholder="请输入说明查询" />
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
-        <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="resetData">重置</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
+        <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleRoute">明细</el-button>
       </div>
       <br>
       <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
+        <el-table-column
+          type="center"
+          label="选择"
+          width="55"
+        >
+          <template slot-scope="scope">
+            <el-radio v-model="paramRadio" :label="scope.$index" @change.native="handleSelect(scope.row)">&nbsp;</el-radio>
+          </template>
+        </el-table-column>
         <el-table-column align="center" label="序号" width="95">
           <template slot-scope="scope">
             {{ scope.$index +1 }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="参数码" width="150">
+
+        <el-table-column align="center" label="诊疗匹配参数码" width="450">
           <template slot-scope="scope">
-            {{ scope.row.paramCde }}
+            {{ scope.row.diaTreatCde }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="就诊类型" width="150">
+
+        <el-table-column align="center" label="说明" width="450">
           <template slot-scope="scope">
-            {{ ClinicType[scope.row.docTyp] }}
+            {{ scope.row.diaTreatDesc }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="就诊天数" width="150">
-          <template slot-scope="scope">
-            {{ scope.row.consultDays }}
-          </template>
-        </el-table-column>
-        <el-table-column align="center" label="诊断码" width="150">
-          <template slot-scope="scope">
-            {{ TrueOrFalse[scope.row.isDiagnoseCde] }}
-          </template>
-        </el-table-column>
-        <el-table-column align="center" label="就诊医院" width="150">
-          <template slot-scope="scope">
-            {{ TrueOrFalse[scope.row.isDiagnoseHospital] }}
-          </template>
-        </el-table-column>
-        <el-table-column align="center" label="就诊科室" width="150">
-          <template slot-scope="scope">
-            {{ TrueOrFalse[scope.row.isDiagnoseDepartment] }}
-          </template>
-        </el-table-column>
-        <el-table-column align="center" label="是否合并门诊" width="150">
-          <template slot-scope="scope">
-            {{ TrueOrFalse[scope.row.isCombineClinic] }}
-          </template>
-        </el-table-column>
-        <el-table-column align="center" label="备注" width="150">
-          <template slot-scope="scope">
-            {{ scope.row.descCrible }}
-          </template>
-        </el-table-column>
+
         <el-table-column align="center" label="操作" fixed="right">
           <template slot-scope="scope">
             <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)">编辑</el-button>
-            <el-button type="danger" icon="el-icon-delete" size="mini" class="action-button" @click="handleDel(scope.row.id)">删除</el-button>
+            <el-button type="danger" size="mini" icon="el-icon-delete" class="action-button" @click="handleDel(scope.row.id)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -87,52 +60,51 @@
 
 <script>
 import { getList, findById, del } from '@/api/base'
-import { getCodeList } from '@/api/code'
 import Pagination from '@/components/Pagination'
 import Save from './save'
 
 export default {
   components: { Pagination, Save },
-  props: {
-    paramCode: String
-  },
   data() {
     return {
       list: null,
       listLoading: true,
-      basePath: 'consultDefi',
+      basePath: 'treatMatch',
       listQuery: {
         pageNum: 1,
         pageSize: 10,
-        paramCde: '',
-        docTyp: '',
+        diaTreatCde: '',
+        diaTreatDesc: '',
         sort: '+id'
       },
       total: 0,
       dialogVisible: false,
       form: null,
       businessData: {},
-      ClinicType: {},
-      TrueOrFalse: {}
-    }
-  },
-  watch: {
-    paramCode: {
-      handler(v) {
-        if (v) {
-          debugger
-          this.listQuery.paramCde = v
-          this.fetchTypeData()
-        }
-      },
-      immediate: true
+      paramRadio: false
     }
   },
   created() {
+    this.fetchData()
   },
   mounted() {
   },
   methods: {
+    handleRoute() {
+      if (this.selected == null) {
+        this.$message({
+          showClose: true,
+          message: '只能选择一条查看',
+          type: 'warning'
+        })
+      } else {
+        this.$router.push({ path: '/param/treatMatchDetail', query: { diaTreatCde: this.selected.diaTreatCde }})
+      }
+    },
+    handleSelect(data) {
+      this.selected = data
+      this.$emit('setMultipleSeleValues', data)
+    },
     _notify(message, type) {
       this.$message({
         message: message,
@@ -141,32 +113,15 @@ export default {
     },
     fetchData() {
       this.listLoading = true
+      this.paramRadio = false
       getList(this.basePath, this.listQuery).then(response => {
         this.list = response.data.data
         this.total = response.data.total
         this.listLoading = false
       })
     },
-    resetData() {
-      this.listQuery.paramCde = null
-      this.listQuery.docTyp = null
-    },
-    fetchTypeData() {
-      // 获取codeList
-      getCodeList({ parent: ['ClinicType', 'TrueOrFalse'] }).then(res => {
-        this.businessData = res.data
-        // 组装table 的map
-        for (const key in this.businessData) {
-          this.businessData[key].forEach(item => {
-            !this[key] && (this[key] = {})
-            this[key][item.value] = item.label
-          })
-        }
-        this.fetchData()
-      })
-    },
     handleSave() {
-      this.form = { id: null, paramCde: this.listQuery.paramCde }
+      this.form = { id: null }
       this.dialogVisible = true
     },
     handleEdit(id) {
@@ -175,6 +130,7 @@ export default {
         this.form = response.data
       })
     },
+
     // 子组件的状态Flag，子组件通过`this.$emit('sonStatus', val)`给父组件传值
     // 父组件通过`@sonStatus`的方法`status`监听到子组件传递的值
     status(data) {

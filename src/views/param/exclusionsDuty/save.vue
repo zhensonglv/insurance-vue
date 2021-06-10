@@ -98,15 +98,21 @@
       </el-form-item>
       <el-row v-show="form.treatTyp=='1'">
         <el-form-item label="起始诊疗码" prop="medicDetailStart" label-width="120px">
-          <el-input v-model="form.medicDetailStart" placeholder="请输入起始诊疗码" />
+          <el-input v-model="form.medicDetailStart" placeholder="请输入起始诊疗码">
+            <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(6)" />
+          </el-input>
         </el-form-item>
         <el-form-item label="终止诊疗码" prop="medicDetailEnd" label-width="120px">
-          <el-input v-model="form.medicDetailEnd" placeholder="请输入终止诊疗码" />
+          <el-input v-model="form.medicDetailEnd" placeholder="请输入终止诊疗码">
+            <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(7)" />
+          </el-input>
         </el-form-item>
       </el-row>
       <el-row v-show="form.treatTyp=='2'">
         <el-form-item label="高层诊疗码" prop="treatMatchCde" label-width="120px">
-          <el-input v-model="form.treatMatchCde" placeholder="请输入高层诊疗码" />
+          <el-input v-model="form.treatMatchCde" placeholder="请输入高层诊疗码">
+            <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(8)" />
+          </el-input>
         </el-form-item>
         <el-form-item label="高层诊疗码描述" prop="treatMatchDesc" label-width="120px">
           <el-input v-model="form.treatMatchDesc" placeholder="请输入高层诊疗码描述" />
@@ -349,6 +355,17 @@ export default {
       if (this.matchTyp === 5) {
         this.form.diaMatParameterCde = data.diaMatParameterCde
         this.form.diaMatDesc = data.explCategort
+      }
+
+      if (this.matchTyp === 6) {
+        this.form.medicDetailStart = data.treatNo
+      }
+      if (this.matchTyp === 7) {
+        this.form.medicDetailEnd = data.treatNo
+      }
+      if (this.matchTyp === 8) {
+        this.form.treatMatchCde = data.diaTreatCde
+        this.form.treatMatchDesc = data.diaTreatDesc
       }
     },
     handleClose() {

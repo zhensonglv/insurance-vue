@@ -125,15 +125,21 @@
       </el-form-item>
       <el-row v-show="form.treatTyp=='1'">
         <el-form-item label="起始诊疗码" prop="medicDetailStart" label-width="120px">
-          <el-input v-model="form.medicDetailStart" placeholder="请输入起始诊疗码" />
+          <el-input v-model="form.medicDetailStart" placeholder="请输入起始诊疗码">
+            <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(5)" />
+          </el-input>
         </el-form-item>
         <el-form-item label="终止诊疗码" prop="medicDetailEnd" label-width="120px">
-          <el-input v-model="form.medicDetailEnd" placeholder="请输入终止诊疗码" />
+          <el-input v-model="form.medicDetailEnd" placeholder="请输入终止诊疗码">
+            <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(6)" />
+          </el-input>
         </el-form-item>
       </el-row>
       <el-row v-show="form.treatTyp=='2'">
         <el-form-item label="高层诊疗码" prop="treatMatchCde" label-width="120px">
-          <el-input v-model="form.treatMatchCde" placeholder="请输入高层诊疗码" />
+          <el-input v-model="form.treatMatchCde" placeholder="请输入高层诊疗码">
+            <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(7)" />
+          </el-input>
         </el-form-item>
         <el-form-item label="高层诊疗码描述" prop="treatMatchDesc" label-width="120px">
           <el-input v-model="form.treatMatchDesc" placeholder="请输入高层诊疗码描述" />
@@ -298,6 +304,16 @@ export default {
         this.form.diaMatchCde = data.diaMatParameterCde
         this.form.diaMatchDesc = data.explCategort
       }
+      if (this.matchTyp === 5) {
+        this.form.medicDetailStart = data.treatNo
+      }
+      if (this.matchTyp === 6) {
+        this.form.medicDetailEnd = data.treatNo
+      }
+      if (this.matchTyp === 7) {
+        this.form.treatMatchCde = data.diaTreatCde
+        this.form.treatMatchDesc = data.diaTreatDesc
+      }
     },
     clearForm() {
       this.form.id = null
@@ -337,6 +353,10 @@ export default {
         if (valid) {
           this.form.medicInsureType = this.medicInsureType
           this.form.categoryNo = this.categoryNo
+          if (!this.form.medicInsureType || this.medicInsureType.length === 0) {
+            this._notify('医保类型不能为空', 'warning')
+            return
+          }
           if (this.form.id === null) {
             save(this.basePath, this.form).then(response => {
               if (response.code === 200) {
