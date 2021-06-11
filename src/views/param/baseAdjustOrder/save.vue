@@ -157,9 +157,9 @@ export default {
             str = str + ',' + val.responseNo
           }
         })
-        this.form.adjustOrder = str
+        this.$set(this.form, 'adjustOrder', str)
       } else if (this.matchTyp === 2) {
-        this.form.onlyDuty = data[0].responseNo
+        this.$set(this.form, 'onlyDuty', data[0].responseNo)
       }
     },
 

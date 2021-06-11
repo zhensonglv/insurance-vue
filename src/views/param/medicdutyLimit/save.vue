@@ -289,30 +289,30 @@ export default {
     },
     matchConfirm(data) {
       if (data.explCde) { // 解释码
-        this.form.explianCde = data.explCde
-        this.form.explainDesc = data.explCdeDesc
+        this.$set(this.form, 'explianCde', data.explCde)
+        this.$set(this.form, 'explainDesc', data.explCdeDesc)
       }
       if (data.diaCde && this.matchTyp === 1) {
-        this.form.bgnCode = data.diaCde
-        this.form.bgnCodeDesc = data.diaDesc
+        this.$set(this.form, 'bgnCode', data.diaCde)
+        this.$set(this.form, 'bgnCodeDesc', data.diaDesc)
       }
       if (data.diaCde && this.matchTyp === 2) {
-        this.form.endCode = data.diaCde
-        this.form.endCodeDesc = data.diaDesc
+        this.$set(this.form, 'endCode', data.diaCde)
+        this.$set(this.form, 'endCodeDesc', data.diaDesc)
       }
       if (this.matchTyp === 3) {
-        this.form.diaMatchCde = data.diaMatParameterCde
-        this.form.diaMatchDesc = data.explCategort
+        this.$set(this.form, 'diaMatchCde', data.diaMatParameterCde)
+        this.$set(this.form, 'diaMatchDesc', data.explCategort)
       }
       if (this.matchTyp === 5) {
-        this.form.medicDetailStart = data.treatNo
+        this.$set(this.form, 'medicDetailStart', data.treatNo)
       }
       if (this.matchTyp === 6) {
-        this.form.medicDetailEnd = data.treatNo
+        this.$set(this.form, 'medicDetailEnd', data.treatNo)
       }
       if (this.matchTyp === 7) {
-        this.form.treatMatchCde = data.diaTreatCde
-        this.form.treatMatchDesc = data.diaTreatDesc
+        this.$set(this.form, 'treatMatchCde', data.diaTreatCde)
+        this.$set(this.form, 'treatMatchDesc', data.diaTreatDesc)
       }
     },
     clearForm() {

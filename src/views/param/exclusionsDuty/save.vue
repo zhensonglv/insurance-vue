@@ -338,34 +338,34 @@ export default {
     },
     matchConfirm(data) {
       if (data.prodCde) { // 参数码
-        this.form.hospitalNetCde = data.prodCde
+        this.$set(this.form, 'hospitalNetCde', data.prodCde)
       }
       if (data.explCde) { // 解释码
-        this.form.explainCde = data.explCde
-        this.form.explainCdeDesc = data.explCdeDesc
+        this.$set(this.form, 'explainCde', data.explCde)
+        this.$set(this.form, 'explainCdeDesc', data.explCdeDesc)
       }
       if (data.diaCde && this.matchTyp === 3) {
-        this.form.quotaStarCde = data.diaCde
-        this.form.quotaStarCdeDesc = data.diaDesc
+        this.$set(this.form, 'quotaStarCde', data.diaCde)
+        this.$set(this.form, 'quotaStarCdeDesc', data.diaDesc)
       }
       if (data.diaCde && this.matchTyp === 4) {
-        this.form.quotaEndCde = data.diaCde
-        this.form.quotaEndCdeDesc = data.diaDesc
+        this.$set(this.form, 'quotaEndCde', data.diaCde)
+        this.$set(this.form, 'quotaEndCdeDesc', data.diaDesc)
       }
       if (this.matchTyp === 5) {
-        this.form.diaMatParameterCde = data.diaMatParameterCde
-        this.form.diaMatDesc = data.explCategort
+        this.$set(this.form, 'diaMatParameterCde', data.diaMatParameterCde)
+        this.$set(this.form, 'diaMatDesc', data.explCategort)
       }
 
       if (this.matchTyp === 6) {
-        this.form.medicDetailStart = data.treatNo
+        this.$set(this.form, 'medicDetailStart', data.treatNo)
       }
       if (this.matchTyp === 7) {
-        this.form.medicDetailEnd = data.treatNo
+        this.$set(this.form, 'medicDetailEnd', data.treatNo)
       }
       if (this.matchTyp === 8) {
-        this.form.treatMatchCde = data.diaTreatCde
-        this.form.treatMatchDesc = data.diaTreatDesc
+        this.$set(this.form, 'treatMatchCde', data.diaTreatCde)
+        this.$set(this.form, 'treatMatchDesc', data.diaTreatDesc)
       }
     },
     handleClose() {

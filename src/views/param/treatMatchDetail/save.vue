@@ -106,12 +106,12 @@ export default {
     },
     matchConfirm(data) {
       if (this.matchTyp === 1) {
-        this.form.bgnCde = data.treatNo
-        this.form.bgnCdeDesc = data.treatDesc
+        this.$set(this.form, 'bgnCde', data.treatNo)
+        this.$set(this.form, 'bgnCdeDesc', data.treatDesc)
       }
       if (this.matchTyp === 2) {
-        this.form.endCde = data.treatNo
-        this.form.endCdeDesc = data.treatDesc
+        this.$set(this.form, 'endCde', data.treatNo)
+        this.$set(this.form, 'endCdeDesc', data.treatDesc)
       }
     },
     onSubmit(form) {
