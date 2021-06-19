@@ -90,7 +90,7 @@
             {{ caseStatus[ scope.row.caseStatus ] }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="操作" fixed="right" width="120">
+        <el-table-column align="center" label="操作">
           <template slot-scope="scope">
             <el-tooltip class="item" effect="dark" content="编辑" placement="top-start">
               <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)" />
