@@ -189,7 +189,6 @@ module.exports = {
     'yield-star-spacing': [2, 'both'],
     'yoda': [2, 'never'],
     'prefer-const': 2,
-    'no-debugger': 0,
     'object-curly-spacing': [2, 'always', {
       objectsInObjects: false
     }],

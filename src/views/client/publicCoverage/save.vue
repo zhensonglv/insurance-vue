@@ -166,7 +166,6 @@ export default {
       this.form.plyNo = null
     },
     hanldeMatch(matchTyp) {
-      debugger
       this.matchVisable = true
       if (matchTyp) {
         this.matchTyp = matchTyp
@@ -175,7 +174,6 @@ export default {
       }
     },
     matchConfirm(data) {
-      debugger
       if (data.groupNme && this.matchTyp === '1') { // 集团名称
         this.form.groupNme = data.groupNme
       }

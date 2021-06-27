@@ -80,7 +80,6 @@ export default {
   },
   watch: {
     'sonData': function(newVal, oldVal) {
-      debugger
       this.form = newVal
       this.dialogVisible = true
       if (newVal.id != null) {

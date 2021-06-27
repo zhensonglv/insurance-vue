@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <el-card>
-      <div>
+      <div class="header">
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
       </div>
       <br>
@@ -24,52 +24,52 @@
         <el-table-column
           type="selection"
         />
-        <el-table-column align="center" label="序号" width="95">
+        <el-table-column align="center" label="序号">
           <template slot-scope="scope">
             {{ scope.$index +1 }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="序号" width="250">
+        <el-table-column align="center" label="序号">
           <template slot-scope="scope">
             {{ scope.row.idx }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="批次号" width="250">
+        <el-table-column align="center" label="批次号">
           <template slot-scope="scope">
             {{ scope.row.batchNo }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="报案号" width="250">
+        <el-table-column align="center" label="报案号">
           <template slot-scope="scope">
             {{ scope.row.caseNo }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="姓名" width="250">
+        <el-table-column align="center" label="姓名">
           <template slot-scope="scope">
             {{ scope.row.appNme }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="证件类型" width="250">
+        <el-table-column align="center" label="证件类型">
           <template slot-scope="scope">
             {{ scope.row.certCls }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="证件号" width="250">
+        <el-table-column align="center" label="证件号">
           <template slot-scope="scope">
             {{ scope.row.certCde }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="操作" fixed="right">
+        <el-table-column align="center" label="操作">
           <template slot-scope="scope">
-            <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)">编辑</el-button>
-            <el-button type="danger" size="mini" icon="el-icon-delete" class="action-button" @click="handleDel(scope.row.id)">删除</el-button>
+            <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)" />
+            <el-button type="danger" size="mini" icon="el-icon-delete" class="action-button" @click="handleDel(scope.row.id)" />
           </template>
         </el-table-column>
       </el-table>
@@ -149,7 +149,7 @@ export default {
     /* fetchTypeData() {
       // 获取codeList
       getCodeList({ parent: ['DiaMatchTyp'] }).then(res => {
-        debugger
+
         this.businessData = res.data
         // 组装table 的map
         for (const key in this.businessData) {
@@ -204,3 +204,31 @@ export default {
   }
 }
 </script>
+
+<style lang='scss' scoped>
+.header {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+  .tit {
+    line-height: 36px;
+  }
+}
+.app-container >>> .el-table__expanded-cell {
+  padding: 10px 20px;
+  .app-container {
+    padding: 0;
+  }
+}
+
+.el-table >>> .el-table__body-wrapper {
+  td {
+    padding: 0;
+  }
+}
+.el-table >>> .el-table__header-wrapper {
+  th {
+    background-color: #111
+  }
+}
+</style>

@@ -1,3 +1,11 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-04-18 10:36:26
+ * @LastEditTime: 2021-06-27 13:04:39
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: /insurance-vue/src/views/claim/apply/trackMatch.vue
+-->
 <template>
   <el-dialog title="操作轨迹" :visible.sync="dialogTrackVisible" append-to-body width="60%">
     <clmTrack dialog :data="data" />
@@ -28,7 +36,6 @@ export default {
   },
   watch: {
     sonData(newVal, oldVal) {
-      debugger
       this.data = newVal
       this.dialogTrackVisible = true
     }

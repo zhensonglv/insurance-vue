@@ -40,57 +40,57 @@
           type="selection"
           width="55"
         />
-        <el-table-column align="center" label="序号" width="95">
+        <el-table-column align="center" label="序号">
           <template slot-scope="scope">
             {{ scope.$index +1 }}
           </template>
         </el-table-column>
-        <el-table-column align="center" :show-overflow-tooltip="true" label="批次号" width="180">
+        <el-table-column align="center" :show-overflow-tooltip="true" label="批次号">
           <template slot-scope="scope">
             {{ scope.row.batchNo }}
           </template>
         </el-table-column>
-        <el-table-column align="center" :show-overflow-tooltip="true" label="保单号" width="180">
+        <el-table-column align="center" :show-overflow-tooltip="true" label="保单号">
           <template slot-scope="scope">
             {{ scope.row.plyNo }}
           </template>
         </el-table-column>
-        <el-table-column align="center" :show-overflow-tooltip="true" label="团体名称" width="150">
+        <el-table-column align="center" :show-overflow-tooltip="true" label="团体名称">
           <template slot-scope="scope">
             {{ scope.row.groupNme }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="诊断复核人" width="150">
+        <el-table-column align="center" label="诊断复核人">
           <template slot-scope="scope">
             {{ scope.row.diagReviewer }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="审核人员" width="150">
+        <el-table-column align="center" label="审核人员">
           <template slot-scope="scope">
             {{ scope.row.medicalAuditor }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="签批人员" width="150">
+        <el-table-column align="center" label="签批人员">
           <template slot-scope="scope">
             {{ scope.row.singedStaff }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="收件日" width="150">
+        <el-table-column align="center" label="收件日">
           <template slot-scope="scope">
             {{ scope.row.comsignTm }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="案件数量" width="150">
+        <el-table-column align="center" label="案件数量">
           <template slot-scope="scope">
             {{ scope.row.caseNumber }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="批次案件状态" width="150">
+        <el-table-column align="center" label="批次案件状态">
           <template slot-scope="scope">
             {{ caseStatus[ scope.row.caseStatus ] }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="操作" fixed="right" width="120">
+        <el-table-column align="center" label="操作" fixed="right">
           <template slot-scope="scope">
             <el-tooltip class="item" effect="dark" content="编辑" placement="top-start">
               <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)" />
@@ -243,9 +243,9 @@ export default {
 }
 </script>
 <style lang='scss' scoped>
-.el-table >>> .el-table__body-wrapper td {
-  padding: 0;
-}
+// .el-table >>> .el-table__body-wrapper td {
+//   padding: 0;
+// }
 </style>
 
 <style lang="scss">//该样式在scope中是不起作用的

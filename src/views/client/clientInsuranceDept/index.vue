@@ -102,7 +102,6 @@ export default {
     }
   },
   created() {
-    debugger
     this.fetchData()
   },
   methods: {
@@ -140,7 +139,6 @@ export default {
     },
 
     handleDel(id) {
-      debugger
       this.$confirm('你确定永久删除此投保单位信息？, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',

@@ -100,7 +100,7 @@ export default {
     level : Number
   },*/
   /* watch: {
-    level(val) {debugger
+    level(val) {
       if(val){
         this.listQuery.level = val
         this.fetchData()

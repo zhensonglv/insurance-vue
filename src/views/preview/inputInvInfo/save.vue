@@ -359,7 +359,6 @@ export default {
       this.dialogVisible = false
     },
     onSubmit(form) {
-      debugger
       this.$refs[form].validate((valid) => {
         if (valid) {
           if (this.form.id === null) {

@@ -75,7 +75,6 @@ export default {
   },
   methods: {
     queryData() {
-      debugger
       this.listLoading = true
       getList(this.basePath, this.listQuery).then(response => {
         this.list = response.data.data

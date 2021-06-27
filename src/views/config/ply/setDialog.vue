@@ -69,7 +69,7 @@ export default {
     setMultipleSeleValues(value) {
       this.selectValue = value
     },
-    /* getSelectVal(value) {debugger
+    /* getSelectVal(value) {
       this.selectValue = value
     },*/
     handleClose() {

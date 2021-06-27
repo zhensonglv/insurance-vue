@@ -152,7 +152,6 @@ export default {
   watch: {
     setParamData: {
       handler(v) {
-        debugger
         this.listQuery.prodCde = v && v.paramCode
         // this.listQuery.applyTyp = v && v.treeType
         this.listQuery.paramterTyp = v && v.paramType

@@ -12,97 +12,97 @@
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="序号" width="250">
+        <el-table-column align="center" label="序号">
           <template slot-scope="scope">
             {{ scope.row.idx }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="录入名称" width="250">
+        <el-table-column align="center" label="录入名称">
           <template slot-scope="scope">
             {{ scope.row.inputNme }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="录入剂型" width="250">
+        <el-table-column align="center" label="录入剂型">
           <template slot-scope="scope">
             {{ scope.row.inputDrug }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="录入比例" width="250">
+        <el-table-column align="center" label="录入比例">
           <template slot-scope="scope">
             {{ scope.row.inputRate }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="录入医保类型" width="250">
+        <el-table-column align="center" label="录入医保类型">
           <template slot-scope="scope">
             {{ scope.row.inputSecuTyp }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="费用编码" width="250">
+        <el-table-column align="center" label="费用编码">
           <template slot-scope="scope">
             {{ scope.row.treatCde }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="费用名称" width="250">
+        <el-table-column align="center" label="费用名称">
           <template slot-scope="scope">
             {{ scope.row.payNme }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="医保地省" width="250">
+        <el-table-column align="center" label="医保地省">
           <template slot-scope="scope">
             {{ scope.row.province }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="医保地市" width="250">
+        <el-table-column align="center" label="医保地市">
           <template slot-scope="scope">
             {{ scope.row.city }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="系统比例" width="250">
+        <el-table-column align="center" label="系统比例">
           <template slot-scope="scope">
             {{ scope.row.sysRate }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="费用金额" width="250">
+        <el-table-column align="center" label="费用金额">
           <template slot-scope="scope">
             {{ scope.row.sumAmt }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="扣费比例" width="250">
+        <el-table-column align="center" label="扣费比例">
           <template slot-scope="scope">
             {{ scope.row.categSelfpayRate }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="医保类型" width="250">
+        <el-table-column align="center" label="医保类型">
           <template slot-scope="scope">
             {{ scope.row.secuTyp }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="自付金额" width="250">
+        <el-table-column align="center" label="自付金额">
           <template slot-scope="scope">
             {{ scope.row.categSelfpayAmt }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="大项号" width="250">
+        <el-table-column align="center" label="大项号">
           <template slot-scope="scope">
             {{ scope.row.maxtermNo }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="操作" fixed="right">
+        <el-table-column align="center" label="操作">
           <template slot-scope="scope">
             <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)">编辑</el-button>
             <el-button type="danger" size="mini" icon="el-icon-delete" class="action-button" @click="handleDel(scope.row.id)">删除</el-button>
@@ -182,7 +182,7 @@ export default {
     /* fetchTypeData() {
       // 获取codeList
       getCodeList({ parent: ['DiaMatchTyp'] }).then(res => {
-        debugger
+
         this.businessData = res.data
         // 组装table 的map
         for (const key in this.businessData) {

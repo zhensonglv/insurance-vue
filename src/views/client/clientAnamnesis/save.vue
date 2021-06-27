@@ -248,7 +248,6 @@ export default {
       this.dialogVisible = false
     },
     hanldeMatch(matchTyp) {
-      debugger
       this.matchVisable = true
       this.matchTyp = matchTyp
     },

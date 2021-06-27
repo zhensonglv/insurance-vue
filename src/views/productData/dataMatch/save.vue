@@ -117,7 +117,6 @@ export default {
     },
 
     changeNoTyp() {
-      debugger
       if (this.form.noTyp === 'product') {
         this.matchTyp = 1
       } else if (this.form.noTyp === 'insurecde') {
@@ -127,7 +126,6 @@ export default {
       }
     },
     hanldeMatch() {
-      debugger
       this.matchVisable = true
     },
     matchConfirm(data) {

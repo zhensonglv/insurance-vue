@@ -16,7 +16,7 @@
         @expand-change="expandChange"
         @selection-change="handleSelect"
       >
-        <el-table-column type="expand">
+        <el-table-column v-if="aggregate" type="expand">
           <template>
             <treat aggregate :inv-pk-id="invPkId" />
           </template>
@@ -24,54 +24,54 @@
         <el-table-column
           type="selection"
         />
-        <el-table-column align="center" label="序号" width="95">
+        <el-table-column align="center" label="序号">
           <template slot-scope="scope">
             {{ scope.$index +1 }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="批次号" width="250">
+        <el-table-column align="center" label="批次号">
           <template slot-scope="scope">
             {{ scope.row.batchNo }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="对应人员层序号" width="250">
+        <el-table-column align="center" label="对应人员层序号">
           <template slot-scope="scope">
             {{ scope.row.appId }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="就诊医院代码" width="250">
+        <el-table-column align="center" label="就诊医院代码">
           <template slot-scope="scope">
             {{ scope.row.hospitalNo }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="医院名称" width="250">
+        <el-table-column align="center" label="医院名称">
           <template slot-scope="scope">
             {{ scope.row.hospitalNme }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="科室代码" width="250">
+        <el-table-column align="center" label="科室代码">
           <template slot-scope="scope">
             {{ scope.row.hospitalDepart }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="账单类型" width="250">
+        <el-table-column align="center" label="账单类型">
           <template slot-scope="scope">
             {{ scope.row.invTyp }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="发票金额" width="250">
+        <el-table-column align="center" label="发票金额">
           <template slot-scope="scope">
             {{ scope.row.sumAmt }}
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="操作" fixed="right">
+        <el-table-column align="center" label="操作">
           <template slot-scope="scope">
             <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)">编辑</el-button>
             <el-button type="danger" size="mini" icon="el-icon-delete" class="action-button" @click="handleDel(scope.row.id)">删除</el-button>
@@ -162,14 +162,13 @@ export default {
     },
     getAreaCascader() {
       getAreaCascader().then(response => {
-        debugger
         this.businessData.area = response.data
       })
     },
     /* fetchTypeData() {
       // 获取codeList
       getCodeList({ parent: ['DiaMatchTyp'] }).then(res => {
-        debugger
+
         this.businessData = res.data
         // 组装table 的map
         for (const key in this.businessData) {

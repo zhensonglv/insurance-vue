@@ -151,7 +151,6 @@ export default {
     fetchTypeData() {
       // 获取codeList
       getCodeList({ parent: ['CSpecialTyp', 'CSpecialLevel'] }).then(res => {
-        debugger
         this.businessData = res.data
         // 组装table 的map
         for (const key in this.businessData) {
