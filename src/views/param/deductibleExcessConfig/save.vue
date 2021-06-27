@@ -14,6 +14,16 @@
           />
         </el-select>
       </el-form-item>
+      <el-form-item label="免赔子类型" prop="lineTyp" label-width="120px">
+        <el-select v-model="form.lineTyp" placeholder="请选择" clearable :disabled="form.deductibleExcessTyp!=='6'">
+          <el-option
+            v-for="item in businessData.lineTyp"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
+      </el-form-item>
       <el-form-item label="就诊类型" prop="docTyp" label-width="120px">
         <el-select v-model="form.docTyp" placeholder="请选择" clearable>
           <el-option
@@ -74,13 +84,6 @@
           />
         </el-select>
       </el-form-item>
-      <el-form-item label="医院网络码" prop="medicalNetworkCde" label-width="120px">
-        <el-input v-model="form.medicalNetworkCde" placeholder="请选择医院网络码">
-          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(1)" />
-        </el-input>
-      </el-form-item>
-      <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
-
       <el-row>
         <el-form-item label="治疗类型" prop="treatmentTyp" label-width="120px">
           <div class="check">
@@ -109,6 +112,12 @@
       <el-form-item label="免赔额" prop="deductibleExcessAmt" label-width="120px">
         <el-input v-model="form.deductibleExcessAmt" placeholder="请输入参免赔额" />
       </el-form-item>
+      <el-form-item label="医院网络码" prop="medicalNetworkCde" label-width="120px">
+        <el-input v-model="form.medicalNetworkCde" placeholder="请选择医院网络码">
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch(1)" />
+        </el-input>
+      </el-form-item>
+      <match v-model="matchVisable" :match-typ="matchTyp" @matchConfirm="matchConfirm" />
       <el-form-item label="免赔额说明" prop="deductibleExcessDesc" label-width="120px">
         <el-input v-model="form.deductibleExcessDesc" placeholder="请输入免赔额说明" />
       </el-form-item>
@@ -158,7 +167,8 @@ export default {
         billTyp: '',
         docTyp: '',
         isMedical: '',
-        isLadder: ''
+        isLadder: '',
+        lineTyp: ''
       },
       matchVisable: false,
       matchTyp: null,
@@ -214,6 +224,7 @@ export default {
       this.form.docTyp = null
       this.form.isMedical = null
       this.form.isLadder = null
+      this.form.lineTyp = null
       this.treatmentTyp = []
     },
     hanldeMatch(matchTyp) {

@@ -202,7 +202,7 @@ export default {
     fetchTypeData() {
       // 获取codeList
       var parentData = ['CDeductibleExcessTyp', 'QuotaVisitReason', 'CiRateCondition',
-        'CiRateBillTyp', 'ClinicType', 'TrueOrFalse', 'CiTreatmentTyp']
+        'CiRateBillTyp', 'ClinicType', 'TrueOrFalse', 'CiTreatmentTyp', 'lineTyp']
       getCodeList({ parent: parentData }).then(res => {
         this.businessData = res.data
         // 组装table 的map
