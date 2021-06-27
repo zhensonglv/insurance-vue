@@ -1,11 +1,6 @@
 <template>
-  <el-dialog :modal="false" :title="title" :visible.sync="dialogTableVisible" append-to-body width="80%">
-    <div v-if="matchTyp ===1 ">
-      <paramManage dialog :set-param-data="setParamData" @setMultipleSeleValues="setMultipleSeleValues" />
-    </div>
-    <div v-else-if="matchTyp === 2 ">
-      <baseArea dialog @setMultipleSeleValues="setMultipleSeleValues" />
-    </div>
+  <el-dialog :modal="false" title="诊疗码" :visible.sync="dialogTableVisible" append-to-body width="80%">
+    <treatmentMesManage dialog @setMultipleSeleValues="setMultipleSeleValues" />
     <div slot="footer" class="dialog-footer">
       <el-button @click="handleClose">
         取消
@@ -17,37 +12,28 @@
   </el-dialog>
 </template>
 <script>
-import paramManage from '../paramManage'
-import baseArea from '../../system/area'
+import treatmentMesManage from '../treatmentMesManage'
 export default {
   name: 'Match',
-  components: { paramManage, baseArea },
+  components: { treatmentMesManage },
   props: {
     value: {
       type: Boolean,
       default: false
-    },
-    matchTyp: {
-      type: Number,
-      default: 0
     }
   },
   data() {
     return {
-      setParamData: { paramCode: null, paramType: 'param_0015' },
       list: null,
       listLoading: true,
-      basePath: 'paramManage',
+      basePath: 'treatmentMesManage',
       listQuery: {
         pageNum: 1,
         pageSize: 10,
-        prodCde: '',
-        applyTyp: '',
-        paramterTyp: '',
-        paramterDesc: '',
+        treatNo: '',
+        treatDesc: '',
         sort: '+id'
       },
-      titile: null,
       total: 0,
       multipleSeleValues: [],
       dialogTableVisible: false
@@ -59,13 +45,6 @@ export default {
     },
     dialogTableVisible(val) {
       this.$emit('input', val)
-    },
-    matchTyp(val) {
-      if (val === 1) {
-        this.title = '医院网络码'
-      } else if (val === 2) {
-        this.title = '社保地'
-      }
     }
   },
   created() {

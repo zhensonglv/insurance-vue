@@ -2,10 +2,7 @@
   <div class="app-container">
     <el-card>
       <div>
-
-        <el-input v-model="listQuery.amountCode" style="width: 200px;" placeholder="请输入合计免赔额码查询" />
         <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="fetchData">查询</el-button>
-        <el-button style="margin-left: 10px;" type="success" icon="el-icon-search" @click="resetData">重置</el-button>
         <el-button style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleSave">添加</el-button>
       </div>
       <br>
@@ -15,37 +12,40 @@
             {{ scope.$index +1 }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="合计免赔额码" width="150">
+
+        <el-table-column align="center" label="诊断匹配参数码" width="450">
           <template slot-scope="scope">
-            {{ scope.row.amountCode }}
+            {{ scope.row.diaTreatCde }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="合计免赔额额度" width="150">
+
+        <el-table-column align="center" label="起始码" width="450">
           <template slot-scope="scope">
-            {{ scope.row.amountDeductibleLimit }}
+            {{ scope.row.bgnCde }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="说明" width="150">
+
+        <el-table-column align="center" label="终止码" width="450">
           <template slot-scope="scope">
-            {{ scope.row.amountDesc }}
+            {{ scope.row.endCde }}
           </template>
         </el-table-column>
+
         <el-table-column align="center" label="操作" fixed="right">
           <template slot-scope="scope">
             <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleEdit(scope.row.id)">编辑</el-button>
-            <el-button type="danger" icon="el-icon-delete" size="mini" class="action-button" @click="handleDel(scope.row.id)">删除</el-button>
+            <el-button type="danger" size="mini" icon="el-icon-delete" class="action-button" @click="handleDel(scope.row.id)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
 
-      <save :son-data="form" :ply-tree-id="plyTreeId" :business-data="businessData" @sonStatus="status" />
+      <save :son-data="form" :business-data="businessData" @sonStatus="status" />
 
       <pagination
         v-show="total>0"
         :total="total"
         :page.sync="listQuery.pageNum"
         :limit.sync="listQuery.pageSize"
-
         @pagination="fetchData"
       />
     </el-card>
@@ -54,48 +54,34 @@
 
 <script>
 import { getList, findById, del } from '@/api/base'
-import { getCodeList } from '@/api/code'
 import Pagination from '@/components/Pagination'
 import Save from './save'
 
 export default {
   components: { Pagination, Save },
-  props: {
-    paramCode: String
-  },
   data() {
     return {
       list: null,
       listLoading: true,
-      basePath: 'amountDeductible',
+      basePath: 'treatMatchDetail',
       listQuery: {
         pageNum: 1,
         pageSize: 10,
-        amountCode: '',
+        diaTreatCde: '',
         sort: '+id'
       },
       total: 0,
       dialogVisible: false,
       form: null,
-      plyTreeId: null,
-      businessData: {}
-    }
-  },
-  watch: {
-    paramCode: {
-      handler(v) {
-        if (v) {
-          this.listQuery.amountCode = v
-          this.fetchTypeData()
-        }
-      },
-      immediate: true
+      businessData: {},
+      paramRadio: false
     }
   },
   created() {
-    if (window.localStorage.getItem('treeData')) {
-      this.plyTreeId = parseInt(window.localStorage.getItem('treeData'))
+    if (this.$route.query.diaTreatCde) { // 上级页面传入参数
+      this.listQuery.diaTreatCde = this.$route.query.diaTreatCde
     }
+    this.fetchData()
   },
   mounted() {
   },
@@ -108,32 +94,15 @@ export default {
     },
     fetchData() {
       this.listLoading = true
+      this.paramRadio = false
       getList(this.basePath, this.listQuery).then(response => {
         this.list = response.data.data
         this.total = response.data.total
         this.listLoading = false
       })
     },
-    resetData() {
-      this.listQuery.amountCode = null
-    },
-    fetchTypeData() {
-      // 获取codeList
-      var parantData = ['CDeductibleExcessTyp', 'TrueOrFalse']
-      getCodeList({ parent: parantData }).then(res => {
-        this.businessData = res.data
-        // 组装table 的map
-        for (const key in this.businessData) {
-          this.businessData[key].forEach(item => {
-            !this[key] && (this[key] = {})
-            this[key][item.value] = item.label
-          })
-        }
-        this.fetchData()
-      })
-    },
     handleSave() {
-      this.form = { id: null, amountCode: this.listQuery.amountCode, plyTreeId: this.plyTreeId }
+      this.form = { id: null, diaTreatCde: this.listQuery.diaTreatCde }
       this.dialogVisible = true
     },
     handleEdit(id) {
@@ -142,6 +111,7 @@ export default {
         this.form = response.data
       })
     },
+
     // 子组件的状态Flag，子组件通过`this.$emit('sonStatus', val)`给父组件传值
     // 父组件通过`@sonStatus`的方法`status`监听到子组件传递的值
     status(data) {

@@ -229,11 +229,11 @@ export default {
     },
     matchConfirm(data) {
       if (data.prodCde) { // 医院网络码
-        this.form.medicalNetwork = data.prodCde
+        this.$set(this.form, 'medicalNetwork', data.prodCde)
       }
       if (data.explCde) { // 解释码
-        this.form.explainCde = data.explCde
-        this.form.explainCdeDesc = data.explCdeDesc
+        this.$set(this.form, 'explainCde', data.explCde)
+        this.$set(this.form, 'explainCdeDesc', data.explCdeDesc)
       }
     },
     handleCheckAllChange(val) {

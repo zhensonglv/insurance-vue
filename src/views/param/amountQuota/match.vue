@@ -20,13 +20,7 @@
             {{ scope.$index +1 }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="险种名称" width="300">
-          <template slot-scope="scope">
-            {{ scope.row.cvrgName }}
-          </template>
-        </el-table-column>
-
-        <el-table-column align="center" label="责任名称" width="300">
+        <el-table-column align="center" label="责任名称" width="600">
           <template slot-scope="scope">
             {{ scope.row.responseName }}
           </template>
@@ -45,16 +39,12 @@
 </template>
 <script>
 
-import { getBaseOrderDuty } from '@/api/claim/duty'
+import { getRelationDuty } from '@/api/claim/duty'
 
 export default {
   name: 'Match',
   props: {
-    treeData: Object,
-    matchTyp: {
-      type: Number,
-      default: 0
-    }
+    treeData: Object
   },
   data() {
     return {
@@ -102,18 +92,12 @@ export default {
 
     queryData() {
       this.listLoading = true
-      getBaseOrderDuty(this.listQuery.plyTreeId).then(response => {
+      getRelationDuty(this.listQuery.plyTreeId).then(response => {
         this.dutyList = response.data
         this.listLoading = false
       })
     },
     onSubmit() {
-      if (this.matchTyp === 2) {
-        if (this.multipleSeleValues.length > 1) {
-          this._notify('仅责任只能选择一条数据', 'error')
-          return
-        }
-      }
       this.$emit('matchConfirm', this.multipleSeleValues)
       this.dialogTableVisible = false
     }

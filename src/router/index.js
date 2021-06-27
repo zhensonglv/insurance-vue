@@ -650,6 +650,19 @@ export const constantRoutes = [
         name: '限额次数',
         hidden: true,
         meta: { title: '限额次数', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'treatMatch',
+        component: () => import('@/views/param/treatMatch/index'),
+        name: '诊疗匹配管理',
+        meta: { title: '诊疗匹配', icon: 'guide', noCache: true }
+      },
+      {
+        path: 'treatMatchDetail',
+        component: () => import('@/views/param/treatMatchDetail/index'),
+        name: '诊疗匹配明细',
+        hidden: true,
+        meta: { title: '诊疗匹配明细', icon: 'guide', noCache: true }
       }
     ]
   },

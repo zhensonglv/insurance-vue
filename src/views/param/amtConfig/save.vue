@@ -169,7 +169,7 @@ export default {
       this.matchVisable = true
     },
     matchConfirm(data) {
-      this.form.medicalnetworkdeta = data.prodCde
+      this.$set(this.form, 'medicalnetworkdeta', data.prodCde)
     },
     handleClose() {
       this.clearForm()

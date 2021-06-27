@@ -25,8 +25,12 @@
         />
       </el-form-item>
       <el-form-item label="关联责任" prop="correlation" label-width="120px">
-        <el-input v-model="form.correlation" placeholder="请输入参数描述" />
+        <el-input v-model="form.correlation" placeholder="请输入参数描述">
+          <svg-icon slot="suffix" icon-class="search" @click="hanldeMatch" />
+        </el-input>
       </el-form-item>
+      <match :tree-data="treeData" @matchConfirm="matchConfirm" />
+
       <el-form-item label="限额类型" prop="amountType" label-width="120px">
         <el-select v-model="form.amountType" placeholder="请选择" clearable>
           <el-option
@@ -76,12 +80,20 @@
 
 <script>
 import { save, edit } from '@/api/base'
+import Match from './match'
 
 export default {
+  components: {
+    Match
+  },
   // 父组件向子组件传值，通过props获取。
   // 一旦父组件改变了`sonData`对应的值，子组件的`sonData`会立即改变，通过watch函数可以实时监听到值的变化
   // `props`不属于data，但是`props`中的参数可以像data中的参数一样直接使用
-  props: ['sonData', 'businessData'],
+  props: {
+    sonData: Object,
+    businessData: Object,
+    plyTreeId: { type: Number, defalut: 0 }
+  },
   data() {
     return {
       dialogVisible: false,
@@ -97,14 +109,17 @@ export default {
         plyBgnTm: '',
         isStricken: '',
         isRelation: '',
-        amountDesc: ''
-
+        amountDesc: '',
+        plyTreeId: ''
       },
+      treeData: {},
       rules: {
         amountQuotaLimit: [{ required: true, trigger: 'blur', message: '请输入合计限额额度' }],
         correlation: [{ required: true, trigger: 'blur', message: '请输入关联责任' }],
         amountType: [{ required: true, trigger: 'blur', message: '请选择限额类型' }],
-        isRelation: [{ required: true, trigger: 'blur', message: '请选择是否关联' }]
+        isRelation: [{ required: true, trigger: 'blur', message: '请选择是否关联' }],
+        plyBgnTm: [{ required: true, trigger: 'blur', message: '请输入起始日期' }],
+        plyEndTm: [{ required: true, trigger: 'blur', message: '请输入终止日期' }]
       }
     }
   },
@@ -114,6 +129,11 @@ export default {
       this.dialogVisible = true
       if (newVal.id != null) {
         this.dialogTitle = 'Edit'
+        if (this.form.plyTreeId) {
+          if (this.form.plyTreeId !== this.plyTreeId) {
+            this.form.plyTreeId = this.plyTreeId
+          }
+        }
       } else {
         this.dialogTitle = 'Add'
       }
@@ -126,6 +146,20 @@ export default {
         type: type
       })
     },
+    hanldeMatch() {
+      this.treeData = { plyTreeId: this.form.plyTreeId }
+    },
+    matchConfirm(data) {
+      var str = null
+      data.forEach((val, i) => {
+        if (!str) {
+          str = val.responseNo
+        } else {
+          str = str + ',' + val.responseNo
+        }
+      })
+      this.$set(this.form, 'correlation', str)
+    },
     clearForm() {
       this.form.id = null
       this.form.amountCode = null
@@ -137,6 +171,8 @@ export default {
       this.form.isStricken = null
       this.form.isRelation = null
       this.form.amountDesc = null
+      this.form.plyTreeId = null
+      this.treeData = null
     },
     handleClose() {
       this.clearForm()

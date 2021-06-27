@@ -145,16 +145,16 @@ export default {
     },
     matchConfirm(data) {
       if (this.matchTyp === 1) {
-        this.form.bgnCde = data.diaCde
-        this.form.bgnCodeDesc = data.diaDesc
+        this.$set(this.form, 'bgnCde', data.diaCde)
+        this.$set(this.form, 'bgnCodeDesc', data.diaDesc)
       }
       if (this.matchTyp === 2) {
-        this.form.endCde = data.diaCde
-        this.form.endCodeDesc = data.diaDesc
+        this.$set(this.form, 'endCde', data.diaCde)
+        this.$set(this.form, 'endCodeDesc', data.diaDesc)
       }
       if (this.matchTyp === 3) {
-        this.form.diaMatParameterCde = data.diaMatParameterCde
-        this.form.diaMatDesc = data.explCategort
+        this.$set(this.form, 'diaMatParameterCde', data.diaMatParameterCde)
+        this.$set(this.form, 'diaMatDesc', data.explCategort)
       }
     },
 

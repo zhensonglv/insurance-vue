@@ -13,6 +13,16 @@
     <div v-else-if="matchTyp === 4">
       <explainNo dialog @setMultipleSeleValues="setMultipleSeleValues" />
     </div>
+    <div v-else-if="matchTyp === 5">
+      <treatmentMesManage dialog @setMultipleSeleValues="setMultipleSeleValues" />
+    </div>
+    <div v-else-if="matchTyp === 6">
+      <treatmentMesManage dialog @setMultipleSeleValues="setMultipleSeleValues" />
+    </div>
+    <div v-else-if="matchTyp === 7">
+      <treatMatch dialog @setMultipleSeleValues="setMultipleSeleValues" />
+    </div>
+
     <div slot="footer" class="dialog-footer">
       <el-button @click="handleClose">
         取消
@@ -25,10 +35,13 @@
 </template>
 <script>
 import explainNo from '../explainNo'
+import diagnosisMatching from '../diagnosisMatching'
 import diagnosisManage from '../diagnosisManage'
+import treatmentMesManage from '../treatmentMesManage'
+import treatMatch from '../treatMatch'
 export default {
   name: 'Match',
-  components: { explainNo, diagnosisManage },
+  components: { explainNo, diagnosisManage, treatmentMesManage, diagnosisMatching, treatMatch },
   props: {
     value: {
       type: Boolean,
@@ -63,14 +76,15 @@ export default {
     },
     matchTyp(val) {
       if (val === 1 || val === 2) {
-        this.basePath = 'diagnosisManage'
         this.title = '诊断管理'
       } else if (val === 3) {
-        this.basePath = 'diagnosisMatching'
         this.title = '高层诊断码'
       } else if (val === 4) {
-        this.basePath = 'explainNo'
         this.title = '解释码'
+      } else if (val === 5 || val === 6) {
+        this.title = '诊疗码'
+      } else {
+        this.title = '诊疗匹配码'
       }
     },
     dialogTableVisible(val) {

@@ -1,21 +1,13 @@
 <template>
-  <el-dialog :title="dialogTitle" :before-close="handleClose" :visible.sync="dialogVisible" width="55%">
+  <el-dialog :modal="false" :title="dialogTitle" :before-close="handleClose" :visible.sync="dialogVisible" width="55%">
     <el-form ref="form" :inline="true" :rules="rules" :model="form" status-icon label-position="right" label-width="80px">
-      <el-form-item label="团体号" prop="teamNo" label-width="120px">
-        <el-input v-model="form.teamNo" placeholder="请输入团体号" />
-      </el-form-item>
-      <el-form-item label="分单号" prop="sociInsuArea" label-width="120px">
-        <el-input v-model="form.plyPartNo" placeholder="请输入分单号" />
-      </el-form-item>
-      <el-form-item label="被保人ID" prop="insuredId" label-width="120px">
-        <el-input v-model="form.insuredId" placeholder="请输入被保人ID" />
-      </el-form-item>
-      <el-form-item label="保单号" prop="plyNo" label-width="120px">
-        <el-input v-model="form.plyNo" placeholder="请输入保单号" />
+
+      <el-form-item label="诊疗匹配参数码" prop="diaMatParameterCde" label-width="120px">
+        <el-input v-model="form.diaTreatCde" placeholder="诊疗匹配参数码" disabled="disabled" />
       </el-form-item>
 
-      <el-form-item label="团体名称" prop="teamNme" label-width="120px">
-        <el-input v-model="form.teamNme" placeholder="请输入团体名称" />
+      <el-form-item label="说明" prop="diaTreatDesc" label-width="120px">
+        <el-input v-model="form.diaTreatDesc" placeholder="请输入说明" />
       </el-form-item>
 
     </el-form>
@@ -42,17 +34,13 @@ export default {
     return {
       dialogVisible: false,
       dialogTitle: '新增',
-      basePath: 'keyAccount',
+      basePath: 'treatMatch',
       form: {
         id: '',
-        teamNo: '',
-        plyPartNo: '',
-        insuredId: '',
-        plyNo: '',
-        teamNme: ''
+        diaTreatCde: '',
+        diaTreatDesc: ''
       },
       rules: {
-        plyNo: [{ required: true, trigger: 'blur', message: '请输入保单号' }]
       }
     }
   },
@@ -76,11 +64,8 @@ export default {
     },
     clearForm() {
       this.form.id = null
-      this.form.teamNo = null
-      this.form.plyPartNo = null
-      this.form.insuredId = null
-      this.form.plyNo = null
-      this.form.teamNme = null
+      this.form.diaTreatCde = null
+      this.form.diaTreatDesc = null
     },
     handleClose() {
       this.clearForm()
